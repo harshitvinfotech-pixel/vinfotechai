@@ -97,20 +97,32 @@ export default function ChatWidget() {
             <span className="font-bold text-lg">Ask Us Anything</span>
           </div>
           <div className="relative md:hidden">
-            <img
-              src="/Gemini_Generated_Image_eao7cteao7cteao7-removebg-preview.png"
-              alt="AI Assistant"
-              className="w-12 h-12 object-contain drop-shadow-xl animate-float-3d"
-            />
+            <div className="w-12 h-12 flex items-center justify-center drop-shadow-xl animate-float-3d">
+              <svg viewBox="0 0 100 100" className="w-full h-full">
+                <circle cx="50" cy="50" r="45" fill="white" opacity="0.95" />
+                <circle cx="35" cy="40" r="6" fill="#00B46A" />
+                <circle cx="65" cy="40" r="6" fill="#00B46A" />
+                <path d="M 30 60 Q 50 70 70 60" stroke="#00B46A" strokeWidth="4" fill="none" strokeLinecap="round" />
+                <circle cx="50" cy="25" r="3" fill="#00B46A" opacity="0.6" />
+                <circle cx="40" cy="20" r="2" fill="#00B46A" opacity="0.4" />
+                <circle cx="60" cy="20" r="2" fill="#00B46A" opacity="0.4" />
+              </svg>
+            </div>
             <div className="absolute -top-1 -right-1 bg-white text-emerald-600 rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold shadow-lg">
               ?
             </div>
           </div>
-          <img
-            src="/Gemini_Generated_Image_eao7cteao7cteao7-removebg-preview.png"
-            alt="AI Assistant"
-            className="w-16 h-16 object-contain drop-shadow-xl animate-float-3d hidden md:block"
-          />
+          <div className="w-16 h-16 flex items-center justify-center drop-shadow-xl animate-float-3d hidden md:block">
+            <svg viewBox="0 0 100 100" className="w-full h-full">
+              <circle cx="50" cy="50" r="45" fill="white" opacity="0.95" />
+              <circle cx="35" cy="40" r="6" fill="#00B46A" />
+              <circle cx="65" cy="40" r="6" fill="#00B46A" />
+              <path d="M 30 60 Q 50 70 70 60" stroke="#00B46A" strokeWidth="4" fill="none" strokeLinecap="round" />
+              <circle cx="50" cy="25" r="3" fill="#00B46A" opacity="0.6" />
+              <circle cx="40" cy="20" r="2" fill="#00B46A" opacity="0.4" />
+              <circle cx="60" cy="20" r="2" fill="#00B46A" opacity="0.4" />
+            </svg>
+          </div>
         </div>
       </button>
     );
@@ -123,11 +135,17 @@ export default function ChatWidget() {
           <div className="px-6 py-5 rounded-t-3xl" style={{ backgroundColor: '#00B46A' }}>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <img
-                  src="/Gemini_Generated_Image_eao7cteao7cteao7-removebg-preview.png"
-                  alt="Vinfotech AI"
-                  className="w-10 h-10 object-contain"
-                />
+                <div className="w-10 h-10 flex items-center justify-center">
+                  <svg viewBox="0 0 100 100" className="w-full h-full">
+                    <circle cx="50" cy="50" r="45" fill="white" opacity="0.95" />
+                    <circle cx="35" cy="40" r="6" fill="#00B46A" />
+                    <circle cx="65" cy="40" r="6" fill="#00B46A" />
+                    <path d="M 30 60 Q 50 70 70 60" stroke="#00B46A" strokeWidth="4" fill="none" strokeLinecap="round" />
+                    <circle cx="50" cy="25" r="3" fill="#00B46A" opacity="0.6" />
+                    <circle cx="40" cy="20" r="2" fill="#00B46A" opacity="0.4" />
+                    <circle cx="60" cy="20" r="2" fill="#00B46A" opacity="0.4" />
+                  </svg>
+                </div>
                 <div>
                   <h3 className="text-white font-bold text-lg">Ask Us Anything</h3>
                   <p className="text-white/90 text-xs">Choose a question or ask your own</p>
@@ -194,11 +212,17 @@ export default function ChatWidget() {
     >
       <div className="flex items-center justify-between px-6 py-5 rounded-t-none md:rounded-t-3xl" style={{ backgroundColor: '#00B46A' }}>
         <div className="flex items-center gap-3">
-          <img
-            src="/Gemini_Generated_Image_eao7cteao7cteao7-removebg-preview.png"
-            alt="Vinfotech AI"
-            className="w-10 h-10 object-contain"
-          />
+          <div className="w-10 h-10 flex items-center justify-center">
+            <svg viewBox="0 0 100 100" className="w-full h-full">
+              <circle cx="50" cy="50" r="45" fill="white" opacity="0.95" />
+              <circle cx="35" cy="40" r="6" fill="#00B46A" />
+              <circle cx="65" cy="40" r="6" fill="#00B46A" />
+              <path d="M 30 60 Q 50 70 70 60" stroke="#00B46A" strokeWidth="4" fill="none" strokeLinecap="round" />
+              <circle cx="50" cy="25" r="3" fill="#00B46A" opacity="0.6" />
+              <circle cx="40" cy="20" r="2" fill="#00B46A" opacity="0.4" />
+              <circle cx="60" cy="20" r="2" fill="#00B46A" opacity="0.4" />
+            </svg>
+          </div>
           <div>
             <span className="font-bold text-white text-lg">Vinfotech AI</span>
             <p className="text-xs text-white/90">Always here to help</p>
@@ -225,11 +249,19 @@ export default function ChatWidget() {
       <div className="flex-1 overflow-y-auto px-6 py-4 space-y-4 bg-gray-50">
         {messages.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full text-center px-4">
-            <img
-              src="/Gemini_Generated_Image_eao7cteao7cteao7-removebg-preview.png"
-              alt="Vinfotech AI"
-              className="w-32 h-32 object-contain mb-4 animate-float-3d"
-            />
+            <div className="w-32 h-32 flex items-center justify-center mb-4 animate-float-3d">
+              <svg viewBox="0 0 100 100" className="w-full h-full">
+                <circle cx="50" cy="50" r="45" fill="#00B46A" opacity="0.1" />
+                <circle cx="50" cy="50" r="40" fill="white" />
+                <circle cx="35" cy="40" r="6" fill="#00B46A" />
+                <circle cx="65" cy="40" r="6" fill="#00B46A" />
+                <path d="M 30 60 Q 50 70 70 60" stroke="#00B46A" strokeWidth="4" fill="none" strokeLinecap="round" />
+                <circle cx="50" cy="25" r="3" fill="#00B46A" opacity="0.6" />
+                <circle cx="40" cy="20" r="2" fill="#00B46A" opacity="0.4" />
+                <circle cx="60" cy="20" r="2" fill="#00B46A" opacity="0.4" />
+                <path d="M 20 50 L 25 50 M 75 50 L 80 50" stroke="#00B46A" strokeWidth="2" strokeLinecap="round" opacity="0.3" />
+              </svg>
+            </div>
             <h3 className="text-xl font-bold text-gray-900 mb-2">How can I help you today?</h3>
             <p className="text-sm text-gray-500 mb-6">Ask me anything about our services and solutions</p>
 
