@@ -1,4 +1,4 @@
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Plus, X } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getAllCaseStudies } from '../lib/caseStudies';
@@ -38,16 +38,16 @@ export default function CaseStudies() {
 
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="mb-10 sm:mb-12 lg:mb-16">
-          <div className="mb-6 sm:mb-8">
-            <div className="inline-block mb-3 sm:mb-4">
-              <span className="text-xs font-semibold tracking-wider uppercase text-emerald-600 dark:text-emerald-400">
+          <div className="mb-6 sm:mb-8 text-center">
+            <div className="mb-3 sm:mb-4">
+              <span className="text-base font-semibold tracking-wider uppercase" style={{ color: '#00B46A' }}>
                 Case Studies
               </span>
             </div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 tracking-tight">
-              Real-World Impact, <span style={{ color: '#00B46A' }}>Proven Depth</span>
+            <h2 className="text-[30px] sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 tracking-tight">
+              Real-World Impact, Proven Depth
             </h2>
-            <p className="text-sm sm:text-base lg:text-lg text-gray-600 dark:text-gray-300 max-w-3xl">
+            <p className="text-lg sm:text-lg lg:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
               Our portfolio demonstrates a deep capability to build and scale complex AI systems, from sophisticated RAG engines to real-time Computer Vision.
             </p>
           </div>
@@ -83,70 +83,106 @@ interface CaseStudyCardProps {
 function CaseStudyCard({ study, onClick }: CaseStudyCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const handleViewCaseStudy = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onClick();
+  };
+
+  const handleToggleExpand = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIsExpanded(!isExpanded);
+  };
 
   return (
     <article
-      className="group relative cursor-pointer transition-all duration-500 h-full"
+      className="group relative transition-all duration-500 h-full"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      onClick={onClick}
-      role="button"
-      tabIndex={0}
-      aria-label={`View ${study.title} case study`}
-      onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          onClick();
-        }
-      }}
     >
-      <div className="relative bg-white dark:bg-gray-900 overflow-hidden rounded-xl sm:rounded-2xl border-2 border-gray-200 dark:border-gray-800 hover:border-emerald-500 dark:hover:border-emerald-500 transition-all duration-500 h-[360px] sm:h-[380px] shadow-lg hover:shadow-2xl hover:shadow-emerald-500/10 flex flex-col">
-        <div className="absolute top-3 left-3 sm:top-4 sm:left-4 z-20">
-          <span className="inline-block px-2 py-1 sm:px-3 bg-emerald-500 text-white text-[10px] sm:text-xs font-semibold rounded-full shadow-lg">
-            CASE STUDY
-          </span>
-        </div>
+      <div
+        className={`absolute -inset-0.5 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-3xl opacity-0 group-hover:opacity-20 transition-opacity duration-500 blur-xl`}
+      ></div>
 
-        <div className="relative h-48 sm:h-52 overflow-hidden flex-shrink-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900"></div>
+      <div className={`relative flex flex-col bg-white dark:bg-gray-900 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-emerald-500/30 dark:hover:border-emerald-500/30 transition-all duration-500 shadow-lg hover:shadow-2xl h-[500px] sm:h-[600px] lg:h-[650px] overflow-hidden`}>
 
-          <img
-            src={study.hero_image}
-            alt={study.title}
-            className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ${
-              imageLoaded ? 'opacity-100' : 'opacity-0'
-            } ${isHovered ? 'scale-110' : 'scale-100'}`}
-            onLoad={() => setImageLoaded(true)}
-            loading="lazy"
-          />
-
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-
-          <div className="absolute top-3 right-3 sm:top-4 sm:right-4 z-20">
-            <div
-              className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center shadow-lg transition-all duration-500 ${
-                isHovered ? 'scale-110 bg-emerald-500' : 'scale-100 bg-white dark:bg-gray-800'
+        <div className={`relative overflow-hidden flex-shrink-0 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 transition-all duration-500 ${
+          isExpanded ? 'h-48 sm:h-56' : 'h-full'
+        }`}>
+          <div className={`absolute inset-0 transition-all duration-1000 ${
+            imageLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+          }`}>
+            <img
+              src={study.hero_image}
+              alt={study.title}
+              className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ${
+                isHovered && !isExpanded ? 'scale-110 brightness-110' : 'scale-100 brightness-100'
               }`}
-            >
-              <ArrowRight className={`transition-colors duration-300 ${isHovered ? 'text-white' : 'text-gray-900 dark:text-gray-300'}`} size={16} strokeWidth={2} />
-            </div>
+              onLoad={() => setImageLoaded(true)}
+              loading="lazy"
+            />
+
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+          </div>
+
+          <div className="absolute inset-0 z-10 flex items-center justify-start px-6 sm:px-8">
+            <h3 className="font-bold text-white leading-tight text-left font-['Helvetica','Arial',sans-serif]" style={{ fontSize: '45px' }}>
+              {study.title}
+            </h3>
           </div>
         </div>
 
-        <div className="flex-1 p-5 sm:p-6 flex flex-col">
-          <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-2 leading-tight">
-            {study.title}
-          </h3>
-          <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 line-clamp-2">
-            {study.subtitle || study.problem.substring(0, 100)}
-          </p>
-        </div>
+        {isExpanded && (
+          <div className="flex-1 overflow-y-auto p-6 sm:p-8">
+            <div className="space-y-4">
+              <div>
+                <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">Overview</h4>
+                <p className="text-gray-700 dark:text-gray-300 text-base leading-relaxed mb-4">
+                  {study.subtitle}
+                </p>
 
-        <div
-          className={`absolute bottom-0 left-0 right-0 h-1.5 bg-gradient-to-r from-emerald-500 to-teal-500 transform origin-left transition-transform duration-700 ${
-            isHovered ? 'scale-x-100' : 'scale-x-0'
-          }`}
-        ></div>
+                {study.overview_bullets && study.overview_bullets.length > 0 && (
+                  <div className="space-y-3">
+                    {study.overview_bullets.map((bullet, idx) => (
+                      <div key={idx} className="flex items-start gap-3">
+                        <div className="relative mt-1.5 flex-shrink-0">
+                          <div className="w-2 h-2 rounded-full bg-gradient-to-r from-emerald-500 to-teal-500"></div>
+                        </div>
+                        <span className="text-gray-700 dark:text-gray-300 text-base leading-relaxed">
+                          {bullet}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <button
+                onClick={handleViewCaseStudy}
+                className="w-full mt-6 px-6 py-3 text-white font-semibold rounded-xl transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
+                style={{ backgroundColor: '#00B46A' }}
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#009858')}
+                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#00B46A')}
+              >
+                View Full Case Study
+                <ArrowRight size={20} />
+              </button>
+            </div>
+          </div>
+        )}
+
+        <button
+          onClick={handleToggleExpand}
+          className="absolute bottom-4 right-4 z-20 w-12 h-12 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 border-2 border-gray-200 dark:border-gray-700 hover:border-emerald-500 dark:hover:border-emerald-500"
+          aria-label={isExpanded ? 'Collapse details' : 'Expand details'}
+        >
+          {isExpanded ? (
+            <X className="text-emerald-500" size={20} strokeWidth={2.5} />
+          ) : (
+            <Plus className="text-emerald-500" size={20} strokeWidth={2.5} />
+          )}
+        </button>
       </div>
     </article>
   );

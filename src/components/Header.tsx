@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Menu, X, Sun, Moon } from 'lucide-react';
 import { useTheme } from '../contexts/ThemeContext';
 
@@ -10,6 +11,9 @@ export default function Header({ onQuoteClick }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,6 +25,11 @@ export default function Header({ onQuoteClick }: HeaderProps) {
   }, []);
 
   const scrollToSection = (id: string) => {
+    if (!isHomePage) {
+      navigate('/', { state: { scrollTo: id } });
+      return;
+    }
+
     const element = document.getElementById(id);
     if (element) {
       const offset = 80;
@@ -43,26 +52,40 @@ export default function Header({ onQuoteClick }: HeaderProps) {
           : 'backdrop-blur-sm'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-1">
         <div className="flex items-center justify-between h-20">
-          <div className="flex items-center animate-fade-in-down">
+          <button
+            onClick={() => navigate('/')}
+            className="flex items-center animate-fade-in-down cursor-pointer"
+          >
             <img
               src={isScrolled && theme === 'light' ? '/asset 5.png' : '/Vinfo-white 2.png'}
               alt="Vinfotech Logo"
               className="h-10 w-auto transition-transform duration-300 hover:scale-105"
             />
-          </div>
+          </button>
 
           <nav className="hidden md:flex items-center space-x-8 animate-fade-in-down" style={{ animationDelay: '0.1s', animationFillMode: 'both' }}>
             <button
-              onClick={() => scrollToSection('about')}
+              onClick={() => isHomePage ? scrollToSection('about') : navigate('/')}
               className={`relative transition-all duration-300 font-medium group ${
                 isScrolled
                   ? 'text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-white'
                   : 'text-gray-300 hover:text-white'
               }`}
             >
-              About
+              {isHomePage ? 'About' : 'Home'}
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-brand-primary to-brand-light group-hover:w-full transition-all duration-300"></span>
+            </button>
+            <button
+              onClick={() => navigate('/blogs')}
+              className={`relative transition-all duration-300 font-medium group ${
+                isScrolled
+                  ? 'text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-white'
+                  : 'text-gray-300 hover:text-white'
+              }`}
+            >
+              Blog
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-brand-primary to-brand-light group-hover:w-full transition-all duration-300"></span>
             </button>
             <button
@@ -85,17 +108,6 @@ export default function Header({ onQuoteClick }: HeaderProps) {
               }`}
             >
               Case Studies
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-brand-primary to-brand-light group-hover:w-full transition-all duration-300"></span>
-            </button>
-            <button
-              onClick={() => scrollToSection('why-us')}
-              className={`relative transition-all duration-300 font-medium group ${
-                isScrolled
-                  ? 'text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-white'
-                  : 'text-gray-300 hover:text-white'
-              }`}
-            >
-              Why Us
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-brand-primary to-brand-light group-hover:w-full transition-all duration-300"></span>
             </button>
             <button
@@ -144,58 +156,57 @@ export default function Header({ onQuoteClick }: HeaderProps) {
       </div>
 
       {isMobileMenuOpen && (
-        <div className={`md:hidden backdrop-blur-md border-t animate-slide-down ${
-          isScrolled
-            ? 'bg-white/95 dark:bg-gray-900/95 border-gray-200 dark:border-gray-800'
-            : 'bg-black/80 dark:bg-gray-900/80 border-white/10'
-        }`}>
-          <nav className="px-4 py-4 space-y-3">
+        <div className="md:hidden backdrop-blur-md border-t animate-slide-down bg-white/95 dark:bg-gray-900/95 border-gray-200 dark:border-gray-800">
+          <nav className="px-4 py-4 space-y-2">
             <button
-              onClick={() => scrollToSection('about')}
-              className={`block w-full text-left px-4 py-2 rounded-lg transition-all duration-300 font-medium transform hover:translate-x-1 ${
-                isScrolled
-                  ? 'text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-white hover:bg-emerald-50 dark:hover:bg-white/10'
-                  : 'text-gray-300 hover:text-white hover:bg-white/10'
-              }`}
+              onClick={() => {
+                if (isHomePage) {
+                  scrollToSection('about');
+                } else {
+                  navigate('/');
+                }
+                setIsMobileMenuOpen(false);
+              }}
+              className="block w-full text-left px-2 py-2 rounded-lg transition-all duration-300 font-medium text-xl sm:text-lg text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-white hover:bg-emerald-50 dark:hover:bg-white/10"
             >
-              About
+              {isHomePage ? 'About' : 'Home'}
             </button>
             <button
-              onClick={() => scrollToSection('services')}
-              className={`block w-full text-left px-4 py-2 rounded-lg transition-all duration-300 font-medium transform hover:translate-x-1 ${
-                isScrolled
-                  ? 'text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-white hover:bg-emerald-50 dark:hover:bg-white/10'
-                  : 'text-gray-300 hover:text-white hover:bg-white/10'
-              }`}
+              onClick={() => {
+                navigate('/blogs');
+                setIsMobileMenuOpen(false);
+              }}
+              className="block w-full text-left px-2 py-2 rounded-lg transition-all duration-300 font-medium text-xl sm:text-lg text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-white hover:bg-emerald-50 dark:hover:bg-white/10"
+            >
+              Blog
+            </button>
+            <button
+              onClick={() => {
+                scrollToSection('services');
+              }}
+              className="block w-full text-left px-2 py-2 rounded-lg transition-all duration-300 font-medium text-xl sm:text-lg text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-white hover:bg-emerald-50 dark:hover:bg-white/10"
             >
               Services
             </button>
             <button
-              onClick={() => scrollToSection('case-studies')}
-              className={`block w-full text-left px-4 py-2 rounded-lg transition-all duration-300 font-medium transform hover:translate-x-1 ${
-                isScrolled
-                  ? 'text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-white hover:bg-emerald-50 dark:hover:bg-white/10'
-                  : 'text-gray-300 hover:text-white hover:bg-white/10'
-              }`}
+              onClick={() => {
+                scrollToSection('case-studies');
+              }}
+              className="block w-full text-left px-2 py-2 rounded-lg transition-all duration-300 font-medium text-xl sm:text-lg text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-white hover:bg-emerald-50 dark:hover:bg-white/10"
             >
               Case Studies
             </button>
-            <button
-              onClick={() => scrollToSection('why-us')}
-              className={`block w-full text-left px-4 py-2 rounded-lg transition-all duration-300 font-medium transform hover:translate-x-1 ${
-                isScrolled
-                  ? 'text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-white hover:bg-emerald-50 dark:hover:bg-white/10'
-                  : 'text-gray-300 hover:text-white hover:bg-white/10'
-              }`}
-            >
-              Why Us
-            </button>
-            <button
-              onClick={onQuoteClick}
-              className="w-full bg-[#00B46A] text-white px-6 py-2.5 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 transform hover:scale-105"
-            >
-              Get a Quote
-            </button>
+            <div className="pt-2">
+              <button
+                onClick={() => {
+                  onQuoteClick();
+                  setIsMobileMenuOpen(false);
+                }}
+                className="w-full max-w-[280px] mx-auto block bg-[#00B46A] text-white px-6 py-2.5 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 transform hover:scale-105"
+              >
+                Get a Quote
+              </button>
+            </div>
           </nav>
         </div>
       )}

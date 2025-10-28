@@ -4,8 +4,12 @@ import { ChevronUp } from 'lucide-react';
 import Header from './components/Header';
 import Home from './pages/Home';
 import CaseStudyDetail from './pages/CaseStudyDetail';
+import AutonomousSalesAgentCase from './pages/AutonomousSalesAgentCase';
+import Blogs from './pages/Blogs';
+import BlogDetail from './pages/BlogDetail';
 import Modal from './components/Modal';
 import QuoteForm from './components/QuoteForm';
+import QuoteSuccessConfirmation from './components/QuoteSuccessConfirmation';
 import ChatWidget from './components/ChatWidget';
 
 function ScrollToTop() {
@@ -20,6 +24,7 @@ function ScrollToTop() {
 
 function AppContent() {
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
+  const [showSuccessConfirmation, setShowSuccessConfirmation] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const location = useLocation();
 
@@ -36,32 +41,49 @@ function AppContent() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleQuoteSuccess = () => {
-    setTimeout(() => {
-      setIsQuoteModalOpen(false);
-    }, 2000);
+  const handleShowSuccessConfirmation = () => {
+    setShowSuccessConfirmation(true);
+  };
+
+  const handleCloseSuccessConfirmation = () => {
+    setShowSuccessConfirmation(false);
+    setIsQuoteModalOpen(false);
   };
 
   const isCaseStudyPage = location.pathname.startsWith('/case-studies/');
+  const isBlogPage = location.pathname.startsWith('/blogs');
+  const isAutonomousAgentPage = location.pathname === '/case-studies/autonomous-ai-sales-agent-vinfotech';
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
-      {!isCaseStudyPage && <Header onQuoteClick={() => setIsQuoteModalOpen(true)} />}
+      {!isCaseStudyPage && !isBlogPage && !isAutonomousAgentPage && <Header onQuoteClick={() => setIsQuoteModalOpen(true)} />}
 
       <Routes>
         <Route path="/" element={<Home onQuoteClick={() => setIsQuoteModalOpen(true)} />} />
+        <Route path="/case-studies/autonomous-ai-sales-agent-vinfotech" element={<AutonomousSalesAgentCase />} />
         <Route path="/case-studies/:slug" element={<CaseStudyDetail />} />
+        <Route path="/blogs" element={<Blogs />} />
+        <Route path="/blogs/:slug" element={<BlogDetail />} />
       </Routes>
 
       <Modal
         isOpen={isQuoteModalOpen}
-        onClose={() => setIsQuoteModalOpen(false)}
-        title="Get a Quote"
+        onClose={() => {
+          setIsQuoteModalOpen(false);
+          setShowSuccessConfirmation(false);
+        }}
+        title={showSuccessConfirmation ? '' : 'Get a Quote'}
       >
-        <QuoteForm onSuccess={handleQuoteSuccess} />
+        {showSuccessConfirmation ? (
+          <QuoteSuccessConfirmation onClose={handleCloseSuccessConfirmation} />
+        ) : (
+          <QuoteForm
+            onShowSuccessConfirmation={handleShowSuccessConfirmation}
+          />
+        )}
       </Modal>
 
-      {showScrollTop && !isCaseStudyPage && (
+      {showScrollTop && !isCaseStudyPage && !isBlogPage && !isAutonomousAgentPage && (
         <button
           onClick={scrollToTop}
           className="fixed bottom-8 right-8 w-12 h-12 bg-[#00B46A] text-white rounded-full shadow-lg hover:shadow-xl hover:shadow-[#00B46A]/50 transition-all duration-500 transform hover:scale-110 hover:-translate-y-1 flex items-center justify-center z-40 animate-scale-in active:scale-95"
@@ -71,7 +93,7 @@ function AppContent() {
         </button>
       )}
 
-      <ChatWidget />
+      {!isAutonomousAgentPage && <ChatWidget />}
     </div>
   );
 }

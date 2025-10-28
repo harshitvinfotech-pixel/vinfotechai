@@ -1,10 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Calendar, Target, TrendingUp, Lightbulb } from 'lucide-react';
+import { ArrowLeft, Calendar, Target, TrendingUp, Lightbulb, Sparkles, Workflow } from 'lucide-react';
 import { getCaseStudyBySlug, getSuggestedCaseStudies } from '../lib/caseStudies';
 import type { CaseStudyWithDetails, CaseStudy } from '../types/caseStudy';
 import SuggestedCaseStudies from '../components/SuggestedCaseStudies';
 import PhoneMockup from '../components/PhoneMockup';
+import SalesAgentDemo from '../components/SalesAgentDemo';
+import ArchitectureDiagram from '../components/ArchitectureDiagram';
+import BreakthroughCards from '../components/BreakthroughCards';
+import ApproachTimeline from '../components/ApproachTimeline';
 import * as LucideIcons from 'lucide-react';
 
 export default function CaseStudyDetail() {
@@ -14,6 +18,8 @@ export default function CaseStudyDetail() {
   const [suggestedStudies, setSuggestedStudies] = useState<CaseStudy[]>([]);
   const [loading, setLoading] = useState(true);
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set());
+  const sectionRefs = useRef<{ [key: string]: HTMLElement | null }>({});
 
   useEffect(() => {
     async function loadCaseStudy() {
@@ -42,6 +48,27 @@ export default function CaseStudyDetail() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setVisibleSections((prev) => new Set([...prev, entry.target.id]));
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -100px 0px'
+    });
+
+    Object.values(sectionRefs.current).forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => observer.disconnect();
+  }, [caseStudy]);
 
   if (loading) {
     return (
@@ -139,7 +166,7 @@ export default function CaseStudyDetail() {
                   <div className="text-4xl sm:text-5xl font-bold text-white mb-2">
                     {metric.value}
                   </div>
-                  <div className="text-sm sm:text-base font-semibold text-emerald-100 mb-1">
+                  <div className="text-sm sm:text-lg font-semibold text-emerald-100 mb-1">
                     {metric.label}
                   </div>
                   {metric.description && (
@@ -164,19 +191,27 @@ export default function CaseStudyDetail() {
                 </div>
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white">The Challenge</h2>
               </div>
-              <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+              <p className="text-xl text-gray-700 dark:text-gray-300 leading-relaxed">
                 {caseStudy.problem}
               </p>
             </section>
 
-            <section>
+            <section
+              id="solution-section"
+              ref={(el) => (sectionRefs.current['solution-section'] = el)}
+              className={`transition-all duration-700 ${
+                visibleSections.has('solution-section')
+                  ? 'opacity-100 translate-y-0'
+                  : 'opacity-0 translate-y-8'
+              }`}
+            >
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
                   <Lightbulb className="text-blue-600 dark:text-blue-400" size={24} />
                 </div>
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Our Solution</h2>
               </div>
-              <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+              <p className="text-xl text-gray-700 dark:text-gray-300 leading-relaxed">
                 {caseStudy.solution}
               </p>
             </section>
@@ -193,10 +228,10 @@ export default function CaseStudyDetail() {
                         className="p-6 bg-gray-50 dark:bg-gray-800 rounded-xl border-2 border-gray-200 dark:border-gray-700 hover:border-emerald-500 dark:hover:border-emerald-500 transition-colors"
                       >
                         <IconComponent className="text-emerald-600 dark:text-emerald-400 mb-3" size={28} />
-                        <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                        <h4 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
                           {feature.title}
                         </h4>
-                        <p className="text-gray-600 dark:text-gray-400">
+                        <p className="text-lg text-gray-600 dark:text-gray-400">
                           {feature.description}
                         </p>
                       </div>
@@ -208,10 +243,10 @@ export default function CaseStudyDetail() {
 
             {caseStudy.slug === 'sports-analyst-ai-agent' && (
               <section>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">
+                <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 text-center">
                   See It In Action
                 </h3>
-                <p className="text-gray-600 dark:text-gray-400 text-center mb-8">
+                <p className="text-lg text-gray-600 dark:text-gray-400 text-center mb-8">
                   Ask questions in natural language and get instant cricket insights
                 </p>
                 <PhoneMockup
@@ -238,6 +273,79 @@ export default function CaseStudyDetail() {
               </section>
             )}
 
+            {caseStudy.slug === 'autonomous-ai-sales-agent-vinfotech' && (
+              <>
+                <section
+                  id="architecture-section"
+                  ref={(el) => (sectionRefs.current['architecture-section'] = el)}
+                  className={`transition-all duration-700 ${
+                    visibleSections.has('architecture-section')
+                      ? 'opacity-100 translate-y-0'
+                      : 'opacity-0 translate-y-8'
+                  }`}
+                >
+                  <ArchitectureDiagram />
+                </section>
+
+                <section
+                  id="ai-breakthrough-section"
+                  ref={(el) => (sectionRefs.current['ai-breakthrough-section'] = el)}
+                  className={`transition-all duration-700 ${
+                    visibleSections.has('ai-breakthrough-section')
+                      ? 'opacity-100 translate-y-0'
+                      : 'opacity-0 translate-y-8'
+                  }`}
+                >
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="w-12 h-12 rounded-xl bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center">
+                      <Sparkles className="text-purple-600 dark:text-purple-400" size={24} />
+                    </div>
+                    <h2 className="text-3xl font-bold text-gray-900 dark:text-white">How AI Made It Possible</h2>
+                  </div>
+                  <p className="text-xl text-gray-700 dark:text-gray-300 leading-relaxed mb-8">
+                    Traditional chatbots relied on predefined flows and couldn't handle nuanced, domain-specific questions. This solution leveraged AI to read and reason, not just match keywords.
+                  </p>
+                  <BreakthroughCards />
+                </section>
+
+                <section
+                  id="approach-section"
+                  ref={(el) => (sectionRefs.current['approach-section'] = el)}
+                  className={`transition-all duration-700 ${
+                    visibleSections.has('approach-section')
+                      ? 'opacity-100 translate-y-0'
+                      : 'opacity-0 translate-y-8'
+                  }`}
+                >
+                  <div className="flex items-center gap-3 mb-8">
+                    <div className="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
+                      <Workflow className="text-blue-600 dark:text-blue-400" size={24} />
+                    </div>
+                    <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Our Approach</h2>
+                  </div>
+                  <ApproachTimeline />
+                </section>
+
+                <section
+                  id="demo-section"
+                  ref={(el) => (sectionRefs.current['demo-section'] = el)}
+                  className={`transition-all duration-700 ${
+                    visibleSections.has('demo-section')
+                      ? 'opacity-100 translate-y-0'
+                      : 'opacity-0 translate-y-8'
+                  }`}
+                >
+                  <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 text-center">
+                    See It In Action
+                  </h3>
+                  <p className="text-lg text-gray-600 dark:text-gray-400 text-center mb-8">
+                    Watch the AI Sales Agent answer complex product queries with verified citations
+                  </p>
+                  <SalesAgentDemo />
+                </section>
+              </>
+            )}
+
             {caseStudy.results && (
               <section>
                 <div className="flex items-center gap-3 mb-6">
@@ -246,7 +354,7 @@ export default function CaseStudyDetail() {
                   </div>
                   <h2 className="text-3xl font-bold text-gray-900 dark:text-white">The Results</h2>
                 </div>
-                <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+                <p className="text-xl text-gray-700 dark:text-gray-300 leading-relaxed">
                   {caseStudy.results}
                 </p>
               </section>
@@ -273,14 +381,14 @@ export default function CaseStudyDetail() {
                       </div>
                       <div className="flex-1 pb-8">
                         <div className="flex items-center gap-3 mb-2">
-                          <h4 className="text-xl font-semibold text-gray-900 dark:text-white">
+                          <h4 className="text-2xl font-semibold text-gray-900 dark:text-white">
                             {phase.phase}
                           </h4>
                           <span className="px-3 py-1 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 text-sm font-medium rounded-full">
                             {phase.duration}
                           </span>
                         </div>
-                        <p className="text-gray-600 dark:text-gray-400">
+                        <p className="text-lg text-gray-600 dark:text-gray-400">
                           {phase.description}
                         </p>
                       </div>
@@ -293,7 +401,7 @@ export default function CaseStudyDetail() {
             {caseStudy.client_quote && (
               <section className="bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 p-8 rounded-2xl border-2 border-emerald-200 dark:border-emerald-800">
                 <div className="text-4xl text-emerald-600 dark:text-emerald-400 mb-4">"</div>
-                <p className="text-xl text-gray-800 dark:text-gray-200 italic mb-6 leading-relaxed">
+                <p className="text-2xl text-gray-800 dark:text-gray-200 italic mb-6 leading-relaxed">
                   {caseStudy.client_quote}
                 </p>
                 {(caseStudy.client_name || caseStudy.client_role) && (
@@ -303,12 +411,12 @@ export default function CaseStudyDetail() {
                     </div>
                     <div>
                       {caseStudy.client_name && (
-                        <div className="font-semibold text-gray-900 dark:text-white">
+                        <div className="text-lg font-semibold text-gray-900 dark:text-white">
                           {caseStudy.client_name}
                         </div>
                       )}
                       {caseStudy.client_role && (
-                        <div className="text-sm text-gray-600 dark:text-gray-400">
+                        <div className="text-base text-gray-600 dark:text-gray-400">
                           {caseStudy.client_role}
                         </div>
                       )}
@@ -323,18 +431,18 @@ export default function CaseStudyDetail() {
             <div className="sticky top-8 space-y-8">
               {groupedTechnologies && Object.keys(groupedTechnologies).length > 0 && (
                 <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl border-2 border-gray-200 dark:border-gray-700">
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6">Technologies Used</h3>
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Technologies Used</h3>
                   <div className="space-y-6">
                     {Object.entries(groupedTechnologies).map(([category, techs]) => (
                       <div key={category}>
-                        <h4 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">
+                        <h4 className="text-base font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">
                           {category}
                         </h4>
                         <div className="flex flex-wrap gap-2">
                           {techs.map((tech) => (
                             <span
                               key={tech.id}
-                              className="px-3 py-1.5 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 text-sm font-medium rounded-lg border border-gray-300 dark:border-gray-600"
+                              className="px-3 py-1.5 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 text-base font-medium rounded-lg border border-gray-300 dark:border-gray-600"
                             >
                               {tech.name}
                             </span>
@@ -348,12 +456,12 @@ export default function CaseStudyDetail() {
 
               {caseStudy.tags && caseStudy.tags.length > 0 && (
                 <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl border-2 border-gray-200 dark:border-gray-700">
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Tags</h3>
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Tags</h3>
                   <div className="flex flex-wrap gap-2">
                     {caseStudy.tags.map((tag, index) => (
                       <span
                         key={index}
-                        className="px-3 py-1.5 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 text-sm font-medium rounded-full"
+                        className="px-3 py-1.5 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 text-base font-medium rounded-full"
                       >
                         {tag}
                       </span>

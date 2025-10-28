@@ -36,12 +36,12 @@ export default function IntroSection() {
         ></div>
       </div>
 
-      <div className="max-w-5xl mx-auto text-center relative z-10">
+      <div className="max-w-7xl mx-auto text-center relative z-10">
         <h2 className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6 sm:mb-8 tracking-tight transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           Custom AI <span className="text-[#00B46A]">Software Development</span>
         </h2>
 
-        <p className={`text-base sm:text-lg md:text-xl lg:text-2xl text-gray-700 dark:text-gray-300 leading-relaxed sm:leading-relaxed md:leading-relaxed transition-all duration-1000 px-4 sm:px-6 md:px-2 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`} style={{ transitionDelay: '200ms' }}>
+        <p className={`text-xl sm:text-lg md:text-xl lg:text-2xl text-gray-700 dark:text-gray-300 leading-relaxed sm:leading-relaxed md:leading-relaxed transition-all duration-1000 sm:px-6 md:px-2 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`} style={{ transitionDelay: '200ms' }}>
          <b>Stop settling for generic SaaS.</b> We engineer high-impact, custom AI solutions that solve your hardest problems. From factual answers with <b>Enterprise RAG</b> to autonomous processes with <b>Computer Vision</b>, we turn your most ambitious ideas into <b>production-ready software—fast.</b>
         </p>
       </div>

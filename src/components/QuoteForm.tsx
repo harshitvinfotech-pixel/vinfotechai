@@ -1,12 +1,26 @@
 import { useState, FormEvent } from 'react';
 import { submitQuote, QuoteSubmission } from '../lib/supabase';
-import { CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
+import { AlertCircle, Loader2, ChevronDown } from 'lucide-react';
+import { validateProjectDescription, getCharacterCount, getRemainingCharacters } from '../lib/validation';
 
 interface QuoteFormProps {
-  onSuccess: () => void;
+  onShowSuccessConfirmation: () => void;
 }
 
-export default function QuoteForm({ onSuccess }: QuoteFormProps) {
+const countryCodes = [
+  { code: '+1', country: 'US', flag: '🇺🇸' },
+  { code: '+44', country: 'UK', flag: '🇬🇧' },
+  { code: '+91', country: 'IN', flag: '🇮🇳' },
+  { code: '+86', country: 'CN', flag: '🇨🇳' },
+  { code: '+81', country: 'JP', flag: '🇯🇵' },
+  { code: '+49', country: 'DE', flag: '🇩🇪' },
+  { code: '+33', country: 'FR', flag: '🇫🇷' },
+  { code: '+61', country: 'AU', flag: '🇦🇺' },
+  { code: '+971', country: 'AE', flag: '🇦🇪' },
+  { code: '+966', country: 'SA', flag: '🇸🇦' },
+];
+
+export default function QuoteForm({ onShowSuccessConfirmation }: QuoteFormProps) {
   const [formData, setFormData] = useState<QuoteSubmission>({
     name: '',
     email: '',
@@ -15,19 +29,33 @@ export default function QuoteForm({ onSuccess }: QuoteFormProps) {
     project_description: '',
   });
 
-
+  const [selectedCountryCode, setSelectedCountryCode] = useState('+1');
+  const [phoneNumber, setPhoneNumber] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
+  const [descriptionError, setDescriptionError] = useState('');
+  const [charCount, setCharCount] = useState(0);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus('idle');
     setErrorMessage('');
+    setDescriptionError('');
+
+    const validation = validateProjectDescription(formData.project_description);
+    if (!validation.isValid) {
+      setDescriptionError(validation.error || 'Invalid project description');
+      setIsSubmitting(false);
+      return;
+    }
 
     try {
-      const submissionData = formData;
+      const submissionData = {
+        ...formData,
+        phone_number: `${selectedCountryCode}${phoneNumber}`,
+      };
 
       console.log('Submitting quote:', submissionData);
 
@@ -42,10 +70,11 @@ export default function QuoteForm({ onSuccess }: QuoteFormProps) {
         company: '',
         project_description: '',
       });
+      setPhoneNumber('');
+      setSelectedCountryCode('+1');
+      setCharCount(0);
 
-      setTimeout(() => {
-        onSuccess();
-      }, 2000);
+      onShowSuccessConfirmation();
     } catch (error) {
       console.error('Quote submission error:', error);
       setSubmitStatus('error');
@@ -66,21 +95,32 @@ export default function QuoteForm({ onSuccess }: QuoteFormProps) {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
+    const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value,
+      [name]: value,
     }));
+
+    if (name === 'project_description') {
+      setCharCount(getCharacterCount(value));
+      if (descriptionError) {
+        const validation = validateProjectDescription(value);
+        if (validation.isValid) {
+          setDescriptionError('');
+        }
+      }
+    }
   };
 
   return (
     <div>
-      <p className="text-gray-600 dark:text-gray-300 mb-6">
+      <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
         We'd love to build something amazing together. Share your project details and we'll get back to you within 24 hours.
       </p>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label htmlFor="name" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">
+          <label htmlFor="name" className="block text-base font-semibold text-gray-700 dark:text-gray-300 mb-1">
             Full Name *
           </label>
           <input
@@ -96,7 +136,7 @@ export default function QuoteForm({ onSuccess }: QuoteFormProps) {
         </div>
 
         <div>
-          <label htmlFor="email" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">
+          <label htmlFor="email" className="block text-base font-semibold text-gray-700 dark:text-gray-300 mb-1">
             Email *
           </label>
           <input
@@ -112,23 +152,42 @@ export default function QuoteForm({ onSuccess }: QuoteFormProps) {
         </div>
 
         <div>
-          <label htmlFor="phone_number" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">
+          <label htmlFor="phone_number" className="block text-base font-semibold text-gray-700 dark:text-gray-300 mb-1">
             Phone Number *
           </label>
-          <input
-            type="tel"
-            id="phone_number"
-            name="phone_number"
-            required
-            value={formData.phone_number}
-            onChange={handleChange}
-            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent outline-none transition-all duration-300 hover:border-brand-primary/50"
-            placeholder="+1 (555) 123-4567"
-          />
+          <div className="flex gap-2">
+            <div className="relative">
+              <select
+                value={selectedCountryCode}
+                onChange={(e) => setSelectedCountryCode(e.target.value)}
+                className="appearance-none h-full px-3 py-3 pr-8 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent outline-none transition-all duration-300 hover:border-brand-primary/50 cursor-pointer"
+              >
+                {countryCodes.map((country) => (
+                  <option key={country.code} value={country.code}>
+                    {country.flag} {country.code}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown
+                size={16}
+                className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400 pointer-events-none"
+              />
+            </div>
+            <input
+              type="tel"
+              id="phone_number"
+              name="phone_number"
+              required
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+              className="flex-1 px-4 py-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent outline-none transition-all duration-300 hover:border-brand-primary/50"
+              placeholder="555 123 4567"
+            />
+          </div>
         </div>
 
         <div>
-          <label htmlFor="company" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">
+          <label htmlFor="company" className="block text-base font-semibold text-gray-700 dark:text-gray-300 mb-1">
             Company
           </label>
           <input
@@ -138,12 +197,12 @@ export default function QuoteForm({ onSuccess }: QuoteFormProps) {
             value={formData.company}
             onChange={handleChange}
             className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent outline-none transition-all duration-300 hover:border-brand-primary/50"
-            placeholder="Acme Corporation"
+            placeholder="Company name"
           />
         </div>
 
         <div>
-          <label htmlFor="project_description" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">
+          <label htmlFor="project_description" className="block text-base font-semibold text-gray-700 dark:text-gray-300 mb-1">
             Project Description *
           </label>
           <textarea
@@ -153,40 +212,31 @@ export default function QuoteForm({ onSuccess }: QuoteFormProps) {
             rows={4}
             value={formData.project_description}
             onChange={handleChange}
-            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent outline-none transition-all resize-none"
-            placeholder="Tell us about your project, goals, and challenges..."
+            className={`w-full px-4 py-3 border ${descriptionError ? 'border-red-400 dark:border-red-600' : 'border-gray-300 dark:border-gray-600'} dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 ${descriptionError ? 'focus:ring-red-400' : 'focus:ring-brand-primary'} focus:border-transparent outline-none transition-all resize-none`}
+            placeholder="Tell us about your project, goals, and requirements..."
           />
-        </div>
-
-        {submitStatus === 'success' && (
-          <div className="flex flex-col gap-3 p-6 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border-2 border-green-400 dark:border-green-600 rounded-xl text-green-900 dark:text-green-200 shadow-lg animate-slide-down">
-            <div className="flex items-start gap-3">
-              <div className="flex-shrink-0 w-12 h-12 bg-green-500 dark:bg-green-600 rounded-full flex items-center justify-center animate-bounce-subtle">
-                <CheckCircle size={28} className="text-white" strokeWidth={2.5} />
-              </div>
-              <div className="flex-1">
-                <p className="font-bold text-xl">Request Submitted Successfully!</p>
-                <p className="text-sm mt-1.5 text-green-800 dark:text-green-200">
-                  Thank you for choosing Vinfotech! We've received your project details.
-                </p>
-              </div>
+          <div className="mt-2 flex items-center justify-between">
+            <div className="text-base">
+              {descriptionError ? (
+                <span className="text-red-600 dark:text-red-400 font-medium">{descriptionError}</span>
+              ) : (
+                <span className={`${charCount >= 30 ? 'text-green-600 dark:text-green-400' : 'text-gray-500 dark:text-gray-400'}`}>
+                  {charCount >= 30 ? (
+                    <span className="flex items-center gap-1">
+                      <span className="text-green-600 dark:text-green-400">✓</span>
+                      Meets minimum requirement
+                    </span>
+                  ) : (
+                    `${getRemainingCharacters(formData.project_description)} more characters needed`
+                  )}
+                </span>
+              )}
             </div>
-            <div className="ml-15 space-y-2 text-sm text-green-800 dark:text-green-300">
-              <p className="flex items-center gap-2">
-                <CheckCircle size={16} className="flex-shrink-0" />
-                <span>Our team will review your requirements carefully</span>
-              </p>
-              <p className="flex items-center gap-2">
-                <CheckCircle size={16} className="flex-shrink-0" />
-                <span>You'll receive a personalized response within 24 hours</span>
-              </p>
-              <p className="flex items-center gap-2">
-                <CheckCircle size={16} className="flex-shrink-0" />
-                <span>Check your email for confirmation</span>
-              </p>
-            </div>
+            <span className={`text-base font-medium ${charCount >= 30 ? 'text-green-600 dark:text-green-400' : 'text-gray-500 dark:text-gray-400'}`}>
+              {charCount} / 30
+            </span>
           </div>
-        )}
+        </div>
 
         {submitStatus === 'error' && (
           <div className="flex flex-col gap-2 p-5 bg-gradient-to-r from-red-50 to-pink-50 dark:from-red-900/20 dark:to-pink-900/20 border-2 border-red-400 dark:border-red-600 rounded-xl text-red-900 dark:text-red-200 shadow-lg animate-slide-down">
@@ -195,11 +245,11 @@ export default function QuoteForm({ onSuccess }: QuoteFormProps) {
                 <AlertCircle size={24} className="text-white" />
               </div>
               <div className="flex-1">
-                <p className="font-bold text-lg">Submission Failed</p>
-                <p className="text-sm mt-1 text-red-700 dark:text-red-300">{errorMessage}</p>
+                <p className="font-bold text-xl">Submission Failed</p>
+                <p className="text-base mt-1 text-red-700 dark:text-red-300">{errorMessage}</p>
               </div>
             </div>
-            <p className="text-xs ml-13 text-red-600 dark:text-red-400">
+            <p className="text-sm ml-13 text-red-600 dark:text-red-400">
               Please check your internet connection and try again. If the problem persists, contact us directly.
             </p>
           </div>

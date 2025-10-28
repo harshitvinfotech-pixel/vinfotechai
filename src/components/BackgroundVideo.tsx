@@ -24,7 +24,7 @@ export default function BackgroundVideo() {
         className="absolute inset-0 w-full h-full object-cover"
       >
         <source
-          src="https://cdn-cf-east.streamable.com/video/mp4/xpatia.mp4"
+          src="https://www.freepik.com/free-video/high-tech-circuit-board-interface_3730753#fromView=search&page=1&position=0&uuid=c0ff3d84-b609-4add-aa66-01c1654bb657%22%3EVideo.mp4"
           type="video/mp4"
         />
       </video>

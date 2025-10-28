@@ -88,29 +88,28 @@ export default function ChatWidget() {
     return (
       <button
         onClick={handleCollapsedClick}
-        className="fixed bottom-6 right-6 text-white rounded-3xl shadow-2xl transition-all duration-1700 hover:scale-105 z-50 group"
+        className="fixed bottom-6 right-6 text-white shadow-2xl transition-all duration-300 hover:scale-105 z-50 group rounded-full md:rounded-3xl"
         style={{ backgroundColor: '#00B46A' }}
       >
-        <div className="flex items-center gap-2 px-3 py-2 md:gap-5 md:px-7 md:py-5">
-          <div className="flex flex-col items-start hidden md:flex">
-            <div className="flex items-center gap-2 mb-1.5">
-              <Sparkles className="w-5 h-5" />
-              <span className="font-bold text-lg">Ask Us Anything</span>
+        <div className="flex items-center gap-2 p-3 md:gap-3 md:px-5 md:py-4">
+          <div className="flex items-center gap-3 hidden md:flex">
+            <Sparkles className="w-5 h-5" />
+            <span className="font-bold text-lg">Ask Us Anything</span>
+          </div>
+          <div className="relative md:hidden">
+            <img
+              src="/Gemini_Generated_Image_eao7cteao7cteao7-removebg-preview.png"
+              alt="AI Assistant"
+              className="w-12 h-12 object-contain drop-shadow-xl animate-float-3d"
+            />
+            <div className="absolute -top-1 -right-1 bg-white text-emerald-600 rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold shadow-lg">
+              ?
             </div>
-            <span className="text-sm text-white/90">Get instant answers</span>
-          </div>
-          <div className="flex items-center gap-1.5 md:hidden">
-            <span className="font-bold text-xs">Ask AI ?</span>
           </div>
           <img
             src="/Gemini_Generated_Image_eao7cteao7cteao7-removebg-preview.png"
             alt="AI Assistant"
-            className="w-8 h-8 object-contain drop-shadow-xl animate-float-3d md:hidden"
-          />
-          <img
-            src="/Gemini_Generated_Image_eao7cteao7cteao7-removebg-preview.png"
-            alt="AI Assistant"
-            className="w-20 h-20 object-contain drop-shadow-xl animate-float-3d ml-3 hidden md:block"
+            className="w-16 h-16 object-contain drop-shadow-xl animate-float-3d hidden md:block"
           />
         </div>
       </button>

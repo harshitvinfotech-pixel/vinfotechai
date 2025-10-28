@@ -58,8 +58,8 @@ export default function About() {
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
           <div className={`space-y-6 sm:space-y-8 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
-            <div className="space-y-4 sm:space-y-5">
-              <p className="text-sm sm:text-base font-semibold tracking-[0.15em] uppercase" style={{ color: '#00B46A' }}>
+            <div className="space-y-4 sm:space-y-5 text-center lg:text-left">
+              <p className="text-base sm:text-lg font-semibold tracking-[0.15em] uppercase" style={{ color: '#00B46A' }}>
                 WHAT WE DO
               </p>
               <h2 className="text-gray-900 dark:text-white leading-[1.2] text-3xl sm:text-4xl md:text-5xl lg:text-[52px] font-bold">
@@ -67,7 +67,7 @@ export default function About() {
               </h2>
             </div>
 
-            <div className="space-y-6 text-gray-700 dark:text-gray-300 leading-[1.7] text-lg sm:text-xl md:text-[22px] lg:text-[24px] font-normal">
+            <div className="space-y-6 text-gray-700 dark:text-gray-300 leading-[1.7] text-[22px] sm:text-xl md:text-[22px] lg:text-[24px] font-normal text-center lg:text-left">
               <p>
                 We are a specialized <span className="font-semibold text-gray-900 dark:text-white">AI Engineering</span> firm that turns your most ambitious business challenges into intelligent, production-ready applications.
               </p>
@@ -78,33 +78,27 @@ export default function About() {
           </div>
 
           <div className={`relative transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
-            <div className="absolute inset-0 bg-gradient-to-br from-gray-700/20 to-gray-600/20 rounded-3xl blur-3xl"></div>
+            <div className="bg-gray-100 dark:bg-gray-800/60 rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 lg:p-12 space-y-6">
+              <FeatureCard
+                icon={<Target size={24} />}
+                title="Tailored AI, Built for You"
+                delay="0ms"
+                isVisible={isVisible}
+              />
 
-            <div className="relative bg-white/60 dark:bg-gray-800/30 backdrop-blur-sm rounded-2xl sm:rounded-3xl p-1 border border-gray-200/50 dark:border-gray-700/30">
-              <div className="bg-gradient-to-br from-gray-50/80 to-white/80 dark:from-gray-800/60 dark:to-gray-900/60 rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 space-y-4 sm:space-y-6">
-                <div className="space-y-6">
-                  <FeatureCard
-                    icon={<Target size={24} />}
-                    title="Tailored AI, Built for You"
-                    delay="0ms"
-                    isVisible={isVisible}
-                  />
+              <FeatureCard
+                icon={<Zap size={24} />}
+                title="Prototype in Weeks, Not Months"
+                delay="200ms"
+                isVisible={isVisible}
+              />
 
-                  <FeatureCard
-                    icon={<Zap size={24} />}
-                    title="Prototype in Weeks, Not Months"
-                    delay="200ms"
-                    isVisible={isVisible}
-                  />
-
-                  <FeatureCard
-                    icon={<Shield size={24} />}
-                    title="Runs Inside Your Infrastructure"
-                    delay="400ms"
-                    isVisible={isVisible}
-                  />
-                </div>
-              </div>
+              <FeatureCard
+                icon={<Shield size={24} />}
+                title="Runs Inside Your Infrastructure"
+                delay="400ms"
+                isVisible={isVisible}
+              />
             </div>
           </div>
         </div>
@@ -126,35 +120,27 @@ interface FeatureCardProps {
 function FeatureCard({ icon, title, description, delay, isVisible }: FeatureCardProps) {
   return (
     <div
-      className={`group relative bg-gradient-to-br from-white/60 to-gray-50/60 dark:from-gray-800/40 dark:to-gray-700/40 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-gray-200/60 dark:border-gray-700/40 hover:border-[#00B46A]/40 dark:hover:border-[#00B46A]/60 transition-all duration-700 hover:shadow-[0_8px_40px_rgba(0,180,106,0.15)] dark:hover:shadow-[0_8px_40px_rgba(0,180,106,0.25)] hover:-translate-y-2 hover:scale-[1.02] ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-8 scale-95'}`}
+      className={`group relative bg-gray-50 dark:bg-gray-800/40 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-gray-200/60 dark:border-gray-700/40 transition-all duration-700 hover:-translate-y-2 hover:scale-[1.02] ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-8 scale-95'}`}
       style={{
         transitionDelay: isVisible ? delay : '0ms',
         transitionTimingFunction: 'cubic-bezier(0.34, 1.56, 0.64, 1)'
       }}
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-200/0 dark:from-gray-600/0 to-gray-200/0 dark:to-gray-600/0 group-hover:from-[#00B46A]/5 dark:group-hover:from-[#00B46A]/10 group-hover:to-[#00B46A]/10 dark:group-hover:to-[#00B46A]/15 rounded-2xl transition-all duration-700"></div>
-
-      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#00B46A]/0 via-[#00B46A]/5 to-[#00B46A]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-xl"></div>
-
       <div className="relative flex gap-3 sm:gap-4 items-center">
         <div className="flex-shrink-0">
-          <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-[#00B46A] to-[#00964F] dark:from-[#00D68A] dark:to-[#00B46A] rounded-lg sm:rounded-xl flex items-center justify-center shadow-lg shadow-[#00B46A]/30 dark:shadow-[#00B46A]/50 group-hover:shadow-2xl group-hover:shadow-[#00B46A]/60 dark:group-hover:shadow-[#00B46A]/80 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3">
+          <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-[#00B46A] to-[#00964F] dark:from-[#00D68A] dark:to-[#00B46A] rounded-lg sm:rounded-xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:rotate-3">
             <div className="text-white transition-transform duration-500 group-hover:scale-110">
               {icon}
             </div>
           </div>
         </div>
 
-        <div className="flex-1">
-          <h3 className="text-base sm:text-lg font-semibold transition-all duration-500 group-hover:translate-x-1" style={{ color: '#00B46A' }}>
+        <div className="flex-1 min-w-0">
+          <h3 className="text-lg sm:text-xl lg:text-2xl font-semibold transition-all duration-500 group-hover:translate-x-1 break-words" style={{ color: '#00B46A' }}>
             {title}
           </h3>
         </div>
       </div>
-
-      <div className="absolute -inset-px bg-gradient-to-r from-[#00B46A]/20 via-[#00D68A]/20 to-[#00B46A]/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 -z-10 blur-md"></div>
-
-      <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 bg-gradient-to-br from-transparent via-white/10 to-transparent dark:via-white/5 animate-shimmer"></div>
     </div>
   );
 }
