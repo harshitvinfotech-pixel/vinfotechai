@@ -124,9 +124,7 @@ function CaseStudyCard({ study, onClick }: CaseStudyCardProps) {
         className={`absolute -inset-0.5 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-500 blur-xl`}
       ></div>
 
-      <div className={`relative flex flex-col bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 hover:border-emerald-500/30 dark:hover:border-emerald-500/30 transition-all duration-500 shadow-lg hover:shadow-2xl overflow-hidden ${
-        showPreview ? 'h-[420px]' : 'h-[320px]'
-      }`}>
+      <div className="relative flex flex-col bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 hover:border-emerald-500/30 dark:hover:border-emerald-500/30 transition-all duration-500 shadow-lg hover:shadow-2xl overflow-hidden h-[420px]">
 
         <div className={`relative overflow-hidden flex-shrink-0 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 transition-all duration-500 ${
           showPreview ? 'h-[240px]' : 'h-full'
@@ -155,10 +153,17 @@ function CaseStudyCard({ study, onClick }: CaseStudyCardProps) {
         </div>
 
         {showPreview && (
-          <div className="flex-1 p-6 bg-white dark:bg-gray-900">
-            <p className="text-gray-700 dark:text-gray-300 text-base leading-relaxed line-clamp-3">
+          <div className="flex-1 p-6 bg-white dark:bg-gray-900 flex flex-col justify-between">
+            <p className="text-gray-700 dark:text-gray-300 text-base leading-relaxed line-clamp-2 mb-4">
               {truncateText(study.subtitle || '', 140)}
             </p>
+            <button
+              onClick={handleViewCaseStudy}
+              className="w-full py-3 px-4 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-semibold rounded-lg transition-all duration-300 flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
+            >
+              View Full Case Study
+              <ArrowRight size={18} />
+            </button>
           </div>
         )}
 
