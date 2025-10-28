@@ -159,7 +159,8 @@ function CaseStudyCard({ study, onClick }: CaseStudyCardProps) {
             </p>
             <button
               onClick={handleViewCaseStudy}
-              className="w-full py-3 px-4 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-semibold rounded-lg transition-all duration-300 flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
+              className="w-full py-3 px-4 text-white font-semibold rounded-lg transition-all duration-300 flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
+              style={{ backgroundColor: '#00B46A' }}
             >
               View Full Case Study
               <ArrowRight size={18} />
