@@ -81,17 +81,7 @@ export default function CaseStudyDetail() {
       <Header onQuoteClick={() => {}} />
 
       <article className="relative pt-20">
-        <div className="max-w-6xl mx-auto w-full px-6 sm:px-8 lg:px-12 pt-6">
-          <button
-            onClick={handleBackClick}
-            className="inline-flex items-center gap-2 text-gray-900 dark:text-white hover:text-[#00B46A] dark:hover:text-[#00FFB2] transition-colors duration-300 group"
-          >
-            <ArrowLeft size={20} className="transition-transform duration-300 group-hover:-translate-x-1" />
-            <span className="font-semibold text-sm sm:text-base">Back to Case Studies</span>
-          </button>
-        </div>
-
-        <div className="relative h-[50vh] min-h-[400px] max-h-[500px] overflow-hidden mt-6">
+        <div className="relative h-[50vh] min-h-[400px] max-h-[500px] overflow-hidden">
           <div className="absolute inset-0">
             <img
               src={heroImage}
@@ -99,6 +89,16 @@ export default function CaseStudyDetail() {
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/30"></div>
+          </div>
+
+          <div className="absolute top-6 left-6 sm:left-8 lg:left-12 z-10">
+            <button
+              onClick={handleBackClick}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-black/50 backdrop-blur-sm text-white hover:bg-black/70 transition-all duration-300 group"
+            >
+              <ArrowLeft size={20} className="transition-transform duration-300 group-hover:-translate-x-1" />
+              <span className="font-semibold text-sm sm:text-base">Back to Case Studies</span>
+            </button>
           </div>
 
           <div className="absolute inset-0 flex items-end">
