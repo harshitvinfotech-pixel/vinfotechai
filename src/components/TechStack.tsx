@@ -63,7 +63,7 @@ export default function TechStack() {
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 tracking-tight px-2">
             The AI Stack We Master
           </h2>
-          <p className="text-xl sm:text-lg md:text-xl text-gray-600 dark:text-gray-300 leading-relaxed px-4">
+          <p className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-300 leading-relaxed px-4">
             We utilize a diverse, cutting-edge technology stack to ensure your solution is robust, scalable, and future-proof.
           </p>
         </div>
@@ -74,12 +74,15 @@ export default function TechStack() {
             return (
               <div
                 key={index}
-                className={`group relative bg-gradient-to-br from-white/80 to-gray-50/80 dark:from-gray-800/40 dark:to-gray-900/40 backdrop-blur-sm p-5 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl border border-gray-300/50 dark:border-gray-700/50 hover:border-[#00B46A]/50 dark:hover:border-[#00B46A]/60 transition-all duration-700 shadow-lg dark:shadow-none hover:scale-[1.03] hover:-translate-y-2 ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-12 scale-95'}`}
+                className={`group relative bg-gradient-to-br from-white/80 to-gray-50/80 dark:from-gray-800/40 dark:to-gray-900/40 backdrop-blur-sm p-5 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl border border-gray-300/50 dark:border-gray-700/50 hover:border-[#00B46A]/50 dark:hover:border-[#00B46A]/60 transition-all duration-700 hover:shadow-2xl hover:shadow-[#00B46A]/20 dark:hover:shadow-[#00B46A]/30 shadow-lg dark:shadow-none hover:scale-[1.03] hover:-translate-y-2 ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-12 scale-95'}`}
                 style={{
                   transitionDelay: isVisible ? `${index * 150}ms` : '0ms',
                   transitionTimingFunction: 'cubic-bezier(0.34, 1.56, 0.64, 1)'
                 }}
               >
+                <div className="absolute inset-0 bg-gradient-to-br from-[#00B46A]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-xl sm:rounded-2xl"></div>
+
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#00B46A]/0 via-[#00B46A]/10 to-[#00B46A]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-xl"></div>
 
                 <div className="relative flex items-start gap-3 sm:gap-4 md:gap-5">
                   <div className={`flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-[#00B46A] to-[#00964F] dark:from-[#00D68A] dark:to-[#00B46A] rounded-lg sm:rounded-xl flex items-center justify-center shadow-lg shadow-[#00B46A]/30 dark:shadow-[#00B46A]/40 group-hover:shadow-2xl group-hover:shadow-[#00B46A]/60 dark:group-hover:shadow-[#00B46A]/70 transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 ${isVisible ? 'opacity-100 scale-100 rotate-0' : 'opacity-0 scale-50 -rotate-180'}`}
@@ -91,7 +94,7 @@ export default function TechStack() {
                   </div>
 
                   <div className="flex-1">
-                    <h3 className={`text-lg sm:text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-2 sm:mb-3 md:mb-4 group-hover:text-[#00B46A] dark:group-hover:text-[#00D68A] transition-all duration-500 group-hover:translate-x-1 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'}`}
+                    <h3 className={`text-base sm:text-lg md:text-xl font-bold text-gray-900 dark:text-white mb-2 sm:mb-3 md:mb-4 group-hover:text-[#00B46A] dark:group-hover:text-[#00D68A] transition-all duration-500 group-hover:translate-x-1 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'}`}
                       style={{
                         transitionDelay: isVisible ? `${index * 150 + 300}ms` : '0ms',
                       }}
@@ -99,7 +102,7 @@ export default function TechStack() {
                       {category.title}
                     </h3>
 
-                    <p className={`text-sm sm:text-lg text-gray-600 dark:text-gray-400 leading-relaxed transition-all duration-500 group-hover:text-gray-700 dark:group-hover:text-gray-300 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'}`}
+                    <p className={`text-sm sm:text-base text-gray-600 dark:text-gray-400 leading-relaxed transition-all duration-500 group-hover:text-gray-700 dark:group-hover:text-gray-300 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'}`}
                       style={{
                         transitionDelay: isVisible ? `${index * 150 + 400}ms` : '0ms',
                       }}
@@ -108,6 +111,10 @@ export default function TechStack() {
                     </p>
                   </div>
                 </div>
+
+                <div className="absolute -inset-px bg-gradient-to-r from-[#00B46A]/20 via-[#00D68A]/20 to-[#00B46A]/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 -z-10 blur-md"></div>
+
+                <div className="absolute top-0 right-0 w-32 h-32 bg-[#00B46A]/10 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 -z-10"></div>
               </div>
             );
           })}

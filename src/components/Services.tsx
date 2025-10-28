@@ -71,7 +71,7 @@ export default function Services() {
   return (
     <section
       id="services"
-      className="relative py-12 sm:py-16 md:py-20 lg:py-24 bg-gray-50 dark:bg-black overflow-hidden"
+      className="relative py-12 sm:py-16 md:py-20 lg:py-24 px-6 sm:px-8 lg:px-12 bg-gray-50 dark:bg-black overflow-hidden"
     >
       <div className="absolute inset-0 bg-gradient-to-b from-gray-100 via-gray-50 to-gray-100 dark:from-gray-900 dark:via-black dark:to-gray-900"></div>
 
@@ -86,36 +86,36 @@ export default function Services() {
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:64px_64px]"></div>
       </div>
 
-      <div className="w-full relative z-10">
-        <div className="text-center mb-12 sm:mb-16 lg:mb-20 px-6 sm:px-8 lg:px-12">
+      <div className="max-w-7xl mx-auto relative z-10">
+        <div className="text-center mb-12 sm:mb-16 lg:mb-20">
           <div className="inline-block mb-3 sm:mb-4">
             <span className="text-xs sm:text-sm font-semibold tracking-wider uppercase text-[#00B46A]">
               What We Offer
             </span>
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 tracking-tight px-2">
-            Our AI Services
+            Our AI <span className="text-[#00B46A]">Services</span>
           </h2>
-          <p className="text-lg sm:text-lg md:text-xl lg:text-2xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed px-4">
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed px-4">
             Comprehensive AI solutions tailored to your business needs, from intelligent data processing to automated decision-making
           </p>
         </div>
 
-        <div className="space-y-8 sm:space-y-12 lg:space-y-16 px-6 sm:px-8 lg:px-12">
+        <div className="space-y-8 sm:space-y-12 lg:space-y-16">
           {services.map((service, index) => {
             const isVisible = visibleSections.has(index);
             return (
               <div
                 key={service.id}
                 ref={el => sectionRefs.current[index] = el}
-                className="max-w-7xl mx-auto"
+                className="max-w-6xl mx-auto"
               >
                 <div className={`grid grid-cols-1 lg:grid-cols-2 gap-0 rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-700 bg-white dark:bg-gray-900 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
                   style={{
                     transitionDelay: isVisible ? '100ms' : '0ms',
                   }}
                 >
-                  <div className={`relative h-[160px] sm:h-[400px] lg:h-full overflow-hidden transition-all duration-1000 ${isVisible ? 'scale-100 opacity-100' : 'scale-95 opacity-0'}`}
+                  <div className={`relative h-[300px] sm:h-[400px] lg:h-full overflow-hidden transition-all duration-1000 ${isVisible ? 'scale-100 opacity-100' : 'scale-95 opacity-0'}`}
                     style={{
                       transitionDelay: isVisible ? '200ms' : '0ms',
                     }}
@@ -126,9 +126,9 @@ export default function Services() {
                       className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-gradient-to-br from-black/50 via-black/40 to-black/50"></div>
-                    <div className="absolute inset-0 flex items-center justify-center sm:justify-center p-6 sm:p-8">
+                    <div className="absolute inset-0 flex items-center justify-center p-6 sm:p-8">
                       <h2
-                        className={`text-[28px] sm:text-[36px] md:text-[42px] lg:text-[48px] font-bold text-white leading-tight text-left transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}
+                        className={`text-[28px] sm:text-[36px] md:text-[42px] lg:text-[48px] font-bold text-white leading-tight text-center transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}
                         style={{
                           letterSpacing: '-0.03em',
                           transitionDelay: isVisible ? '400ms' : '0ms',
@@ -139,15 +139,17 @@ export default function Services() {
                     </div>
                   </div>
 
-                  <div className="bg-gray-50 dark:bg-black p-6 sm:p-8 lg:p-10 flex items-start h-auto min-h-[400px] sm:min-h-0 overflow-y-auto sm:overflow-y-visible">
-                    <div className="space-y-6 sm:space-y-7 lg:space-y-8 w-full py-2">
-                      <p className={`text-lg sm:text-lg lg:text-xl text-gray-600 dark:text-gray-400 leading-relaxed mb-4 sm:mb-6 lg:mb-8 pt-2 sm:pt-8 transition-all duration-700 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'}`}
-                        style={{
-                          transitionDelay: isVisible ? '300ms' : '0ms',
-                        }}
-                      >
-                        {service.description}
-                      </p>
+                  <div className="bg-gray-50 dark:bg-black p-6 sm:p-8 lg:p-10 flex items-center">
+                    <div className="space-y-5 sm:space-y-6 w-full">
+                      {service.description && (
+                        <p className={`text-base sm:text-lg lg:text-xl text-gray-600 dark:text-gray-400 leading-relaxed mb-6 sm:mb-8 transition-all duration-700 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'}`}
+                          style={{
+                            transitionDelay: isVisible ? '300ms' : '0ms',
+                          }}
+                        >
+                          {service.description}
+                        </p>
+                      )}
                       {service.highlights.map((highlight, highlightIndex) => (
                         <div
                           key={highlightIndex}
@@ -160,7 +162,7 @@ export default function Services() {
                             <Check size={14} strokeWidth={3} className="text-white transition-transform duration-300 group-hover/highlight:scale-110" />
                           </div>
                           <p
-                            className="text-xl sm:text-lg lg:text-xl text-gray-700 dark:text-gray-300 leading-relaxed transition-all duration-300 group-hover/highlight:text-[#00B46A] group-hover/highlight:translate-x-1"
+                            className="text-base sm:text-lg lg:text-xl text-gray-700 dark:text-gray-300 leading-relaxed transition-all duration-300 group-hover/highlight:text-[#00B46A] group-hover/highlight:translate-x-1"
                             dangerouslySetInnerHTML={{ __html: highlight }}
                           ></p>
                         </div>
