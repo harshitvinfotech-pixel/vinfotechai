@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Tag } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Gallery from '../components/Gallery';
@@ -81,17 +81,7 @@ export default function CaseStudyDetail() {
       <Header onQuoteClick={() => {}} />
 
       <article className="relative pt-20">
-        <div className="max-w-6xl mx-auto w-full px-6 sm:px-8 lg:px-12 pt-6">
-          <button
-            onClick={handleBackClick}
-            className="inline-flex items-center gap-2 text-gray-900 dark:text-white hover:text-[#00B46A] dark:hover:text-[#00FFB2] transition-colors duration-300 group"
-          >
-            <ArrowLeft size={20} className="transition-transform duration-300 group-hover:-translate-x-1" />
-            <span className="font-semibold text-sm sm:text-base">Back to Case Studies</span>
-          </button>
-        </div>
-
-        <div className="relative h-[50vh] min-h-[400px] max-h-[500px] overflow-hidden mt-6">
+        <div className="relative h-[70vh] min-h-[500px] max-h-[700px] overflow-hidden">
           <div className="absolute inset-0">
             <img
               src={heroImage}
@@ -102,8 +92,31 @@ export default function CaseStudyDetail() {
           </div>
 
           <div className="absolute inset-0 flex items-end">
-            <div className="max-w-6xl mx-auto w-full px-6 sm:px-8 lg:px-12 pb-8 sm:pb-10">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-3 sm:mb-4 leading-tight">
+            <div className="max-w-6xl mx-auto w-full px-6 sm:px-8 lg:px-12 pb-12 sm:pb-16">
+              <button
+                onClick={handleBackClick}
+                className="inline-flex items-center gap-2 text-white mb-6 sm:mb-8 hover:text-[#00FFB2] transition-colors duration-300 group"
+              >
+                <ArrowLeft size={20} className="transition-transform duration-300 group-hover:-translate-x-1" />
+                <span className="font-semibold text-sm sm:text-base">Back to Case Studies</span>
+              </button>
+
+              {caseStudy.tags && caseStudy.tags.length > 0 && (
+                <div className="flex flex-wrap gap-2 mb-4 sm:mb-6">
+                  {caseStudy.tags.map((tag, index) => (
+                    <span
+                      key={index}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs sm:text-sm font-semibold text-white backdrop-blur-sm"
+                      style={{ backgroundColor: 'rgba(0, 180, 106, 0.8)' }}
+                    >
+                      <Tag size={14} />
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
+
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight">
                 {caseStudy.title}
               </h1>
 
@@ -112,11 +125,19 @@ export default function CaseStudyDetail() {
                   {heroDescription}
                 </p>
               )}
+
+              {caseStudy.industry && (
+                <div className="mt-6 inline-block px-4 py-2 rounded-lg bg-white/10 backdrop-blur-sm">
+                  <span className="text-sm font-semibold text-white">
+                    Industry: {caseStudy.industry}
+                  </span>
+                </div>
+              )}
             </div>
           </div>
         </div>
 
-        <div className="py-8 sm:py-12 lg:py-16">
+        <div className="py-16 sm:py-20 lg:py-24">
           <ContentBlockRenderer
             blocks={caseStudy.content_blocks || []}
             metrics={caseStudy.metrics}
