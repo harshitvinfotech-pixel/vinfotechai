@@ -24,7 +24,7 @@ export default function ContentBlockRenderer({
   if (!blocks || blocks.length === 0) return null;
 
   return (
-    <div className="space-y-16 sm:space-y-20 lg:space-y-24">
+    <div className="space-y-20 sm:space-y-24 lg:space-y-32">
       {blocks.map((block) => {
         switch (block.block_type) {
           case 'text':

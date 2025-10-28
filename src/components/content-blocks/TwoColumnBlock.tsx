@@ -13,8 +13,8 @@ export default function TwoColumnBlock({ data }: TwoColumnBlockProps) {
   const imageOnLeft = image_position === 'left';
 
   return (
-    <div className="max-w-6xl mx-auto px-6">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+    <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
         {hasImage && imageOnLeft && (
           <div className="order-1 lg:order-1">
             <div className="relative overflow-hidden rounded-2xl shadow-2xl">
@@ -36,7 +36,7 @@ export default function TwoColumnBlock({ data }: TwoColumnBlockProps) {
 
         <div className={`order-2 ${hasImage && imageOnLeft ? 'lg:order-2' : 'lg:order-1'}`}>
           <div
-            className="prose prose-lg dark:prose-invert max-w-none text-gray-700 dark:text-gray-300"
+            className="prose prose-lg sm:prose-xl dark:prose-invert max-w-none text-gray-700 dark:text-gray-300"
             dangerouslySetInnerHTML={{ __html: left_content }}
           />
         </div>
@@ -63,7 +63,7 @@ export default function TwoColumnBlock({ data }: TwoColumnBlockProps) {
         {!hasImage && (
           <div className="order-3 lg:order-2">
             <div
-              className="prose prose-lg dark:prose-invert max-w-none text-gray-700 dark:text-gray-300"
+              className="prose prose-lg sm:prose-xl dark:prose-invert max-w-none text-gray-700 dark:text-gray-300"
               dangerouslySetInnerHTML={{ __html: right_content }}
             />
           </div>

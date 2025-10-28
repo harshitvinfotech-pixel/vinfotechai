@@ -1014,3 +1014,41 @@ input[type=number] {
     font-size: 0.875rem;
   }
 }
+
+.prose ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin: 1rem 0;
+}
+
+.prose ol {
+  list-style-type: decimal;
+  padding-left: 1.5rem;
+  margin: 1rem 0;
+}
+
+.prose li {
+  margin: 0.5rem 0;
+  line-height: 1.75;
+}
+
+.prose p {
+  margin: 1rem 0;
+  line-height: 1.75;
+}
+
+.prose strong {
+  font-weight: 600;
+  color: inherit;
+}
+
+.prose blockquote {
+  border-left: 4px solid #00B46A;
+  padding-left: 1.5rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+}
+
+.dark .prose blockquote {
+  border-left-color: #00FFB2;
+}

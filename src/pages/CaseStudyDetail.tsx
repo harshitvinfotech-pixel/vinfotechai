@@ -116,7 +116,7 @@ export default function CaseStudyDetail() {
           </div>
         </div>
 
-        <div className="py-8 sm:py-12 lg:py-16">
+        <div className="py-12 sm:py-16 lg:py-24 bg-white dark:bg-gray-900">
           <ContentBlockRenderer
             blocks={caseStudy.content_blocks || []}
             metrics={caseStudy.metrics}

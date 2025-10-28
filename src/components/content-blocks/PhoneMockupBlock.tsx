@@ -9,8 +9,10 @@ export default function PhoneMockupBlock({ data }: PhoneMockupBlockProps) {
   const { app_name = 'AI Assistant', messages } = data;
 
   return (
-    <div className="max-w-4xl mx-auto px-6">
-      <PhoneMockup messages={messages} appName={app_name} />
+    <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+      <div className="max-w-4xl mx-auto">
+        <PhoneMockup messages={messages} appName={app_name} />
+      </div>
     </div>
   );
 }
