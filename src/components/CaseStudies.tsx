@@ -156,7 +156,7 @@ function CaseStudyCard({ study, onClick }: CaseStudyCardProps) {
 
         {showPreview && (
           <div className="flex-1 p-6 bg-white dark:bg-gray-900">
-            <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed line-clamp-3">
+            <p className="text-gray-700 dark:text-gray-300 text-base leading-relaxed line-clamp-3">
               {truncateText(study.subtitle || '', 140)}
             </p>
           </div>
