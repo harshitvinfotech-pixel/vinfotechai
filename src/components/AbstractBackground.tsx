@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
-import { useTheme } from '../contexts/ThemeContext';
+import ColorBends from './ColorBends';
 
 export default function AbstractBackground() {
   const [isVisible, setIsVisible] = useState(false);
-  const { theme } = useTheme();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -19,13 +18,18 @@ export default function AbstractBackground() {
         isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
       }`}
     >
-      <img
-        src={theme === 'dark' ? '/vinfo-img-dark 1 copy.jpeg' : '/vinfo-img copy.jpeg'}
-        alt=""
-        className="w-full h-full object-cover transition-opacity duration-1000"
-        style={{
-          opacity: 1,
-        }}
+      <ColorBends
+        colors={["#ff5c7a", "#8a5cff", "#00ffd1"]}
+        rotation={45}
+        speed={0.15}
+        transparent={true}
+        autoRotate={2}
+        scale={1.2}
+        frequency={1}
+        warpStrength={0.8}
+        mouseInfluence={0.5}
+        parallax={0.3}
+        noise={0.00}
       />
     </div>
   );

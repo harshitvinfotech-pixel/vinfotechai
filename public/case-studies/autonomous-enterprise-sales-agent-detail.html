@@ -1,33 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Autonomous Enterprise Sales Agent | Vinfotech Case Study</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class'
-        }
-    </script>
-    <script src="./theme-manager.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
         * {
             font-family: 'Inter', sans-serif;
-            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         }
 
         .gradient-text {
-            background: linear-gradient(135deg, #00B46A 0%, #00D68A 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        html.dark .gradient-text {
-            background: linear-gradient(135deg, #00B46A 0%, #00D68A 100%);
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -79,10 +65,6 @@
         }
 
         .hero-gradient {
-            background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 50%, #e0f9f0 100%);
-        }
-
-        html.dark .hero-gradient {
             background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
         }
 
@@ -99,132 +81,16 @@
             top: 0;
             bottom: 0;
             width: 3px;
-            background: linear-gradient(180deg, #00B46A, #00D68A);
-        }
-
-        .theme-transition {
-            transition: all 0.3s ease;
-        }
-
-        body {
-            background-color: #ffffff;
-            color: #0f1419;
-        }
-
-        html.dark body {
-            background-color: #0f172a;
-            color: #f1f5f9;
-        }
-
-        .nav-header {
-            background: rgba(255, 255, 255, 0.95);
-            border-bottom: 1px solid rgba(0, 180, 106, 0.2);
-        }
-
-        html.dark .nav-header {
-            background: rgba(15, 23, 42, 0.95);
-            border-bottom: 1px solid rgba(0, 180, 106, 0.2);
-        }
-
-        .back-button {
-            color: #00B46A;
-            border: 1px solid #00B46A;
-            background: rgba(0, 180, 106, 0.1);
-        }
-
-        .back-button:hover {
-            background: #00B46A;
-            color: white;
-            transform: translateX(-3px);
-        }
-
-        .theme-toggle-btn {
-            background: rgba(0, 180, 106, 0.1);
-            border: 1px solid #00B46A;
-            color: #00B46A;
-            padding: 0.5rem;
-            border-radius: 0.5rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .theme-toggle-btn:hover {
-            background: #00B46A;
-            color: white;
-            transform: scale(1.05);
-        }
-
-        .content-bg {
-            background-color: #f9fafb;
-            border-color: #e5e7eb;
-            color: #0f1419;
-        }
-
-        html.dark .content-bg {
-            background-color: #1e293b;
-            border-color: #334155;
-            color: #f1f5f9;
-        }
-
-        .card-bg {
-            background-color: #ffffff;
-            border-color: #e5e7eb;
-        }
-
-        html.dark .card-bg {
-            background-color: #1e293b;
-            border-color: #334155;
-        }
-
-        .text-primary {
-            color: #0f1419;
-        }
-
-        html.dark .text-primary {
-            color: #f1f5f9;
-        }
-
-        .text-secondary {
-            color: #6b7280;
-        }
-
-        html.dark .text-secondary {
-            color: #9ca3af;
-        }
-
-        .section-divider {
-            background: linear-gradient(90deg, transparent, rgba(0, 180, 106, 0.3), transparent);
-        }
-
-        .glass-card {
-            background: rgba(0, 180, 106, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(0, 180, 106, 0.2);
+            background: linear-gradient(180deg, #3b82f6, #8b5cf6);
         }
     </style>
 </head>
-<body class="theme-transition">
+<body class="bg-slate-900 text-gray-100">
 
-    <nav class="fixed top-0 w-full z-50 nav-header backdrop-blur-md shadow-lg">
+    <nav class="fixed top-0 w-full z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-800">
         <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-            <a href="/" class="flex items-center transition-transform duration-300 hover:scale-105">
-                <img id="theme-logo" src="/asset 5.png" alt="Vinfotech Logo" class="h-10 w-auto" />
-            </a>
-            <div class="flex items-center gap-4">
-                <button onclick="toggleTheme()" class="theme-toggle-btn" aria-label="Toggle theme">
-                    <span id="theme-toggle-icon">
-                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
-                        </svg>
-                    </span>
-                </button>
-                <a href="/#case-studies" class="back-button px-4 py-2 rounded-lg font-medium text-sm transition-all duration-300 flex items-center gap-2">
-                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-                    </svg>
-                    Back to Case Studies
-                </a>
-            </div>
+            <a href="/" class="text-2xl font-bold gradient-text">Vinfotech</a>
+            <a href="/#case-studies" class="text-sm text-gray-400 hover:text-white transition-colors">← Back to Case Studies</a>
         </div>
     </nav>
 
@@ -233,7 +99,7 @@
         <section class="hero-gradient py-24 px-6">
             <div class="max-w-5xl mx-auto animate-fade-in">
                 <div class="inline-block mb-6 px-4 py-2 rounded-full glass-card">
-                    <span class="text-sm font-medium" style="color: #00B46A;">AI-Powered Sales Automation</span>
+                    <span class="text-sm font-medium text-blue-400">AI-Powered Sales Automation</span>
                 </div>
                 <h1 class="text-5xl md:text-6xl font-bold mb-6 leading-tight">
                     Autonomous Enterprise<br/>
@@ -248,10 +114,7 @@
 
         <section class="max-w-5xl mx-auto px-6 py-16">
             <div class="grid md:grid-cols-4 gap-6 -mt-24 mb-16">
-                <div class="metric-card p-6 rounded-2xl border theme-transition" style="background-color: #f9fafb; border-color: #e5e7eb;">
-                <style>
-                    html.dark .metric-card { background-color: #1e293b !important; border-color: #334155 !important; }
-                </style>
+                <div class="metric-card bg-slate-800 p-6 rounded-2xl border border-slate-700">
                     <div class="stat-number gradient-text">&lt;2s</div>
                     <p class="text-gray-400 mt-2">Avg Response Time</p>
                 </div>

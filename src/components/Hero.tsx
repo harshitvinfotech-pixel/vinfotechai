@@ -21,7 +21,6 @@ export default function Hero({ onQuoteClick }: HeroProps) {
               <button
                 onClick={onQuoteClick}
                 className="group bg-[#00B46A] text-white px-7 sm:px-9 py-3 sm:py-3.5 rounded-lg font-semibold text-lg sm:text-xl hover:shadow-lg hover:shadow-[#00B46A]/50 transition-all duration-500 transform hover:scale-110 hover:-translate-y-1 flex items-center justify-center gap-2 shadow-xl hover:shadow-2xl active:scale-105 min-w-[220px] sm:w-auto"
-                aria-label="Request a quote for custom AI development"
               >
                 Request a Quote
                 <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform duration-300" />

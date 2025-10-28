@@ -1,15 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Autonomous Enterprise Sales Agent | Vinfotech</title>
-    <script>
-        if (typeof tailwind !== 'undefined' && tailwind.config) {
-            tailwind.config = { darkMode: 'class' }
-        }
-    </script>
-    <script src="./theme-manager.js"></script>
     <style>
         * {
             margin: 0;
@@ -606,93 +600,23 @@
                 font-size: 28px;
             }
         }
-    
-        /* Theme Support */
-        * {
-            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-        }
-
-        body {
-            background-color: #ffffff;
-            color: #0f1419;
-        }
-
-        html.dark body {
-            background-color: #0f172a;
-            color: #f1f5f9;
-        }
-
-        .nav-header {
-            background: rgba(255, 255, 255, 0.95);
-            border-bottom: 1px solid rgba(0, 180, 106, 0.2);
-        }
-
-        html.dark .nav-header {
-            background: rgba(15, 23, 42, 0.95);
-            border-bottom: 1px solid rgba(0, 180, 106, 0.2);
-        }
-
-        .theme-toggle-btn {
-            background: rgba(0, 180, 106, 0.1);
-            border: 1px solid #00B46A;
-            color: #00B46A;
-            padding: 0.5rem;
-            border-radius: 0.5rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .theme-toggle-btn:hover {
-            background: #00B46A;
-            color: white;
-            transform: scale(1.05);
-        }
-
-        .back-button {
-            color: #00B46A !important;
-            border: 1px solid #00B46A;
-            background: rgba(0, 180, 106, 0.1);
-            padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .back-button:hover {
-            background: #00B46A !important;
-            color: white !important;
-            transform: translateX(-3px);
-        }
     </style>
 </head>
 <body class="dark-mode">
 
-        <nav class="nav-header" style="position: fixed; top: 0; width: 100%; z-index: 1000; backdrop-filter: blur(10px); box-shadow: 0 2px 20px rgba(0, 180, 106, 0.1);">
-        <div style="max-width: 1400px; margin: 0 auto; padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center;">
-            <a href="/" style="display: flex; align-items: center; transition: transform 0.3s ease;">
-                <img id="theme-logo" src="/asset 5.png" alt="Vinfotech Logo" style="height: 2.5rem; width: auto;" />
-            </a>
-            <div style="display: flex; align-items: center; gap: 1rem;">
-                <button onclick="toggleTheme()" class="theme-toggle-btn" aria-label="Toggle theme">
-                    <span id="theme-toggle-icon">
-                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
-                        </svg>
-                    </span>
-                </button>
-                <a href="/#case-studies" class="back-button">
-                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-                    </svg>
-                    Back to Case Studies
-                </a>
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-content">
+                <a href="/" class="logo">Vinfotech</a>
+                <div class="nav-actions">
+                    <a href="/#case-studies" class="back-btn">
+                        <span>←</span>
+                        <span>Back to Case Studies</span>
+                    </a>
+                    <div class="theme-toggle" id="themeToggle">
+                        <div class="theme-toggle-slider"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>

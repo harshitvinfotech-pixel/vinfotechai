@@ -3,503 +3,827 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live Sports Auto-Prediction Engine | Vinfotech AI</title>
-    <script src="./theme-manager.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Live Sports Auto-Prediction Engine - Case Study</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Roboto:wght@300;400;500;700&display=swap');
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        :root {
+            --primary: #00B46A;
+            --primary-dark: #009456;
+            --primary-light: #33C97F;
+            --dark: #0F1419;
+            --dark-secondary: #1A1F2E;
+            --light: #F5F7FA;
+            --text-primary: #0F1419;
+            --text-secondary: #6B7280;
+            --border: #E5E7EB;
+            --success: #10B981;
+            --accent: #FF6B6B;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-            color: #e0e0e0;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        .orbitron {
-            font-family: 'Orbitron', sans-serif;
-        }
-
-        .cricket-stadium {
-            background:
-                radial-gradient(ellipse at center, rgba(34, 197, 94, 0.1) 0%, transparent 70%),
-                linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cricket-stadium::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(34, 197, 94, 0.2) 0%, transparent 70%);
-            border-radius: 50%;
-            animation: pulse-field 3s ease-in-out infinite;
-        }
-
-        @keyframes pulse-field {
-            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
-            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.8; }
-        }
-
-        .prediction-card {
-            background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
-            border: 2px solid rgba(34, 197, 94, 0.3);
-            border-radius: 16px;
-            padding: 1.5rem;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .prediction-card::before {
-            content: '';
-            position: absolute;
+        /* Navigation */
+        nav {
+            position: fixed;
             top: 0;
-            left: -100%;
             width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(34, 197, 94, 0.2), transparent);
-            animation: shimmer 2s infinite;
-        }
-
-        @keyframes shimmer {
-            0% { left: -100%; }
-            100% { left: 100%; }
-        }
-
-        .prediction-card:hover {
-            transform: translateY(-5px);
-            border-color: #22c55e;
-            box-shadow: 0 10px 40px rgba(34, 197, 94, 0.3);
-        }
-
-        .live-indicator {
-            display: inline-flex;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 0.5rem;
-            background: #dc2626;
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            font-weight: bold;
-            animation: pulse-live 1.5s ease-in-out infinite;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
         }
 
-        @keyframes pulse-live {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7); }
-            50% { box-shadow: 0 0 0 10px rgba(220, 38, 38, 0); }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: -0.5px;
         }
 
-        .live-dot {
-            width: 8px;
-            height: 8px;
-            background: white;
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            padding: 4rem 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 50%, #e0f9f0 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(0, 180, 106, 0.1) 0%, transparent 70%);
             border-radius: 50%;
-            animation: blink 1s ease-in-out infinite;
+            animation: float 6s ease-in-out infinite;
         }
 
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(30px); }
         }
 
-        .scoreboard {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            border: 3px solid #22c55e;
-            border-radius: 20px;
-            padding: 2rem;
-            box-shadow: 0 0 50px rgba(34, 197, 94, 0.3);
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin: 0 auto;
         }
 
-        .team-score {
-            font-size: 3rem;
-            font-weight: bold;
-            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
-        .over-timeline {
-            display: flex;
-            gap: 0.5rem;
-            margin: 1rem 0;
-            overflow-x: auto;
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .over-ball {
-            min-width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 0.9rem;
-            border: 2px solid #22c55e;
-            background: rgba(34, 197, 94, 0.1);
-        }
-
-        .over-ball.four {
-            background: #3b82f6;
-            border-color: #3b82f6;
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--primary);
             color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid var(--primary);
+            cursor: pointer;
+            font-size: 1rem;
         }
 
-        .over-ball.six {
-            background: #8b5cf6;
-            border-color: #8b5cf6;
+        .cta-button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 180, 106, 0.3);
+        }
+
+        /* Interactive Phone Section */
+        .phone-section {
+            padding: 5rem 2rem;
+            background: var(--dark);
             color: white;
-        }
-
-        .over-ball.wicket {
-            background: #ef4444;
-            border-color: #ef4444;
-            color: white;
-        }
-
-        .stat-meter {
-            height: 12px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
+            position: relative;
             overflow: hidden;
-            position: relative;
         }
 
-        .stat-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #22c55e, #16a34a);
-            border-radius: 10px;
-            transition: width 1s ease-out;
-            position: relative;
-        }
-
-        .stat-fill::after {
+        .phone-section::before {
             content: '';
             position: absolute;
             top: 0;
+            left: 0;
             right: 0;
             bottom: 0;
-            width: 20px;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3));
+            background: radial-gradient(circle at 20% 50%, rgba(0, 180, 106, 0.1) 0%, transparent 50%);
+            pointer-events: none;
         }
 
-        .feature-grid {
+        .phone-container {
+            max-width: 1200px;
+            margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 2;
         }
 
-        .feature-box {
-            background: rgba(34, 197, 94, 0.05);
-            border: 2px solid rgba(34, 197, 94, 0.2);
-            border-radius: 16px;
+        .phone-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .phone-content p {
+            font-size: 1.1rem;
+            color: #D1D5DB;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .features-list {
+            list-style: none;
+            margin: 2rem 0;
+        }
+
+        .features-list li {
+            padding: 0.75rem 0;
+            padding-left: 2rem;
+            position: relative;
+            color: #D1D5DB;
+        }
+
+        .features-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Phone Mockup */
+        .phone-mockup {
+            perspective: 1000px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .phone {
+            width: 280px;
+            height: 580px;
+            background: #000;
+            border-radius: 40px;
+            padding: 12px;
+            box-shadow: 0 20px 60px rgba(0, 180, 106, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1);
+            position: relative;
+            animation: phoneFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes phoneFloat {
+            0%, 100% { transform: translateY(0px) rotateZ(-5deg); }
+            50% { transform: translateY(-20px) rotateZ(-5deg); }
+        }
+
+        .phone::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 25px;
+            background: #000;
+            border-radius: 0 0 20px 20px;
+            z-index: 10;
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border-radius: 35px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            padding-top: 30px;
+        }
+
+        .phone-content-inner {
+            flex: 1;
+            padding: 1.5rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .prediction-card {
+            background: rgba(0, 180, 106, 0.1);
+            border: 1px solid var(--primary);
+            border-radius: 12px;
+            padding: 1rem;
+            animation: slideIn 0.5s ease forwards;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .prediction-card h4 {
+            color: var(--primary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .prediction-card p {
+            color: #E5E7EB;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        .prediction-card .difficulty {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            margin-top: 0.5rem;
+            font-weight: 600;
+        }
+
+        /* Content Sections */
+        .section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: var(--text-primary);
+        }
+
+        .section-title span {
+            color: var(--primary);
+        }
+
+        /* Challenge Section */
+        .challenge-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .challenge-card {
+            background: white;
             padding: 2rem;
+            border-radius: 16px;
+            border-left: 4px solid var(--primary);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
             transition: all 0.3s ease;
         }
 
-        .feature-box:hover {
-            border-color: #22c55e;
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(34, 197, 94, 0.2);
+        .challenge-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 180, 106, 0.15);
         }
 
-        .tech-chip {
-            display: inline-block;
-            background: rgba(34, 197, 94, 0.2);
-            border: 1px solid #22c55e;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
+        .challenge-card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .challenge-card p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* Solution Section */
+        .solution-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+
+        .solution-image {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+            box-shadow: 0 10px 40px rgba(0, 180, 106, 0.2);
+        }
+
+        .solution-content h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .solution-content p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        /* Impact Section */
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .impact-card {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 2.5rem;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 180, 106, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .impact-card:hover {
+            transform: scale(1.05);
+        }
+
+        .impact-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .impact-label {
+            font-size: 1rem;
+            opacity: 0.95;
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            padding: 5rem 2rem;
+            background: var(--light);
+        }
+
+        .gallery-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            aspect-ratio: 1;
+            cursor: pointer;
+            group: 'gallery';
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 180, 106, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            color: white;
+            font-weight: 600;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        /* Tech Stack Section */
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .tech-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            border-top: 3px solid var(--primary);
+        }
+
+        .tech-item h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .tech-item p {
+            color: var(--text-secondary);
             font-size: 0.9rem;
-            margin: 0.25rem;
+        }
+
+        /* Quote Section */
+        .quote-section {
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, var(--dark) 0%, var(--dark-secondary) 100%);
+            color: white;
+            text-align: center;
+            margin: 3rem 0;
+            border-radius: 16px;
+        }
+
+        .quote-text {
+            font-size: 1.5rem;
+            font-style: italic;
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .quote-author {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(0, 180, 106, 0.2);
+        }
+
+        footer p {
+            color: #9CA3AF;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .phone-container {
+                grid-template-columns: 1fr;
+            }
+
+            .solution-grid {
+                grid-template-columns: 1fr;
+            }
+
+            nav ul {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .phone-content h2 {
+                font-size: 1.8rem;
+            }
         }
     </style>
 </head>
 <body>
-    <nav class="fixed top-0 w-full bg-slate-900/95 backdrop-blur-md z-50 border-b border-green-500/30">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="/" class="flex items-center">
-                <img src="/Vinfo-white 2.png" alt="Vinfotech" class="h-8">
-            </a>
-            <a href="/#case-studies" class="px-6 py-3 bg-green-500 text-white rounded-full font-semibold hover:bg-green-600 transition-all flex items-center gap-2">
-                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
-                </svg>
-                Back to Case Studies
-            </a>
-        </div>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">Vinfotech</div>
+        <ul>
+            <li><a href="#challenge">Challenge</a></li>
+            <li><a href="#solution">Solution</a></li>
+            <li><a href="#impact">Impact</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+        </ul>
     </nav>
 
-    <div class="cricket-stadium pt-32 pb-20 px-6 min-h-screen">
-        <div class="max-w-7xl mx-auto relative z-10">
-            <div class="text-center mb-16">
-                <div class="live-indicator mb-6 mx-auto w-fit">
-                    <div class="live-dot"></div>
-                    <span>LIVE</span>
-                </div>
-                <h1 class="text-7xl font-bold orbitron mb-6 bg-gradient-to-r from-green-400 to-emerald-500 bg-clip-text text-transparent">
-                    Live Sports<br/>Auto-Prediction Engine
-                </h1>
-                <p class="text-2xl text-gray-300 max-w-3xl mx-auto">
-                    LLM-powered engine analyzing real-time cricket data to generate contextual prediction questions every 90 seconds
-                </p>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Live Sports Auto-Prediction Engine</h1>
+            <p>Transforming real-time cricket data into intelligent, contextual fan experiences powered by LLM technology</p>
+            <button class="cta-button">Explore Case Study</button>
+        </div>
+    </section>
+
+    <!-- Interactive Phone Section -->
+    <section class="phone-section">
+        <div class="phone-container">
+            <div class="phone-content">
+                <h2>Real-Time Predictions</h2>
+                <p>Our AI engine analyzes live match data and generates contextual prediction questions every 90 seconds, keeping fans engaged with fresh, meaningful interactions.</p>
+                <ul class="features-list">
+                    <li>99% contextual accuracy</li>
+                    <li>Questions generated every 90 seconds</li>
+                    <li>Dynamic excitement scoring</li>
+                    <li>Multi-language support</li>
+                    <li>Zero manual content creation</li>
+                </ul>
             </div>
-
-            <div class="scoreboard max-w-4xl mx-auto mb-16">
-                <div class="grid md:grid-cols-2 gap-8 mb-6">
-                    <div>
-                        <div class="text-green-400 font-semibold mb-2">INDIA</div>
-                        <div class="team-score">186/4</div>
-                        <div class="text-gray-400">18.2 Overs</div>
-                    </div>
-                    <div>
-                        <div class="text-gray-400 font-semibold mb-2">AUSTRALIA</div>
-                        <div class="text-4xl font-bold text-gray-500">Yet to bat</div>
-                    </div>
-                </div>
-                <div class="over-timeline">
-                    <div class="over-ball">1</div>
-                    <div class="over-ball">0</div>
-                    <div class="over-ball four">4</div>
-                    <div class="over-ball">2</div>
-                    <div class="over-ball six">6</div>
-                    <div class="over-ball wicket">W</div>
-                </div>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-6 mb-16">
-                <div class="prediction-card">
-                    <div class="relative z-10">
-                        <div class="text-sm text-green-400 font-semibold mb-2">OVER 19 - PREDICTION</div>
-                        <h3 class="text-xl font-bold mb-3">Will Rohit reach his century?</h3>
-                        <p class="text-gray-400 mb-4">Current score: 94* (58)</p>
-                        <div class="flex items-center justify-between">
-                            <span class="text-sm text-gray-500">Difficulty</span>
-                            <span class="px-3 py-1 bg-yellow-500/20 text-yellow-400 rounded-full text-sm font-semibold">Medium</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="prediction-card">
-                    <div class="relative z-10">
-                        <div class="text-sm text-green-400 font-semibold mb-2">NEXT 2 OVERS</div>
-                        <h3 class="text-xl font-bold mb-3">Can India score 30+ runs?</h3>
-                        <p class="text-gray-400 mb-4">Required run rate: 15.00</p>
-                        <div class="flex items-center justify-between">
-                            <span class="text-sm text-gray-500">Difficulty</span>
-                            <span class="px-3 py-1 bg-red-500/20 text-red-400 rounded-full text-sm font-semibold">Hard</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="prediction-card">
-                    <div class="relative z-10">
-                        <div class="text-sm text-green-400 font-semibold mb-2">PARTNERSHIP</div>
-                        <h3 class="text-xl font-bold mb-3">Will partnership exceed 50?</h3>
-                        <p class="text-gray-400 mb-4">Current: 38 runs (22 balls)</p>
-                        <div class="flex items-center justify-between">
-                            <span class="text-sm text-gray-500">Difficulty</span>
-                            <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm font-semibold">Easy</span>
+            <div class="phone-mockup">
+                <div class="phone">
+                    <div class="phone-screen">
+                        <div class="phone-content-inner">
+                            <div class="prediction-card">
+                                <h4>Over 12</h4>
+                                <p>Will Rohit Sharma reach his half-century before the 12th over?</p>
+                                <span class="difficulty">Medium</span>
+                            </div>
+                            <div class="prediction-card">
+                                <h4>Momentum</h4>
+                                <p>Can the chasing team score 30+ in the next two overs?</p>
+                                <span class="difficulty">Hard</span>
+                            </div>
+                            <div class="prediction-card">
+                                <h4>Partnership</h4>
+                                <p>Will this partnership exceed 50 runs?</p>
+                                <span class="difficulty">Easy</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <section class="py-20 bg-slate-900">
-        <div class="max-w-7xl mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-4 orbitron">The Challenge</h2>
-            <p class="text-center text-gray-400 mb-16">Traditional sports prediction platforms struggled to keep pace</p>
+    <!-- Challenge Section -->
+    <section class="section" id="challenge">
+        <h2 class="section-title">The <span>Challenge</span></h2>
+        <div class="challenge-grid">
+            <div class="challenge-card">
+                <h3>Speed</h3>
+                <p>Traditional sports predictors rely on manual content creation. During live matches, editors struggled to frame questions quickly enough for rapidly changing situations.</p>
+            </div>
+            <div class="challenge-card">
+                <h3>Relevance</h3>
+                <p>Avoid repetitive or irrelevant questions. "Who will win the toss?" is already answered. The system needed to understand context and avoid stale predictions.</p>
+            </div>
+            <div class="challenge-card">
+                <h3>Engagement</h3>
+                <p>Maintain excitement with context-aware predictions linked to real match moments. Static pre-match quizzes couldn't compete with the dynamic nature of live sports.</p>
+            </div>
+        </div>
+    </section>
 
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="feature-box">
-                    <div class="text-5xl mb-4">⚡</div>
-                    <h3 class="text-2xl font-bold mb-3 text-green-400">Speed</h3>
-                    <p class="text-gray-400">Manual content creation couldn't match the pace of live cricket. Editors struggled to frame questions quickly enough.</p>
+    <!-- Solution Section -->
+    <section class="section" id="solution">
+        <h2 class="section-title">The <span>AI Solution</span></h2>
+        <div class="solution-grid">
+            <div class="solution-image">
+                LLM + Live Data Fusion
+            </div>
+            <div class="solution-content">
+                <h3>Autonomous Prediction Engine</h3>
+                <p>Vinfotech designed an autonomous LLM engine integrated directly with live match data feeds. The system continuously reads match context—overs, player form, partnerships, pitch conditions, and momentum—and produces prediction questions in real time.</p>
+                <p><strong>Key Features:</strong></p>
+                <ul class="features-list">
+                    <li>Context validation (no irrelevant questions)</li>
+                    <li>Difficulty & excitement rating</li>
+                    <li>Automatic market tagging</li>
+                    <li>Multi-language generation</li>
+                    <li>Continuous engagement metrics</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Section -->
+    <section class="section" id="impact">
+        <h2 class="section-title">Measurable <span>Impact</span></h2>
+        <div class="impact-grid">
+            <div class="impact-card">
+                <div class="impact-number">99%</div>
+                <div class="impact-label">Contextual Accuracy</div>
+            </div>
+            <div class="impact-card">
+                <div class="impact-number">90s</div>
+                <div class="impact-label">Question Generation Time</div>
+            </div>
+            <div class="impact-card">
+                <div class="impact-number">3×</div>
+                <div class="impact-label">Higher In-Play Engagement</div>
+            </div>
+            <div class="impact-card">
+                <div class="impact-number">0</div>
+                <div class="impact-label">Manual Content Creation</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery-section" id="gallery">
+        <div class="gallery-container">
+            <h2 class="section-title">Project <span>Gallery</span></h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #00B46A 0%, #009456 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">Live Match Dashboard</div>
+                    <div class="gallery-overlay">Live Match Dashboard</div>
                 </div>
-
-                <div class="feature-box">
-                    <div class="text-5xl mb-4">🎯</div>
-                    <h3 class="text-2xl font-bold mb-3 text-green-400">Relevance</h3>
-                    <p class="text-gray-400">Repetitive questions killed engagement. "Who will win the toss?" was already answered 2 hours ago.</p>
+                <div class="gallery-item">
+                    <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">Prediction Interface</div>
+                    <div class="gallery-overlay">Prediction Interface</div>
                 </div>
-
-                <div class="feature-box">
-                    <div class="text-5xl mb-4">🔥</div>
-                    <h3 class="text-2xl font-bold mb-3 text-green-400">Excitement</h3>
-                    <p class="text-gray-400">Static pre-match quizzes couldn't compete with the dynamic nature of live sports action.</p>
+                <div class="gallery-item">
+                    <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #FF6B6B 0%, #FF8E8E 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">Analytics Engine</div>
+                    <div class="gallery-overlay">Analytics Engine</div>
+                </div>
+                <div class="gallery-item">
+                    <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">Admin Moderator Panel</div>
+                    <div class="gallery-overlay">Admin Moderator Panel</div>
+                </div>
+                <div class="gallery-item">
+                    <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #F59E0B 0%, #FBBF24 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">Mobile Experience</div>
+                    <div class="gallery-overlay">Mobile Experience</div>
+                </div>
+                <div class="gallery-item">
+                    <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #06B6D4 0%, #0891B2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">Real-Time Scoring</div>
+                    <div class="gallery-overlay">Real-Time Scoring</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="py-20">
-        <div class="max-w-6xl mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-4 orbitron">How AI Made It Possible</h2>
-            <p class="text-center text-gray-400 mb-16">Breaking through the speed barrier with intelligent automation</p>
-
-            <div class="feature-grid">
-                <div class="feature-box">
-                    <div class="text-4xl mb-4">🤖</div>
-                    <h3 class="text-xl font-bold mb-3 text-green-400">LLM + Live Data Fusion</h3>
-                    <p class="text-gray-400">Combined GPT-4 reasoning with structured match APIs for real-time context understanding</p>
-                </div>
-
-                <div class="feature-box">
-                    <div class="text-4xl mb-4">🏏</div>
-                    <h3 class="text-xl font-bold mb-3 text-green-400">Cricket-Specific Training</h3>
-                    <p class="text-gray-400">Fine-tuned on thousands of historical matches to learn pacing and excitement patterns</p>
-                </div>
-
-                <div class="feature-box">
-                    <div class="text-4xl mb-4">✅</div>
-                    <h3 class="text-xl font-bold mb-3 text-green-400">Context Filters</h3>
-                    <p class="text-gray-400">Guardrails prevent low-value or repetitive questions once events are resolved</p>
-                </div>
-
-                <div class="feature-box">
-                    <div class="text-4xl mb-4">🌍</div>
-                    <h3 class="text-xl font-bold mb-3 text-green-400">Multi-Language</h3>
-                    <p class="text-gray-400">Generates English, Hindi, and regional language versions instantly</p>
-                </div>
-
-                <div class="feature-box">
-                    <div class="text-4xl mb-4">📊</div>
-                    <h3 class="text-xl font-bold mb-3 text-green-400">Continuous Evaluation</h3>
-                    <p class="text-gray-400">Measures engagement metrics to improve future prompts and excitement scoring</p>
-                </div>
-
-                <div class="feature-box">
-                    <div class="text-4xl mb-4">⚙️</div>
-                    <h3 class="text-xl font-bold mb-3 text-green-400">Question Scoring</h3>
-                    <p class="text-gray-400">AI rates each question on novelty, difficulty, and engagement likelihood</p>
-                </div>
+    <!-- Tech Stack Section -->
+    <section class="section">
+        <h2 class="section-title">Technology <span>Stack</span></h2>
+        <div class="tech-stack">
+            <div class="tech-item">
+                <h4>LLMs</h4>
+                <p>GPT-4 Turbo, Mistral-7B</p>
+            </div>
+            <div class="tech-item">
+                <h4>Data Sources</h4>
+                <p>Live Cricket APIs, Player Databases</p>
+            </div>
+            <div class="tech-item">
+                <h4>Frameworks</h4>
+                <p>LangChain, FastAPI, Redis</p>
+            </div>
+            <div class="tech-item">
+                <h4>Frontend</h4>
+                <p>React Dashboards, WebSocket</p>
+            </div>
+            <div class="tech-item">
+                <h4>Infrastructure</h4>
+                <p>AWS ECS, S3, CloudWatch</p>
+            </div>
+            <div class="tech-item">
+                <h4>Database</h4>
+                <p>PostgreSQL, Real-time Analytics</p>
             </div>
         </div>
     </section>
 
-    <section class="py-20 bg-slate-900">
-        <div class="max-w-6xl mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-16 orbitron">Performance Metrics</h2>
-
-            <div class="space-y-8">
-                <div>
-                    <div class="flex justify-between mb-3">
-                        <span class="text-lg font-semibold">Contextual Accuracy</span>
-                        <span class="text-2xl font-bold text-green-400">99%</span>
-                    </div>
-                    <div class="stat-meter">
-                        <div class="stat-fill" style="width: 99%;"></div>
-                    </div>
-                </div>
-
-                <div>
-                    <div class="flex justify-between mb-3">
-                        <span class="text-lg font-semibold">Question Generation Speed</span>
-                        <span class="text-2xl font-bold text-green-400">90s</span>
-                    </div>
-                    <div class="stat-meter">
-                        <div class="stat-fill" style="width: 95%;"></div>
-                    </div>
-                </div>
-
-                <div>
-                    <div class="flex justify-between mb-3">
-                        <span class="text-lg font-semibold">In-Play Engagement Increase</span>
-                        <span class="text-2xl font-bold text-green-400">3×</span>
-                    </div>
-                    <div class="stat-meter">
-                        <div class="stat-fill" style="width: 100%;"></div>
-                    </div>
-                </div>
-
-                <div>
-                    <div class="flex justify-between mb-3">
-                        <span class="text-lg font-semibold">Manual Content Reduction</span>
-                        <span class="text-2xl font-bold text-green-400">100%</span>
-                    </div>
-                    <div class="stat-meter">
-                        <div class="stat-fill" style="width: 100%;"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!-- Quote Section -->
+    <section class="quote-section">
+        <div class="quote-text">"The AI doesn't just understand cricket data—it understands the story of the match. Every question feels timely, natural, and exciting."</div>
+        <div class="quote-author">— Product Director, Vinfotech Sports Innovation</div>
     </section>
 
-    <section class="py-20">
-        <div class="max-w-7xl mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-16 orbitron">Technology Stack</h2>
-            <div class="grid md:grid-cols-3 lg:grid-cols-6 gap-4">
-                <div class="text-center">
-                    <div class="tech-chip w-full">GPT-4 Turbo</div>
-                </div>
-                <div class="text-center">
-                    <div class="tech-chip w-full">Mistral-7B</div>
-                </div>
-                <div class="text-center">
-                    <div class="tech-chip w-full">LangChain</div>
-                </div>
-                <div class="text-center">
-                    <div class="tech-chip w-full">FastAPI</div>
-                </div>
-                <div class="text-center">
-                    <div class="tech-chip w-full">Redis Queue</div>
-                </div>
-                <div class="text-center">
-                    <div class="tech-chip w-full">PostgreSQL</div>
-                </div>
-                <div class="text-center">
-                    <div class="tech-chip w-full">AWS ECS</div>
-                </div>
-                <div class="text-center">
-                    <div class="tech-chip w-full">CloudWatch</div>
-                </div>
-                <div class="text-center">
-                    <div class="tech-chip w-full">WebSocket</div>
-                </div>
-                <div class="text-center">
-                    <div class="tech-chip w-full">React</div>
-                </div>
-                <div class="text-center">
-                    <div class="tech-chip w-full">Cricket APIs</div>
-                </div>
-                <div class="text-center">
-                    <div class="tech-chip w-full">S3</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-20 bg-gradient-to-r from-green-600 to-emerald-600">
-        <div class="max-w-4xl mx-auto px-6 text-center text-white">
-            <div class="text-8xl mb-6">"</div>
-            <blockquote class="text-3xl font-semibold mb-8 leading-relaxed">
-                The AI doesn't just understand cricket data—it understands the story of the match. Every question feels timely, natural, and exciting.
-            </blockquote>
-            <div class="flex items-center justify-center gap-4">
-                <div class="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center text-2xl font-bold backdrop-blur">
-                    P
-                </div>
-                <div class="text-left">
-                    <div class="font-bold text-xl">Product Director</div>
-                    <div class="text-green-100">Vinfotech Sports Innovation</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="py-12 bg-slate-950 text-center text-gray-400">
-        <p>&copy; 2025 Vinfotech. Live Sports Auto-Prediction Engine Case Study.</p>
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Vinfotech. Live Sports Auto-Prediction Engine Case Study. All rights reserved.</p>
     </footer>
+
+    <script>
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'slideIn 0.6s ease forwards';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.challenge-card, .impact-card, .tech-item').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Interactive phone screen rotation
+        const phone = document.querySelector('.phone');
+        document.addEventListener('mousemove', (e) => {
+            const rect = phone.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            const rotateX = (y / rect.height) * 10;
+            const rotateY = (x / rect.width) * 10;
+            phone.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) rotateZ(-5deg)`;
+        });
+
+        document.addEventListener('mouseleave', () => {
+            phone.style.transform = 'rotateX(0) rotateY(0) rotateZ(-5deg)';
+        });
+    </script>
 </body>
 </html>

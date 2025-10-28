@@ -1,439 +1,477 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Autonomous Enterprise Sales Agent | Vinfotech AI Case Study</title>
-    <script src="./theme-manager.js"></script>
-    <meta name="description" content="How Vinfotech scaled pre-sales with an always-on, cited AI assistant">
+    <title>Autonomous Enterprise Sales Agent | Vinfotech Case Study</title>
+    <meta name="description" content="How Vinfotech scaled pre-sales with an always-on, cited AI assistant that answers complex inbound queries with verified responses—24/7.">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-
         * {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
-            color: #e0e7ff;
-            overflow-x: hidden;
-        }
-
-        .gradient-text {
-            background: linear-gradient(135deg, #00D4AA 0%, #00B46A 50%, #00946F 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .glow {
-            box-shadow: 0 0 40px rgba(0, 212, 170, 0.3);
-        }
-
-        .hero-pattern {
-            background-image:
-                radial-gradient(circle at 20% 50%, rgba(0, 212, 170, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(0, 180, 106, 0.1) 0%, transparent 50%);
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-
-        @keyframes slideInLeft {
-            from { opacity: 0; transform: translateX(-50px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        @keyframes slideInRight {
-            from { opacity: 0; transform: translateX(50px); }
-            to { opacity: 1; transform: translateX(0); }
+            font-family: 'Helvetica', 'Arial', sans-serif;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .animate-float {
-            animation: float 6s ease-in-out infinite;
+        .fade-in {
+            animation: fadeIn 0.6s ease-out;
         }
 
-        .animate-slide-left {
-            animation: slideInLeft 0.8s ease-out forwards;
+        .hover-lift {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .animate-slide-right {
-            animation: slideInRight 0.8s ease-out forwards;
-        }
-
-        .flow-diagram {
-            position: relative;
-        }
-
-        .flow-step {
-            background: rgba(0, 212, 170, 0.05);
-            border: 2px solid rgba(0, 212, 170, 0.2);
-            border-radius: 16px;
-            padding: 2rem;
-            position: relative;
-            transition: all 0.3s ease;
-        }
-
-        .flow-step:hover {
-            border-color: #00D4AA;
-            transform: scale(1.05);
-            box-shadow: 0 10px 40px rgba(0, 212, 170, 0.2);
-        }
-
-        .flow-arrow {
-            width: 2px;
-            height: 60px;
-            background: linear-gradient(to bottom, #00D4AA, transparent);
-            margin: 0 auto;
-        }
-
-        .tech-badge {
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            background: rgba(0, 212, 170, 0.1);
-            border: 1px solid rgba(0, 212, 170, 0.3);
-            border-radius: 20px;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-
-        .tech-badge:hover {
-            background: rgba(0, 212, 170, 0.2);
-            transform: translateY(-2px);
-        }
-
-        .stat-card {
-            background: linear-gradient(135deg, rgba(0, 212, 170, 0.1) 0%, rgba(0, 148, 111, 0.05) 100%);
-            border: 1px solid rgba(0, 212, 170, 0.2);
-            border-radius: 20px;
-            padding: 2.5rem;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 60px rgba(0, 212, 170, 0.3);
-        }
-
-        .architecture-box {
-            background: rgba(15, 23, 42, 0.6);
-            border: 2px solid rgba(0, 212, 170, 0.3);
-            border-radius: 12px;
-            padding: 1.5rem;
-            backdrop-filter: blur(10px);
-        }
-
-        .nav-header {
-            background: rgba(10, 14, 39, 0.95);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(0, 212, 170, 0.1);
-        }
-
-        .back-btn {
-            background: rgba(0, 212, 170, 0.1);
-            border: 1px solid #00D4AA;
-            color: #00D4AA;
-            padding: 0.75rem 1.5rem;
-            border-radius: 12px;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: all 0.3s ease;
-        }
-
-        .back-btn:hover {
-            background: #00D4AA;
-            color: #0a0e27;
-            transform: translateX(-5px);
+        .hover-lift:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 180, 106, 0.15);
         }
     </style>
 </head>
-<body>
-    <nav class="nav-header fixed top-0 w-full z-50">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="/" class="flex items-center">
-                <img src="/Vinfo-white 2.png" alt="Vinfotech" class="h-8">
-            </a>
-            <a href="/#case-studies" class="back-btn">
-                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
-                </svg>
-                Back to Case Studies
-            </a>
-        </div>
-    </nav>
+<body class="bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-300">
 
-    <div class="pt-24 pb-16 hero-pattern">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid lg:grid-cols-2 gap-12 items-center">
-                <div class="animate-slide-left">
-                    <div class="inline-block px-4 py-2 bg-gradient-to-r from-emerald-500/20 to-teal-500/20 rounded-full text-emerald-400 text-sm font-semibold mb-6">
-                        🤖 AI-Powered Sales Agent
-                    </div>
-                    <h1 class="text-6xl font-bold mb-6 leading-tight">
-                        Autonomous<br/>
-                        <span class="gradient-text">Enterprise Sales Agent</span>
-                    </h1>
-                    <p class="text-xl text-gray-300 mb-8 leading-relaxed">
-                        How Vinfotech transformed pre-sales with an AI assistant that provides accurate, cited responses 24/7 — revolutionizing customer engagement and reducing manual workload by 70%.
-                    </p>
-                    <div class="flex flex-wrap gap-4">
-                        <div class="stat-card flex-1 min-w-[150px]">
-                            <div class="text-4xl font-bold gradient-text mb-2">&lt;2s</div>
-                            <div class="text-sm text-gray-400">Response Time</div>
-                        </div>
-                        <div class="stat-card flex-1 min-w-[150px]">
-                            <div class="text-4xl font-bold gradient-text mb-2">94%</div>
-                            <div class="text-sm text-gray-400">Accuracy Rate</div>
-                        </div>
-                        <div class="stat-card flex-1 min-w-[150px]">
-                            <div class="text-4xl font-bold gradient-text mb-2">70%</div>
-                            <div class="text-sm text-gray-400">Fewer Emails</div>
-                        </div>
-                    </div>
+    <div class="min-h-screen">
+        <section class="relative container mx-auto px-6 sm:px-8 lg:px-12 py-16 lg:py-24 mt-8">
+            <div class="relative bg-gradient-to-br from-gray-50 to-emerald-50 dark:from-slate-900 dark:to-gray-900 rounded-3xl border border-gray-200 dark:border-gray-800 overflow-hidden">
+
+                <div class="absolute top-6 right-6 z-10">
+                    <button id="themeToggle" class="p-2 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-colors">
+                        <svg id="sunIcon" class="h-5 w-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                        </svg>
+                        <svg id="moonIcon" class="h-5 w-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                        </svg>
+                    </button>
                 </div>
-                <div class="animate-slide-right">
-                    <div class="relative">
-                        <div class="absolute inset-0 bg-gradient-to-r from-emerald-500/20 to-teal-500/20 rounded-3xl blur-3xl animate-float"></div>
-                        <img src="https://images.pexels.com/photos/8438922/pexels-photo-8438922.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="AI Sales Agent" class="relative rounded-3xl glow w-full">
+
+                <a href="/" class="absolute top-6 left-6 flex items-center gap-2 px-4 py-2 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm text-gray-700 dark:text-gray-300 rounded-lg hover:bg-white dark:hover:bg-gray-800 transition-all duration-300 border border-gray-300 dark:border-gray-700 z-10">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                    </svg>
+                    <span class="font-medium">Back to Home</span>
+                </a>
+
+                <div class="grid lg:grid-cols-2 gap-12 items-center p-12 lg:p-16 pt-20">
+                    <div class="lg:col-span-1 fade-in">
+                        <span class="inline-flex items-center rounded-full bg-emerald-100 dark:bg-emerald-900 px-3 py-1 text-xs font-medium text-emerald-700 dark:text-emerald-300 mb-4">
+                            <svg class="h-4 w-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
+                            Autonomous AI Agent
+                        </span>
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-gray-900 dark:text-white leading-tight">
+                            Autonomous Enterprise Sales Agent
+                        </h1>
+                        <p class="mt-6 text-lg text-gray-700 dark:text-gray-300 max-w-lg">
+                            How Vinfotech scaled pre-sales with an always-on, cited AI assistant.
+                        </p>
+                        <p class="mt-3 text-lg text-gray-700 dark:text-gray-300 max-w-lg">
+                            An Enterprise RAG agent that answers complex inbound queries with verified, brand-consistent responses—24/7.
+                        </p>
+
+                        <div class="mt-8 flex flex-wrap gap-4">
+                            <div class="flex items-center space-x-2 bg-gray-100 dark:bg-gray-800/40 border border-gray-200 dark:border-gray-700 rounded-full px-4 py-2">
+                                <svg class="h-5 w-5 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <span class="text-lg font-semibold text-gray-800 dark:text-white">&lt;2s</span>
+                                <span class="text-sm text-gray-600 dark:text-gray-400">Response Time</span>
+                            </div>
+                            <div class="flex items-center space-x-2 bg-gray-100 dark:bg-gray-800/40 border border-gray-200 dark:border-gray-700 rounded-full px-4 py-2">
+                                <svg class="h-5 w-5 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <span class="text-lg font-semibold text-gray-800 dark:text-white">94%</span>
+                                <span class="text-sm text-gray-600 dark:text-gray-400">Accuracy</span>
+                            </div>
+                            <div class="flex items-center space-x-2 bg-gray-100 dark:bg-gray-800/40 border border-gray-200 dark:border-gray-700 rounded-full px-4 py-2">
+                                <svg class="h-5 w-5 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                </svg>
+                                <span class="text-lg font-semibold text-gray-800 dark:text-white">70%</span>
+                                <span class="text-sm text-gray-600 dark:text-gray-400">Fewer Emails</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-1 flex justify-center lg:justify-end fade-in">
+                        <img class="w-full max-w-lg rounded-2xl shadow-xl" src="https://images.pexels.com/photos/8438922/pexels-photo-8438922.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="AI Sales Agent Visual">
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
+
+        <section class="py-16 sm:py-24 bg-gradient-to-b from-gray-50/50 dark:from-white/5 to-transparent">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                    <div class="order-2 lg:order-1">
+                        <div class="aspect-[4/3] rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 shadow-xl">
+                            <img src="https://images.pexels.com/photos/5816299/pexels-photo-5816299.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Overview" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+
+                    <div class="order-1 lg:order-2">
+                        <div class="inline-flex items-center gap-3 mb-6">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center">
+                                <svg class="text-blue-500 h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                            <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">Overview</h2>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-4 group">
+                                <div class="flex-shrink-0 w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-600 dark:text-emerald-400 font-bold text-sm group-hover:bg-emerald-500 group-hover:text-white transition-colors">1</div>
+                                <p class="text-gray-600 dark:text-gray-300 leading-relaxed pt-0.5">Enterprise RAG agent trained on structured and unstructured knowledge</p>
+                            </div>
+                            <div class="flex items-start gap-4 group">
+                                <div class="flex-shrink-0 w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-600 dark:text-emerald-400 font-bold text-sm group-hover:bg-emerald-500 group-hover:text-white transition-colors">2</div>
+                                <p class="text-gray-600 dark:text-gray-300 leading-relaxed pt-0.5">Synthesizes verified answers with citations from multiple data sources</p>
+                            </div>
+                            <div class="flex items-start gap-4 group">
+                                <div class="flex-shrink-0 w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-600 dark:text-emerald-400 font-bold text-sm group-hover:bg-emerald-500 group-hover:text-white transition-colors">3</div>
+                                <p class="text-gray-600 dark:text-gray-300 leading-relaxed pt-0.5">Suggests intelligent follow-up questions to guide users</p>
+                            </div>
+                            <div class="flex items-start gap-4 group">
+                                <div class="flex-shrink-0 w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-600 dark:text-emerald-400 font-bold text-sm group-hover:bg-emerald-500 group-hover:text-white transition-colors">4</div>
+                                <p class="text-gray-600 dark:text-gray-300 leading-relaxed pt-0.5">Reduced manual email responses by 70% while maintaining 94% accuracy</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-16 sm:py-24">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-3xl mx-auto text-center mb-12">
+                    <div class="inline-flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center">
+                            <svg class="text-red-500 h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                            </svg>
+                        </div>
+                        <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">The Challenge</h2>
+                    </div>
+                    <p class="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+                        Handling complex inbound queries efficiently was difficult. Human responses were slow and inconsistent. Complex questions spanned PDFs, docs, sheets, and web pages. Manual processes risked losing potential clients due to delayed responses.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-16 sm:py-24 bg-gradient-to-b from-emerald-500/5 to-transparent">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12 sm:mb-16">
+                    <div class="inline-flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center">
+                            <svg class="text-emerald-600 dark:text-emerald-400 h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                        </div>
+                        <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">Key Features</h2>
+                    </div>
+                    <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                        Cutting-edge AI capabilities powering the solution
+                    </p>
+                </div>
+
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="group p-6 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/50 hover:border-emerald-500/40 hover:shadow-xl hover:shadow-emerald-500/10 transition-all duration-300 hover-lift">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-4 group-hover:bg-emerald-500 group-hover:scale-110 transition-all">
+                            <svg class="text-emerald-600 dark:text-emerald-400 group-hover:text-white h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-semibold mb-2 text-gray-900 dark:text-white">Hybrid Retrieval</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Unified search across all data sources including PDFs, sheets, and databases</p>
+                    </div>
+
+                    <div class="group p-6 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/50 hover:border-emerald-500/40 hover:shadow-xl hover:shadow-emerald-500/10 transition-all duration-300 hover-lift">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-4 group-hover:bg-emerald-500 group-hover:scale-110 transition-all">
+                            <svg class="text-emerald-600 dark:text-emerald-400 group-hover:text-white h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-semibold mb-2 text-gray-900 dark:text-white">Brand-Safe Tone</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Professional, consistent responses that maintain your brand voice</p>
+                    </div>
+
+                    <div class="group p-6 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/50 hover:border-emerald-500/40 hover:shadow-xl hover:shadow-emerald-500/10 transition-all duration-300 hover-lift">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-4 group-hover:bg-emerald-500 group-hover:scale-110 transition-all">
+                            <svg class="text-emerald-600 dark:text-emerald-400 group-hover:text-white h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-semibold mb-2 text-gray-900 dark:text-white">Source Citations</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Every answer includes verifiable sources with direct links</p>
+                    </div>
+
+                    <div class="group p-6 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/50 hover:border-emerald-500/40 hover:shadow-xl hover:shadow-emerald-500/10 transition-all duration-300 hover-lift">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-4 group-hover:bg-emerald-500 group-hover:scale-110 transition-all">
+                            <svg class="text-emerald-600 dark:text-emerald-400 group-hover:text-white h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-semibold mb-2 text-gray-900 dark:text-white">24/7 Availability</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Always-on digital sales executive ready to assist</p>
+                    </div>
+
+                    <div class="group p-6 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/50 hover:border-emerald-500/40 hover:shadow-xl hover:shadow-emerald-500/10 transition-all duration-300 hover-lift">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-4 group-hover:bg-emerald-500 group-hover:scale-110 transition-all">
+                            <svg class="text-emerald-600 dark:text-emerald-400 group-hover:text-white h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-semibold mb-2 text-gray-900 dark:text-white">Auto-Indexing</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Nightly auto-indexing of new content keeps knowledge up-to-date</p>
+                    </div>
+
+                    <div class="group p-6 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/50 hover:border-emerald-500/40 hover:shadow-xl hover:shadow-emerald-500/10 transition-all duration-300 hover-lift">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-4 group-hover:bg-emerald-500 group-hover:scale-110 transition-all">
+                            <svg class="text-emerald-600 dark:text-emerald-400 group-hover:text-white h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-semibold mb-2 text-gray-900 dark:text-white">Follow-up Questions</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Intelligent suggestions to guide users through complex queries</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-16 sm:py-24">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12 sm:mb-16">
+                    <div class="inline-flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center">
+                            <svg class="text-purple-500 h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                            </svg>
+                        </div>
+                        <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">Technology Stack</h2>
+                    </div>
+                    <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                        Built on cutting-edge AI and cloud infrastructure
+                    </p>
+                </div>
+
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="p-6 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/50 hover:border-emerald-500/40 hover:shadow-lg transition-all duration-300">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-4">
+                            <span class="text-2xl">🤖</span>
+                        </div>
+                        <h3 class="font-bold mb-4 text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">AI Models</h3>
+                        <ul class="space-y-2.5">
+                            <li class="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
+                                <svg class="h-4 w-4 text-emerald-600 dark:text-emerald-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                                <span>GPT-4</span>
+                            </li>
+                            <li class="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
+                                <svg class="h-4 w-4 text-emerald-600 dark:text-emerald-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                                <span>LangChain</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="p-6 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/50 hover:border-emerald-500/40 hover:shadow-lg transition-all duration-300">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-4">
+                            <span class="text-2xl">💻</span>
+                        </div>
+                        <h3 class="font-bold mb-4 text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">Framework</h3>
+                        <ul class="space-y-2.5">
+                            <li class="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
+                                <svg class="h-4 w-4 text-emerald-600 dark:text-emerald-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                                <span>React</span>
+                            </li>
+                            <li class="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
+                                <svg class="h-4 w-4 text-emerald-600 dark:text-emerald-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                                <span>Next.js</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="p-6 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/50 hover:border-emerald-500/40 hover:shadow-lg transition-all duration-300">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-4">
+                            <span class="text-2xl">⚙️</span>
+                        </div>
+                        <h3 class="font-bold mb-4 text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">Backend</h3>
+                        <ul class="space-y-2.5">
+                            <li class="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
+                                <svg class="h-4 w-4 text-emerald-600 dark:text-emerald-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                                <span>pgvector</span>
+                            </li>
+                            <li class="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
+                                <svg class="h-4 w-4 text-emerald-600 dark:text-emerald-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                                <span>FastAPI</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="p-6 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/50 hover:border-emerald-500/40 hover:shadow-lg transition-all duration-300">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-4">
+                            <span class="text-2xl">☁️</span>
+                        </div>
+                        <h3 class="font-bold mb-4 text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">Infrastructure</h3>
+                        <ul class="space-y-2.5">
+                            <li class="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
+                                <svg class="h-4 w-4 text-emerald-600 dark:text-emerald-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                                <span>AWS</span>
+                            </li>
+                            <li class="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
+                                <svg class="h-4 w-4 text-emerald-600 dark:text-emerald-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                                <span>Docker</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-16 sm:py-24 bg-gradient-to-b from-emerald-500/5 to-transparent">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-3xl mx-auto text-center">
+                    <div class="inline-flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-green-500/10 flex items-center justify-center">
+                            <svg class="text-green-500 h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                            </svg>
+                        </div>
+                        <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">The Results</h2>
+                    </div>
+                    <p class="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+                        The AI agent delivered immediate and measurable impact. Response times dropped from hours to under 2 seconds. Manual email volume decreased by 70%, freeing up the sales team to focus on high-value conversations. Answer accuracy reached 94%, with built-in citations ensuring trust and transparency. Lead conversion improved by 35% due to instant, accurate responses that kept prospects engaged.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-16 sm:py-24 bg-gray-100 dark:bg-gray-900 border-y border-gray-200 dark:border-gray-800">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="relative p-8 sm:p-12 rounded-3xl border-2 border-emerald-500/20 bg-gradient-to-br from-emerald-500/5 via-transparent to-emerald-500/5 shadow-2xl overflow-hidden">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full filter blur-3xl -z-10"></div>
+                    <div class="absolute bottom-0 left-0 w-64 h-64 bg-emerald-500/10 rounded-full filter blur-3xl -z-10"></div>
+
+                    <div class="relative z-10">
+                        <div class="text-6xl text-emerald-600/40 dark:text-emerald-400/40 mb-4 leading-none">"</div>
+                        <blockquote class="text-xl sm:text-2xl font-semibold text-gray-900 dark:text-white mb-8 leading-relaxed">
+                            Our AI Sales Agent has become the most reliable member of our sales team — accurate, tireless, and always on message.
+                        </blockquote>
+                        <div class="flex items-center gap-4">
+                            <div class="w-14 h-14 rounded-full bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center text-white font-bold text-xl flex-shrink-0 shadow-lg">
+                                H
+                            </div>
+                            <div>
+                                <div class="font-semibold text-gray-900 dark:text-white">Head of Growth</div>
+                                <div class="text-sm text-gray-600 dark:text-gray-400">Vinfotech</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-16 sm:py-24">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">Related Case Studies</h2>
+                    <p class="text-lg text-gray-600 dark:text-gray-400">Explore more of our AI solutions</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <a href="vision-based-attendance-productivity-monitoring.html" class="group block p-6 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/50 hover:border-emerald-500/40 hover:shadow-xl transition-all duration-300 hover-lift">
+                        <img src="https://images.pexels.com/photos/5726794/pexels-photo-5726794.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Vision-Based Attendance" class="w-full h-48 object-cover rounded-lg mb-4">
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">Vision-Based Attendance & Productivity Monitoring</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">AI-powered computer vision system for automated attendance tracking and productivity monitoring.</p>
+                        <div class="flex items-center text-emerald-600 dark:text-emerald-400 font-medium text-sm">
+                            View Case Study
+                            <svg class="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                    </a>
+
+                    <a href="live-sports-auto-prediction-engine.html" class="group block p-6 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/50 hover:border-emerald-500/40 hover:shadow-xl transition-all duration-300 hover-lift">
+                        <img src="https://images.pexels.com/photos/274422/pexels-photo-274422.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Live Sports Prediction" class="w-full h-48 object-cover rounded-lg mb-4">
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">Live Sports Auto-Prediction Engine</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">Real-time AI prediction engine for accurate sports forecasts and betting insights.</p>
+                        <div class="flex items-center text-emerald-600 dark:text-emerald-400 font-medium text-sm">
+                            View Case Study
+                            <svg class="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
     </div>
 
-    <section class="py-20 bg-gradient-to-b from-transparent to-slate-900/50">
-        <div class="max-w-7xl mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-4">Overview</h2>
-            <p class="text-center text-gray-400 mb-16 max-w-3xl mx-auto">
-                An intelligent RAG-powered system that transformed how Vinfotech handles customer inquiries
-            </p>
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="space-y-6">
-                    <div class="flex gap-4 p-6 bg-slate-800/50 rounded-2xl border border-emerald-500/20 hover:border-emerald-500/50 transition-all">
-                        <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-emerald-500/20 flex items-center justify-center text-2xl">1</div>
-                        <div>
-                            <h3 class="text-lg font-semibold text-emerald-400 mb-2">Unified Knowledge Base</h3>
-                            <p class="text-gray-400">Integrated 10+ years of documentation, proposals, and website content into one searchable knowledge base</p>
-                        </div>
-                    </div>
-                    <div class="flex gap-4 p-6 bg-slate-800/50 rounded-2xl border border-emerald-500/20 hover:border-emerald-500/50 transition-all">
-                        <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-emerald-500/20 flex items-center justify-center text-2xl">2</div>
-                        <div>
-                            <h3 class="text-lg font-semibold text-emerald-400 mb-2">RAG Architecture</h3>
-                            <p class="text-gray-400">Built using LangChain and pgvector for context-preserving retrieval with citation-first responses</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="space-y-6">
-                    <div class="flex gap-4 p-6 bg-slate-800/50 rounded-2xl border border-emerald-500/20 hover:border-emerald-500/50 transition-all">
-                        <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-emerald-500/20 flex items-center justify-center text-2xl">3</div>
-                        <div>
-                            <h3 class="text-lg font-semibold text-emerald-400 mb-2">Verified Responses</h3>
-                            <p class="text-gray-400">Every answer includes source citations and follows brand-consistent tone and messaging</p>
-                        </div>
-                    </div>
-                    <div class="flex gap-4 p-6 bg-slate-800/50 rounded-2xl border border-emerald-500/20 hover:border-emerald-500/50 transition-all">
-                        <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-emerald-500/20 flex items-center justify-center text-2xl">4</div>
-                        <div>
-                            <h3 class="text-lg font-semibold text-emerald-400 mb-2">24/7 Availability</h3>
-                            <p class="text-gray-400">Handles global traffic without timezone dependency, with auto-indexing of new content nightly</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <button id="scrollTop" class="fixed bottom-8 right-8 w-14 h-14 bg-emerald-600 text-white rounded-full shadow-xl hover:shadow-2xl hover:bg-emerald-500 transition-all duration-300 transform hover:scale-110 items-center justify-center z-50 hidden">
+        <svg class="h-6 w-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+        </svg>
+    </button>
 
-    <section class="py-20">
-        <div class="max-w-5xl mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-4">The Challenge</h2>
-            <p class="text-center text-gray-400 mb-12">Understanding the pre-sales bottleneck</p>
-            <div class="architecture-box">
-                <div class="grid md:grid-cols-3 gap-6 text-center">
-                    <div>
-                        <div class="text-5xl mb-4">⏰</div>
-                        <h3 class="text-xl font-semibold text-red-400 mb-2">Slow Responses</h3>
-                        <p class="text-gray-400 text-sm">Manual responses took hours, risking lost prospects</p>
-                    </div>
-                    <div>
-                        <div class="text-5xl mb-4">📚</div>
-                        <h3 class="text-xl font-semibold text-red-400 mb-2">Complex Queries</h3>
-                        <p class="text-gray-400 text-sm">Questions spanned PDFs, docs, sheets, and web pages</p>
-                    </div>
-                    <div>
-                        <div class="text-5xl mb-4">🔀</div>
-                        <h3 class="text-xl font-semibold text-red-400 mb-2">Inconsistent Quality</h3>
-                        <p class="text-gray-400 text-sm">Human responses varied in accuracy and tone</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const scrollTopBtn = document.getElementById('scrollTop');
+        const htmlElement = document.documentElement;
 
-    <section class="py-20 bg-slate-900/50">
-        <div class="max-w-6xl mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-4">How AI Made It Possible</h2>
-            <p class="text-center text-gray-400 mb-16">The breakthrough technologies powering autonomous sales</p>
+        function getTheme() {
+            return localStorage.getItem('theme') || 'dark';
+        }
 
-            <div class="flow-diagram max-w-2xl mx-auto">
-                <div class="flow-step">
-                    <div class="text-3xl mb-3">🔍</div>
-                    <h3 class="text-xl font-bold text-emerald-400 mb-2">Hybrid Retrieval</h3>
-                    <p class="text-gray-400">RAG on mixed data types: website text, PDFs, spreadsheets, and live DB entries</p>
-                </div>
-                <div class="flow-arrow"></div>
+        function setTheme(theme) {
+            localStorage.setItem('theme', theme);
+            if (theme === 'dark') {
+                htmlElement.classList.add('dark');
+            } else {
+                htmlElement.classList.remove('dark');
+            }
+        }
 
-                <div class="flow-step">
-                    <div class="text-3xl mb-3">🎯</div>
-                    <h3 class="text-xl font-bold text-emerald-400 mb-2">Context Preservation</h3>
-                    <p class="text-gray-400">Vector search + reranking for highly specific, relevant responses</p>
-                </div>
-                <div class="flow-arrow"></div>
+        setTheme(getTheme());
 
-                <div class="flow-step">
-                    <div class="text-3xl mb-3">📖</div>
-                    <h3 class="text-xl font-bold text-emerald-400 mb-2">Citation-First</h3>
-                    <p class="text-gray-400">Every answer links back to verified internal documents or URLs</p>
-                </div>
-                <div class="flow-arrow"></div>
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = getTheme();
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            setTheme(newTheme);
+        });
 
-                <div class="flow-step">
-                    <div class="text-3xl mb-3">🎨</div>
-                    <h3 class="text-xl font-bold text-emerald-400 mb-2">Adaptive Tone</h3>
-                    <p class="text-gray-400">Prompts tuned to match professional but approachable brand voice</p>
-                </div>
-                <div class="flow-arrow"></div>
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                scrollTopBtn.classList.remove('hidden');
+                scrollTopBtn.classList.add('flex');
+            } else {
+                scrollTopBtn.classList.add('hidden');
+                scrollTopBtn.classList.remove('flex');
+            }
+        });
 
-                <div class="flow-step">
-                    <div class="text-3xl mb-3">🔄</div>
-                    <h3 class="text-xl font-bold text-emerald-400 mb-2">Continuous Learning</h3>
-                    <p class="text-gray-400">New content and FAQs automatically indexed each night</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-20">
-        <div class="max-w-7xl mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-4">Technology Stack</h2>
-            <p class="text-center text-gray-400 mb-16">Built on cutting-edge AI infrastructure</p>
-
-            <div class="grid md:grid-cols-4 gap-6">
-                <div class="architecture-box text-center">
-                    <div class="text-4xl mb-4">🤖</div>
-                    <h3 class="text-lg font-bold text-emerald-400 mb-3">LLMs</h3>
-                    <div class="space-y-2">
-                        <div class="tech-badge">GPT-4 Turbo</div>
-                        <div class="tech-badge">Mistral 7B</div>
-                    </div>
-                </div>
-
-                <div class="architecture-box text-center">
-                    <div class="text-4xl mb-4">🔗</div>
-                    <h3 class="text-lg font-bold text-emerald-400 mb-3">Retrieval</h3>
-                    <div class="space-y-2">
-                        <div class="tech-badge">LangChain</div>
-                        <div class="tech-badge">pgvector</div>
-                        <div class="tech-badge">ElasticSearch</div>
-                    </div>
-                </div>
-
-                <div class="architecture-box text-center">
-                    <div class="text-4xl mb-4">⚛️</div>
-                    <h3 class="text-lg font-bold text-emerald-400 mb-3">Frontend</h3>
-                    <div class="space-y-2">
-                        <div class="tech-badge">React</div>
-                        <div class="tech-badge">Next.js</div>
-                        <div class="tech-badge">Tailwind</div>
-                    </div>
-                </div>
-
-                <div class="architecture-box text-center">
-                    <div class="text-4xl mb-4">☁️</div>
-                    <h3 class="text-lg font-bold text-emerald-400 mb-3">Infrastructure</h3>
-                    <div class="space-y-2">
-                        <div class="tech-badge">AWS ECS</div>
-                        <div class="tech-badge">S3</div>
-                        <div class="tech-badge">Redis Cache</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-20 bg-gradient-to-b from-slate-900/50 to-transparent">
-        <div class="max-w-7xl mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-4">Business Impact</h2>
-            <p class="text-center text-gray-400 mb-16">Measurable results across key metrics</p>
-
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="stat-card">
-                    <div class="text-5xl font-bold gradient-text mb-3">&lt;2s</div>
-                    <div class="text-sm text-gray-400 mb-1">Average Response Time</div>
-                    <div class="text-xs text-gray-500">Down from hours</div>
-                </div>
-                <div class="stat-card">
-                    <div class="text-5xl font-bold gradient-text mb-3">94%</div>
-                    <div class="text-sm text-gray-400 mb-1">Answer Accuracy</div>
-                    <div class="text-xs text-gray-500">Validated against playbooks</div>
-                </div>
-                <div class="stat-card">
-                    <div class="text-5xl font-bold gradient-text mb-3">70%</div>
-                    <div class="text-sm text-gray-400 mb-1">Reduction in Manual Responses</div>
-                    <div class="text-xs text-gray-500">Freeing up sales team</div>
-                </div>
-                <div class="stat-card">
-                    <div class="text-5xl font-bold gradient-text mb-3">2.3×</div>
-                    <div class="text-sm text-gray-400 mb-1">Longer Sessions</div>
-                    <div class="text-xs text-gray-500">35% more conversions</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-20">
-        <div class="max-w-4xl mx-auto px-6">
-            <div class="relative p-12 rounded-3xl border-2 border-emerald-500/30 bg-gradient-to-br from-emerald-900/20 to-teal-900/20 overflow-hidden">
-                <div class="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl"></div>
-                <div class="absolute bottom-0 left-0 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl"></div>
-
-                <div class="relative z-10">
-                    <div class="text-6xl text-emerald-400/40 mb-4">"</div>
-                    <blockquote class="text-2xl font-semibold mb-8 leading-relaxed">
-                        Our AI Sales Agent has become the most reliable member of our sales team — accurate, tireless, and always on message.
-                    </blockquote>
-                    <div class="flex items-center gap-4">
-                        <div class="w-14 h-14 rounded-full bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center text-white font-bold text-xl">
-                            H
-                        </div>
-                        <div>
-                            <div class="font-semibold">Head of Growth</div>
-                            <div class="text-sm text-gray-400">Vinfotech</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="py-12 border-t border-emerald-500/10">
-        <div class="max-w-7xl mx-auto px-6 text-center text-gray-400">
-            <p>&copy; 2025 Vinfotech. Autonomous Enterprise Sales Agent Case Study.</p>
-        </div>
-    </footer>
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
 </body>
 </html>

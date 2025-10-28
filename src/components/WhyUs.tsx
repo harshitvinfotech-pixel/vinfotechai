@@ -171,7 +171,6 @@ function FeatureCard({ feature, index, isVisible }: FeatureCardProps) {
             <img
               src={feature.image}
               alt={feature.title}
-              loading="lazy"
               className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ${
                 isHovered && !isExpanded ? 'scale-110 brightness-110' : 'scale-100 brightness-100'
               }`}
@@ -182,8 +181,8 @@ function FeatureCard({ feature, index, isVisible }: FeatureCardProps) {
           </div>
 
 
-          <div className="absolute inset-0 z-10 px-6 sm:px-8 flex items-center">
-            <h3 className="font-bold text-white leading-tight text-left font-['Helvetica','Arial',sans-serif]" style={{ fontSize: '42px' }}>
+          <div className="absolute inset-0 z-10 flex items-center justify-start px-6 sm:px-8">
+            <h3 className="font-bold text-white leading-tight text-left font-['Helvetica','Arial',sans-serif]" style={{ fontSize: '45px' }}>
               {feature.title}
             </h3>
           </div>

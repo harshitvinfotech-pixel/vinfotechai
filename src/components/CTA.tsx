@@ -36,8 +36,7 @@ export default function CTA({ onQuoteClick }: CTAProps) {
                 <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-xl sm:rounded-2xl flex items-center justify-center">
                   <img
                     src="/vinfo-2.png"
-                    alt="Vinfotech AI Logo"
-                    loading="lazy"
+                    alt="Vinfo Logo"
                     className="w-full h-full object-contain"
                   />
                 </div>
@@ -60,7 +59,6 @@ export default function CTA({ onQuoteClick }: CTAProps) {
                 <button
                   onClick={onQuoteClick}
                   className="bg-[#00B46A] text-white px-8 sm:px-10 py-3 sm:py-4 rounded-lg font-semibold text-lg sm:text-xl flex items-center justify-center gap-2 shadow-lg min-w-[240px] sm:w-auto"
-                  aria-label="Request a quote to start your AI development project"
                 >
                   Request a Quote
                   <ArrowRight
