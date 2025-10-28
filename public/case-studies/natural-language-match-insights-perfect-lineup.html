@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI-Powered Cricket Analytics – Natural-Language Match Insights | Vinfotech Case Study</title>
+    <script>
+        if (typeof tailwind !== 'undefined' && tailwind.config) {
+            tailwind.config = { darkMode: 'class' }
+        }
+    </script>
+    <script src="./theme-manager.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+* {
+  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+}
+
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark-mode {
+  background: linear-gradient(180deg, #0a2540 0%, #0d3a5c 50%, #0a2540 100%);
+  color: #ffffff;
+}
+
+body.light-mode {
+  background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 50%, #f8fafc 100%);
+  color: #1e293b;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.8s ease-out;
+}
+
+/* Header Styles */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(12px);
+}
+
+.header.scrolled {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode .header {
+  background: rgba(10, 37, 64, 0.95);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.light-mode .header {
+  background: rgba(255, 255, 255, 0.95);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Card Styles */
+.stat-card {
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.dark-mode .stat-card {
+  background: rgba(13, 58, 92, 0.6);
+  border: 1px solid rgba(0, 180, 106, 0.3);
+}
+
+.light-mode .stat-card {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 180, 106, 0.3);
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 180, 106, 0.3);
+}
+
+.dark-mode .stat-card:hover {
+  background: rgba(13, 58, 92, 0.8);
+  border-color: #00b46a;
+}
+
+.light-mode .stat-card:hover {
+  background: rgba(255, 255, 255, 1);
+  border-color: #00b46a;
+}
+
+.section-card {
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  transition: all 0.3s ease;
+}
+
+.dark-mode .section-card {
+  background: rgba(13, 58, 92, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.light-mode .section-card {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.section-card:hover {
+  border-color: rgba(0, 180, 106, 0.4);
+}
+
+.dark-mode .section-card:hover {
+  background: rgba(13, 58, 92, 0.6);
+}
+
+.light-mode .section-card:hover {
+  background: rgba(255, 255, 255, 1);
+}
+
+.problem-card {
+  border-radius: 16px;
+  padding: 24px;
+  transition: all 0.3s ease;
+}
+
+.dark-mode .problem-card {
+  background: rgba(13, 58, 92, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.light-mode .problem-card {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.problem-card:hover {
+  border-color: rgba(0, 180, 106, 0.4);
+  transform: translateY(-4px);
+}
+
+.tech-badge {
+  background: rgba(0, 180, 106, 0.15);
+  color: #00b46a;
+  border: 1px solid rgba(0, 180, 106, 0.3);
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  display: inline-block;
+  margin: 4px;
+  transition: all 0.2s ease;
+}
+
+.tech-badge:hover {
+  background: rgba(0, 180, 106, 0.25);
+  border-color: #00b46a;
+  transform: translateY(-2px);
+}
+
+.timeline-step {
+  position: relative;
+  padding-left: 60px;
+  margin-bottom: 32px;
+}
+
+.timeline-step::before {
+  content: '';
+  position: absolute;
+  left: 19px;
+  top: 40px;
+  bottom: -32px;
+  width: 2px;
+  background: linear-gradient(180deg, #00b46a 0%, rgba(0, 180, 106, 0.2) 100%);
+}
+
+.timeline-step:last-child::before {
+  display: none;
+}
+
+.chat-bubble {
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin: 12px 0;
+  backdrop-filter: blur(10px);
+}
+
+.dark-mode .chat-bubble {
+  background: rgba(13, 58, 92, 0.8);
+  border: 1px solid rgba(0, 180, 106, 0.3);
+}
+
+.light-mode .chat-bubble {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 180, 106, 0.3);
+}
+
+.flow-box {
+  border-radius: 16px;
+  padding: 24px;
+  min-width: 180px;
+  text-align: center;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.dark-mode .flow-box {
+  background: rgba(13, 58, 92, 0.6);
+  border: 2px solid #00b46a;
+}
+
+.light-mode .flow-box {
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid #00b46a;
+}
+
+.flow-box:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 180, 106, 0.3);
+}
+
+.dark-mode .flow-box:hover {
+  background: rgba(13, 58, 92, 0.8);
+}
+
+.light-mode .flow-box:hover {
+  background: rgba(255, 255, 255, 1);
+}
+
+.icon-box {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.text-muted {
+  transition: color 0.3s ease;
+}
+
+.dark-mode .text-muted {
+  color: #94a3b8;
+}
+
+.light-mode .text-muted {
+  color: #64748b;
+}
+
+.btn-primary {
+  background: #00b46a;
+  color: white;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: #009959;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 180, 106, 0.3);
+}
+
+.theme-toggle {
+  background: transparent;
+  border: 1px solid rgba(0, 180, 106, 0.3);
+  border-radius: 8px;
+  padding: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+  background: rgba(0, 180, 106, 0.1);
+  border-color: #00b46a;
+}
+
+        /* Theme Support */
+        * {
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #0f1419;
+        }
+
+        html.dark body {
+            background-color: #0f172a;
+            color: #f1f5f9;
+        }
+
+        .nav-header {
+            background: rgba(255, 255, 255, 0.95);
+            border-bottom: 1px solid rgba(0, 180, 106, 0.2);
+        }
+
+        html.dark .nav-header {
+            background: rgba(15, 23, 42, 0.95);
+            border-bottom: 1px solid rgba(0, 180, 106, 0.2);
+        }
+
+        .theme-toggle-btn {
+            background: rgba(0, 180, 106, 0.1);
+            border: 1px solid #00B46A;
+            color: #00B46A;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle-btn:hover {
+            background: #00B46A;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .back-button {
+            color: #00B46A !important;
+            border: 1px solid #00B46A;
+            background: rgba(0, 180, 106, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .back-button:hover {
+            background: #00B46A !important;
+            color: white !important;
+            transform: translateX(-3px);
+        }
+    </style>
+</head>
+<body class="dark-mode">
+
+<!-- Header -->
+<header class="header" id="header">
+  <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+    <div class="flex items-center justify-between h-20">
+      <!-- Logo -->
+      <a href="../" class="flex items-center">
+        <img id="logo" src="../Vinfo-white 2.png" alt="Vinfotech Logo" class="h-10 w-auto transition-transform duration-300 hover:scale-105">
+      </a>
+
+      <!-- Navigation -->
+          <nav class="nav-header" style="position: fixed; top: 0; width: 100%; z-index: 1000; backdrop-filter: blur(10px); box-shadow: 0 2px 20px rgba(0, 180, 106, 0.1);">
+        <div style="max-width: 1400px; margin: 0 auto; padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center;">
+            <a href="/" style="display: flex; align-items: center; transition: transform 0.3s ease;">
+                <img id="theme-logo" src="/asset 5.png" alt="Vinfotech Logo" style="height: 2.5rem; width: auto;" />
+            </a>
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <button onclick="toggleTheme()" class="theme-toggle-btn" aria-label="Toggle theme">
+                    <span id="theme-toggle-icon">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                        </svg>
+                    </span>
+                </button>
+                <a href="/#case-studies" class="back-button">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                    </svg>
+                    Back to Case Studies
+                </a>
+            </div>
+        </div>
+    </nav>
+
+      <!-- Mobile Menu Button -->
+      <button onclick="toggleMobileMenu()" class="md:hidden theme-toggle">
+        <svg class="w-6 h-6 text-[#00b46a]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Page Content -->
+<div style="padding-top: 80px;">
+
+<!-- Hero Section -->
+<section class="container mx-auto px-6 sm:px-8 lg:px-12 py-12 lg:py-20">
+  <div class="grid lg:grid-cols-2 gap-12 items-center">
+    <div class="fade-in">
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+        Natural-Language Match Insights – PerfectLineup
+      </h1>
+      <p class="text-xl text-muted mb-4 leading-relaxed">
+        A multilingual, conversational AI that delivers match-ready cricket insights in seconds
+      </p>
+      <p class="text-lg text-muted leading-relaxed">
+        Vinfotech's breakthrough AI system transforms scattered cricket data into instant, conversational intelligence
+      </p>
+    </div>
+
+    <div class="fade-in flex justify-center lg:justify-end">
+      <img class="w-full max-w-md rounded-2xl shadow-2xl border border-white/10"
+           src="https://images.pexels.com/photos/3657154/pexels-photo-3657154.jpeg?auto=compress&cs=tinysrgb&w=800"
+           alt="Cricket Analytics Interface">
+    </div>
+  </div>
+
+  <!-- Key Metrics -->
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-16">
+    <div class="stat-card p-6 rounded-xl text-center">
+      <div class="text-5xl font-bold text-[#00b46a] mb-2">90%+</div>
+      <div class="text-sm text-muted">Answer Accuracy</div>
+    </div>
+    <div class="stat-card p-6 rounded-xl text-center">
+      <div class="text-5xl font-bold text-[#00b46a] mb-2">&lt;2.5s</div>
+      <div class="text-sm text-muted">Response Time</div>
+    </div>
+    <div class="stat-card p-6 rounded-xl text-center">
+      <div class="text-5xl font-bold text-[#00b46a] mb-2">5L+</div>
+      <div class="text-sm text-muted">Downloads</div>
+    </div>
+  </div>
+</section>
+
+<!-- The Problem Section -->
+<section class="py-20">
+  <div class="container mx-auto px-6 sm:px-8 lg:px-12">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl sm:text-5xl font-bold mb-6">The Data Complexity Problem</h2>
+      <p class="text-xl text-muted max-w-3xl mx-auto">Before AI: A fragmented landscape of cricket insights</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="problem-card">
+        <div class="icon-box bg-red-500/10 border border-red-500/30">
+          <svg class="w-7 h-7 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+        </div>
+        <h3 class="text-lg font-bold mb-3">Time-Consuming Research</h3>
+        <p class="text-muted text-sm">Analysts spent 3+ hours researching each match</p>
+      </div>
+
+      <div class="problem-card">
+        <div class="icon-box bg-orange-500/10 border border-orange-500/30">
+          <svg class="w-7 h-7 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path>
+          </svg>
+        </div>
+        <h3 class="text-lg font-bold mb-3">Fragmented Data Sources</h3>
+        <p class="text-muted text-sm">Data scattered across 15+ different sources</p>
+      </div>
+
+      <div class="problem-card">
+        <div class="icon-box bg-yellow-500/10 border border-yellow-500/30">
+          <svg class="w-7 h-7 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path>
+          </svg>
+        </div>
+        <h3 class="text-lg font-bold mb-3">Language Barriers</h3>
+        <p class="text-muted text-sm">Language barriers limiting regional insights</p>
+      </div>
+
+      <div class="problem-card">
+        <div class="icon-box bg-purple-500/10 border border-purple-500/30">
+          <svg class="w-7 h-7 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+          </svg>
+        </div>
+        <h3 class="text-lg font-bold mb-3">Manual Correlation</h3>
+        <p class="text-muted text-sm">Manual correlation of statistics and context</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- The Solution Section -->
+<section class="py-20">
+  <div class="container mx-auto px-6 sm:px-8 lg:px-12">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl sm:text-5xl font-bold mb-6">Turning Data Chaos into Conversational Clarity</h2>
+      <p class="text-xl text-muted max-w-3xl mx-auto">How AI revolutionized cricket analysis through natural language</p>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <div class="section-card p-8">
+        <div class="text-sm text-[#00b46a] font-semibold mb-4">PerfectLineup AI Assistant</div>
+
+        <div class="chat-bubble">
+          <div class="font-semibold mb-2">Who performs best at Wankhede under lights?</div>
+          <div class="text-muted text-sm leading-relaxed">Based on analysis of 47 night matches at Wankhede Stadium, Rohit Sharma leads with an average of 52.3, supported by data from IPL 2019-2024 seasons...</div>
+          <div class="text-[#00b46a] text-xs font-semibold mt-3">Sources: IPL Official Stats, ESPNCricinfo</div>
+        </div>
+
+        <div class="chat-bubble">
+          <div class="font-semibold mb-2">भारत बनाम ऑस्ट्रेलिया में सबसे अच्छा गेंदबाज कौन है?</div>
+          <div class="text-muted text-sm leading-relaxed">पिछले 5 वर्षों के विश्लेषण के आधार पर, जसप्रीत बुमराह का औसत 18.2 है...</div>
+          <div class="text-[#00b46a] text-xs font-semibold mt-3">Sources: BCCI, Cricbuzz Hindi</div>
+        </div>
+      </div>
+
+      <div class="space-y-6">
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0 w-12 h-12 bg-[#00b46a]/20 rounded-xl flex items-center justify-center border border-[#00b46a]/40">
+            <svg class="w-6 h-6 text-[#00b46a]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold mb-2">Hybrid Retrieval System</h3>
+            <p class="text-muted text-sm">Combines structured stats with unstructured text analysis</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0 w-12 h-12 bg-[#00b46a]/20 rounded-xl flex items-center justify-center border border-[#00b46a]/40">
+            <svg class="w-6 h-6 text-[#00b46a]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path>
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold mb-2">Multilingual Support</h3>
+            <p class="text-muted text-sm">Processes insights in 11+ languages including Hindi, Tamil, Telugu</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0 w-12 h-12 bg-[#00b46a]/20 rounded-xl flex items-center justify-center border border-[#00b46a]/40">
+            <svg class="w-6 h-6 text-[#00b46a]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold mb-2">Source Citations</h3>
+            <p class="text-muted text-sm">Every answer includes verifiable source references</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0 w-12 h-12 bg-[#00b46a]/20 rounded-xl flex items-center justify-center border border-[#00b46a]/40">
+            <svg class="w-6 h-6 text-[#00b46a]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold mb-2">Real-time Updates</h3>
+            <p class="text-muted text-sm">Continuously updated with live match data</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AI Flow Diagram -->
+<section class="py-20">
+  <div class="container mx-auto px-6 sm:px-8 lg:px-12">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl sm:text-5xl font-bold mb-6">How AI Made the Impossible Possible</h2>
+      <p class="text-xl text-muted max-w-3xl mx-auto">Advanced AI capabilities powering intelligent cricket insights</p>
+    </div>
+
+    <div class="section-card p-8 lg:p-12 mb-12">
+      <div class="flex flex-col lg:flex-row items-center justify-center gap-8">
+        <div class="flow-box">
+          <div class="w-16 h-16 bg-[#00b46a]/20 rounded-xl flex items-center justify-center mx-auto mb-4 border border-[#00b46a]/40">
+            <svg class="w-8 h-8 text-[#00b46a]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path>
+            </svg>
+          </div>
+          <h3 class="font-bold mb-2">Data Sources</h3>
+          <p class="text-sm text-muted">Structured & unstructured cricket data</p>
+        </div>
+
+        <div class="text-[#00b46a] text-3xl font-light hidden lg:block">→</div>
+
+        <div class="flow-box">
+          <div class="w-16 h-16 bg-[#00b46a]/20 rounded-xl flex items-center justify-center mx-auto mb-4 border border-[#00b46a]/40">
+            <svg class="w-8 h-8 text-[#00b46a]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+            </svg>
+          </div>
+          <h3 class="font-bold mb-2">AI Brain</h3>
+          <p class="text-sm text-muted">RAG system with multilingual processing</p>
+        </div>
+
+        <div class="text-[#00b46a] text-3xl font-light hidden lg:block">→</div>
+
+        <div class="flow-box">
+          <div class="w-16 h-16 bg-[#00b46a]/20 rounded-xl flex items-center justify-center mx-auto mb-4 border border-[#00b46a]/40">
+            <svg class="w-8 h-8 text-[#00b46a]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+            </svg>
+          </div>
+          <h3 class="font-bold mb-2">Conversational Response</h3>
+          <p class="text-sm text-muted">Cited insights in natural language</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="section-card p-6">
+        <div class="text-[#00b46a] font-bold text-lg mb-2">Entity Linking</div>
+        <p class="text-sm text-muted">Connects players, teams, and venues across cricket databases</p>
+      </div>
+      <div class="section-card p-6">
+        <div class="text-[#00b46a] font-bold text-lg mb-2">Multilingual Embeddings</div>
+        <p class="text-sm text-muted">Processes regional cricket insights in native languages</p>
+      </div>
+      <div class="section-card p-6">
+        <div class="text-[#00b46a] font-bold text-lg mb-2">Hybrid Retrieval</div>
+        <p class="text-sm text-muted">Combines structured stats with contextual match analysis</p>
+      </div>
+      <div class="section-card p-6">
+        <div class="text-[#00b46a] font-bold text-lg mb-2">Continuous Learning</div>
+        <p class="text-sm text-muted">Adapts and improves from every match update and query</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Development Timeline -->
+<section class="py-20">
+  <div class="container mx-auto px-6 sm:px-8 lg:px-12">
+    <div class="text-center mb-16">
+      <div class="inline-block px-4 py-2 bg-[#00b46a]/20 text-[#00b46a] rounded-full text-sm font-semibold mb-6 border border-[#00b46a]/40">
+        AI Sports Analytics
+      </div>
+      <h2 class="text-4xl sm:text-5xl font-bold mb-6">Our Systematic Development Process</h2>
+      <p class="text-xl text-muted">From concept to deployment: A proven 17-week journey</p>
+    </div>
+
+    <div class="max-w-4xl mx-auto">
+      <div class="timeline-step">
+        <div class="flex items-start gap-6">
+          <div class="flex-shrink-0 w-10 h-10 bg-[#00b46a] rounded-full flex items-center justify-center font-bold text-sm text-white shadow-lg">1</div>
+          <div class="flex-1 section-card p-6">
+            <div class="flex justify-between items-start mb-3">
+              <h3 class="text-xl font-bold">Data Strategy & Architecture</h3>
+              <span class="text-[#00b46a] font-semibold text-sm">2 weeks</span>
+            </div>
+            <p class="text-muted">Mapped cricket data ecosystem and designed RAG architecture</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-step">
+        <div class="flex items-start gap-6">
+          <div class="flex-shrink-0 w-10 h-10 bg-[#00b46a] rounded-full flex items-center justify-center font-bold text-sm text-white shadow-lg">2</div>
+          <div class="flex-1 section-card p-6">
+            <div class="flex justify-between items-start mb-3">
+              <h3 class="text-xl font-bold">RAG System Implementation</h3>
+              <span class="text-[#00b46a] font-semibold text-sm">6 weeks</span>
+            </div>
+            <p class="text-muted">Built hybrid retrieval with vector databases and LLM integration</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-step">
+        <div class="flex items-start gap-6">
+          <div class="flex-shrink-0 w-10 h-10 bg-[#00b46a] rounded-full flex items-center justify-center font-bold text-sm text-white shadow-lg">3</div>
+          <div class="flex-1 section-card p-6">
+            <div class="flex justify-between items-start mb-3">
+              <h3 class="text-xl font-bold">Multilingual Integration</h3>
+              <span class="text-[#00b46a] font-semibold text-sm">4 weeks</span>
+            </div>
+            <p class="text-muted">Implemented IndicBERT and regional language processing</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-step">
+        <div class="flex items-start gap-6">
+          <div class="flex-shrink-0 w-10 h-10 bg-[#00b46a] rounded-full flex items-center justify-center font-bold text-sm text-white shadow-lg">4</div>
+          <div class="flex-1 section-card p-6">
+            <div class="flex justify-between items-start mb-3">
+              <h3 class="text-xl font-bold">UI/UX Design & Testing</h3>
+              <span class="text-[#00b46a] font-semibold text-sm">3 weeks</span>
+            </div>
+            <p class="text-muted">Created conversational interface with extensive user testing</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-step">
+        <div class="flex items-start gap-6">
+          <div class="flex-shrink-0 w-10 h-10 bg-[#00b46a] rounded-full flex items-center justify-center font-bold text-sm text-white shadow-lg">5</div>
+          <div class="flex-1 section-card p-6">
+            <div class="flex justify-between items-start mb-3">
+              <h3 class="text-xl font-bold">Production Deployment</h3>
+              <span class="text-[#00b46a] font-semibold text-sm">2 weeks</span>
+            </div>
+            <p class="text-muted">Deployed with monitoring, scaling, and performance optimization</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Technology Stack -->
+<section class="py-20">
+  <div class="container mx-auto px-6 sm:px-8 lg:px-12">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl sm:text-5xl font-bold mb-6">Technology Backbone</h2>
+      <p class="text-xl text-muted max-w-3xl mx-auto">Cutting-edge AI stack powering conversational cricket intelligence</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-8">
+      <div class="section-card p-8">
+        <h3 class="text-xl font-bold mb-4">Large Language Models</h3>
+        <div class="flex flex-wrap gap-2">
+          <span class="tech-badge">GPT-4 Turbo</span>
+          <span class="tech-badge">Mistral-7B</span>
+          <span class="tech-badge">IndicBERT</span>
+        </div>
+      </div>
+
+      <div class="section-card p-8">
+        <h3 class="text-xl font-bold mb-4">Retrieval & Vector Systems</h3>
+        <div class="flex flex-wrap gap-2">
+          <span class="tech-badge">LangChain</span>
+          <span class="tech-badge">pgvector</span>
+          <span class="tech-badge">Elasticsearch</span>
+          <span class="tech-badge">Chroma DB</span>
+        </div>
+      </div>
+
+      <div class="section-card p-8">
+        <h3 class="text-xl font-bold mb-4">Frontend & User Experience</h3>
+        <div class="flex flex-wrap gap-2">
+          <span class="tech-badge">React</span>
+          <span class="tech-badge">NextJS</span>
+          <span class="tech-badge">Tailwind CSS</span>
+          <span class="tech-badge">Framer Motion</span>
+        </div>
+      </div>
+
+      <div class="section-card p-8">
+        <h3 class="text-xl font-bold mb-4">Infrastructure & Deployment</h3>
+        <div class="flex flex-wrap gap-2">
+          <span class="tech-badge">AWS ECS</span>
+          <span class="tech-badge">S3</span>
+          <span class="tech-badge">Redis</span>
+          <span class="tech-badge">CloudWatch</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Results Section -->
+<section class="py-20">
+  <div class="container mx-auto px-6 sm:px-8 lg:px-12">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl sm:text-5xl font-bold mb-6">Measurable Success</h2>
+      <p class="text-xl text-muted max-w-3xl mx-auto">Real-world impact across performance, engagement, and user satisfaction</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="stat-card p-8 rounded-xl text-center">
+        <div class="text-5xl font-bold text-[#00b46a] mb-3">90%+</div>
+        <div class="text-lg font-semibold mb-2">Answer Accuracy</div>
+        <p class="text-sm text-muted">Verified against expert cricket analysts</p>
+      </div>
+
+      <div class="stat-card p-8 rounded-xl text-center">
+        <div class="text-5xl font-bold text-[#00b46a] mb-3">&lt;2.5s</div>
+        <div class="text-lg font-semibold mb-2">Response Time</div>
+        <p class="text-sm text-muted">Average query to response completion</p>
+      </div>
+
+      <div class="stat-card p-8 rounded-xl text-center">
+        <div class="text-5xl font-bold text-[#00b46a] mb-3">40%</div>
+        <div class="text-lg font-semibold mb-2">User Engagement</div>
+        <p class="text-sm text-muted">Increase in daily active users</p>
+      </div>
+
+      <div class="stat-card p-8 rounded-xl text-center">
+        <div class="text-5xl font-bold text-[#00b46a] mb-3">3+ hours</div>
+        <div class="text-lg font-semibold mb-2">Time Saved</div>
+        <p class="text-sm text-muted">Daily time savings per analyst</p>
+      </div>
+
+      <div class="stat-card p-8 rounded-xl text-center">
+        <div class="text-5xl font-bold text-[#00b46a] mb-3">5L+</div>
+        <div class="text-lg font-semibold mb-2">App Downloads</div>
+        <p class="text-sm text-muted">Total downloads on Google Play Store</p>
+      </div>
+
+      <div class="stat-card p-8 rounded-xl text-center">
+        <div class="text-5xl font-bold text-[#00b46a] mb-3">4.2/5</div>
+        <div class="text-lg font-semibold mb-2">User Rating</div>
+        <p class="text-sm text-muted">Average rating from 13.7K reviews</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonial -->
+<section class="py-20">
+  <div class="container mx-auto px-6 sm:px-8 lg:px-12">
+    <div class="max-w-4xl mx-auto text-center">
+      <svg class="w-12 h-12 text-[#00b46a] mx-auto mb-8" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"></path>
+      </svg>
+      <blockquote class="text-2xl sm:text-3xl font-medium mb-8 leading-relaxed">
+        Our users now get expert-level insights just by asking a question. It feels like having a cricket analyst on call 24/7.
+      </blockquote>
+      <div class="text-[#00b46a] font-semibold text-lg">Product Head</div>
+      <div class="text-muted">PerfectLineup</div>
+
+      <p class="text-xl text-muted italic mt-12">
+        AI made complex cricket data accessible to everyone—from fantasy players to analysts.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Related Case Studies -->
+<section class="py-20">
+  <div class="container mx-auto px-6 sm:px-8 lg:px-12">
+    <div class="text-center mb-12">
+      <h2 class="text-4xl font-bold mb-4">Related Case Studies</h2>
+      <p class="text-lg text-muted">Explore more AI solutions</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+      <a href="autonomous-enterprise-sales-agent.html" class="group section-card overflow-hidden hover:scale-[1.02] transition-all duration-300">
+        <img src="https://images.pexels.com/photos/8438922/pexels-photo-8438922.jpeg?auto=compress&cs=tinysrgb&w=800"
+             alt="Sales Agent"
+             class="w-full h-56 object-cover">
+        <div class="p-6">
+          <h3 class="text-xl font-bold mb-2 group-hover:text-[#00b46a] transition-colors">
+            Autonomous Enterprise Sales Agent
+          </h3>
+          <p class="text-muted text-sm mb-4">
+            AI-powered sales assistant that handles complex queries 24/7.
+          </p>
+          <div class="flex items-center text-[#00b46a] font-medium text-sm">
+            View Case Study
+            <svg class="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </div>
+        </div>
+      </a>
+
+      <a href="vision-based-attendance-productivity-monitoring.html" class="group section-card overflow-hidden hover:scale-[1.02] transition-all duration-300">
+        <img src="https://images.pexels.com/photos/5726794/pexels-photo-5726794.jpeg?auto=compress&cs=tinysrgb&w=800"
+             alt="Attendance Monitoring"
+             class="w-full h-56 object-cover">
+        <div class="p-6">
+          <h3 class="text-xl font-bold mb-2 group-hover:text-[#00b46a] transition-colors">
+            Vision-Based Attendance Monitoring
+          </h3>
+          <p class="text-muted text-sm mb-4">
+            Automated attendance tracking with computer vision AI.
+          </p>
+          <div class="flex items-center text-[#00b46a] font-medium text-sm">
+            View Case Study
+            <svg class="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer Spacer -->
+<div class="py-12"></div>
+
+</div>
+
+<script>
+// Theme Management
+function getTheme() {
+  return localStorage.getItem('theme') || 'dark';
+}
+
+function setTheme(theme) {
+  localStorage.setItem('theme', theme);
+  document.body.className = theme === 'dark' ? 'dark-mode' : 'light-mode';
+
+  // Update logo
+  const logo = document.getElementById('logo');
+  logo.src = theme === 'dark' ? '../Vinfo-white 2.png' : '../asset 5.png';
+
+  // Update theme icons
+  const sunIcon = document.getElementById('theme-icon-sun');
+  const moonIcon = document.getElementById('theme-icon-moon');
+
+  if (theme === 'dark') {
+    sunIcon.classList.add('hidden');
+    moonIcon.classList.remove('hidden');
+  } else {
+    sunIcon.classList.remove('hidden');
+    moonIcon.classList.add('hidden');
+  }
+}
+
+function toggleTheme() {
+  const newTheme = getTheme() === 'dark' ? 'light' : 'dark';
+  setTheme(newTheme);
+}
+
+// Initialize theme
+setTheme(getTheme());
+
+// Header scroll effect
+window.addEventListener('scroll', () => {
+  const header = document.getElementById('header');
+  if (window.scrollY > 20) {
+    header.classList.add('scrolled');
+  } else {
+    header.classList.remove('scrolled');
+  }
+});
+
+// Fade-in animation on scroll
+window.addEventListener('scroll', () => {
+  const elements = document.querySelectorAll('.fade-in');
+  elements.forEach(el => {
+    const rect = el.getBoundingClientRect();
+    const isVisible = rect.top < window.innerHeight * 0.8;
+    if (isVisible) {
+      el.style.opacity = '1';
+      el.style.transform = 'translateY(0)';
+    }
+  });
+});
+
+// Mobile menu toggle
+function toggleMobileMenu() {
+  alert('Mobile menu - Navigate to: About, Services, Case Studies, Blog');
+}
+</script>
+
+</body>
+</html>

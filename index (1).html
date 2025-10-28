@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Sports Auto-Prediction Engine - Case Study</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #00B46A;
+            --primary-dark: #009456;
+            --primary-light: #33C97F;
+            --dark: #0F1419;
+            --dark-secondary: #1A1F2E;
+            --light: #F5F7FA;
+            --text-primary: #0F1419;
+            --text-secondary: #6B7280;
+            --border: #E5E7EB;
+            --success: #10B981;
+            --accent: #FF6B6B;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            padding: 4rem 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 50%, #e0f9f0 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(0, 180, 106, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(30px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid var(--primary);
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .cta-button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 180, 106, 0.3);
+        }
+
+        /* Interactive Phone Section */
+        .phone-section {
+            padding: 5rem 2rem;
+            background: var(--dark);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .phone-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(0, 180, 106, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .phone-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .phone-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .phone-content p {
+            font-size: 1.1rem;
+            color: #D1D5DB;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .features-list {
+            list-style: none;
+            margin: 2rem 0;
+        }
+
+        .features-list li {
+            padding: 0.75rem 0;
+            padding-left: 2rem;
+            position: relative;
+            color: #D1D5DB;
+        }
+
+        .features-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Phone Mockup */
+        .phone-mockup {
+            perspective: 1000px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .phone {
+            width: 280px;
+            height: 580px;
+            background: #000;
+            border-radius: 40px;
+            padding: 12px;
+            box-shadow: 0 20px 60px rgba(0, 180, 106, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1);
+            position: relative;
+            animation: phoneFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes phoneFloat {
+            0%, 100% { transform: translateY(0px) rotateZ(-5deg); }
+            50% { transform: translateY(-20px) rotateZ(-5deg); }
+        }
+
+        .phone::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 25px;
+            background: #000;
+            border-radius: 0 0 20px 20px;
+            z-index: 10;
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border-radius: 35px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            padding-top: 30px;
+        }
+
+        .phone-content-inner {
+            flex: 1;
+            padding: 1.5rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .prediction-card {
+            background: rgba(0, 180, 106, 0.1);
+            border: 1px solid var(--primary);
+            border-radius: 12px;
+            padding: 1rem;
+            animation: slideIn 0.5s ease forwards;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .prediction-card h4 {
+            color: var(--primary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .prediction-card p {
+            color: #E5E7EB;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        .prediction-card .difficulty {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            margin-top: 0.5rem;
+            font-weight: 600;
+        }
+
+        /* Content Sections */
+        .section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: var(--text-primary);
+        }
+
+        .section-title span {
+            color: var(--primary);
+        }
+
+        /* Challenge Section */
+        .challenge-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .challenge-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            border-left: 4px solid var(--primary);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .challenge-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 180, 106, 0.15);
+        }
+
+        .challenge-card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .challenge-card p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* Solution Section */
+        .solution-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+
+        .solution-image {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+            box-shadow: 0 10px 40px rgba(0, 180, 106, 0.2);
+        }
+
+        .solution-content h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .solution-content p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        /* Impact Section */
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .impact-card {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 2.5rem;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 180, 106, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .impact-card:hover {
+            transform: scale(1.05);
+        }
+
+        .impact-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .impact-label {
+            font-size: 1rem;
+            opacity: 0.95;
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            padding: 5rem 2rem;
+            background: var(--light);
+        }
+
+        .gallery-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            aspect-ratio: 1;
+            cursor: pointer;
+            group: 'gallery';
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 180, 106, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            color: white;
+            font-weight: 600;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        /* Tech Stack Section */
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .tech-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            border-top: 3px solid var(--primary);
+        }
+
+        .tech-item h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .tech-item p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Quote Section */
+        .quote-section {
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, var(--dark) 0%, var(--dark-secondary) 100%);
+            color: white;
+            text-align: center;
+            margin: 3rem 0;
+            border-radius: 16px;
+        }
+
+        .quote-text {
+            font-size: 1.5rem;
+            font-style: italic;
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .quote-author {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(0, 180, 106, 0.2);
+        }
+
+        footer p {
+            color: #9CA3AF;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .phone-container {
+                grid-template-columns: 1fr;
+            }
+
+            .solution-grid {
+                grid-template-columns: 1fr;
+            }
+
+            nav ul {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .phone-content h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">Vinfotech</div>
+        <ul>
+            <li><a href="#challenge">Challenge</a></li>
+            <li><a href="#solution">Solution</a></li>
+            <li><a href="#impact">Impact</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Live Sports Auto-Prediction Engine</h1>
+            <p>Transforming real-time cricket data into intelligent, contextual fan experiences powered by LLM technology</p>
+            <button class="cta-button">Explore Case Study</button>
+        </div>
+    </section>
+
+    <!-- Interactive Phone Section -->
+    <section class="phone-section">
+        <div class="phone-container">
+            <div class="phone-content">
+                <h2>Real-Time Predictions</h2>
+                <p>Our AI engine analyzes live match data and generates contextual prediction questions every 90 seconds, keeping fans engaged with fresh, meaningful interactions.</p>
+                <ul class="features-list">
+                    <li>99% contextual accuracy</li>
+                    <li>Questions generated every 90 seconds</li>
+                    <li>Dynamic excitement scoring</li>
+                    <li>Multi-language support</li>
+                    <li>Zero manual content creation</li>
+                </ul>
+            </div>
+            <div class="phone-mockup">
+                <div class="phone">
+                    <div class="phone-screen">
+                        <div class="phone-content-inner">
+                            <div class="prediction-card">
+                                <h4>Over 12</h4>
+                                <p>Will Rohit Sharma reach his half-century before the 12th over?</p>
+                                <span class="difficulty">Medium</span>
+                            </div>
+                            <div class="prediction-card">
+                                <h4>Momentum</h4>
+                                <p>Can the chasing team score 30+ in the next two overs?</p>
+                                <span class="difficulty">Hard</span>
+                            </div>
+                            <div class="prediction-card">
+                                <h4>Partnership</h4>
+                                <p>Will this partnership exceed 50 runs?</p>
+                                <span class="difficulty">Easy</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Challenge Section -->
+    <section class="section" id="challenge">
+        <h2 class="section-title">The <span>Challenge</span></h2>
+        <div class="challenge-grid">
+            <div class="challenge-card">
+                <h3>Speed</h3>
+                <p>Traditional sports predictors rely on manual content creation. During live matches, editors struggled to frame questions quickly enough for rapidly changing situations.</p>
+            </div>
+            <div class="challenge-card">
+                <h3>Relevance</h3>
+                <p>Avoid repetitive or irrelevant questions. "Who will win the toss?" is already answered. The system needed to understand context and avoid stale predictions.</p>
+            </div>
+            <div class="challenge-card">
+                <h3>Engagement</h3>
+                <p>Maintain excitement with context-aware predictions linked to real match moments. Static pre-match quizzes couldn't compete with the dynamic nature of live sports.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="section" id="solution">
+        <h2 class="section-title">The <span>AI Solution</span></h2>
+        <div class="solution-grid">
+            <div class="solution-image">
+                LLM + Live Data Fusion
+            </div>
+            <div class="solution-content">
+                <h3>Autonomous Prediction Engine</h3>
+                <p>Vinfotech designed an autonomous LLM engine integrated directly with live match data feeds. The system continuously reads match context—overs, player form, partnerships, pitch conditions, and momentum—and produces prediction questions in real time.</p>
+                <p><strong>Key Features:</strong></p>
+                <ul class="features-list">
+                    <li>Context validation (no irrelevant questions)</li>
+                    <li>Difficulty & excitement rating</li>
+                    <li>Automatic market tagging</li>
+                    <li>Multi-language generation</li>
+                    <li>Continuous engagement metrics</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Section -->
+    <section class="section" id="impact">
+        <h2 class="section-title">Measurable <span>Impact</span></h2>
+        <div class="impact-grid">
+            <div class="impact-card">
+                <div class="impact-number">99%</div>
+                <div class="impact-label">Contextual Accuracy</div>
+            </div>
+            <div class="impact-card">
+                <div class="impact-number">90s</div>
+                <div class="impact-label">Question Generation Time</div>
+            </div>
+            <div class="impact-card">
+                <div class="impact-number">3×</div>
+                <div class="impact-label">Higher In-Play Engagement</div>
+            </div>
+            <div class="impact-card">
+                <div class="impact-number">0</div>
+                <div class="impact-label">Manual Content Creation</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery-section" id="gallery">
+        <div class="gallery-container">
+            <h2 class="section-title">Project <span>Gallery</span></h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #00B46A 0%, #009456 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">Live Match Dashboard</div>
+                    <div class="gallery-overlay">Live Match Dashboard</div>
+                </div>
+                <div class="gallery-item">
+                    <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">Prediction Interface</div>
+                    <div class="gallery-overlay">Prediction Interface</div>
+                </div>
+                <div class="gallery-item">
+                    <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #FF6B6B 0%, #FF8E8E 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">Analytics Engine</div>
+                    <div class="gallery-overlay">Analytics Engine</div>
+                </div>
+                <div class="gallery-item">
+                    <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">Admin Moderator Panel</div>
+                    <div class="gallery-overlay">Admin Moderator Panel</div>
+                </div>
+                <div class="gallery-item">
+                    <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #F59E0B 0%, #FBBF24 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">Mobile Experience</div>
+                    <div class="gallery-overlay">Mobile Experience</div>
+                </div>
+                <div class="gallery-item">
+                    <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #06B6D4 0%, #0891B2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">Real-Time Scoring</div>
+                    <div class="gallery-overlay">Real-Time Scoring</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack Section -->
+    <section class="section">
+        <h2 class="section-title">Technology <span>Stack</span></h2>
+        <div class="tech-stack">
+            <div class="tech-item">
+                <h4>LLMs</h4>
+                <p>GPT-4 Turbo, Mistral-7B</p>
+            </div>
+            <div class="tech-item">
+                <h4>Data Sources</h4>
+                <p>Live Cricket APIs, Player Databases</p>
+            </div>
+            <div class="tech-item">
+                <h4>Frameworks</h4>
+                <p>LangChain, FastAPI, Redis</p>
+            </div>
+            <div class="tech-item">
+                <h4>Frontend</h4>
+                <p>React Dashboards, WebSocket</p>
+            </div>
+            <div class="tech-item">
+                <h4>Infrastructure</h4>
+                <p>AWS ECS, S3, CloudWatch</p>
+            </div>
+            <div class="tech-item">
+                <h4>Database</h4>
+                <p>PostgreSQL, Real-time Analytics</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quote Section -->
+    <section class="quote-section">
+        <div class="quote-text">"The AI doesn't just understand cricket data—it understands the story of the match. Every question feels timely, natural, and exciting."</div>
+        <div class="quote-author">— Product Director, Vinfotech Sports Innovation</div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Vinfotech. Live Sports Auto-Prediction Engine Case Study. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'slideIn 0.6s ease forwards';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.challenge-card, .impact-card, .tech-item').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Interactive phone screen rotation
+        const phone = document.querySelector('.phone');
+        document.addEventListener('mousemove', (e) => {
+            const rect = phone.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            const rotateX = (y / rect.height) * 10;
+            const rotateY = (x / rect.width) * 10;
+            phone.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) rotateZ(-5deg)`;
+        });
+
+        document.addEventListener('mouseleave', () => {
+            phone.style.transform = 'rotateX(0) rotateY(0) rotateZ(-5deg)';
+        });
+    </script>
+</body>
+</html>

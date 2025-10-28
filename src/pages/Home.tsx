@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Hero from '../components/Hero';
 import IntroSection from '../components/IntroSection';
@@ -10,6 +10,7 @@ import WhyUs from '../components/WhyUs';
 import CTA from '../components/CTA';
 import BlogPreview from '../components/BlogPreview';
 import Footer from '../components/Footer';
+import AbstractBackground from '../components/AbstractBackground';
 
 interface HomeProps {
   onQuoteClick: () => void;
@@ -17,6 +18,32 @@ interface HomeProps {
 
 export default function Home({ onQuoteClick }: HomeProps) {
   const location = useLocation();
+  const [isHeroVisible, setIsHeroVisible] = useState(false);
+
+  useEffect(() => {
+    const heroSection = document.getElementById('hero-section');
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsHeroVisible(true);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    if (heroSection) {
+      observer.observe(heroSection);
+    }
+
+    return () => {
+      if (heroSection) {
+        observer.unobserve(heroSection);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     if (location.state?.scrollTo) {
@@ -38,23 +65,13 @@ export default function Home({ onQuoteClick }: HomeProps) {
 
   return (
     <>
-      <div className="relative min-h-screen overflow-hidden" id="hero-section">
-        <div className="absolute inset-0 w-full h-full animate-fade-in">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="w-full h-full object-cover transition-all duration-700"
-            style={{ filter: 'brightness(0.3)' }}
-          >
-            <source
-              src="https://uiipeuddsgzwhdamlnzx.supabase.co/storage/v1/object/public/public-bucket//Pythagoras_Theorem_Video_Created.mp4"
-              type="video/mp4"
-            />
-          </video>
-        </div>
-
+      <div
+        className={`relative min-h-screen overflow-hidden transition-opacity duration-1000 ${
+          isHeroVisible ? 'opacity-100' : 'opacity-0'
+        }`}
+        id="hero-section"
+      >
+        <AbstractBackground />
         <div className="relative z-10 pt-20">
           <Hero onQuoteClick={onQuoteClick} />
         </div>

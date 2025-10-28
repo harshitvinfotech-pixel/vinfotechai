@@ -1,27 +1,40 @@
 import { ArrowRight, Plus, X } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { getAllCaseStudies } from '../lib/caseStudies';
-import type { CaseStudy } from '../types/caseStudy';
+
+interface CaseStudy {
+  id: string;
+  slug: string;
+  title: string;
+  subtitle?: string;
+  hero_image: string;
+  tags: string[];
+  industry?: string;
+  overview_bullets?: string[];
+  display_order?: number;
+}
 
 export default function CaseStudies() {
   const [caseStudies, setCaseStudies] = useState<CaseStudy[]>([]);
   const [loading, setLoading] = useState(true);
   const sectionRef = useRef<HTMLDivElement>(null);
-  const navigate = useNavigate();
 
   useEffect(() => {
     async function loadCaseStudies() {
       setLoading(true);
-      const studies = await getAllCaseStudies();
-      setCaseStudies(studies);
+      try {
+        const response = await fetch('/case-studies/index.json');
+        const studies = await response.json();
+        setCaseStudies(studies);
+      } catch (error) {
+        console.error('Error loading case studies:', error);
+      }
       setLoading(false);
     }
     loadCaseStudies();
   }, []);
 
   const handleCardClick = (slug: string) => {
-    navigate(`/case-studies/${slug}`);
+    window.location.href = `/case-studies/${slug}.html`;
   };
 
   return (
@@ -83,32 +96,38 @@ interface CaseStudyCardProps {
 function CaseStudyCard({ study, onClick }: CaseStudyCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [showPreview, setShowPreview] = useState(false);
 
   const handleViewCaseStudy = (e: React.MouseEvent) => {
     e.stopPropagation();
     onClick();
   };
 
-  const handleToggleExpand = (e: React.MouseEvent) => {
+  const handleTogglePreview = (e: React.MouseEvent) => {
     e.stopPropagation();
-    setIsExpanded(!isExpanded);
+    setShowPreview(!showPreview);
+  };
+
+  const truncateText = (text: string, maxLength: number = 120) => {
+    if (text.length <= maxLength) return text;
+    return text.slice(0, maxLength) + '...';
   };
 
   return (
     <article
-      className="group relative transition-all duration-500 h-full"
+      className="group relative transition-all duration-500 h-full cursor-pointer"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={handleViewCaseStudy}
     >
       <div
-        className={`absolute -inset-0.5 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-3xl opacity-0 group-hover:opacity-20 transition-opacity duration-500 blur-xl`}
+        className={`absolute -inset-0.5 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-500 blur-xl`}
       ></div>
 
-      <div className={`relative flex flex-col bg-white dark:bg-gray-900 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-emerald-500/30 dark:hover:border-emerald-500/30 transition-all duration-500 shadow-lg hover:shadow-2xl h-[500px] sm:h-[600px] lg:h-[650px] overflow-hidden`}>
+      <div className="relative flex flex-col bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 hover:border-emerald-500/30 dark:hover:border-emerald-500/30 transition-all duration-500 shadow-lg hover:shadow-2xl overflow-hidden h-[420px]">
 
         <div className={`relative overflow-hidden flex-shrink-0 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 transition-all duration-500 ${
-          isExpanded ? 'h-48 sm:h-56' : 'h-full'
+          showPreview ? 'h-[240px]' : 'h-full'
         }`}>
           <div className={`absolute inset-0 transition-all duration-1000 ${
             imageLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
@@ -117,70 +136,48 @@ function CaseStudyCard({ study, onClick }: CaseStudyCardProps) {
               src={study.hero_image}
               alt={study.title}
               className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ${
-                isHovered && !isExpanded ? 'scale-110 brightness-110' : 'scale-100 brightness-100'
+                isHovered && !showPreview ? 'scale-110 brightness-110' : 'scale-100 brightness-100'
               }`}
               onLoad={() => setImageLoaded(true)}
               loading="lazy"
             />
 
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
           </div>
 
-          <div className="absolute inset-0 z-10 flex items-center justify-start px-6 sm:px-8">
-            <h3 className="font-bold text-white leading-tight text-left font-['Helvetica','Arial',sans-serif]" style={{ fontSize: '45px' }}>
+          <div className="absolute bottom-0 left-0 right-0 z-10 p-6">
+            <h3 className="font-bold text-white leading-tight text-left text-2xl sm:text-3xl lg:text-4xl">
               {study.title}
             </h3>
           </div>
         </div>
 
-        {isExpanded && (
-          <div className="flex-1 overflow-y-auto p-6 sm:p-8">
-            <div className="space-y-4">
-              <div>
-                <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">Overview</h4>
-                <p className="text-gray-700 dark:text-gray-300 text-base leading-relaxed mb-4">
-                  {study.subtitle}
-                </p>
-
-                {study.overview_bullets && study.overview_bullets.length > 0 && (
-                  <div className="space-y-3">
-                    {study.overview_bullets.map((bullet, idx) => (
-                      <div key={idx} className="flex items-start gap-3">
-                        <div className="relative mt-1.5 flex-shrink-0">
-                          <div className="w-2 h-2 rounded-full bg-gradient-to-r from-emerald-500 to-teal-500"></div>
-                        </div>
-                        <span className="text-gray-700 dark:text-gray-300 text-base leading-relaxed">
-                          {bullet}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              <button
-                onClick={handleViewCaseStudy}
-                className="w-full mt-6 px-6 py-3 text-white font-semibold rounded-xl transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
-                style={{ backgroundColor: '#00B46A' }}
-                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#009858')}
-                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#00B46A')}
-              >
-                View Full Case Study
-                <ArrowRight size={20} />
-              </button>
-            </div>
+        {showPreview && (
+          <div className="flex-1 p-6 bg-white dark:bg-gray-900 flex flex-col justify-between">
+            <p className="text-gray-700 dark:text-gray-300 text-base leading-relaxed line-clamp-2 mb-4">
+              {truncateText(study.subtitle || '', 140)}
+            </p>
+            <button
+              onClick={handleViewCaseStudy}
+              className="w-full py-3 px-4 text-white font-semibold rounded-lg transition-all duration-300 flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
+              style={{ backgroundColor: '#00B46A' }}
+            >
+              View Full Case Study
+              <ArrowRight size={18} />
+            </button>
           </div>
         )}
 
         <button
-          onClick={handleToggleExpand}
-          className="absolute bottom-4 right-4 z-20 w-12 h-12 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 border-2 border-gray-200 dark:border-gray-700 hover:border-emerald-500 dark:hover:border-emerald-500"
-          aria-label={isExpanded ? 'Collapse details' : 'Expand details'}
+          onClick={handleTogglePreview}
+          className="absolute bottom-4 right-4 z-20 w-12 h-12 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 border-2 border-gray-200 dark:border-gray-700"
+          style={{ borderColor: showPreview ? '#00B46A' : '' }}
+          aria-label={showPreview ? 'Hide preview' : 'Show preview'}
         >
-          {isExpanded ? (
-            <X className="text-emerald-500" size={20} strokeWidth={2.5} />
+          {showPreview ? (
+            <X style={{ color: '#00B46A' }} size={20} strokeWidth={2.5} />
           ) : (
-            <Plus className="text-emerald-500" size={20} strokeWidth={2.5} />
+            <Plus style={{ color: '#00B46A' }} size={20} strokeWidth={2.5} />
           )}
         </button>
       </div>

@@ -10,10 +10,10 @@ export default function Hero({ onQuoteClick }: HeroProps) {
         <div className="max-w-6xl mx-auto text-center w-full">
           <div className="flex flex-col items-center justify-center gap-4 sm:gap-5 md:gap-6 lg:gap-7">
             <h1 className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight px-2 sm:px-6 max-w-7xl w-full">
-              <span className="text-white animate-fade-in-up" style={{ animationDelay: '0.2s', animationFillMode: 'both' }}>Need a Production-Ready AI Team, Not Another SaaS Subscription?</span>
+              <span className="text-gray-900 dark:text-white animate-fade-in-up" style={{ animationDelay: '0.2s', animationFillMode: 'both' }}>Need a Production-Ready AI Team, Not Another SaaS Subscription?</span>
             </h1>
 
-            <p className="text-xl sm:text-2xl md:text-2xl lg:text-3xl font-normal text-white/90 animate-fade-in-up px-4 sm:px-6 leading-relaxed max-w-4xl mx-auto" style={{ animationDelay: '0.6s', animationFillMode: 'both' }}>
+            <p className="text-xl sm:text-2xl md:text-2xl lg:text-3xl font-normal text-gray-700 dark:text-white/90 animate-fade-in-up px-4 sm:px-6 leading-relaxed max-w-4xl mx-auto" style={{ animationDelay: '0.6s', animationFillMode: 'both' }}>
              Get a working, enterprise-ready custom-built pilot in weeks, built on your data, inside your environment.
             </p>
 
