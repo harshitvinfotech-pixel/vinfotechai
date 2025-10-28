@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>iGaming Executive Insight Agent | Vinfotech Case Study</title>
+    <script>
+        if (typeof tailwind !== 'undefined' && tailwind.config) {
+            tailwind.config = { darkMode: 'class' }
+        }
+    </script>
+    <script src="./theme-manager.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>* { font-family: 'Helvetica', 'Arial', sans-serif; } @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } } .fade-in { animation: fadeIn 0.6s ease-out; } .hover-lift { transition: transform 0.3s ease, box-shadow 0.3s ease; } .hover-lift:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0, 180, 106, 0.15); }
+        /* Theme Support */
+        * {
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #0f1419;
+        }
+
+        html.dark body {
+            background-color: #0f172a;
+            color: #f1f5f9;
+        }
+
+        .nav-header {
+            background: rgba(255, 255, 255, 0.95);
+            border-bottom: 1px solid rgba(0, 180, 106, 0.2);
+        }
+
+        html.dark .nav-header {
+            background: rgba(15, 23, 42, 0.95);
+            border-bottom: 1px solid rgba(0, 180, 106, 0.2);
+        }
+
+        .theme-toggle-btn {
+            background: rgba(0, 180, 106, 0.1);
+            border: 1px solid #00B46A;
+            color: #00B46A;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle-btn:hover {
+            background: #00B46A;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .back-button {
+            color: #00B46A !important;
+            border: 1px solid #00B46A;
+            background: rgba(0, 180, 106, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .back-button:hover {
+            background: #00B46A !important;
+            color: white !important;
+            transform: translateX(-3px);
+        }
+    </style>
+</head>
+<body class="bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+
+<nav class="nav-header" style="position: fixed; top: 0; width: 100%; z-index: 1000; backdrop-filter: blur(10px); box-shadow: 0 2px 20px rgba(0, 180, 106, 0.1);">
+    <div style="max-width: 1400px; margin: 0 auto; padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center;">
+        <a href="/" style="display: flex; align-items: center; transition: transform 0.3s ease;">
+            <img id="theme-logo" src="/asset 5.png" alt="Vinfotech Logo" style="height: 2.5rem; width: auto;" />
+        </a>
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <button onclick="toggleTheme()" class="theme-toggle-btn" aria-label="Toggle theme">
+                <span id="theme-toggle-icon">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                    </svg>
+                </span>
+            </button>
+            <a href="/#case-studies" class="back-button">
+                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                </svg>
+                Back to Case Studies
+            </a>
+        </div>
+    </div>
+</nav>
+
+<div class="min-h-screen" style="margin-top: 80px;">
+<section class="relative container mx-auto px-6 sm:px-8 lg:px-12 py-16 lg:py-24 mt-8">
+<div class="relative bg-gradient-to-br from-gray-50 to-emerald-50 dark:from-slate-900 dark:to-gray-900 rounded-3xl border border-gray-200 dark:border-gray-800 overflow-hidden">
+<div class="absolute top-6 right-6 z-10"><button id="themeToggle" class="p-2 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-colors"><svg id="sunIcon" class="h-5 w-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg><svg id="moonIcon" class="h-5 w-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg></button></div>
+<a href="/" class="absolute top-6 left-6 flex items-center gap-2 px-4 py-2 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm text-gray-700 dark:text-gray-300 rounded-lg hover:bg-white dark:hover:bg-gray-800 transition-all duration-300 border border-gray-300 dark:border-gray-700 z-10"><svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg><span class="font-medium">Back to Home</span></a>
+<div class="grid lg:grid-cols-2 gap-12 items-center p-12 lg:p-16 pt-20">
+<div class="lg:col-span-1 fade-in"><h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-gray-900 dark:text-white leading-tight">iGaming Executive Insight Agent</h1><p class="mt-6 text-lg text-gray-700 dark:text-gray-300 max-w-lg">AI-powered analytics platform that provides executive-level insights for iGaming operators, transforming complex data into actionable business intelligence.</p></div>
+<div class="lg:col-span-1 flex justify-center lg:justify-end fade-in"><img class="w-full max-w-lg rounded-2xl shadow-xl" src="https://images.pexels.com/photos/5912362/pexels-photo-5912362.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="iGaming Executive Insight Agent"></div>
+</div>
+</div>
+</section>
+<section class="py-16 sm:py-24 bg-gradient-to-b from-gray-50/50 dark:from-white/5 to-transparent"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center"><div class="order-2 lg:order-1"><div class="aspect-[4/3] rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 shadow-xl"><img src="https://images.pexels.com/photos/5912362/pexels-photo-5912362.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Overview" class="w-full h-full object-cover"></div></div><div class="order-1 lg:order-2"><div class="inline-flex items-center gap-3 mb-6"><div class="flex-shrink-0 w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center"><svg class="text-blue-500 h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div><h2 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">Overview</h2></div><div class="space-y-4"><div class="flex items-start gap-4 group"><div class="flex-shrink-0 w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-600 dark:text-emerald-400 font-bold text-sm group-hover:bg-emerald-500 group-hover:text-white transition-colors">1</div><p class="text-gray-600 dark:text-gray-300 leading-relaxed pt-0.5">Natural language queries for complex business questions</p></div><div class="flex items-start gap-4 group"><div class="flex-shrink-0 w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-600 dark:text-emerald-400 font-bold text-sm group-hover:bg-emerald-500 group-hover:text-white transition-colors">2</div><p class="text-gray-600 dark:text-gray-300 leading-relaxed pt-0.5">Automated report generation with trend analysis</p></div><div class="flex items-start gap-4 group"><div class="flex-shrink-0 w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-600 dark:text-emerald-400 font-bold text-sm group-hover:bg-emerald-500 group-hover:text-white transition-colors">3</div><p class="text-gray-600 dark:text-gray-300 leading-relaxed pt-0.5">Player behavior prediction and churn prevention</p></div><div class="flex items-start gap-4 group"><div class="flex-shrink-0 w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-600 dark:text-emerald-400 font-bold text-sm group-hover:bg-emerald-500 group-hover:text-white transition-colors">4</div><p class="text-gray-600 dark:text-gray-300 leading-relaxed pt-0.5">40% faster decision-making with AI-powered insights</p></div></div></div></div></div></section>
+<section class="py-16 sm:py-24"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="text-center mb-12"><h2 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">Related Case Studies</h2><p class="text-lg text-gray-600 dark:text-gray-400">Explore more AI solutions</p></div><div class="grid md:grid-cols-2 gap-8"><a href="autonomous-enterprise-sales-agent.html" class="group block p-6 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/50 hover:border-emerald-500/40 hover:shadow-xl transition-all duration-300 hover-lift"><img src="https://images.pexels.com/photos/8438922/pexels-photo-8438922.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Sales Agent" class="w-full h-48 object-cover rounded-lg mb-4"><h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">Autonomous Enterprise Sales Agent</h3><p class="text-gray-600 dark:text-gray-400 text-sm mb-4">AI-powered sales assistant that handles complex queries 24/7.</p><div class="flex items-center text-emerald-600 dark:text-emerald-400 font-medium text-sm">View Case Study<svg class="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></div></a><a href="vision-based-attendance-productivity-monitoring.html" class="group block p-6 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/50 hover:border-emerald-500/40 hover:shadow-xl transition-all duration-300 hover-lift"><img src="https://images.pexels.com/photos/5726794/pexels-photo-5726794.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Attendance" class="w-full h-48 object-cover rounded-lg mb-4"><h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">Vision-Based Attendance Monitoring</h3><p class="text-gray-600 dark:text-gray-400 text-sm mb-4">Automated attendance tracking with computer vision AI.</p><div class="flex items-center text-emerald-600 dark:text-emerald-400 font-medium text-sm">View Case Study<svg class="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></div></a></div></div></section>
+</div>
+<button id="scrollTop" class="fixed bottom-8 right-8 w-14 h-14 bg-emerald-600 text-white rounded-full shadow-xl hover:shadow-2xl hover:bg-emerald-500 transition-all duration-300 transform hover:scale-110 items-center justify-center z-50 hidden"><svg class="h-6 w-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg></button>
+<script>const themeToggle=document.getElementById('themeToggle');const scrollTopBtn=document.getElementById('scrollTop');const htmlElement=document.documentElement;function getTheme(){return localStorage.getItem('theme')||'dark';}function setTheme(theme){localStorage.setItem('theme',theme);theme==='dark'?htmlElement.classList.add('dark'):htmlElement.classList.remove('dark');}setTheme(getTheme());themeToggle.addEventListener('click',()=>{const newTheme=getTheme()==='dark'?'light':'dark';setTheme(newTheme);});window.addEventListener('scroll',()=>{if(window.scrollY>500){scrollTopBtn.classList.remove('hidden');scrollTopBtn.classList.add('flex');}else{scrollTopBtn.classList.add('hidden');scrollTopBtn.classList.remove('flex');}});scrollTopBtn.addEventListener('click',()=>{window.scrollTo({top:0,behavior:'smooth'});});</script>
+</body>
+</html>

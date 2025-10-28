@@ -1,0 +1,130 @@
+[
+  {
+    "id": "1",
+    "slug": "autonomous-enterprise-sales-agent",
+    "title": "Autonomous Enterprise Sales Agent",
+    "subtitle": "How Vinfotech scaled pre-sales with an always-on, cited AI assistant that answers complex inbound queries with verified, brand-consistent responses—24/7.",
+    "hero_image": "https://images.pexels.com/photos/8438922/pexels-photo-8438922.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "tags": ["AI", "RAG", "Automation", "Sales"],
+    "industry": "Technology",
+    "overview_bullets": [
+      "Enterprise RAG agent trained on structured and unstructured knowledge",
+      "Synthesizes verified answers with citations from multiple data sources",
+      "Suggests intelligent follow-up questions to guide users",
+      "Reduced manual email responses by 70% while maintaining 94% accuracy"
+    ],
+    "display_order": 1
+  },
+  {
+    "id": "2",
+    "slug": "vision-based-attendance-productivity-monitoring",
+    "title": "Vision-Based Attendance & Productivity Monitoring",
+    "subtitle": "AI-powered computer vision system that automates attendance tracking and productivity monitoring in real-time, eliminating manual processes and increasing accuracy.",
+    "hero_image": "https://images.pexels.com/photos/5726794/pexels-photo-5726794.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "tags": ["Computer Vision", "AI", "Workplace Analytics"],
+    "industry": "Enterprise",
+    "overview_bullets": [
+      "Real-time facial recognition for automated attendance tracking",
+      "Productivity insights through behavior pattern analysis",
+      "Privacy-first approach with on-premise deployment options",
+      "98% accuracy in diverse lighting and environmental conditions"
+    ],
+    "display_order": 2
+  },
+  {
+    "id": "3",
+    "slug": "live-sports-auto-prediction-engine",
+    "title": "Live Sports Auto-Prediction Engine",
+    "subtitle": "Real-time AI prediction engine that analyzes live sports data to generate accurate forecasts and insights for betting platforms and sports analytics.",
+    "hero_image": "https://images.pexels.com/photos/274422/pexels-photo-274422.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "tags": ["AI", "Sports Analytics", "Real-time ML"],
+    "industry": "Sports & Gaming",
+    "overview_bullets": [
+      "Sub-second prediction latency during live matches",
+      "Multi-model ensemble for improved accuracy",
+      "Historical and real-time data integration",
+      "75% improvement in prediction accuracy over traditional models"
+    ],
+    "display_order": 3
+  },
+  {
+    "id": "4",
+    "slug": "fintech-daily-market-quiz-engine",
+    "title": "Fintech Daily Market Quiz Engine",
+    "subtitle": "Gamified learning platform that generates daily market quizzes using AI, helping users stay informed about financial markets through interactive content.",
+    "hero_image": "https://images.pexels.com/photos/6801648/pexels-photo-6801648.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "tags": ["AI", "Fintech", "EdTech", "Gamification"],
+    "industry": "Financial Technology",
+    "overview_bullets": [
+      "AI-generated questions based on real-time market data",
+      "Adaptive difficulty levels based on user performance",
+      "Integration with market news APIs and financial databases",
+      "85% user engagement increase with gamified learning approach"
+    ],
+    "display_order": 4
+  },
+  {
+    "id": "5",
+    "slug": "integrated-site-safety-security-vision-ai",
+    "title": "Integrated Site Safety & Security Vision AI",
+    "subtitle": "Advanced computer vision system that monitors construction sites and industrial facilities for safety compliance and security threats in real-time.",
+    "hero_image": "https://images.pexels.com/photos/1216589/pexels-photo-1216589.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "tags": ["Computer Vision", "Safety", "Security", "IoT"],
+    "industry": "Construction & Industrial",
+    "overview_bullets": [
+      "Real-time PPE detection and compliance monitoring",
+      "Hazard identification and instant alert system",
+      "Multi-camera integration with edge processing",
+      "60% reduction in safety incidents within first 6 months"
+    ],
+    "display_order": 5
+  },
+  {
+    "id": "6",
+    "slug": "igaming-executive-insight-agent",
+    "title": "iGaming Executive Insight Agent",
+    "subtitle": "AI-powered analytics platform that provides executive-level insights for iGaming operators, transforming complex data into actionable business intelligence.",
+    "hero_image": "https://images.pexels.com/photos/5912362/pexels-photo-5912362.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "tags": ["AI", "Analytics", "Business Intelligence", "iGaming"],
+    "industry": "Gaming & Entertainment",
+    "overview_bullets": [
+      "Natural language queries for complex business questions",
+      "Automated report generation with trend analysis",
+      "Player behavior prediction and churn prevention",
+      "40% faster decision-making with AI-powered insights"
+    ],
+    "display_order": 6
+  },
+  {
+    "id": "7",
+    "slug": "developer-prompt-optimization-tool",
+    "title": "Developer Prompt Optimization Tool",
+    "subtitle": "AI-powered tool that helps developers optimize their prompts for better LLM responses, improving code generation and reducing token usage.",
+    "hero_image": "https://images.pexels.com/photos/1181263/pexels-photo-1181263.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "tags": ["AI", "Developer Tools", "LLM", "Optimization"],
+    "industry": "Software Development",
+    "overview_bullets": [
+      "Automated prompt refinement using meta-learning techniques",
+      "Token usage optimization with quality preservation",
+      "A/B testing framework for prompt comparison",
+      "50% reduction in token costs while maintaining output quality"
+    ],
+    "display_order": 7
+  },
+  {
+    "id": "8",
+    "slug": "natural-language-match-insights-perfect-lineup",
+    "title": "Natural-Language Match Insights – Perfect Lineup",
+    "subtitle": "AI system that analyzes player statistics, team dynamics, and match conditions to suggest optimal team lineups using natural language explanations.",
+    "hero_image": "https://images.pexels.com/photos/274506/pexels-photo-274506.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "tags": ["AI", "Sports Analytics", "NLP", "Decision Support"],
+    "industry": "Sports Management",
+    "overview_bullets": [
+      "Multi-factor analysis including player form, fitness, and opposition",
+      "Natural language explanations for lineup recommendations",
+      "Historical performance analysis and pattern recognition",
+      "25% improvement in match outcomes using AI recommendations"
+    ],
+    "display_order": 8
+  }
+]
