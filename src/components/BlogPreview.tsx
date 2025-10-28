@@ -80,6 +80,7 @@ export default function BlogPreview() {
           <button
             onClick={() => navigate('/blogs')}
             className="inline-flex items-center gap-2 bg-[#00B46A] text-white px-8 py-3 sm:py-4 rounded-lg font-semibold text-lg sm:text-xl hover:bg-[#008a52] transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-[#00B46A]/30"
+            aria-label="Read more AI development blogs"
           >
             Read more blogs
           </button>
