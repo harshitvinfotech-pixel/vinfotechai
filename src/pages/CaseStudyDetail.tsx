@@ -101,8 +101,8 @@ export default function CaseStudyDetail() {
             </button>
           </div>
 
-          <div className="absolute inset-0 flex items-end">
-            <div className="max-w-6xl mx-auto w-full px-6 sm:px-8 lg:px-12 pb-8 sm:pb-10">
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="max-w-6xl mx-auto w-full px-6 sm:px-8 lg:px-12 text-left">
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-3 sm:mb-4 leading-tight">
                 {caseStudy.title}
               </h1>
