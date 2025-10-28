@@ -1,40 +1,27 @@
 import { ArrowRight, Plus, X } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
-
-interface CaseStudy {
-  id: string;
-  slug: string;
-  title: string;
-  subtitle?: string;
-  hero_image: string;
-  tags: string[];
-  industry?: string;
-  overview_bullets?: string[];
-  display_order?: number;
-}
+import { useNavigate } from 'react-router-dom';
+import { getAllCaseStudies } from '../lib/caseStudies';
+import type { CaseStudy } from '../types/caseStudy';
 
 export default function CaseStudies() {
   const [caseStudies, setCaseStudies] = useState<CaseStudy[]>([]);
   const [loading, setLoading] = useState(true);
   const sectionRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function loadCaseStudies() {
       setLoading(true);
-      try {
-        const response = await fetch('/case-studies/index.json');
-        const studies = await response.json();
-        setCaseStudies(studies);
-      } catch (error) {
-        console.error('Error loading case studies:', error);
-      }
+      const studies = await getAllCaseStudies();
+      setCaseStudies(studies);
       setLoading(false);
     }
     loadCaseStudies();
   }, []);
 
   const handleCardClick = (slug: string) => {
-    window.location.href = `/case-studies/${slug}.html`;
+    navigate(`/case-studies/${slug}`);
   };
 
   return (
