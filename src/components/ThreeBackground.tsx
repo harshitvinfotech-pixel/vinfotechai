@@ -33,38 +33,22 @@ export default function ThreeBackground() {
     renderer.setClearColor(0x000000, 0);
 
     const particlesGeometry = new THREE.BufferGeometry();
-    const particlesCount = 5000;
+    const particlesCount = 3000;
     const posArray = new Float32Array(particlesCount * 3);
     const scaleArray = new Float32Array(particlesCount);
     const velocityArray = new Float32Array(particlesCount * 3);
-    const colorArray = new Float32Array(particlesCount * 3);
 
     for (let i = 0; i < particlesCount; i++) {
       const i3 = i * 3;
-      posArray[i3] = (Math.random() - 0.5) * 25;
-      posArray[i3 + 1] = (Math.random() - 0.5) * 25;
-      posArray[i3 + 2] = (Math.random() - 0.5) * 25;
+      posArray[i3] = (Math.random() - 0.5) * 20;
+      posArray[i3 + 1] = (Math.random() - 0.5) * 20;
+      posArray[i3 + 2] = (Math.random() - 0.5) * 20;
 
-      scaleArray[i] = Math.random() * 1.5 + 0.3;
+      scaleArray[i] = Math.random() * 0.5 + 0.5;
 
-      velocityArray[i3] = (Math.random() - 0.5) * 0.004;
-      velocityArray[i3 + 1] = (Math.random() - 0.5) * 0.004;
-      velocityArray[i3 + 2] = (Math.random() - 0.5) * 0.004;
-
-      const colorVariant = Math.random();
-      if (colorVariant < 0.3) {
-        colorArray[i3] = 0.0;
-        colorArray[i3 + 1] = 1.0;
-        colorArray[i3 + 2] = 0.7;
-      } else if (colorVariant < 0.6) {
-        colorArray[i3] = 0.0;
-        colorArray[i3 + 1] = 0.9;
-        colorArray[i3 + 2] = 0.85;
-      } else {
-        colorArray[i3] = 0.2;
-        colorArray[i3 + 1] = 1.0;
-        colorArray[i3 + 2] = 0.9;
-      }
+      velocityArray[i3] = (Math.random() - 0.5) * 0.002;
+      velocityArray[i3 + 1] = (Math.random() - 0.5) * 0.002;
+      velocityArray[i3 + 2] = (Math.random() - 0.5) * 0.002;
     }
 
     particlesGeometry.setAttribute(
@@ -75,41 +59,16 @@ export default function ThreeBackground() {
       'scale',
       new THREE.BufferAttribute(scaleArray, 1)
     );
-    particlesGeometry.setAttribute(
-      'color',
-      new THREE.BufferAttribute(colorArray, 3)
-    );
 
     const particlesMaterial = new THREE.PointsMaterial({
-      size: 0.12,
+      size: 0.04,
+      color: 0x00ffb2,
       transparent: true,
-      opacity: 0.85,
+      opacity: 0.7,
       blending: THREE.AdditiveBlending,
       depthWrite: false,
       sizeAttenuation: true,
-      vertexColors: true,
-      map: createCircleTexture(),
     });
-
-    function createCircleTexture() {
-      const canvas = document.createElement('canvas');
-      canvas.width = 32;
-      canvas.height = 32;
-      const ctx = canvas.getContext('2d');
-      if (!ctx) return null;
-
-      const gradient = ctx.createRadialGradient(16, 16, 0, 16, 16, 16);
-      gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
-      gradient.addColorStop(0.4, 'rgba(255, 255, 255, 0.8)');
-      gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
-
-      ctx.fillStyle = gradient;
-      ctx.fillRect(0, 0, 32, 32);
-
-      const texture = new THREE.CanvasTexture(canvas);
-      texture.needsUpdate = true;
-      return texture;
-    }
 
     const particlesMesh = new THREE.Points(
       particlesGeometry,
@@ -128,9 +87,8 @@ export default function ThreeBackground() {
     const connectionMaterial = new THREE.LineBasicMaterial({
       color: 0x00ffb2,
       transparent: true,
-      opacity: 0.25,
+      opacity: 0.15,
       blending: THREE.AdditiveBlending,
-      linewidth: 1,
     });
 
     const connectionLines = new THREE.LineSegments(
@@ -217,15 +175,15 @@ export default function ThreeBackground() {
         positions[i3 + 1] += velocityArray[i3 + 1];
         positions[i3 + 2] += velocityArray[i3 + 2];
 
-        if (Math.abs(positions[i3]) > 12.5) velocityArray[i3] *= -1;
-        if (Math.abs(positions[i3 + 1]) > 12.5) velocityArray[i3 + 1] *= -1;
-        if (Math.abs(positions[i3 + 2]) > 12.5) velocityArray[i3 + 2] *= -1;
+        if (Math.abs(positions[i3]) > 10) velocityArray[i3] *= -1;
+        if (Math.abs(positions[i3 + 1]) > 10) velocityArray[i3 + 1] *= -1;
+        if (Math.abs(positions[i3 + 2]) > 10) velocityArray[i3 + 2] *= -1;
       }
       particlesMesh.geometry.attributes.position.needsUpdate = true;
 
       if (frameCount % 3 === 0) {
         let connectionIndex = 0;
-        const maxDistance = 2.5;
+        const maxDistance = 2;
         const connectionPos = connectionLines.geometry.attributes.position.array as Float32Array;
 
         for (let i = 0; i < particlesCount && connectionIndex < maxConnections * 6; i++) {

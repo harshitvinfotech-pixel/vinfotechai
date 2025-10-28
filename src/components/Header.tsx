@@ -49,7 +49,7 @@ export default function Header({ onQuoteClick }: HeaderProps) {
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
           ? 'bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-lg'
-          : 'bg-white/90 dark:bg-gray-900/90 backdrop-blur-md shadow-sm'
+          : 'backdrop-blur-sm'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-1">
@@ -59,7 +59,7 @@ export default function Header({ onQuoteClick }: HeaderProps) {
             className="flex items-center animate-fade-in-down cursor-pointer"
           >
             <img
-              src={theme === 'dark' ? '/Vinfo-white 2.png' : '/asset 5.png'}
+              src={isScrolled && theme === 'light' ? '/asset 5.png' : '/Vinfo-white 2.png'}
               alt="Vinfotech Logo"
               className="h-10 w-auto transition-transform duration-300 hover:scale-105"
             />
@@ -68,35 +68,55 @@ export default function Header({ onQuoteClick }: HeaderProps) {
           <nav className="hidden md:flex items-center space-x-8 animate-fade-in-down" style={{ animationDelay: '0.1s', animationFillMode: 'both' }}>
             <button
               onClick={() => isHomePage ? scrollToSection('about') : navigate('/')}
-              className="relative transition-all duration-300 font-medium group text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-white"
+              className={`relative transition-all duration-300 font-medium group ${
+                isScrolled
+                  ? 'text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-white'
+                  : 'text-gray-300 hover:text-white'
+              }`}
             >
               {isHomePage ? 'About' : 'Home'}
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-brand-primary to-brand-light group-hover:w-full transition-all duration-300"></span>
             </button>
             <button
               onClick={() => navigate('/blogs')}
-              className="relative transition-all duration-300 font-medium group text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-white"
+              className={`relative transition-all duration-300 font-medium group ${
+                isScrolled
+                  ? 'text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-white'
+                  : 'text-gray-300 hover:text-white'
+              }`}
             >
               Blog
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-brand-primary to-brand-light group-hover:w-full transition-all duration-300"></span>
             </button>
             <button
               onClick={() => scrollToSection('services')}
-              className="relative transition-all duration-300 font-medium group text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-white"
+              className={`relative transition-all duration-300 font-medium group ${
+                isScrolled
+                  ? 'text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-white'
+                  : 'text-gray-300 hover:text-white'
+              }`}
             >
               Services
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-brand-primary to-brand-light group-hover:w-full transition-all duration-300"></span>
             </button>
             <button
               onClick={() => scrollToSection('case-studies')}
-              className="relative transition-all duration-300 font-medium group text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-white"
+              className={`relative transition-all duration-300 font-medium group ${
+                isScrolled
+                  ? 'text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-white'
+                  : 'text-gray-300 hover:text-white'
+              }`}
             >
               Case Studies
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-brand-primary to-brand-light group-hover:w-full transition-all duration-300"></span>
             </button>
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-lg transition-all duration-300 hover:scale-110 active:scale-95 text-gray-700 dark:text-gray-300 hover:bg-emerald-50 dark:hover:bg-white/10 hover:text-emerald-600 dark:hover:text-white"
+              className={`p-2 rounded-lg transition-all duration-300 hover:scale-110 active:scale-95 ${
+                isScrolled
+                  ? 'text-gray-700 dark:text-gray-300 hover:bg-emerald-50 dark:hover:bg-white/10 hover:text-emerald-600 dark:hover:text-white'
+                  : 'text-gray-300 hover:bg-white/10 hover:text-white'
+              }`}
               aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
             >
               {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
@@ -112,14 +132,22 @@ export default function Header({ onQuoteClick }: HeaderProps) {
           <div className="md:hidden flex items-center gap-2">
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-lg transition-all duration-300 text-gray-700 dark:text-gray-300 hover:bg-emerald-50 dark:hover:bg-white/10 hover:text-emerald-600 dark:hover:text-white"
+              className={`p-2 rounded-lg transition-all duration-300 ${
+                isScrolled
+                  ? 'text-gray-700 dark:text-gray-300 hover:bg-emerald-50 dark:hover:bg-white/10 hover:text-emerald-600 dark:hover:text-white'
+                  : 'text-gray-300 hover:bg-white/10 hover:text-white'
+              }`}
               aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
             >
               {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
             </button>
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 transition-colors text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-white"
+              className={`p-2 transition-colors ${
+                isScrolled
+                  ? 'text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-white'
+                  : 'text-gray-300 hover:text-white'
+              }`}
             >
               {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>

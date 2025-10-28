@@ -12,7 +12,6 @@ export interface CaseStudy {
   client_role?: string;
   tags: string[];
   industry?: string;
-  overview_bullets?: string[];
   display_order?: number;
   created_at?: string;
   updated_at?: string;
