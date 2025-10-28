@@ -4,6 +4,8 @@ export interface CaseStudy {
   title: string;
   subtitle?: string;
   hero_image: string;
+  hero_description?: string;
+  hero_background_image?: string;
   problem: string;
   solution: string;
   results?: string;
@@ -13,6 +15,9 @@ export interface CaseStudy {
   tags: string[];
   industry?: string;
   overview_bullets?: string[];
+  meta_title?: string;
+  meta_description?: string;
+  og_image?: string;
   display_order?: number;
   created_at?: string;
   updated_at?: string;
@@ -58,13 +63,74 @@ export interface CaseStudyImage {
   case_study_id: string;
   image_url: string;
   caption?: string;
+  type?: 'gallery' | 'content';
+  alt_text?: string;
   display_order?: number;
 }
 
+export interface CaseStudyContentBlock {
+  id: string;
+  case_study_id: string;
+  block_type: 'text' | 'image' | 'phone_mockup' | 'diagram' | 'metrics' | 'timeline' | 'features' | 'two_column';
+  content: ContentBlockData;
+  display_order?: number;
+  created_at?: string;
+  updated_at?: string;
+}
+
+export type ContentBlockData =
+  | TextBlockData
+  | ImageBlockData
+  | PhoneMockupBlockData
+  | DiagramBlockData
+  | TwoColumnBlockData;
+
+export interface TextBlockData {
+  heading?: string;
+  content: string;
+  alignment?: 'left' | 'center' | 'right';
+}
+
+export interface ImageBlockData {
+  image_url: string;
+  caption?: string;
+  alt_text?: string;
+  size?: 'full' | 'large' | 'medium' | 'small';
+}
+
+export interface PhoneMockupBlockData {
+  app_name?: string;
+  messages: Array<{
+    role: 'user' | 'assistant';
+    content: string;
+  }>;
+}
+
+export interface DiagramBlockData {
+  title?: string;
+  description?: string;
+  nodes: Array<{
+    id: string;
+    label: string;
+    description: string;
+    icon?: string;
+    color?: string;
+  }>;
+}
+
+export interface TwoColumnBlockData {
+  left_content: string;
+  right_content: string;
+  image_url?: string;
+  image_position?: 'left' | 'right';
+}
+
 export interface CaseStudyWithDetails extends CaseStudy {
+  content_blocks?: CaseStudyContentBlock[];
   metrics?: CaseStudyMetric[];
   technologies?: CaseStudyTechnology[];
   timeline?: CaseStudyTimeline[];
   features?: CaseStudyFeature[];
   images?: CaseStudyImage[];
+  gallery_images?: CaseStudyImage[];
 }

@@ -1,5 +1,7 @@
 import { ArrowRight, Plus, X } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { getAllCaseStudies } from '../lib/caseStudies';
 
 interface CaseStudy {
   id: string;
@@ -17,13 +19,13 @@ export default function CaseStudies() {
   const [caseStudies, setCaseStudies] = useState<CaseStudy[]>([]);
   const [loading, setLoading] = useState(true);
   const sectionRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function loadCaseStudies() {
       setLoading(true);
       try {
-        const response = await fetch('/case-studies/index.json');
-        const studies = await response.json();
+        const studies = await getAllCaseStudies();
         setCaseStudies(studies);
       } catch (error) {
         console.error('Error loading case studies:', error);
@@ -34,7 +36,7 @@ export default function CaseStudies() {
   }, []);
 
   const handleCardClick = (slug: string) => {
-    window.location.href = `/case-studies/${slug}.html`;
+    navigate(`/case-studies/${slug}`);
   };
 
   return (

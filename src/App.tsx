@@ -5,6 +5,7 @@ import Header from './components/Header';
 import Home from './pages/Home';
 import Blogs from './pages/Blogs';
 import BlogDetail from './pages/BlogDetail';
+import CaseStudyDetail from './pages/CaseStudyDetail';
 import Modal from './components/Modal';
 import QuoteForm from './components/QuoteForm';
 import QuoteSuccessConfirmation from './components/QuoteSuccessConfirmation';
@@ -49,15 +50,17 @@ function AppContent() {
   };
 
   const isBlogPage = location.pathname.startsWith('/blogs');
+  const isCaseStudyPage = location.pathname.startsWith('/case-studies');
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
-      {!isBlogPage && <Header onQuoteClick={() => setIsQuoteModalOpen(true)} />}
+      {!isBlogPage && !isCaseStudyPage && <Header onQuoteClick={() => setIsQuoteModalOpen(true)} />}
 
       <Routes>
         <Route path="/" element={<Home onQuoteClick={() => setIsQuoteModalOpen(true)} />} />
         <Route path="/blogs" element={<Blogs />} />
         <Route path="/blogs/:slug" element={<BlogDetail />} />
+        <Route path="/case-studies/:slug" element={<CaseStudyDetail />} />
       </Routes>
 
       <Modal
@@ -77,7 +80,7 @@ function AppContent() {
         )}
       </Modal>
 
-      {showScrollTop && !isBlogPage && (
+      {showScrollTop && !isBlogPage && !isCaseStudyPage && (
         <button
           onClick={scrollToTop}
           className="fixed bottom-8 right-8 w-12 h-12 bg-[#00B46A] text-white rounded-full shadow-lg hover:shadow-xl hover:shadow-[#00B46A]/50 transition-all duration-500 transform hover:scale-110 hover:-translate-y-1 flex items-center justify-center z-40 animate-scale-in active:scale-95"
