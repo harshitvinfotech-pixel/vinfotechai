@@ -147,8 +147,8 @@ function CaseStudyCard({ study, onClick }: CaseStudyCardProps) {
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
           </div>
 
-          <div className="absolute bottom-0 left-0 right-0 z-10 p-6">
-            <h3 className="font-bold text-white leading-tight text-left text-2xl sm:text-3xl lg:text-4xl">
+          <div className="absolute bottom-0 left-0 right-0 z-10 p-6 flex items-center justify-center">
+            <h3 className="font-bold text-white leading-tight text-center text-[45px]">
               {study.title}
             </h3>
           </div>
