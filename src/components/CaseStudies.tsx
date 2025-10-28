@@ -148,7 +148,7 @@ function CaseStudyCard({ study, onClick }: CaseStudyCardProps) {
           </div>
 
           <div className="absolute inset-0 z-10 px-6 flex items-center">
-            <h3 className="font-bold text-white leading-tight text-left text-[42px]">
+            <h3 className="font-bold text-white leading-tight text-left text-[42px]" aria-label={`Case study: ${study.title}`}>
               {study.title}
             </h3>
           </div>
@@ -163,6 +163,7 @@ function CaseStudyCard({ study, onClick }: CaseStudyCardProps) {
               onClick={handleViewCaseStudy}
               className="w-full py-3 px-4 text-white font-semibold rounded-lg transition-all duration-300 flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
               style={{ backgroundColor: '#00B46A' }}
+              aria-label={`View full case study: ${study.title}`}
             >
               View Full Case Study
               <ArrowRight size={18} />

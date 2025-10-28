@@ -57,10 +57,11 @@ export default function Header({ onQuoteClick }: HeaderProps) {
           <button
             onClick={() => navigate('/')}
             className="flex items-center animate-fade-in-down cursor-pointer"
+            aria-label="Go to Vinfotech homepage"
           >
             <img
               src={theme === 'dark' ? '/Vinfo-white 2.png' : '/asset 5.png'}
-              alt="Vinfotech Logo"
+              alt="Vinfotech AI - Custom AI Software Development"
               className="h-10 w-auto transition-transform duration-300 hover:scale-105"
             />
           </button>
@@ -104,6 +105,7 @@ export default function Header({ onQuoteClick }: HeaderProps) {
             <button
               onClick={onQuoteClick}
               className="bg-[#00B46A] text-white px-6 py-2.5 rounded-lg font-semibold hover:shadow-lg hover:shadow-[#00B46A]/50 transition-all duration-500 transform hover:scale-110 hover:-translate-y-0.5 active:scale-105"
+              aria-label="Get a quote for custom AI development"
             >
               Get a Quote
             </button>
@@ -120,6 +122,7 @@ export default function Header({ onQuoteClick }: HeaderProps) {
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="p-2 transition-colors text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-white"
+              aria-label={isMobileMenuOpen ? 'Close mobile menu' : 'Open mobile menu'}
             >
               {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -175,6 +178,7 @@ export default function Header({ onQuoteClick }: HeaderProps) {
                   setIsMobileMenuOpen(false);
                 }}
                 className="w-full max-w-[280px] mx-auto block bg-[#00B46A] text-white px-6 py-2.5 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 transform hover:scale-105"
+                aria-label="Get a quote for custom AI development"
               >
                 Get a Quote
               </button>

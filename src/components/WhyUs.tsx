@@ -171,6 +171,7 @@ function FeatureCard({ feature, index, isVisible }: FeatureCardProps) {
             <img
               src={feature.image}
               alt={feature.title}
+              loading="lazy"
               className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ${
                 isHovered && !isExpanded ? 'scale-110 brightness-110' : 'scale-100 brightness-100'
               }`}
