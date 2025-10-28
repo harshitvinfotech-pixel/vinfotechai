@@ -353,13 +353,13 @@
       transform: translateY(0px) rotateZ(0deg) scale(1);
     }
     25% {
-      transform: translateY(-8px) rotateZ(-1deg) scale(1.02);
+      transform: translateY(-4px) rotateZ(-0.5deg) scale(1.01);
     }
     50% {
-      transform: translateY(-12px) rotateZ(0deg) scale(1.03);
+      transform: translateY(-6px) rotateZ(0deg) scale(1.015);
     }
     75% {
-      transform: translateY(-8px) rotateZ(1deg) scale(1.02);
+      transform: translateY(-4px) rotateZ(0.5deg) scale(1.01);
     }
   }
 

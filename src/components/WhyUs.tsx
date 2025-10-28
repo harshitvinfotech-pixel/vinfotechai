@@ -120,8 +120,6 @@ export default function WhyUs() {
           ))}
         </div>
       </div>
-
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gray-700 to-transparent"></div>
     </section>
   );
 }
@@ -151,121 +149,78 @@ function FeatureCard({ feature, index, isVisible }: FeatureCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <>
+    <div
+      className={`group relative transition-all duration-700 ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+      }`}
+      style={{ transitionDelay: `${index * 150}ms` }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       <div
-        className={`group relative h-full transition-all duration-700 ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-        }`}
-        style={{ transitionDelay: `${index * 150}ms` }}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-      >
-        <div
-          className={`absolute -inset-0.5 bg-gradient-to-r ${feature.gradient} rounded-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-500 blur-xl`}
-        ></div>
+        className={`absolute -inset-0.5 bg-gradient-to-r ${feature.gradient} rounded-3xl opacity-0 group-hover:opacity-20 transition-opacity duration-500 blur-xl`}
+      ></div>
 
-        <div className="relative h-full flex flex-col bg-white dark:bg-gray-900 rounded-xl sm:rounded-2xl border border-gray-200 dark:border-gray-800 hover:border-[#00B46A]/30 dark:hover:border-[#00B46A]/30 transition-all duration-500 overflow-hidden shadow-lg hover:shadow-2xl">
-          <div className="relative h-48 sm:h-56 md:h-64 overflow-hidden flex-shrink-0 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900">
-            <div className={`absolute inset-0 transition-all duration-1000 ${
-              imageLoaded && isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
-            }`}>
-              <img
-                src={feature.image}
-                alt={feature.title}
-                className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ${
-                  isHovered ? 'scale-110 brightness-110' : 'scale-100 brightness-100'
-                }`}
-                onLoad={() => setImageLoaded(true)}
-              />
+      <div className={`relative flex flex-col bg-white dark:bg-gray-900 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-[#00B46A]/30 dark:hover:border-[#00B46A]/30 transition-all duration-500 shadow-lg hover:shadow-2xl h-[500px] sm:h-[600px] lg:h-[650px] overflow-hidden`}>
+        <div className={`relative overflow-hidden flex-shrink-0 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 transition-all duration-500 ${
+          isExpanded ? 'h-48 sm:h-56' : 'h-full'
+        }`}>
+          <div className={`absolute inset-0 transition-all duration-1000 ${
+            imageLoaded && isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+          }`}>
+            <img
+              src={feature.image}
+              alt={feature.title}
+              className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ${
+                isHovered && !isExpanded ? 'scale-110 brightness-110' : 'scale-100 brightness-100'
+              }`}
+              onLoad={() => setImageLoaded(true)}
+            />
 
-              <div className={`absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent`}></div>
-            </div>
+            <div className={`absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent`}></div>
+          </div>
 
-            <div className={`absolute top-3 left-3 z-10 transition-all duration-700 ${
-              isVisible ? 'opacity-100 translate-y-0 rotate-0' : 'opacity-0 -translate-y-4 -rotate-12'
-            }`}
-            style={{ transitionDelay: `${index * 150 + 300}ms` }}>
-              <div
-                className={`w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br ${feature.gradient} rounded-lg flex items-center justify-center shadow-lg transform transition-all duration-500 ${
-                  isHovered ? 'scale-125 rotate-12 shadow-2xl' : 'scale-100 rotate-0'
-                }`}
-              >
-                <feature.icon className={`text-white transition-all duration-500 ${
-                  isHovered ? 'scale-110' : 'scale-100'
-                }`} size={20} strokeWidth={2.5} />
-              </div>
-            </div>
 
-            <div className="absolute bottom-4 left-4 right-4 z-10">
-              <h3 className="text-xl sm:text-2xl font-bold text-white mb-2 leading-tight">
-                {feature.title}
-              </h3>
-            </div>
-
-            <button
-              onClick={() => setIsExpanded(true)}
-              className="absolute bottom-4 right-4 z-10 w-10 h-10 sm:w-12 sm:h-12 bg-white dark:bg-gray-900 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 group/btn"
-            >
-              <Plus className="text-[#00B46A] group-hover/btn:rotate-90 transition-transform duration-300" size={24} strokeWidth={2.5} />
-            </button>
+          <div className="absolute inset-0 z-10 flex items-center justify-start px-6 sm:px-8">
+            <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-tight text-left font-['Inter',sans-serif]">
+              {feature.title}
+            </h3>
           </div>
         </div>
-      </div>
 
-      {isExpanded && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-sm animate-fadeIn">
-          <div className="relative w-full max-w-2xl max-h-[90vh] bg-white dark:bg-gray-900 rounded-2xl shadow-2xl overflow-hidden animate-scaleIn">
-            <button
-              onClick={() => setIsExpanded(false)}
-              className="absolute top-4 right-4 z-20 w-10 h-10 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 hover:rotate-90 group/close"
-            >
-              <X className="text-gray-900 dark:text-white" size={24} strokeWidth={2.5} />
-            </button>
-
-            <div className="overflow-y-auto max-h-[90vh]">
-              <div className="relative h-56 sm:h-64 overflow-hidden">
-                <img
-                  src={feature.image}
-                  alt={feature.title}
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
-
-                <div className="absolute top-4 left-4 z-10">
-                  <div className={`w-12 h-12 bg-gradient-to-br ${feature.gradient} rounded-lg flex items-center justify-center shadow-lg`}>
-                    <feature.icon className="text-white" size={24} strokeWidth={2.5} />
+        {isExpanded && (
+          <div className="flex-1 overflow-y-auto p-6 sm:p-8">
+            <div className="space-y-4">
+              {feature.features.map((feat, featureIndex) => (
+                <div
+                  key={featureIndex}
+                  className="flex items-start gap-3"
+                >
+                  <div className="relative mt-1.5 flex-shrink-0">
+                    <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${feature.gradient}`}></div>
                   </div>
+                  <span
+                    className="text-gray-700 dark:text-gray-300 text-sm sm:text-base leading-relaxed"
+                    dangerouslySetInnerHTML={{ __html: feat }}
+                  />
                 </div>
-
-                <div className="absolute bottom-4 left-4 right-16 z-10">
-                  <h3 className="text-2xl sm:text-3xl font-bold text-white leading-tight">
-                    {feature.title}
-                  </h3>
-                </div>
-              </div>
-
-              <div className="p-6 sm:p-8">
-                <div className="space-y-4">
-                  {feature.features.map((feat, featureIndex) => (
-                    <div
-                      key={featureIndex}
-                      className="flex items-start gap-3"
-                    >
-                      <div className="relative mt-1.5 flex-shrink-0">
-                        <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${feature.gradient}`}></div>
-                      </div>
-                      <span
-                        className="text-gray-700 dark:text-gray-300 text-sm sm:text-base leading-relaxed"
-                        dangerouslySetInnerHTML={{ __html: feat }}
-                      />
-                    </div>
-                  ))}
-                </div>
-              </div>
+              ))}
             </div>
           </div>
-        </div>
-      )}
-    </>
+        )}
+
+        <button
+          onClick={() => setIsExpanded(!isExpanded)}
+          className="absolute bottom-4 right-4 z-20 w-12 h-12 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 border-2 border-gray-200 dark:border-gray-700 hover:border-[#00B46A] dark:hover:border-[#00B46A]"
+          aria-label={isExpanded ? 'Collapse details' : 'Expand details'}
+        >
+          {isExpanded ? (
+            <X className="text-[#00B46A]" size={20} strokeWidth={2.5} />
+          ) : (
+            <Plus className="text-[#00B46A]" size={20} strokeWidth={2.5} />
+          )}
+        </button>
+      </div>
+    </div>
   );
 }
