@@ -39,7 +39,7 @@ export default function Services() {
         '<b>Automated report summaries and insights</b> for quick decisions',
         '<b>Custom GenAI tools</b> for creating contextual, fact-checked content',
       ],
-      image: 'https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=1200',
+      image: '/AI for Unstructured Text & Data.jpg',
     },
     {
       id: 'computer-vision',
