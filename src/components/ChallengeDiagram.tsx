@@ -1,4 +1,4 @@
-import { AlertTriangle, Clock, Layers, Languages, Link } from 'lucide-react';
+import { AlertTriangle, Clock, Layers, Languages, Link, FileText, DollarSign, BarChart3, BookOpen } from 'lucide-react';
 
 export default function ChallengeDiagram() {
   const problems = [
@@ -6,64 +6,64 @@ export default function ChallengeDiagram() {
       icon: Clock,
       title: 'Time-Consuming Research',
       description: 'Sales team spent 3+ hours researching each complex query',
-      color: 'from-red-500 to-pink-500'
+      color: '#EF4444'
     },
     {
       icon: Layers,
       title: 'Fragmented Data Sources',
       description: 'Information scattered across 15+ different sources',
-      color: 'from-orange-500 to-red-500'
+      color: '#F97316'
     },
     {
       icon: Languages,
       title: 'Inconsistent Responses',
       description: 'Different team members provided varying answers',
-      color: 'from-pink-500 to-purple-500'
+      color: '#A855F7'
     },
     {
       icon: Link,
       title: 'Manual Correlation',
       description: 'Manual effort required to connect data points',
-      color: 'from-rose-500 to-red-500'
+      color: '#EC4899'
     }
   ];
 
   const dataSources = [
-    { label: 'Product PDFs', icon: '📄' },
-    { label: 'Pricing Sheets', icon: '💰' },
-    { label: 'Case Studies', icon: '📊' },
-    { label: 'Documentation', icon: '📚' }
+    { label: 'Product PDFs', icon: FileText },
+    { label: 'Pricing Sheets', icon: DollarSign },
+    { label: 'Case Studies', icon: BarChart3 },
+    { label: 'Documentation', icon: BookOpen }
   ];
 
   return (
-    <div className="grid lg:grid-cols-2 gap-12 items-center">
-      <div className="relative bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-700">
-        <div className="text-center mb-8">
-          <h4 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+    <div className="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 rounded-2xl p-8 lg:p-10">
+      <div className="max-w-4xl mx-auto">
+        <div className="text-center mb-10">
+          <h4 className="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white mb-3">
             The Data Complexity Problem
           </h4>
-          <p className="text-gray-600 dark:text-gray-400">
+          <p className="text-base text-gray-600 dark:text-gray-400">
             Before AI: A fragmented landscape of information
           </p>
         </div>
 
-        <div className="relative">
-          <div className="grid grid-cols-2 gap-4 mb-8">
+        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 lg:p-8 shadow-md border border-gray-200 dark:border-gray-700 mb-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
             {dataSources.map((source, index) => (
               <div
                 key={index}
-                className="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-4 border-2 border-blue-200 dark:border-blue-700 text-center transition-all duration-300 hover:shadow-md"
+                className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-lg p-4 border border-blue-200 dark:border-blue-700 text-center transition-all duration-300 hover:shadow-md hover:-translate-y-1"
               >
-                <div className="text-3xl mb-2">{source.icon}</div>
-                <div className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                <source.icon className="mx-auto mb-2 text-blue-600 dark:text-blue-400" size={28} />
+                <div className="text-xs font-semibold text-gray-700 dark:text-gray-300">
                   {source.label}
                 </div>
               </div>
             ))}
           </div>
 
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <div className="bg-red-100 dark:bg-red-900/30 border-2 border-red-500 dark:border-red-400 rounded-lg px-4 py-2 shadow-lg">
+          <div className="flex items-center justify-center">
+            <div className="bg-red-50 dark:bg-red-900/20 border-2 border-red-500 dark:border-red-400 rounded-lg px-4 py-2.5 shadow-md">
               <div className="flex items-center gap-2">
                 <AlertTriangle className="text-red-600 dark:text-red-400" size={20} />
                 <span className="text-sm font-bold text-red-600 dark:text-red-400">
@@ -73,31 +73,32 @@ export default function ChallengeDiagram() {
             </div>
           </div>
         </div>
-      </div>
 
-      <div className="space-y-4">
-        {problems.map((problem, index) => (
-          <div
-            key={index}
-            className="bg-red-50 dark:bg-red-900/10 rounded-xl p-5 border border-red-200 dark:border-red-800 transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
-          >
-            <div className="flex items-start gap-4">
-              <div
-                className={`w-12 h-12 rounded-full bg-gradient-to-br ${problem.color} flex items-center justify-center flex-shrink-0 shadow-lg`}
-              >
-                <problem.icon className="text-white" size={24} />
-              </div>
-              <div className="flex-1">
-                <h5 className="text-lg font-bold text-gray-900 dark:text-white mb-1">
-                  {problem.title}
-                </h5>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  {problem.description}
-                </p>
+        <div className="grid sm:grid-cols-2 gap-4">
+          {problems.map((problem, index) => (
+            <div
+              key={index}
+              className="bg-white dark:bg-gray-800 rounded-lg p-5 border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
+            >
+              <div className="flex items-start gap-3">
+                <div
+                  className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 shadow-sm"
+                  style={{ backgroundColor: problem.color + '20' }}
+                >
+                  <problem.icon style={{ color: problem.color }} size={20} />
+                </div>
+                <div className="flex-1">
+                  <h5 className="text-base font-bold text-gray-900 dark:text-white mb-1.5">
+                    {problem.title}
+                  </h5>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                    {problem.description}
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );
