@@ -12,7 +12,15 @@ import {
   Award,
   Database,
   FileCheck,
-  CheckCircle2
+  CheckCircle2,
+  Zap,
+  Link,
+  Search,
+  Code,
+  Palette,
+  Server,
+  HardDrive,
+  Cloud
 } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -271,7 +279,7 @@ export default function CaseStudyDetail() {
                 <h3 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">Technology Stack</h3>
               </div>
 
-              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
                 {caseStudy.technologies && caseStudy.technologies.length > 0 ? (
                   caseStudy.technologies.map((tech, idx) => (
                     <TechItem key={idx} category={tech.category} name={tech.name} />
@@ -280,12 +288,15 @@ export default function CaseStudyDetail() {
                   <>
                     <TechItem category="LLMs" name="GPT-4 Turbo" />
                     <TechItem category="LLMs" name="Mistral 7B" />
-                    <TechItem category="Retrieval" name="LangChain" />
+                    <TechItem category="Frameworks" name="LangChain" />
                     <TechItem category="Retrieval" name="pgvector" />
                     <TechItem category="Retrieval" name="ElasticSearch" />
                     <TechItem category="Frontend" name="React + NextJS" />
+                    <TechItem category="Frontend" name="Tailwind CSS" />
                     <TechItem category="Infrastructure" name="AWS ECS" />
+                    <TechItem category="Infrastructure" name="PostgreSQL" />
                     <TechItem category="Infrastructure" name="Redis" />
+                    <TechItem category="Infrastructure" name="S3" />
                   </>
                 )}
               </div>
@@ -394,15 +405,42 @@ interface TechItemProps {
 }
 
 function TechItem({ category, name }: TechItemProps) {
+  const getTechIcon = (techName: string, category: string) => {
+    const nameLower = techName.toLowerCase();
+    const catLower = category.toLowerCase();
+
+    if (nameLower.includes('gpt') || nameLower.includes('mistral')) return Zap;
+    if (nameLower.includes('langchain')) return Link;
+    if (nameLower.includes('vector') || nameLower.includes('elastic')) return Search;
+    if (nameLower.includes('react') || nameLower.includes('next')) return Code;
+    if (nameLower.includes('tailwind')) return Palette;
+    if (nameLower.includes('aws') || nameLower.includes('ecs')) return Cloud;
+    if (nameLower.includes('postgres') || nameLower.includes('redis')) return Database;
+    if (nameLower.includes('s3')) return HardDrive;
+
+    if (catLower.includes('llm')) return Zap;
+    if (catLower.includes('framework')) return Link;
+    if (catLower.includes('retrieval')) return Search;
+    if (catLower.includes('frontend')) return Code;
+    if (catLower.includes('infrastructure')) return Server;
+
+    return Database;
+  };
+
+  const Icon = getTechIcon(name, category);
+
   return (
-    <div className="text-center">
-      <div className="w-16 h-16 mx-auto mb-3 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center">
-        <Database className="text-white" size={28} />
+    <div className="flex flex-col items-center text-center group">
+      <div
+        className="w-16 h-16 rounded-xl flex items-center justify-center mb-3 transition-transform duration-300 group-hover:scale-110"
+        style={{ backgroundColor: '#00B46A' }}
+      >
+        <Icon className="text-white" size={28} />
       </div>
-      <div className="text-xs font-semibold text-gray-500 dark:text-gray-500 uppercase tracking-wider mb-1">
+      <div className="text-xs font-semibold uppercase tracking-wider mb-1" style={{ color: '#6B7280' }}>
         {category}
       </div>
-      <div className="text-base font-bold text-gray-900 dark:text-white">
+      <div className="text-sm font-bold text-gray-900 dark:text-white">
         {name}
       </div>
     </div>
