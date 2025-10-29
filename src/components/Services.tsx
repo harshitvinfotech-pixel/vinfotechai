@@ -39,7 +39,7 @@ export default function Services() {
         '<b>Automated report summaries and insights</b> for quick decisions',
         '<b>Custom GenAI tools</b> for creating contextual, fact-checked content',
       ],
-      image: '/AI for Unstructured Text & Data.jpg',
+      image: '/AI for Unstructured Text & Data.jpg?auto=compress&cs=tinysrgb&w=1200',
     },
     {
       id: 'computer-vision',
@@ -52,7 +52,7 @@ export default function Services() {
         'Automated <b>Worker Monitoring</b> for team attendance and break management',
         'Advanced <b>Object Detection</b> for asset tracking and process optimization',
       ],
-      image: '/AI & Computer Vision for Visual Data.jpg',
+      image: '/AI & Computer Vision for Visual Data.jpg?auto=compress&cs=tinysrgb&w=1200',
     },
     {
       id: 'ai-agents',
@@ -63,7 +63,7 @@ export default function Services() {
         'Predictive modeling and <b>Intelligent Forecasting</b> based on proprietary data',
         'Internal <b>Recommendation Engines</b> for optimizing complex workflows',
       ],
-      image: 'https://images.pexels.com/photos/7948036/pexels-photo-7948036.jpeg?auto=compress&cs=tinysrgb&w=1200',
+      image: '/AI Agents Data to Decisive Action.jpg?auto=compress&cs=tinysrgb&w=1200',
     },
   ];
 
