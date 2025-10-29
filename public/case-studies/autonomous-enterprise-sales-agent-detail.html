@@ -465,42 +465,95 @@
                     </div>
                 </article>
 
-                <article class="bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 rounded-2xl p-8">
-                    <h2 class="text-3xl font-bold mb-6">How AI Made It Possible</h2>
-                    <p class="text-gray-300 leading-relaxed mb-6">
-                        Traditional chatbots relied on predefined flows and couldn't handle nuanced, domain-specific questions.
-                        This solution leveraged AI to <strong class="text-white">read and reason</strong>, not just match keywords.
-                    </p>
+                <article class="py-16">
+                    <div class="text-center mb-12">
+                        <h2 class="text-4xl font-bold mb-4 text-gray-900 dark:text-white">How AI Made the Impossible Possible</h2>
+                        <p class="text-xl text-gray-600 dark:text-gray-400">Traditional chatbots relied on predefined flows and couldn't handle nuanced, domain-specific questions. This solution leveraged AI to <strong class="text-gray-900 dark:text-white">read and reason</strong>, not just match keywords.</p>
+                    </div>
 
-                    <div class="space-y-4">
-                        <div class="relative pl-8 timeline-item">
-                            <h4 class="text-lg font-semibold text-white mb-2">RAG on Mixed Data Types</h4>
-                            <p class="text-gray-400">Combined website text, manuals (PDFs), spreadsheets, and live DB entries.</p>
+                    <div class="grid md:grid-cols-5 gap-6 items-center max-w-6xl mx-auto">
+                        <!-- Card 1: RAG on Mixed Data Types -->
+                        <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 border border-gray-200 dark:border-slate-700 shadow-lg">
+                            <div class="w-16 h-16 bg-[#00B46A]/10 rounded-2xl flex items-center justify-center mb-6 mx-auto">
+                                <svg class="w-8 h-8" style="color: #00B46A;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-lg font-bold mb-3 text-center text-gray-900 dark:text-white">RAG on Mixed Data Types</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 text-center">Combined website text, manuals (PDFs), spreadsheets, and live DB entries.</p>
                         </div>
-                        <div class="relative pl-8 timeline-item">
-                            <h4 class="text-lg font-semibold text-white mb-2">Context-Preserving Retrieval</h4>
-                            <p class="text-gray-400">Used vector search + reranking for highly specific responses.</p>
+
+                        <!-- Arrow 1 -->
+                        <div class="hidden md:flex justify-center">
+                            <svg class="w-8 h-8" style="color: #00B46A;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                            </svg>
                         </div>
-                        <div class="relative pl-8 timeline-item">
-                            <h4 class="text-lg font-semibold text-white mb-2">Citation-First Policy</h4>
-                            <p class="text-gray-400">Every answer links back to a verified internal document or URL.</p>
+
+                        <!-- Card 2: Context-Preserving Retrieval -->
+                        <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 border border-gray-200 dark:border-slate-700 shadow-lg">
+                            <div class="w-16 h-16 bg-[#00B46A]/10 rounded-2xl flex items-center justify-center mb-6 mx-auto">
+                                <svg class="w-8 h-8" style="color: #00B46A;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-lg font-bold mb-3 text-center text-gray-900 dark:text-white">Context-Preserving Retrieval</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 text-center">Used vector search + reranking for highly specific responses.</p>
                         </div>
-                        <div class="relative pl-8 timeline-item">
-                            <h4 class="text-lg font-semibold text-white mb-2">Adaptive Tone</h4>
-                            <p class="text-gray-400">Prompts tuned to match the company's professional but approachable brand voice.</p>
+
+                        <!-- Arrow 2 -->
+                        <div class="hidden md:flex justify-center">
+                            <svg class="w-8 h-8" style="color: #00B46A;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                            </svg>
                         </div>
-                        <div class="relative pl-8 timeline-item">
-                            <h4 class="text-lg font-semibold text-white mb-2">Continuous Learning</h4>
-                            <p class="text-gray-400">New content and FAQs are automatically indexed each night.</p>
+
+                        <!-- Card 3: Citation-First Policy -->
+                        <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 border border-gray-200 dark:border-slate-700 shadow-lg">
+                            <div class="w-16 h-16 bg-[#00B46A]/10 rounded-2xl flex items-center justify-center mb-6 mx-auto">
+                                <svg class="w-8 h-8" style="color: #00B46A;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-lg font-bold mb-3 text-center text-gray-900 dark:text-white">Citation-First Policy</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 text-center">Every answer links back to a verified internal document or URL.</p>
                         </div>
                     </div>
 
-                    <p class="text-gray-300 leading-relaxed mt-6 pt-6 border-t border-slate-700">
-                        With this setup, the agent can handle both high-level strategy questions
-                        <span class="text-blue-400 italic">("Do you offer AI development services?")</span>
-                        and deep product questions
-                        <span class="text-violet-400 italic">("Can your sports platform support private leagues?")</span>.
-                    </p>
+                    <!-- Second Row -->
+                    <div class="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto mt-8">
+                        <!-- Card 4: Adaptive Tone -->
+                        <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 border border-gray-200 dark:border-slate-700 shadow-lg">
+                            <div class="w-16 h-16 bg-[#00B46A]/10 rounded-2xl flex items-center justify-center mb-6 mx-auto">
+                                <svg class="w-8 h-8" style="color: #00B46A;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-lg font-bold mb-3 text-center text-gray-900 dark:text-white">Adaptive Tone</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 text-center">Prompts tuned to match the company's professional but approachable brand voice.</p>
+                        </div>
+
+                        <!-- Card 5: Continuous Learning -->
+                        <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 border border-gray-200 dark:border-slate-700 shadow-lg">
+                            <div class="w-16 h-16 bg-[#00B46A]/10 rounded-2xl flex items-center justify-center mb-6 mx-auto">
+                                <svg class="w-8 h-8" style="color: #00B46A;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-lg font-bold mb-3 text-center text-gray-900 dark:text-white">Continuous Learning</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 text-center">New content and FAQs are automatically indexed each night.</p>
+                        </div>
+                    </div>
+
+                    <!-- Bottom Example Text -->
+                    <div class="mt-12 text-center max-w-4xl mx-auto">
+                        <p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+                            With this setup, the agent can handle both high-level strategy questions like
+                            <span class="text-blue-500 font-semibold italic">"Do you offer AI development services?"</span>
+                            and deep product questions like
+                            <span class="text-violet-500 font-semibold italic">"Can your sports platform support private leagues?"</span>
+                        </p>
+                    </div>
                 </article>
 
                 <article>
