@@ -2,16 +2,11 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import {
   ArrowLeft,
-  Bot,
-  Moon,
-  Sun,
-  Settings,
   Send,
   Paperclip,
   Info,
   BarChart3,
   CheckCircle,
-  Zap,
   Database,
   MessageSquare,
   FileText,
@@ -20,23 +15,15 @@ import {
   Target,
   Award
 } from 'lucide-react';
-import { useTheme } from '../contexts/ThemeContext';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 import PhoneMockup from '../components/PhoneMockup';
 import ArchitectureDiagram from '../components/ArchitectureDiagram';
 
 export default function CaseStudyDetail() {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
-  const { theme, toggleTheme } = useTheme();
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const [showQuoteForm, setShowQuoteForm] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -66,60 +53,46 @@ export default function CaseStudyDetail() {
   ];
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300" style={{ fontFamily: 'Helvetica, Arial, sans-serif' }}>
-      <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled
-            ? 'bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-lg'
-            : 'bg-transparent'
-        }`}
-      >
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
+      <Header onQuoteClick={() => setShowQuoteForm(true)} />
+
+      <div className="relative h-[60vh] min-h-[500px] bg-black overflow-hidden">
+        <div className="absolute inset-0">
+          <img
+            src="https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=1920"
+            alt="AI Sales Agent Background"
+            className="w-full h-full object-cover opacity-60"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70"></div>
+        </div>
+
+        <div className="absolute top-24 left-6 sm:left-8 lg:left-12 z-10">
           <button
             onClick={handleBackClick}
-            className="flex items-center gap-2 text-gray-700 dark:text-gray-300 hover:text-[#00B46A] dark:hover:text-[#00B46A] transition-colors"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-black/30 backdrop-blur-sm text-white hover:bg-black/50 transition-all duration-300 group border border-white/20"
           >
-            <ArrowLeft size={20} />
-            <span className="font-medium">Back</span>
+            <ArrowLeft size={20} className="transition-transform duration-300 group-hover:-translate-x-1" />
+            <span className="font-medium text-sm sm:text-base">Back to Case Studies</span>
           </button>
-
-          <div className="flex items-center gap-2">
-            <Bot size={24} style={{ color: '#00B46A' }} />
-            <h1 className="text-lg font-bold text-gray-900 dark:text-white">AI Sales Agent</h1>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <button
-              onClick={toggleTheme}
-              className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-              aria-label="Toggle theme"
-            >
-              {theme === 'dark' ? (
-                <Sun size={20} className="text-gray-300" />
-              ) : (
-                <Moon size={20} className="text-gray-700" />
-              )}
-            </button>
-            <button
-              className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-              aria-label="Settings"
-            >
-              <Settings size={20} className="text-gray-700 dark:text-gray-300" />
-            </button>
-          </div>
         </div>
-      </header>
 
-      <main className="pt-24 pb-16">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="mb-12 text-center">
-            <span className="inline-block px-4 py-2 rounded-full text-sm font-semibold mb-4" style={{ backgroundColor: '#00B46A', color: 'white' }}>
-              Case Study
-            </span>
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-4">
-              Autonomous Enterprise Sales Agent
-            </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
+          <span className="inline-block px-4 py-2 rounded-full text-sm font-semibold mb-6" style={{ backgroundColor: '#00B46A', color: 'white' }}>
+            Case Study
+          </span>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 max-w-5xl leading-tight">
+            Autonomous Enterprise Sales Agent
+          </h1>
+          <p className="text-lg sm:text-xl lg:text-2xl text-white/90 max-w-4xl leading-relaxed">
+            Every day, potential clients visit the Vinfotech website with questions. Our AI Sales Agent provides accurate, contextual, and cited responses instantly, available 24/7.
+          </p>
+        </div>
+      </div>
+
+      <main className="pb-16">
+        <div className="max-w-7xl mx-auto px-6 -mt-16 relative z-10">
+          <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl p-8 mb-12 border border-gray-200 dark:border-gray-700">
+            <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed text-center">
               How Vinfotech scaled pre-sales with an always-on, cited AI assistant that answers complex inbound queries with verified responses—24/7.
             </p>
           </div>
@@ -346,9 +319,7 @@ export default function CaseStudyDetail() {
         </div>
       </main>
 
-      <footer className="py-8 text-center text-sm text-gray-500 dark:text-gray-400 border-t border-gray-200 dark:border-gray-800">
-        <p>Powered by Bolt.new and Lucide Icons</p>
-      </footer>
+      <Footer />
     </div>
   );
 }
