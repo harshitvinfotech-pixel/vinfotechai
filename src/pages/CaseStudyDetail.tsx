@@ -125,12 +125,11 @@ export default function CaseStudyDetail() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 sm:mt-16 relative z-10">
 
           <section className="mb-12 sm:mb-20">
-            <div className="text-center mb-8 sm:mb-12">
-              <div className="inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 rounded-3xl mb-4 sm:mb-6" style={{ backgroundColor: '#00B46A15', border: '2px solid #00B46A30' }}>
-                <Info style={{ color: '#00B46A' }} size={32} className="sm:w-10 sm:h-10" strokeWidth={2} />
-              </div>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4">Overview</h2>
-              <div className="w-24 h-1.5 mx-auto rounded-full" style={{ backgroundColor: '#00B46A' }}></div>
+            <div className="text-center mb-12 sm:mb-16">
+              <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 leading-tight">
+                Overview
+              </h2>
+              <div className="w-32 h-2 mx-auto rounded-full" style={{ backgroundColor: '#00B46A' }}></div>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
