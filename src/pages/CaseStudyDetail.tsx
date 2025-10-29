@@ -25,6 +25,7 @@ import {
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import TwoColumnSection from '../components/TwoColumnSection';
+import SectionWithDivider from '../components/SectionWithDivider';
 import PhoneMockup from '../components/PhoneMockup';
 import ChallengeDiagram from '../components/ChallengeDiagram';
 import BreakthroughCards from '../components/BreakthroughCards';
@@ -153,9 +154,9 @@ export default function CaseStudyDetail() {
       </div>
 
       <main className="pb-12 sm:pb-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 -mt-12 sm:-mt-16 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 mt-8 sm:mt-12 relative z-10">
 
-          <TwoColumnSection
+          <SectionWithDivider
             icon={Info}
             title="Overview"
             content={
@@ -190,7 +191,7 @@ export default function CaseStudyDetail() {
             }
           />
 
-          <TwoColumnSection
+          <SectionWithDivider
             icon={Target}
             title="The Challenge"
             content={
@@ -215,7 +216,7 @@ export default function CaseStudyDetail() {
             imageComponent={<ChallengeDiagram />}
           />
 
-          <TwoColumnSection
+          <SectionWithDivider
             icon={Lightbulb}
             title="The AI Solution"
             content={
@@ -229,6 +230,7 @@ export default function CaseStudyDetail() {
               </>
             }
             imagePosition="right"
+            showDivider={false}
             imageComponent={
               <div className="w-full max-w-md mx-auto">
                 <PhoneMockup messages={chatMessages} appName="Vinfotech AI Assistant" />
