@@ -86,16 +86,6 @@ export default function CaseStudyDetail() {
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70"></div>
         </div>
 
-        <div className="absolute top-24 sm:top-28 left-4 sm:left-8 lg:left-12 z-10">
-          <button
-            onClick={handleBackClick}
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-black/30 backdrop-blur-sm text-white hover:bg-black/50 transition-all duration-300 group border border-white/20"
-          >
-            <ArrowLeft size={18} className="transition-transform duration-300 group-hover:-translate-x-1" />
-            <span className="font-medium text-sm md:text-base">Back to Case Studies</span>
-          </button>
-        </div>
-
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 sm:px-6">
           <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 sm:mb-6 max-w-5xl leading-tight px-2">
             {caseStudy.title}
