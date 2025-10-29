@@ -20,7 +20,7 @@ export default function AbstractBackground() {
       }`}
     >
       <img
-        src={theme === 'dark' ? '/vinfo-img-dark 1 copy copy copy.jpeg' : '/vinfo-img copy copy copy.jpeg'}
+        src={theme === 'dark' ? '/vinfo-img-dark 1.jpeg' : '/vinfo-img.jpeg'}
         alt=""
         className="w-full h-full object-cover transition-opacity duration-1000"
         style={{
