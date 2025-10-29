@@ -9,7 +9,6 @@ import {
   CheckCircle,
   Database,
   MessageSquare,
-  FileText,
   TrendingUp,
   Clock,
   Target,
@@ -92,11 +91,23 @@ export default function CaseStudyDetail() {
 
       <main className="pb-16">
         <div className="max-w-7xl mx-auto px-6 -mt-16 relative z-10">
-          <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl p-8 mb-12 border border-gray-200 dark:border-gray-700">
-            <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed text-center">
-              How Vinfotech scaled pre-sales with an always-on, cited AI assistant that answers complex inbound queries with verified responses—24/7.
-            </p>
-          </div>
+          <section className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl p-8 sm:p-12 mb-16 border border-gray-200 dark:border-gray-700">
+            <div className="flex items-center gap-3 mb-8">
+              <div className="w-12 h-12 rounded-full flex items-center justify-center" style={{ backgroundColor: '#00B46A20' }}>
+                <Info style={{ color: '#00B46A' }} size={28} />
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">Overview</h2>
+            </div>
+
+            <div className="space-y-4">
+              <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+                Every day, potential clients visit the Vinfotech website with questions — about pricing, timelines, integrations, technologies, or specific product capabilities.
+              </p>
+              <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+                Earlier, these inquiries often required manual intervention or follow-ups from the sales team. To solve this, Vinfotech built its own <span className="font-bold" style={{ color: '#00B46A' }}>Autonomous AI Sales Agent</span> that now provides accurate, contextual, and cited responses instantly, available 24/7 on the website.
+              </p>
+            </div>
+          </section>
 
           <div className="grid lg:grid-cols-2 gap-8 mb-16">
             <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-xl border border-gray-200 dark:border-gray-700">
