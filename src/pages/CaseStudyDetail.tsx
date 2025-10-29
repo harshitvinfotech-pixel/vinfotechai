@@ -12,7 +12,9 @@ import {
   Award,
   Database,
   FileCheck,
-  CheckCircle2
+  CheckCircle2,
+  Users,
+  Globe
 } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -272,7 +274,7 @@ export default function CaseStudyDetail() {
               </p>
             </div>
 
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {caseStudy.metrics && caseStudy.metrics.length > 0 ? (
                 caseStudy.metrics.map((metric, idx) => (
                   <MetricCard
@@ -289,25 +291,37 @@ export default function CaseStudyDetail() {
                     icon={Clock}
                     label="Response Time"
                     value="< 2 sec"
-                    description="Average query response"
+                    description="Average response time per query"
                   />
                   <MetricCard
                     icon={CheckCircle}
                     label="Accuracy"
                     value="94%"
-                    description="Validated against playbooks"
+                    description="Answer accuracy validated against sales playbooks"
                   />
                   <MetricCard
                     icon={TrendingUp}
                     label="Reduction"
                     value="70%"
-                    description="Manual sales responses"
+                    description="Manual sales responses reduced"
+                  />
+                  <MetricCard
+                    icon={Users}
+                    label="Engagement"
+                    value="2.3x"
+                    description="Longer visitor sessions"
                   />
                   <MetricCard
                     icon={Award}
                     label="Conversions"
                     value="+35%"
-                    description="Increase in conversions"
+                    description="Increase in contact forms"
+                  />
+                  <MetricCard
+                    icon={Globe}
+                    label="Availability"
+                    value="24/7"
+                    description="Always-on global support"
                   />
                 </>
               )}
@@ -383,14 +397,14 @@ interface MetricCardProps {
 
 function MetricCard({ icon: Icon, label, value, description }: MetricCardProps) {
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+    <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-md border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all duration-300">
       <div className="flex flex-col items-center text-center">
-        <div className="w-14 h-14 rounded-full flex items-center justify-center mb-4" style={{ backgroundColor: '#00B46A20' }}>
-          <Icon style={{ color: '#00B46A' }} size={24} />
+        <div className="w-16 h-16 rounded-full flex items-center justify-center mb-6 bg-emerald-100 dark:bg-emerald-900/30">
+          <Icon className="text-emerald-600 dark:text-emerald-400" size={28} />
         </div>
-        <div className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">{label}</div>
-        <div className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{value}</div>
-        <div className="text-xs text-gray-500 dark:text-gray-500">{description}</div>
+        <div className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-3">{label}</div>
+        <div className="text-4xl font-bold text-gray-900 dark:text-white mb-3">{value}</div>
+        <div className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{description}</div>
       </div>
     </div>
   );
