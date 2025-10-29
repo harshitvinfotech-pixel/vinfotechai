@@ -22,7 +22,6 @@ import ChallengeDiagram from '../components/ChallengeDiagram';
 import BreakthroughCards from '../components/BreakthroughCards';
 import ApproachTimeline from '../components/ApproachTimeline';
 import KeyTakeawaySection from '../components/KeyTakeawaySection';
-import ClientQuote from '../components/ClientQuote';
 import ProductGallery from '../components/ProductGallery';
 import RelatedCaseStudies from '../components/RelatedCaseStudies';
 import { getCaseStudyBySlug, getSuggestedCaseStudies } from '../lib/caseStudies';
@@ -355,15 +354,10 @@ export default function CaseStudyDetail() {
 
           <KeyTakeawaySection
             takeaway={caseStudy.results || "This internal project proved how **Enterprise RAG and AI agents** can revolutionize pre-sales and support. The system delivers **factual, cited, and human-quality answers** around the clock — allowing sales teams to focus on **relationship-building** rather than repetitive responses."}
+            quote={caseStudy.client_quote}
+            quoteAuthor={caseStudy.client_name}
+            quoteRole={caseStudy.client_role}
           />
-
-          {caseStudy.client_quote && caseStudy.client_name && caseStudy.client_role && (
-            <ClientQuote
-              quote={caseStudy.client_quote}
-              author={caseStudy.client_name}
-              role={caseStudy.client_role}
-            />
-          )}
 
           {caseStudy.gallery_images && caseStudy.gallery_images.length > 0 && (
             <ProductGallery images={caseStudy.gallery_images} />
