@@ -265,15 +265,6 @@ export default function CaseStudyDetail() {
           </section>
 
           <section className="mb-16">
-            <div className="text-center mb-8">
-              <h3 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-3">
-                Impact & Results
-              </h3>
-              <p className="text-lg text-gray-600 dark:text-gray-400">
-                Measurable improvements across all key metrics
-              </p>
-            </div>
-
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {caseStudy.metrics && caseStudy.metrics.length > 0 ? (
                 caseStudy.metrics.map((metric, idx) => (
@@ -306,7 +297,7 @@ export default function CaseStudyDetail() {
                     description="Manual sales responses reduced"
                   />
                   <MetricCard
-                    icon={Users}
+                    icon={CheckCircle}
                     label="Engagement"
                     value="2.3x"
                     description="Longer visitor sessions"
@@ -318,7 +309,7 @@ export default function CaseStudyDetail() {
                     description="Increase in contact forms"
                   />
                   <MetricCard
-                    icon={Globe}
+                    icon={CheckCircle}
                     label="Availability"
                     value="24/7"
                     description="Always-on global support"
@@ -397,14 +388,14 @@ interface MetricCardProps {
 
 function MetricCard({ icon: Icon, label, value, description }: MetricCardProps) {
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-md border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all duration-300">
+    <div className="bg-white dark:bg-gray-800 rounded-3xl p-10 shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-md transition-all duration-300">
       <div className="flex flex-col items-center text-center">
-        <div className="w-16 h-16 rounded-full flex items-center justify-center mb-6 bg-emerald-100 dark:bg-emerald-900/30">
-          <Icon className="text-emerald-600 dark:text-emerald-400" size={28} />
+        <div className="w-16 h-16 rounded-full flex items-center justify-center mb-6" style={{ backgroundColor: '#C7F4E3' }}>
+          <Icon style={{ color: '#059669' }} size={26} strokeWidth={2} />
         </div>
-        <div className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-3">{label}</div>
-        <div className="text-4xl font-bold text-gray-900 dark:text-white mb-3">{value}</div>
-        <div className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{description}</div>
+        <div className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-4">{label}</div>
+        <div className="text-5xl font-bold text-gray-900 dark:text-white mb-4" style={{ letterSpacing: '-0.02em' }}>{value}</div>
+        <div className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{description}</div>
       </div>
     </div>
   );
