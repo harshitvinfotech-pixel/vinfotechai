@@ -12,15 +12,7 @@ import {
   Award,
   Database,
   FileCheck,
-  CheckCircle2,
-  Zap,
-  Link,
-  Search,
-  Code,
-  Palette,
-  Server,
-  HardDrive,
-  Cloud
+  CheckCircle2
 } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -279,26 +271,31 @@ export default function CaseStudyDetail() {
                 <h3 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">Technology Stack</h3>
               </div>
 
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-                {caseStudy.technologies && caseStudy.technologies.length > 0 ? (
-                  caseStudy.technologies.map((tech, idx) => (
-                    <TechItem key={idx} category={tech.category} name={tech.name} />
-                  ))
-                ) : (
-                  <>
-                    <TechItem category="LLMs" name="GPT-4 Turbo" />
-                    <TechItem category="LLMs" name="Mistral 7B" />
-                    <TechItem category="Frameworks" name="LangChain" />
-                    <TechItem category="Retrieval" name="pgvector" />
-                    <TechItem category="Retrieval" name="ElasticSearch" />
-                    <TechItem category="Frontend" name="React + NextJS" />
-                    <TechItem category="Frontend" name="Tailwind CSS" />
-                    <TechItem category="Infrastructure" name="AWS ECS" />
-                    <TechItem category="Infrastructure" name="PostgreSQL" />
-                    <TechItem category="Infrastructure" name="Redis" />
-                    <TechItem category="Infrastructure" name="S3" />
-                  </>
-                )}
+              <div className="space-y-6">
+                <TechStackRow
+                  category="LLMs"
+                  technologies={['GPT-4 Turbo', 'Mistral 7B']}
+                />
+                <TechStackRow
+                  category="Retrieval"
+                  technologies={['LangChain', 'pgvector', 'ElasticSearch']}
+                />
+                <TechStackRow
+                  category="Knowledge Sources"
+                  technologies={['Internal PDFs', 'Spreadsheets', 'Website text', 'CMS data']}
+                />
+                <TechStackRow
+                  category="Frontend"
+                  technologies={['React + NextJS', 'Tailwind', 'Framer Motion']}
+                />
+                <TechStackRow
+                  category="Infrastructure"
+                  technologies={['AWS ECS', 'S3', 'Redis Cache', 'PostgreSQL']}
+                />
+                <TechStackRow
+                  category="Operations"
+                  technologies={['Logging', 'Feedback collection', 'Auto re-indexing']}
+                />
               </div>
             </div>
           </section>
@@ -399,53 +396,28 @@ function MetricCard({ icon: Icon, label, value, description }: MetricCardProps) 
   );
 }
 
-interface TechItemProps {
+interface TechStackRowProps {
   category: string;
-  name: string;
+  technologies: string[];
 }
 
-function TechItem({ category, name }: TechItemProps) {
-  const getTechIcon = (techName: string, category: string) => {
-    const nameLower = techName.toLowerCase();
-    const catLower = category.toLowerCase();
-
-    if (nameLower.includes('gpt') || nameLower.includes('mistral')) return Zap;
-    if (nameLower.includes('langchain')) return Link;
-    if (nameLower.includes('vector') || nameLower.includes('elastic')) return Search;
-    if (nameLower.includes('react') || nameLower.includes('next')) return Code;
-    if (nameLower.includes('tailwind')) return Palette;
-    if (nameLower.includes('aws') || nameLower.includes('ecs')) return Cloud;
-    if (nameLower.includes('postgres') || nameLower.includes('redis')) return Database;
-    if (nameLower.includes('s3')) return HardDrive;
-
-    if (catLower.includes('llm')) return Zap;
-    if (catLower.includes('framework')) return Link;
-    if (catLower.includes('retrieval')) return Search;
-    if (catLower.includes('frontend')) return Code;
-    if (catLower.includes('infrastructure')) return Server;
-
-    return Database;
-  };
-
-  const Icon = getTechIcon(name, category);
-
+function TechStackRow({ category, technologies }: TechStackRowProps) {
   return (
-    <div className="flex flex-col items-center text-center group">
-      <div
-        className="w-16 h-16 rounded-xl flex items-center justify-center mb-3 transition-transform duration-300 group-hover:scale-110"
-        style={{ backgroundColor: '#00B46A' }}
-      >
-        <Icon className="text-white" size={28} />
+    <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 py-4 border-b border-gray-200 dark:border-gray-700 last:border-b-0">
+      <div className="sm:w-48 flex-shrink-0">
+        <h4 className="text-base font-bold text-gray-900 dark:text-white">
+          {category}:
+        </h4>
       </div>
-      <div className="text-xs font-semibold uppercase tracking-wider mb-1" style={{ color: '#6B7280' }}>
-        {category}
-      </div>
-      <div className="text-sm font-bold text-gray-900 dark:text-white">
-        {name}
+      <div className="flex-1">
+        <p className="text-base text-gray-700 dark:text-gray-300 leading-relaxed">
+          {technologies.join(', ')}
+        </p>
       </div>
     </div>
   );
 }
+
 
 function getMetricIcon(label: string): React.ElementType {
   const labelLower = label.toLowerCase();
