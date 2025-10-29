@@ -107,9 +107,6 @@ export default function CaseStudyDetail() {
         </div>
 
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 sm:px-6">
-          <span className="inline-block px-3 py-1.5 rounded-full text-xs sm:text-sm font-semibold mb-4 sm:mb-6" style={{ backgroundColor: '#00B46A', color: 'white' }}>
-            Case Study
-          </span>
           <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 sm:mb-6 max-w-5xl leading-tight px-2">
             {caseStudy.title}
           </h1>
