@@ -16,7 +16,7 @@ export default function Footer() {
               alt="Vinfotech Logo"
               className="h-10 sm:h-12 w-auto mb-4 sm:mb-6 transition-opacity duration-300"
             />
-            <p className="text-lg sm:text-lg text-gray-400 leading-relaxed mb-4 sm:mb-6 max-w-md">
+            <p className="text-sm sm:text-base text-gray-400 leading-relaxed mb-4 sm:mb-6 max-w-md">
               Transforming businesses through innovative AI solutions. We deliver production-ready AI systems that drive measurable results.
             </p>
             <div className="flex gap-3 sm:gap-4">
@@ -68,30 +68,30 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4 text-white">Quick Links</h3>
+            <h3 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4 text-white">Quick Links</h3>
             <ul className="space-y-2 sm:space-y-3">
               <li>
-                <a href="#services" className="inline-block text-lg sm:text-lg text-gray-400 hover:text-[#00FFB2] transition-all duration-300 hover:translate-x-1">
+                <a href="#services" className="inline-block text-sm sm:text-base text-gray-400 hover:text-[#00FFB2] transition-all duration-300 hover:translate-x-1">
                   Services
                 </a>
               </li>
               <li>
-                <a href="#why-us" className="inline-block text-lg sm:text-lg text-gray-400 hover:text-[#00FFB2] transition-all duration-300 hover:translate-x-1">
+                <a href="#why-us" className="inline-block text-gray-400 hover:text-[#00FFB2] transition-all duration-300 hover:translate-x-1">
                   Why Us
                 </a>
               </li>
               <li>
-                <a href="#case-studies" className="inline-block text-lg sm:text-lg text-gray-400 hover:text-[#00FFB2] transition-all duration-300 hover:translate-x-1">
+                <a href="#case-studies" className="inline-block text-gray-400 hover:text-[#00FFB2] transition-all duration-300 hover:translate-x-1">
                   Case Studies
                 </a>
               </li>
               <li>
-                <a href="#tech-stack" className="inline-block text-lg sm:text-lg text-gray-400 hover:text-[#00FFB2] transition-all duration-300 hover:translate-x-1">
+                <a href="#tech-stack" className="inline-block text-gray-400 hover:text-[#00FFB2] transition-all duration-300 hover:translate-x-1">
                   Tech Stack
                 </a>
               </li>
               <li>
-                <Link to="/blogs" className="inline-block text-lg sm:text-lg text-gray-400 hover:text-[#00FFB2] transition-all duration-300 hover:translate-x-1">
+                <Link to="/blogs" className="inline-block text-gray-400 hover:text-[#00FFB2] transition-all duration-300 hover:translate-x-1">
                   Blog
                 </Link>
               </li>
@@ -99,13 +99,13 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4 text-white">Contact Us</h3>
+            <h3 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4 text-white">Contact Us</h3>
             <ul className="space-y-3 sm:space-y-4">
               <li>
                 <div className="flex items-start gap-2 sm:gap-3 text-gray-400">
                   <MapPin size={16} className="mt-1 flex-shrink-0 text-[#00B46A]" />
                   <div>
-                    <p className="text-lg sm:text-lg leading-relaxed">
+                    <p className="text-sm sm:text-base leading-relaxed">
                       31/2, New Palasia, Indore
                       <br />
                       (M.P.) India - 452001
@@ -119,7 +119,7 @@ export default function Footer() {
                   className="flex items-center gap-2 sm:gap-3 text-gray-400 hover:text-[#00B46A] transition-all duration-300 group"
                 >
                   <Phone size={16} className="flex-shrink-0 text-[#00B46A] transition-transform duration-300 group-hover:scale-110" />
-                  <span className="text-lg sm:text-lg transition-transform duration-300 group-hover:translate-x-1">+1-480-409-4391</span>
+                  <span className="text-sm sm:text-base transition-transform duration-300 group-hover:translate-x-1">+1-480-409-4391</span>
                 </a>
               </li>
               <li>
@@ -128,7 +128,7 @@ export default function Footer() {
                   className="flex items-center gap-2 sm:gap-3 text-gray-400 hover:text-[#00B46A] transition-all duration-300 group"
                 >
                   <Mail size={16} className="flex-shrink-0 text-[#00B46A] transition-transform duration-300 group-hover:scale-110" />
-                  <span className="text-lg sm:text-lg transition-transform duration-300 group-hover:translate-x-1">info@vinfotech.com</span>
+                  <span className="text-sm sm:text-base transition-transform duration-300 group-hover:translate-x-1">info@vinfotech.com</span>
                 </a>
               </li>
             </ul>
@@ -136,7 +136,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-gray-800 pt-6 sm:pt-8 flex flex-col md:flex-row justify-center items-center gap-4">
-          <p className="text-gray-500 text-base sm:text-sm text-center">
+          <p className="text-gray-500 text-xs sm:text-sm text-center">
             © {currentYear} Viscus Infotech Ltd. All rights reserved.
           </p>
         </div>

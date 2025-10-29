@@ -104,7 +104,7 @@ export default function WhyUs() {
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 tracking-tight px-2">
             Why Choose Vinfotech
           </h2>
-          <p className="text-lg sm:text-lg md:text-xl lg:text-2xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed px-4">
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed px-4">
             We're more than just developers. We're your strategic AI partner committed to your success.
           </p>
         </div>
@@ -171,7 +171,6 @@ function FeatureCard({ feature, index, isVisible }: FeatureCardProps) {
             <img
               src={feature.image}
               alt={feature.title}
-              loading="lazy"
               className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ${
                 isHovered && !isExpanded ? 'scale-110 brightness-110' : 'scale-100 brightness-100'
               }`}
@@ -182,8 +181,8 @@ function FeatureCard({ feature, index, isVisible }: FeatureCardProps) {
           </div>
 
 
-          <div className="absolute inset-0 z-10 px-6 sm:px-8 flex items-center">
-            <h3 className="font-bold text-white leading-tight text-left font-['Helvetica','Arial',sans-serif]" style={{ fontSize: '42px' }}>
+          <div className="absolute inset-0 z-10 flex items-center justify-start px-6 sm:px-8">
+            <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-tight text-left font-['Inter',sans-serif]">
               {feature.title}
             </h3>
           </div>
@@ -201,7 +200,7 @@ function FeatureCard({ feature, index, isVisible }: FeatureCardProps) {
                     <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${feature.gradient}`}></div>
                   </div>
                   <span
-                    className="text-gray-700 dark:text-gray-300 text-lg sm:text-lg leading-relaxed"
+                    className="text-gray-700 dark:text-gray-300 text-sm sm:text-base leading-relaxed"
                     dangerouslySetInnerHTML={{ __html: feat }}
                   />
                 </div>

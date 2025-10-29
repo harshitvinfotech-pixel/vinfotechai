@@ -115,17 +115,17 @@ export default function BlogDetail() {
                       <User size={20} className="text-white" />
                     </div>
                   )}
-                  <span className="font-semibold text-xl">{blog.author_name}</span>
+                  <span className="font-semibold text-lg">{blog.author_name}</span>
                 </div>
 
                 <div className="flex items-center gap-2">
                   <Calendar size={18} />
-                  <span className="text-lg">{formatPublishedDate(blog.published_at)}</span>
+                  <span>{formatPublishedDate(blog.published_at)}</span>
                 </div>
 
                 <div className="flex items-center gap-2">
                   <Clock size={18} />
-                  <span className="text-lg">{formatReadingTime(blog.reading_time_minutes)}</span>
+                  <span>{formatReadingTime(blog.reading_time_minutes)}</span>
                 </div>
               </div>
             </div>
@@ -142,12 +142,12 @@ export default function BlogDetail() {
 
           {blog.tags && blog.tags.length > 0 && (
             <div className="mb-16">
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Tags</h3>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Tags</h3>
               <div className="flex flex-wrap gap-3">
                 {blog.tags.map((tag, index) => (
                   <span
                     key={index}
-                    className="px-4 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg text-base font-medium"
+                    className="px-4 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg text-sm font-medium"
                   >
                     #{tag}
                   </span>
@@ -158,7 +158,7 @@ export default function BlogDetail() {
 
           {relatedBlogs.length > 0 && (
             <div>
-              <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-8">
+              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">
                 Related Posts
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -189,15 +189,15 @@ export default function BlogDetail() {
                     </div>
 
                     <div className="p-5">
-                      <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 line-clamp-2 group-hover:text-[#00B46A] dark:group-hover:text-[#00FFB2] transition-colors duration-300">
+                      <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2 line-clamp-2 group-hover:text-[#00B46A] dark:group-hover:text-[#00FFB2] transition-colors duration-300">
                         {relatedBlog.title}
                       </h3>
 
-                      <p className="text-base text-gray-600 dark:text-gray-400 mb-3 line-clamp-2">
+                      <p className="text-sm text-gray-600 dark:text-gray-400 mb-3 line-clamp-2">
                         {relatedBlog.excerpt}
                       </p>
 
-                      <div className="flex items-center gap-3 text-sm text-gray-500 dark:text-gray-500">
+                      <div className="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-500">
                         <div className="flex items-center gap-1">
                           <Clock size={12} />
                           <span>{formatReadingTime(relatedBlog.reading_time_minutes)}</span>

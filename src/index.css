@@ -2,66 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes scaleIn {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-.animate-fadeIn {
-  animation: fadeIn 0.5s ease-out forwards;
-}
-
-.animate-slideInLeft {
-  animation: slideInLeft 0.6s ease-out forwards;
-}
-
-.animate-slideInRight {
-  animation: slideInRight 0.6s ease-out forwards;
-}
-
-.animate-scaleIn {
-  animation: scaleIn 0.5s ease-out forwards;
-}
-
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -577,15 +517,6 @@
       transition: none !important;
     }
   }
-
-  .scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
-  }
 }
 
 input::-webkit-outer-spin-button,
@@ -1013,42 +944,4 @@ input[type=number] {
     padding: 1rem;
     font-size: 0.875rem;
   }
-}
-
-.prose ul {
-  list-style-type: disc;
-  padding-left: 1.5rem;
-  margin: 1rem 0;
-}
-
-.prose ol {
-  list-style-type: decimal;
-  padding-left: 1.5rem;
-  margin: 1rem 0;
-}
-
-.prose li {
-  margin: 0.5rem 0;
-  line-height: 1.75;
-}
-
-.prose p {
-  margin: 1rem 0;
-  line-height: 1.75;
-}
-
-.prose strong {
-  font-weight: 600;
-  color: inherit;
-}
-
-.prose blockquote {
-  border-left: 4px solid #00B46A;
-  padding-left: 1.5rem;
-  margin: 1.5rem 0;
-  font-style: italic;
-}
-
-.dark .prose blockquote {
-  border-left-color: #00FFB2;
 }
