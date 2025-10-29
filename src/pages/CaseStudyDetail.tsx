@@ -86,13 +86,13 @@ export default function CaseStudyDetail() {
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70"></div>
         </div>
 
-        <div className="absolute top-20 left-4 sm:left-8 lg:left-12 z-10">
+        <div className="absolute top-24 sm:top-28 left-4 sm:left-8 lg:left-12 z-10">
           <button
             onClick={handleBackClick}
-            className="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-black/30 backdrop-blur-sm text-white hover:bg-black/50 transition-all duration-300 group border border-white/20"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-black/30 backdrop-blur-sm text-white hover:bg-black/50 transition-all duration-300 group border border-white/20"
           >
             <ArrowLeft size={18} className="transition-transform duration-300 group-hover:-translate-x-1" />
-            <span className="font-medium text-xs sm:text-sm md:text-base">Back to Case Studies</span>
+            <span className="font-medium text-sm md:text-base">Back to Case Studies</span>
           </button>
         </div>
 
