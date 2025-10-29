@@ -154,7 +154,7 @@ export default function CaseStudyDetail() {
       </div>
 
       <main className="pb-12 sm:pb-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 mt-8 sm:mt-12 relative z-10">
+        <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 mt-6 sm:mt-12 relative z-10">
 
           <SectionWithDivider
             icon={Info}
@@ -170,19 +170,19 @@ export default function CaseStudyDetail() {
             }
             imagePosition="right"
             imageComponent={
-              <div className="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 shadow-xl border border-gray-200 dark:border-gray-700 w-full">
-                <div className="space-y-3 sm:space-y-4">
+              <div className="bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-3xl p-5 sm:p-6 md:p-8 shadow-2xl border-2 border-gray-100 dark:border-gray-700 w-full">
+                <div className="space-y-4">
                   {chatMessages.slice(0, 2).map((msg, idx) => (
-                    <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                    <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'} animate-fade-in`}>
                       <div
-                        className={`max-w-[90%] sm:max-w-[85%] rounded-2xl px-3 sm:px-4 md:px-5 py-3 sm:py-4 ${
+                        className={`max-w-[85%] sm:max-w-[80%] rounded-2xl px-4 sm:px-5 py-3.5 sm:py-4 shadow-md ${
                           msg.role === 'user'
                             ? 'text-white rounded-br-sm'
-                            : 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-bl-sm'
+                            : 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-bl-sm'
                         }`}
                         style={msg.role === 'user' ? { backgroundColor: '#00B46A' } : {}}
                       >
-                        <p className="text-xs sm:text-sm leading-relaxed whitespace-pre-wrap">{msg.content}</p>
+                        <p className="text-sm sm:text-base leading-relaxed whitespace-pre-wrap">{msg.content}</p>
                       </div>
                     </div>
                   ))}
@@ -196,18 +196,18 @@ export default function CaseStudyDetail() {
             title="The Challenge"
             content={
               <>
-                <p className="text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+                <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
                   Even for a technology company, handling complex inbound queries efficiently was difficult. Visitors asked questions that required digging through:
                 </p>
-                <ul className="mt-3 sm:mt-4 space-y-2 sm:space-y-3">
+                <ul className="mt-4 sm:mt-5 space-y-3 sm:space-y-4">
                   {['Sales manuals and product PDFs', 'Project documentation', 'Internal spreadsheets (pricing, delivery timelines)', 'Web pages and feature listings'].map((item, idx) => (
-                    <li key={idx} className="flex items-start gap-2 sm:gap-3">
-                      <CheckCircle2 style={{ color: '#00B46A' }} size={18} className="flex-shrink-0 mt-0.5 sm:mt-1" />
-                      <span className="text-sm sm:text-base md:text-lg text-gray-700 dark:text-gray-300">{item}</span>
+                    <li key={idx} className="flex items-start gap-3 sm:gap-4">
+                      <CheckCircle2 style={{ color: '#00B46A' }} size={20} className="flex-shrink-0 mt-0.5" strokeWidth={2.5} />
+                      <span className="text-base sm:text-lg text-gray-600 dark:text-gray-400">{item}</span>
                     </li>
                   ))}
                 </ul>
-                <p className="text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed mt-3 sm:mt-4">
+                <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 leading-relaxed mt-5 sm:mt-6">
                   Human responses were slow and inconsistent. The challenge was to automate product Q&A and pre-sales support without losing accuracy or brand tone.
                 </p>
               </>
@@ -221,10 +221,10 @@ export default function CaseStudyDetail() {
             title="The AI Solution"
             content={
               <>
-                <p className="text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+                <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
                   {caseStudy.solution}
                 </p>
-                <p className="text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed mt-3 sm:mt-4">
+                <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 leading-relaxed mt-4 sm:mt-5">
                   The agent runs fully autonomously, providing reliable responses without needing manual approval — acting as an always-on digital sales executive.
                 </p>
               </>
