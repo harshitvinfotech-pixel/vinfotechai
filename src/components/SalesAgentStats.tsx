@@ -1,4 +1,4 @@
-import { Clock, CheckCircle, TrendingDown, MessageCircle, Award, Clock8 } from 'lucide-react';
+import { Clock, CheckCircle, TrendingDown, TrendingUp, Award } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 
 interface StatCard {
@@ -69,30 +69,30 @@ export default function SalesAgentStats() {
   }, []);
 
   return (
-    <div ref={sectionRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+    <div ref={sectionRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-7xl mx-auto">
       {stats.map((stat, index) => (
         <div
           key={index}
-          className={`group relative bg-white dark:bg-gray-800 rounded-2xl p-8 border border-gray-200 dark:border-gray-700 shadow-lg hover:shadow-xl transition-all duration-500 ${
+          className={`group relative bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-200 dark:border-gray-700 shadow-md hover:shadow-lg transition-all duration-500 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
           style={{
-            transitionDelay: isVisible ? `${index * 100}ms` : '0ms'
+            transitionDelay: isVisible ? `${index * 80}ms` : '0ms'
           }}
         >
-          <div className="flex flex-col items-center text-center space-y-4">
-            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-emerald-100 to-teal-100 dark:from-emerald-900/30 dark:to-teal-900/30 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
-              <stat.icon className="text-emerald-600 dark:text-emerald-400" size={28} strokeWidth={2} />
+          <div className="flex flex-col items-center text-center space-y-3">
+            <div className="w-14 h-14 rounded-full bg-gradient-to-br from-emerald-100 to-teal-100 dark:from-emerald-900/30 dark:to-teal-900/30 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
+              <stat.icon className="text-emerald-600 dark:text-emerald-400" size={24} strokeWidth={2} />
             </div>
 
-            <div>
+            <div className="w-full">
               <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">
                 {stat.title}
               </h3>
-              <p className="text-4xl font-bold text-gray-900 dark:text-white mb-3">
+              <p className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-2">
                 {stat.value}
               </p>
-              <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+              <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">
                 {stat.description}
               </p>
             </div>
