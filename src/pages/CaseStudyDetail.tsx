@@ -263,44 +263,6 @@ export default function CaseStudyDetail() {
           </section>
 
           <section className="mb-16">
-            <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 sm:p-12 shadow-xl border border-gray-200 dark:border-gray-700">
-              <div className="flex items-center gap-3 mb-8">
-                <div className="w-12 h-12 rounded-full flex items-center justify-center" style={{ backgroundColor: '#00B46A20' }}>
-                  <Database style={{ color: '#00B46A' }} size={28} />
-                </div>
-                <h3 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">Technology Stack</h3>
-              </div>
-
-              <div className="space-y-6">
-                <TechStackRow
-                  category="LLMs"
-                  technologies={['GPT-4 Turbo', 'Mistral 7B']}
-                />
-                <TechStackRow
-                  category="Retrieval"
-                  technologies={['LangChain', 'pgvector', 'ElasticSearch']}
-                />
-                <TechStackRow
-                  category="Knowledge Sources"
-                  technologies={['Internal PDFs', 'Spreadsheets', 'Website text', 'CMS data']}
-                />
-                <TechStackRow
-                  category="Frontend"
-                  technologies={['React + NextJS', 'Tailwind', 'Framer Motion']}
-                />
-                <TechStackRow
-                  category="Infrastructure"
-                  technologies={['AWS ECS', 'S3', 'Redis Cache', 'PostgreSQL']}
-                />
-                <TechStackRow
-                  category="Operations"
-                  technologies={['Logging', 'Feedback collection', 'Auto re-indexing']}
-                />
-              </div>
-            </div>
-          </section>
-
-          <section className="mb-16">
             <div className="text-center mb-8">
               <h3 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-3">
                 Impact & Results
@@ -349,6 +311,44 @@ export default function CaseStudyDetail() {
                   />
                 </>
               )}
+            </div>
+          </section>
+
+          <section className="mb-16">
+            <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 sm:p-12 shadow-xl border border-gray-200 dark:border-gray-700">
+              <div className="flex items-center gap-3 mb-8">
+                <div className="w-12 h-12 rounded-full flex items-center justify-center" style={{ backgroundColor: '#00B46A20' }}>
+                  <Database style={{ color: '#00B46A' }} size={28} />
+                </div>
+                <h3 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">Technology Stack</h3>
+              </div>
+
+              <div className="space-y-6">
+                <TechStackRow
+                  category="LLMs"
+                  technologies={['GPT-4 Turbo', 'Mistral 7B']}
+                />
+                <TechStackRow
+                  category="Retrieval"
+                  technologies={['LangChain', 'pgvector', 'ElasticSearch']}
+                />
+                <TechStackRow
+                  category="Knowledge Sources"
+                  technologies={['Internal PDFs', 'Spreadsheets', 'Website text', 'CMS data']}
+                />
+                <TechStackRow
+                  category="Frontend"
+                  technologies={['React + NextJS', 'Tailwind', 'Framer Motion']}
+                />
+                <TechStackRow
+                  category="Infrastructure"
+                  technologies={['AWS ECS', 'S3', 'Redis Cache', 'PostgreSQL']}
+                />
+                <TechStackRow
+                  category="Operations"
+                  technologies={['Logging', 'Feedback collection', 'Auto re-indexing']}
+                />
+              </div>
             </div>
           </section>
 
