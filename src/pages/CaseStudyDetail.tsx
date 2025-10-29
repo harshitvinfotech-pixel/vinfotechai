@@ -2,19 +2,11 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import {
   ArrowLeft,
-  Info,
-  Target,
-  Lightbulb,
-  Cpu,
   Clock,
   CheckCircle,
   TrendingUp,
   Award,
-  Database,
-  FileCheck,
   CheckCircle2,
-  Users,
-  Globe,
   Brain,
   Search,
   FileText,
@@ -24,8 +16,6 @@ import {
 } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import TwoColumnSection from '../components/TwoColumnSection';
-import SectionWithDivider from '../components/SectionWithDivider';
 import PhoneMockup from '../components/PhoneMockup';
 import ChallengeDiagram from '../components/ChallengeDiagram';
 import BreakthroughCards from '../components/BreakthroughCards';
@@ -122,11 +112,11 @@ export default function CaseStudyDetail() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 sm:mt-16 relative z-10">
 
           <section className="mb-12 sm:mb-20">
-            <div className="text-center mb-12 sm:mb-16">
-              <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 leading-tight">
+            <div className="text-center mb-10 sm:mb-12">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 leading-tight">
                 Overview
               </h2>
-              <div className="w-32 h-2 mx-auto rounded-full" style={{ backgroundColor: '#00B46A' }}></div>
+              <div className="w-20 h-1 mx-auto rounded-full" style={{ backgroundColor: '#00B46A' }}></div>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
@@ -185,65 +175,72 @@ export default function CaseStudyDetail() {
             </div>
           </section>
 
-          <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-700 to-transparent mb-12 sm:mb-20"></div>
+          <section className="mb-12 sm:mb-20">
+            <div className="text-center mb-10 sm:mb-12">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 leading-tight">
+                The Challenge
+              </h2>
+              <div className="w-20 h-1 mx-auto rounded-full" style={{ backgroundColor: '#00B46A' }}></div>
+            </div>
 
-          <SectionWithDivider
-            icon={Target}
-            title="The Challenge"
-            content={
-              <>
-                <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
-                  Even for a technology company, handling complex inbound queries efficiently was difficult. Visitors asked questions that required digging through:
-                </p>
-                <ul className="mt-4 sm:mt-5 space-y-3 sm:space-y-4">
-                  {['Sales manuals and product PDFs', 'Project documentation', 'Internal spreadsheets (pricing, delivery timelines)', 'Web pages and feature listings'].map((item, idx) => (
-                    <li key={idx} className="flex items-start gap-3 sm:gap-4">
-                      <CheckCircle2 style={{ color: '#00B46A' }} size={20} className="flex-shrink-0 mt-0.5" strokeWidth={2.5} />
-                      <span className="text-base sm:text-lg text-gray-600 dark:text-gray-400">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-                <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 leading-relaxed mt-5 sm:mt-6">
-                  Human responses were slow and inconsistent. The challenge was to automate product Q&A and pre-sales support without losing accuracy or brand tone.
-                </p>
-              </>
-            }
-            imagePosition="left"
-            imageComponent={<ChallengeDiagram />}
-          />
-
-          <SectionWithDivider
-            icon={Lightbulb}
-            title="The AI Solution"
-            content={
-              <>
-                <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
-                  {caseStudy.solution}
-                </p>
-                <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 leading-relaxed mt-4 sm:mt-5">
-                  The agent runs fully autonomously, providing reliable responses without needing manual approval — acting as an always-on digital sales executive.
-                </p>
-              </>
-            }
-            imagePosition="right"
-            showDivider={false}
-            imageComponent={
-              <div className="w-full max-w-md mx-auto">
-                <PhoneMockup messages={chatMessages} appName="Vinfotech AI Assistant" />
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-12 lg:gap-16 items-center">
+              <div className="order-2 lg:order-1">
+                <ChallengeDiagram />
               </div>
-            }
-          />
-
-          <section className="mb-12 sm:mb-16">
-            <div className="text-center mb-6 sm:mb-8">
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 mb-3 sm:mb-4">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center" style={{ backgroundColor: '#00B46A20' }}>
-                  <Cpu style={{ color: '#00B46A' }} size={24} className="sm:w-7 sm:h-7" />
+              <div className="order-1 lg:order-2">
+                <div className="space-y-4 sm:space-y-5">
+                  <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+                    Even for a technology company, handling complex inbound queries efficiently was difficult. Visitors asked questions that required digging through:
+                  </p>
+                  <ul className="mt-4 sm:mt-5 space-y-3 sm:space-y-4">
+                    {['Sales manuals and product PDFs', 'Project documentation', 'Internal spreadsheets (pricing, delivery timelines)', 'Web pages and feature listings'].map((item, idx) => (
+                      <li key={idx} className="flex items-start gap-3 sm:gap-4">
+                        <CheckCircle2 style={{ color: '#00B46A' }} size={20} className="flex-shrink-0 mt-0.5" strokeWidth={2.5} />
+                        <span className="text-base sm:text-lg text-gray-600 dark:text-gray-400">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 leading-relaxed mt-5 sm:mt-6">
+                    Human responses were slow and inconsistent. The challenge was to automate product Q&A and pre-sales support without losing accuracy or brand tone.
+                  </p>
                 </div>
-                <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white">
-                  How AI Made It Possible
-                </h3>
               </div>
+            </div>
+          </section>
+
+          <section className="mb-12 sm:mb-20">
+            <div className="text-center mb-10 sm:mb-12">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 leading-tight">
+                The AI Solution
+              </h2>
+              <div className="w-20 h-1 mx-auto rounded-full" style={{ backgroundColor: '#00B46A' }}></div>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-12 lg:gap-16 items-center">
+              <div className="order-1">
+                <div className="space-y-4 sm:space-y-5">
+                  <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+                    {caseStudy.solution}
+                  </p>
+                  <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 leading-relaxed mt-4 sm:mt-5">
+                    The agent runs fully autonomously, providing reliable responses without needing manual approval — acting as an always-on digital sales executive.
+                  </p>
+                </div>
+              </div>
+              <div className="order-2">
+                <div className="w-full max-w-md mx-auto">
+                  <PhoneMockup messages={chatMessages} appName="Vinfotech AI Assistant" />
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section className="mb-12 sm:mb-20">
+            <div className="text-center mb-10 sm:mb-12">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 leading-tight">
+                How AI Made It Possible
+              </h2>
+              <div className="w-20 h-1 mx-auto rounded-full mb-4 sm:mb-6" style={{ backgroundColor: '#00B46A' }}></div>
               <p className="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto px-4">
                 Traditional chatbots relied on predefined flows and couldn't handle nuanced, domain-specific questions. This solution leveraged AI to read and reason, not just match keywords.
               </p>
@@ -251,28 +248,27 @@ export default function CaseStudyDetail() {
             <BreakthroughCards />
           </section>
 
-          <section className="mb-12 sm:mb-16">
-            <div className="bg-white dark:bg-gray-900 rounded-xl sm:rounded-2xl p-6 sm:p-8 md:p-12 shadow-xl border border-gray-200 dark:border-gray-700">
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 mb-6 sm:mb-8">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center" style={{ backgroundColor: '#00B46A20' }}>
-                  <FileCheck style={{ color: '#00B46A' }} size={24} className="sm:w-7 sm:h-7" />
-                </div>
-                <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white text-center">
-                  Vinfotech's Approach
-                </h3>
-              </div>
-              <p className="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-400 text-center mb-6 sm:mb-8 max-w-3xl mx-auto px-2">
+          <section className="mb-12 sm:mb-20">
+            <div className="text-center mb-10 sm:mb-12">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 leading-tight">
+                Vinfotech's Approach
+              </h2>
+              <div className="w-20 h-1 mx-auto rounded-full mb-4 sm:mb-6" style={{ backgroundColor: '#00B46A' }}></div>
+              <p className="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto px-4">
                 Our systematic approach to building enterprise-grade AI solutions
               </p>
+            </div>
+            <div className="bg-white dark:bg-gray-900 rounded-xl sm:rounded-2xl p-6 sm:p-8 md:p-12 shadow-xl border border-gray-200 dark:border-gray-700">
               <ApproachTimeline />
             </div>
           </section>
 
-          <section className="mb-12 sm:mb-16">
-            <div className="text-center mb-6 sm:mb-8">
-              <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 px-4">
+          <section className="mb-12 sm:mb-20">
+            <div className="text-center mb-10 sm:mb-12">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 leading-tight">
                 Impact
-              </h3>
+              </h2>
+              <div className="w-20 h-1 mx-auto rounded-full mb-4 sm:mb-6" style={{ backgroundColor: '#00B46A' }}></div>
               <p className="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto px-4">
                 Measurable improvements across all key performance indicators
               </p>
@@ -332,14 +328,14 @@ export default function CaseStudyDetail() {
             </div>
           </section>
 
-          <section className="mb-12 sm:mb-16">
+          <section className="mb-12 sm:mb-20">
+            <div className="text-center mb-10 sm:mb-12">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 leading-tight">
+                Technology Stack
+              </h2>
+              <div className="w-20 h-1 mx-auto rounded-full" style={{ backgroundColor: '#00B46A' }}></div>
+            </div>
             <div className="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl p-6 sm:p-8 md:p-12 shadow-xl border border-gray-200 dark:border-gray-700">
-              <div className="flex items-center gap-2 sm:gap-3 mb-6 sm:mb-8">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center" style={{ backgroundColor: '#00B46A20' }}>
-                  <Database style={{ color: '#00B46A' }} size={20} className="sm:w-7 sm:h-7" />
-                </div>
-                <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white">Technology Stack</h3>
-              </div>
 
               <div className="space-y-2 sm:space-y-3">
                 <TechStackRow
