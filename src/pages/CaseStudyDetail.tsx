@@ -19,6 +19,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import PhoneMockup from '../components/PhoneMockup';
 import ArchitectureDiagram from '../components/ArchitectureDiagram';
+import ChallengeDiagram from '../components/ChallengeDiagram';
 
 export default function CaseStudyDetail() {
   const { slug } = useParams<{ slug: string }>();
@@ -206,17 +207,24 @@ export default function CaseStudyDetail() {
           </div>
 
           <section className="mb-16">
-            <div className="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 rounded-2xl p-8 sm:p-12 border border-gray-200 dark:border-gray-700">
-              <div className="flex items-center gap-3 mb-6">
-                <Target style={{ color: '#00B46A' }} size={28} />
-                <h3 className="text-3xl font-bold text-gray-900 dark:text-white">The Challenge</h3>
+            <div className="bg-white dark:bg-gray-900 rounded-2xl p-8 sm:p-12">
+              <div className="flex items-center gap-3 mb-8">
+                <div className="w-12 h-12 rounded-full flex items-center justify-center" style={{ backgroundColor: '#00B46A20' }}>
+                  <Target style={{ color: '#00B46A' }} size={28} />
+                </div>
+                <h3 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">The Challenge</h3>
               </div>
-              <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-                Every day, potential clients visit the Vinfotech website with questions about pricing, timelines, integrations, technologies, or specific product capabilities. Earlier, these inquiries often required manual intervention or follow-ups from the sales team.
-              </p>
-              <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-                Even for a technology company, handling complex inbound queries efficiently was difficult. Visitors asked questions that required digging through sales manuals, PDFs, project documentation, internal spreadsheets, and web pages. Human responses were <strong style={{ color: '#00B46A' }}>slow and inconsistent</strong>.
-              </p>
+
+              <div className="mb-8 space-y-4">
+                <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+                  Every day, potential clients visit the Vinfotech website with questions about pricing, timelines, integrations, technologies, or specific product capabilities. Earlier, these inquiries often required manual intervention or follow-ups from the sales team.
+                </p>
+                <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+                  Even for a technology company, handling complex inbound queries efficiently was difficult. Visitors asked questions that required digging through sales manuals, PDFs, project documentation, internal spreadsheets, and web pages. Human responses were <span className="font-bold" style={{ color: '#00B46A' }}>slow and inconsistent</span>.
+                </p>
+              </div>
+
+              <ChallengeDiagram />
             </div>
           </section>
 
