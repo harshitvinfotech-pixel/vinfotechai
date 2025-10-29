@@ -1,105 +1,38 @@
-import { supabase } from './supabase';
 import type { CaseStudy, CaseStudyWithDetails } from '../types/caseStudy';
+import { caseStudiesData } from '../data/caseStudiesData';
 
-export async function getAllCaseStudies(): Promise<CaseStudy[]> {
-  const { data, error } = await supabase
-    .from('case_studies')
-    .select('*')
-    .order('display_order', { ascending: true });
-
-  if (error) {
-    console.error('Error fetching case studies:', error);
-    return [];
-  }
-
-  return data || [];
+export function getAllCaseStudies(): CaseStudy[] {
+  return caseStudiesData;
 }
 
-export async function getCaseStudyBySlug(slug: string): Promise<CaseStudyWithDetails | null> {
-  const { data: caseStudy, error: caseStudyError } = await supabase
-    .from('case_studies')
-    .select('*')
-    .eq('slug', slug)
-    .maybeSingle();
+export function getCaseStudyBySlug(slug: string): CaseStudyWithDetails | null {
+  const caseStudy = caseStudiesData.find(cs => cs.slug === slug);
 
-  if (caseStudyError || !caseStudy) {
-    console.error('Error fetching case study:', caseStudyError);
+  if (!caseStudy) {
     return null;
   }
 
-  const [
-    { data: contentBlocks },
-    { data: metrics },
-    { data: technologies },
-    { data: timeline },
-    { data: features },
-    { data: images }
-  ] = await Promise.all([
-    supabase
-      .from('case_study_content_blocks')
-      .select('*')
-      .eq('case_study_id', caseStudy.id)
-      .order('display_order', { ascending: true }),
-    supabase
-      .from('case_study_metrics')
-      .select('*')
-      .eq('case_study_id', caseStudy.id)
-      .order('display_order', { ascending: true }),
-    supabase
-      .from('case_study_technologies')
-      .select('*')
-      .eq('case_study_id', caseStudy.id)
-      .order('display_order', { ascending: true }),
-    supabase
-      .from('case_study_timeline')
-      .select('*')
-      .eq('case_study_id', caseStudy.id)
-      .order('display_order', { ascending: true }),
-    supabase
-      .from('case_study_features')
-      .select('*')
-      .eq('case_study_id', caseStudy.id)
-      .order('display_order', { ascending: true }),
-    supabase
-      .from('case_study_images')
-      .select('*')
-      .eq('case_study_id', caseStudy.id)
-      .order('display_order', { ascending: true })
-  ]);
-
-  const galleryImages = images?.filter(img => img.type === 'gallery') || [];
-
   return {
     ...caseStudy,
-    content_blocks: contentBlocks || [],
-    metrics: metrics || [],
-    technologies: technologies || [],
-    timeline: timeline || [],
-    features: features || [],
-    images: images || [],
-    gallery_images: galleryImages
+    content_blocks: [],
+    metrics: [],
+    technologies: [],
+    timeline: [],
+    features: [],
+    images: [],
+    gallery_images: []
   };
 }
 
-export async function getSuggestedCaseStudies(
+export function getSuggestedCaseStudies(
   currentSlug: string,
   tags: string[],
   limit: number = 3
-): Promise<CaseStudy[]> {
-  const { data, error } = await supabase
-    .from('case_studies')
-    .select('*')
-    .neq('slug', currentSlug)
-    .order('display_order', { ascending: true })
-    .limit(limit * 3);
+): CaseStudy[] {
+  const filtered = caseStudiesData.filter(cs => cs.slug !== currentSlug);
 
-  if (error || !data) {
-    console.error('Error fetching suggested case studies:', error);
-    return [];
-  }
-
-  const scoredStudies = data.map(study => {
-    const matchingTags = study.tags.filter((tag: string) => tags.includes(tag));
+  const scoredStudies = filtered.map(study => {
+    const matchingTags = study.tags.filter(tag => tags.includes(tag));
     return {
       ...study,
       score: matchingTags.length

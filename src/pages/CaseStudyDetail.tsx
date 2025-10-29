@@ -39,37 +39,19 @@ import type { CaseStudyWithDetails, CaseStudy } from '../types/caseStudy';
 export default function CaseStudyDetail() {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
-  const [caseStudy, setCaseStudy] = useState<CaseStudyWithDetails | null>(null);
-  const [relatedStudies, setRelatedStudies] = useState<CaseStudy[]>([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [slug]);
 
+  const caseStudy = slug ? getCaseStudyBySlug(slug) : null;
+  const relatedStudies = caseStudy ? getSuggestedCaseStudies(slug!, caseStudy.tags, 3) : [];
+
   useEffect(() => {
-    async function loadCaseStudy() {
-      if (!slug) return;
-
-      setLoading(true);
-      try {
-        const data = await getCaseStudyBySlug(slug);
-        if (data) {
-          setCaseStudy(data);
-          const related = await getSuggestedCaseStudies(slug, data.tags, 3);
-          setRelatedStudies(related);
-        } else {
-          navigate('/');
-        }
-      } catch (error) {
-        console.error('Error loading case study:', error);
-        navigate('/');
-      }
-      setLoading(false);
+    if (!caseStudy && slug) {
+      navigate('/');
     }
-
-    loadCaseStudy();
-  }, [slug, navigate]);
+  }, [caseStudy, slug, navigate]);
 
   const handleBackClick = () => {
     navigate('/', { state: { scrollTo: 'case-studies' } });
@@ -93,20 +75,6 @@ export default function CaseStudyDetail() {
       content: 'Our fantasy sports platform maintenance plans start at $2,500/month and include:\n\n• 24/7 monitoring\n• Performance optimization\n• Security updates\n• Bug fixes\n• Monthly reports\n\n📄 Source: Pricing Sheet 2024'
     }
   ];
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
-        <Header onQuoteClick={() => {}} />
-        <div className="flex items-center justify-center min-h-screen">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-16 w-16 border-b-2 mx-auto mb-4" style={{ borderColor: '#00B46A' }}></div>
-            <p className="text-gray-600 dark:text-gray-400">Loading case study...</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   if (!caseStudy) {
     return null;
