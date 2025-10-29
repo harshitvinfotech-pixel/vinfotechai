@@ -326,59 +326,6 @@ export default function CaseStudyDetail() {
                 </div>
               </div>
             </div>
-
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {caseStudy.metrics && caseStudy.metrics.length > 0 ? (
-                caseStudy.metrics.map((metric, idx) => (
-                  <MetricCard
-                    key={idx}
-                    icon={getMetricIcon(metric.label)}
-                    label={metric.label}
-                    value={metric.value}
-                    description={metric.description || ''}
-                  />
-                ))
-              ) : (
-                <>
-                  <MetricCard
-                    icon={Clock}
-                    label="Response Time"
-                    value="< 2 sec"
-                    description="Average response time per query"
-                  />
-                  <MetricCard
-                    icon={CheckCircle}
-                    label="Accuracy"
-                    value="94%"
-                    description="Answer accuracy validated against sales playbooks"
-                  />
-                  <MetricCard
-                    icon={TrendingUp}
-                    label="Reduction"
-                    value="70%"
-                    description="Manual sales responses reduced"
-                  />
-                  <MetricCard
-                    icon={CheckCircle}
-                    label="Engagement"
-                    value="2.3x"
-                    description="Longer visitor sessions"
-                  />
-                  <MetricCard
-                    icon={Award}
-                    label="Conversions"
-                    value="+35%"
-                    description="Increase in contact forms"
-                  />
-                  <MetricCard
-                    icon={CheckCircle}
-                    label="Availability"
-                    value="24/7"
-                    description="Always-on global support"
-                  />
-                </>
-              )}
-            </div>
           </section>
 
           <section className="mb-16">
