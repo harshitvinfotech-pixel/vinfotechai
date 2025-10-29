@@ -63,7 +63,7 @@ export default function TechStack() {
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 tracking-tight px-2">
             The AI Stack We Master
           </h2>
-          <p className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-300 leading-relaxed px-4">
+          <p className="text-xl sm:text-lg md:text-xl text-gray-600 dark:text-gray-300 leading-relaxed px-4">
             We utilize a diverse, cutting-edge technology stack to ensure your solution is robust, scalable, and future-proof.
           </p>
         </div>
@@ -91,7 +91,7 @@ export default function TechStack() {
                   </div>
 
                   <div className="flex-1">
-                    <h3 className={`text-base sm:text-lg md:text-xl font-bold text-gray-900 dark:text-white mb-2 sm:mb-3 md:mb-4 group-hover:text-[#00B46A] dark:group-hover:text-[#00D68A] transition-all duration-500 group-hover:translate-x-1 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'}`}
+                    <h3 className={`text-lg sm:text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-2 sm:mb-3 md:mb-4 group-hover:text-[#00B46A] dark:group-hover:text-[#00D68A] transition-all duration-500 group-hover:translate-x-1 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'}`}
                       style={{
                         transitionDelay: isVisible ? `${index * 150 + 300}ms` : '0ms',
                       }}
@@ -99,7 +99,7 @@ export default function TechStack() {
                       {category.title}
                     </h3>
 
-                    <p className={`text-sm sm:text-base text-gray-600 dark:text-gray-400 leading-relaxed transition-all duration-500 group-hover:text-gray-700 dark:group-hover:text-gray-300 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'}`}
+                    <p className={`text-sm sm:text-lg text-gray-600 dark:text-gray-400 leading-relaxed transition-all duration-500 group-hover:text-gray-700 dark:group-hover:text-gray-300 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'}`}
                       style={{
                         transitionDelay: isVisible ? `${index * 150 + 400}ms` : '0ms',
                       }}

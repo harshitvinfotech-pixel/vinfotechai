@@ -66,11 +66,11 @@ export default function Blogs() {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,180,106,0.05),transparent_70%)]"></div>
         </div>
 
-        <div className="max-w-5xl mx-auto text-center relative">
+        <div className="max-w-full mx-auto text-center relative">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
             Our Blog
           </h1>
-          <p className="text-lg sm:text-xl md:text-2xl text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">
+          <p className="text-[30px] text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">
             Insights, trends, and innovations in AI and technology
           </p>
 
@@ -90,7 +90,7 @@ export default function Blogs() {
       </div>
 
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-12">
-        <div className="flex flex-wrap gap-3 mb-12 justify-center">
+        <div className="flex flex-wrap gap-3 mb-12 justify-start">
           <button
             onClick={() => handleCategoryChange('all')}
             className={`px-6 py-2.5 rounded-full font-semibold transition-all duration-300 ${
@@ -107,14 +107,9 @@ export default function Blogs() {
               onClick={() => handleCategoryChange(category.slug)}
               className={`px-6 py-2.5 rounded-full font-semibold transition-all duration-300 ${
                 selectedCategory === category.slug
-                  ? 'text-white shadow-lg'
+                  ? 'bg-[#00B46A] text-white shadow-lg shadow-[#00B46A]/30'
                   : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
               }`}
-              style={
-                selectedCategory === category.slug
-                  ? { backgroundColor: category.color, boxShadow: `0 10px 25px -5px ${category.color}40` }
-                  : {}
-              }
             >
               {category.name}
             </button>
@@ -130,8 +125,8 @@ export default function Blogs() {
         ) : blogs.length === 0 ? (
           <div className="text-center py-20">
             <div className="text-6xl mb-4">📝</div>
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">No blog posts found</h3>
-            <p className="text-gray-600 dark:text-gray-400">
+            <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">No blog posts found</h3>
+            <p className="text-lg text-gray-600 dark:text-gray-400">
               Try adjusting your filters or search query
             </p>
           </div>
@@ -165,15 +160,15 @@ export default function Blogs() {
                   </div>
 
                   <div className="p-6">
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-2 group-hover:text-[#00B46A] dark:group-hover:text-[#00FFB2] transition-colors duration-300">
+                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-2 group-hover:text-[#00B46A] dark:group-hover:text-[#00FFB2] transition-colors duration-300">
                       {blog.title}
                     </h3>
 
-                    <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3 leading-relaxed">
+                    <p className="text-lg text-gray-600 dark:text-gray-400 mb-4 line-clamp-3 leading-relaxed">
                       {blog.excerpt}
                     </p>
 
-                    <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-500 mb-4">
+                    <div className="flex items-center gap-4 text-base text-gray-500 dark:text-gray-500 mb-4">
                       <div className="flex items-center gap-1">
                         <Calendar size={14} />
                         <span>{formatPublishedDate(blog.published_at)}</span>
@@ -196,7 +191,7 @@ export default function Blogs() {
                           <User size={16} className="text-white" />
                         </div>
                       )}
-                      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                      <span className="text-base font-medium text-gray-700 dark:text-gray-300">
                         {blog.author_name}
                       </span>
                     </div>

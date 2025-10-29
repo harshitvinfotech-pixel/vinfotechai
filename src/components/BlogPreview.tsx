@@ -35,7 +35,7 @@ export default function BlogPreview() {
   return (
     <section
       ref={sectionRef}
-      className="relative py-12 sm:py-16 md:py-20 lg:pt-0 lg:pb-24 px-6 sm:px-8 lg:px-12 bg-gray-50 dark:bg-black overflow-hidden"
+      className="relative py-12 sm:py-16 md:py-20 lg:pt-24 lg:pb-24 px-6 sm:px-8 lg:px-12 bg-gray-50 dark:bg-black overflow-hidden"
     >
       <div className="absolute inset-0 bg-gradient-to-b from-gray-100 via-gray-50 to-gray-100 dark:from-gray-900 dark:via-black dark:to-gray-900"></div>
 
@@ -54,26 +54,24 @@ export default function BlogPreview() {
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 tracking-tight">
               Insights, Innovation & Expertise
             </h2>
-            <p className="text-sm sm:text-base lg:text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              Explore our latest thoughts on AI, technology trends, and industry innovations that are shaping the future.
-            </p>
           </div>
         </div>
 
         {loading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-10 sm:mb-12">
+          <div className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-10 sm:mb-12 overflow-x-auto md:overflow-x-visible pb-4 -mx-6 px-6 sm:-mx-8 sm:px-8 lg:mx-0 lg:px-0 snap-x snap-mandatory md:snap-none scrollbar-hide touch-pan-x">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="h-[400px] sm:h-[420px] bg-gray-200 dark:bg-gray-800 rounded-xl sm:rounded-2xl animate-pulse"></div>
+              <div key={i} className="flex-shrink-0 w-[85vw] sm:w-[75vw] md:w-auto h-[400px] sm:h-[420px] bg-gray-200 dark:bg-gray-800 rounded-xl sm:rounded-2xl animate-pulse snap-center"></div>
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-10 sm:mb-12">
+          <div className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-10 sm:mb-12 overflow-x-auto md:overflow-x-visible pb-4 -mx-6 px-6 sm:-mx-8 sm:px-8 lg:mx-0 lg:px-0 snap-x snap-mandatory md:snap-none scrollbar-hide touch-pan-x">
             {blogs.map((blog) => (
-              <BlogCard
-                key={blog.id}
-                blog={blog}
-                onClick={() => handleCardClick(blog.slug)}
-              />
+              <div key={blog.id} className="flex-shrink-0 w-[85vw] sm:w-[75vw] md:w-auto snap-center">
+                <BlogCard
+                  blog={blog}
+                  onClick={() => handleCardClick(blog.slug)}
+                />
+              </div>
             ))}
           </div>
         )}
@@ -81,7 +79,8 @@ export default function BlogPreview() {
         <div className="text-center">
           <button
             onClick={() => navigate('/blogs')}
-            className="inline-flex items-center gap-2 bg-[#00B46A] text-white px-8 py-3 sm:py-4 rounded-lg font-semibold text-base sm:text-lg hover:bg-[#008a52] transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-[#00B46A]/30"
+            className="inline-flex items-center gap-2 bg-[#00B46A] text-white px-8 py-3 sm:py-4 rounded-lg font-semibold text-lg sm:text-xl hover:bg-[#008a52] transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-[#00B46A]/30"
+            aria-label="Read more AI development blogs"
           >
             Read more blogs
           </button>
@@ -138,10 +137,10 @@ function BlogCard({ blog, onClick }: BlogCardProps) {
           <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-2 leading-tight line-clamp-2">
             {blog.title}
           </h3>
-          <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 line-clamp-2 flex-1 mb-3">
+          <p className="text-[16px] sm:text-lg text-gray-600 dark:text-gray-400 line-clamp-2 flex-1 mb-3">
             {blog.excerpt}
           </p>
-          <p className="text-xs text-gray-500 dark:text-gray-500 font-medium">
+          <p className="text-[14px] text-gray-500 dark:text-gray-500 font-medium">
             {formatPublishedDate(blog.published_at)}
           </p>
         </div>

@@ -1,8 +1,19 @@
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Plus, X } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getAllCaseStudies } from '../lib/caseStudies';
-import type { CaseStudy } from '../types/caseStudy';
+
+interface CaseStudy {
+  id: string;
+  slug: string;
+  title: string;
+  subtitle?: string;
+  hero_image: string;
+  tags: string[];
+  industry?: string;
+  overview_bullets?: string[];
+  display_order?: number;
+}
 
 export default function CaseStudies() {
   const [caseStudies, setCaseStudies] = useState<CaseStudy[]>([]);
@@ -13,8 +24,12 @@ export default function CaseStudies() {
   useEffect(() => {
     async function loadCaseStudies() {
       setLoading(true);
-      const studies = await getAllCaseStudies();
-      setCaseStudies(studies);
+      try {
+        const studies = await getAllCaseStudies();
+        setCaseStudies(studies);
+      } catch (error) {
+        console.error('Error loading case studies:', error);
+      }
       setLoading(false);
     }
     loadCaseStudies();
@@ -40,14 +55,14 @@ export default function CaseStudies() {
         <div className="mb-10 sm:mb-12 lg:mb-16">
           <div className="mb-6 sm:mb-8 text-center">
             <div className="mb-3 sm:mb-4">
-              <span className="text-xs font-semibold tracking-wider uppercase" style={{ color: '#00B46A' }}>
+              <span className="text-base font-semibold tracking-wider uppercase" style={{ color: '#00B46A' }}>
                 Case Studies
               </span>
             </div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 tracking-tight">
+            <h2 className="text-[30px] sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 tracking-tight">
               Real-World Impact, Proven Depth
             </h2>
-            <p className="text-sm sm:text-base lg:text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            <p className="text-lg sm:text-lg lg:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
               Our portfolio demonstrates a deep capability to build and scale complex AI systems, from sophisticated RAG engines to real-time Computer Vision.
             </p>
           </div>
@@ -83,55 +98,91 @@ interface CaseStudyCardProps {
 function CaseStudyCard({ study, onClick }: CaseStudyCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [showPreview, setShowPreview] = useState(false);
+
+  const handleViewCaseStudy = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onClick();
+  };
+
+  const handleTogglePreview = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setShowPreview(!showPreview);
+  };
+
+  const truncateText = (text: string, maxLength: number = 120) => {
+    if (text.length <= maxLength) return text;
+    return text.slice(0, maxLength) + '...';
+  };
 
   return (
     <article
-      className="group relative cursor-pointer transition-all duration-500 h-full"
+      className="group relative transition-all duration-500 h-full cursor-pointer"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      onClick={onClick}
-      role="button"
-      tabIndex={0}
-      aria-label={`View ${study.title} case study`}
-      onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          onClick();
-        }
-      }}
+      onClick={handleViewCaseStudy}
     >
-      <div className="relative bg-white dark:bg-gray-900 overflow-hidden rounded-xl sm:rounded-2xl border-2 border-gray-200 dark:border-gray-800 hover:border-emerald-500 dark:hover:border-emerald-500 transition-all duration-500 h-[360px] sm:h-[380px] shadow-lg hover:shadow-2xl hover:shadow-emerald-500/10 flex flex-col">
+      <div
+        className={`absolute -inset-0.5 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-500 blur-xl`}
+      ></div>
 
-        <div className="relative h-48 sm:h-52 overflow-hidden flex-shrink-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900"></div>
+      <div className="relative flex flex-col bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 hover:border-emerald-500/30 dark:hover:border-emerald-500/30 transition-all duration-500 shadow-lg hover:shadow-2xl overflow-hidden h-[420px]">
 
-          <img
-            src={study.hero_image}
-            alt={study.title}
-            className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ${
-              imageLoaded ? 'opacity-100' : 'opacity-0'
-            } ${isHovered ? 'scale-110' : 'scale-100'}`}
-            onLoad={() => setImageLoaded(true)}
-            loading="lazy"
-          />
+        <div className={`relative overflow-hidden flex-shrink-0 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 transition-all duration-500 ${
+          showPreview ? 'h-[240px]' : 'h-full'
+        }`}>
+          <div className={`absolute inset-0 transition-all duration-1000 ${
+            imageLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+          }`}>
+            <img
+              src={study.hero_image}
+              alt={study.title}
+              className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ${
+                isHovered && !showPreview ? 'scale-110 brightness-110' : 'scale-100 brightness-100'
+              }`}
+              onLoad={() => setImageLoaded(true)}
+              loading="lazy"
+            />
 
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
+          </div>
+
+          <div className="absolute inset-0 z-10 px-6 flex items-center">
+            <h3 className="font-bold text-white leading-tight text-left text-[42px]" aria-label={`Case study: ${study.title}`}>
+              {study.title}
+            </h3>
+          </div>
         </div>
 
-        <div className="flex-1 p-5 sm:p-6 flex flex-col">
-          <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-2 leading-tight">
-            {study.title}
-          </h3>
-          <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 line-clamp-2">
-            {study.subtitle || study.problem.substring(0, 100)}
-          </p>
-        </div>
+        {showPreview && (
+          <div className="flex-1 p-6 bg-white dark:bg-gray-900 flex flex-col justify-between">
+            <p className="text-gray-700 dark:text-gray-300 text-base leading-relaxed line-clamp-2 mb-4">
+              {truncateText(study.subtitle || '', 140)}
+            </p>
+            <button
+              onClick={handleViewCaseStudy}
+              className="w-full py-3 px-4 text-white font-semibold rounded-lg transition-all duration-300 flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
+              style={{ backgroundColor: '#00B46A' }}
+              aria-label={`View full case study: ${study.title}`}
+            >
+              View Full Case Study
+              <ArrowRight size={18} />
+            </button>
+          </div>
+        )}
 
-        <div
-          className={`absolute bottom-0 left-0 right-0 h-1.5 bg-gradient-to-r from-emerald-500 to-teal-500 transform origin-left transition-transform duration-700 ${
-            isHovered ? 'scale-x-100' : 'scale-x-0'
-          }`}
-        ></div>
+        <button
+          onClick={handleTogglePreview}
+          className="absolute bottom-4 right-4 z-20 w-12 h-12 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 border-2 border-gray-200 dark:border-gray-700"
+          style={{ borderColor: showPreview ? '#00B46A' : '' }}
+          aria-label={showPreview ? 'Hide preview' : 'Show preview'}
+        >
+          {showPreview ? (
+            <X style={{ color: '#00B46A' }} size={20} strokeWidth={2.5} />
+          ) : (
+            <Plus style={{ color: '#00B46A' }} size={20} strokeWidth={2.5} />
+          )}
+        </button>
       </div>
     </article>
   );

@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vision-Based Attendance & Productivity Monitoring | Vinfotech</title>
+    <script src="./theme-manager.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+        * {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(to bottom, #ffffff, #f0fdf4);
+            color: #1e293b;
+        }
+
+        .camera-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .camera-feed {
+            aspect-ratio: 16/9;
+            background: linear-gradient(135deg, #00B46A 0%, #059669 100%);
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid #00B46A;
+        }
+
+        .camera-feed::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(255,255,255,0.03) 2px,
+                rgba(255,255,255,0.03) 4px
+            );
+            animation: scan 3s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+
+        .detection-box {
+            position: absolute;
+            border: 2px solid #10b981;
+            background: rgba(16, 185, 129, 0.1);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .metric-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 15px solid #dcfce7;
+            border-top-color: #00B46A;
+            border-right-color: #00B46A;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background: white;
+            box-shadow: 0 10px 30px rgba(0, 180, 106, 0.2);
+            position: relative;
+            animation: rotate 3s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .metric-circle-inner {
+            animation: rotate-reverse 3s linear infinite;
+        }
+
+        @keyframes rotate-reverse {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(-360deg); }
+        }
+
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, #00B46A, #059669, #047857);
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: #00B46A;
+            border-radius: 50%;
+            border: 4px solid white;
+            box-shadow: 0 0 0 4px #00B46A;
+            z-index: 10;
+        }
+
+        .timeline-content {
+            flex: 1;
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #00B46A;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            border: 2px solid #86efac;
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 180, 106, 0.1) 0%, transparent 70%);
+            animation: rotate-slow 10s linear infinite;
+        }
+
+        @keyframes rotate-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 180, 106, 0.3);
+            border-color: #00B46A;
+        }
+
+        .privacy-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #dcfce7;
+            border: 2px solid #22c55e;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            color: #15803d;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .accuracy-bar {
+            height: 40px;
+            background: #dcfce7;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .accuracy-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00B46A, #059669);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 1rem;
+            color: white;
+            font-weight: bold;
+            animation: fill 2s ease-out;
+        }
+
+        @keyframes fill {
+            from { width: 0; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="fixed top-0 w-full bg-white/95 backdrop-blur-md z-50 border-b border-gray-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="/" class="flex items-center">
+                <img src="/asset 5.png" alt="Vinfotech" class="h-8">
+            </a>
+            <a href="/#case-studies" class="px-6 py-3 text-white rounded-full font-semibold transition-all hover:shadow-lg flex items-center gap-2" style="background-color: #00B46A;" onmouseover="this.style.backgroundColor='#009858'" onmouseout="this.style.backgroundColor='#00B46A'">
+                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                </svg>
+                Back to Case Studies
+            </a>
+        </div>
+    </nav>
+
+    <div class="pt-32 pb-20 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12">
+                <div class="inline-block mb-4">
+                    <span class="privacy-badge">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 1l7 3v5c0 5-3 9-7 11-4-2-7-6-7-11V4l7-3z" clip-rule="evenodd"/>
+                        </svg>
+                        Privacy-First Design
+                    </span>
+                </div>
+                <h1 class="text-6xl font-bold mb-6 bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
+                    Vision-Based Attendance<br/>& Productivity Monitoring
+                </h1>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Transforming passive CCTV cameras into intelligent sensors for automated attendance tracking with 100% hands-free operation
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-6 mb-20">
+                <div class="text-center">
+                    <div class="metric-circle mx-auto mb-4">
+                        <div class="metric-circle-inner">
+                            <div class="text-5xl font-bold" style="color: #00B46A;">98%</div>
+                            <div class="text-sm text-gray-600">Accuracy</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <div class="metric-circle mx-auto mb-4">
+                        <div class="metric-circle-inner">
+                            <div class="text-5xl font-bold" style="color: #00B46A;">&lt;2s</div>
+                            <div class="text-sm text-gray-600">Latency</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <div class="metric-circle mx-auto mb-4">
+                        <div class="metric-circle-inner">
+                            <div class="text-5xl font-bold" style="color: #00B46A;">25+</div>
+                            <div class="text-sm text-gray-600">Cameras</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-16">Live Camera Feeds</h2>
+            <div class="camera-grid">
+                <div class="camera-feed">
+                    <div class="detection-box" style="top: 30%; left: 20%; width: 25%; height: 35%;"></div>
+                    <div class="absolute bottom-2 left-2 bg-black/70 text-white px-3 py-1 rounded text-sm">Camera 1 - Entrance</div>
+                </div>
+                <div class="camera-feed">
+                    <div class="detection-box" style="top: 25%; left: 40%; width: 30%; height: 40%;"></div>
+                    <div class="detection-box" style="top: 45%; left: 15%; width: 20%; height: 30%;"></div>
+                    <div class="absolute bottom-2 left-2 bg-black/70 text-white px-3 py-1 rounded text-sm">Camera 2 - Floor A</div>
+                </div>
+                <div class="camera-feed">
+                    <div class="detection-box" style="top: 35%; left: 35%; width: 28%; height: 38%;"></div>
+                    <div class="absolute bottom-2 left-2 bg-black/70 text-white px-3 py-1 rounded text-sm">Camera 3 - Meeting Room</div>
+                </div>
+            </div>
+            <div class="text-center mt-8 text-gray-600">
+                <p class="font-semibold">Real-time facial recognition across 25+ cameras monitoring the entire facility</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-gradient-to-b from-green-50 to-white">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-4">The Challenge</h2>
+            <p class="text-center text-gray-600 mb-16">Traditional attendance systems were failing on multiple fronts</p>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-2xl shadow-lg border-t-4 border-red-500">
+                    <div class="text-5xl mb-4">⏱️</div>
+                    <h3 class="text-xl font-bold mb-3 text-red-600">Time-Consuming</h3>
+                    <p class="text-gray-600">Manual swipe-based systems caused delays during check-ins and check-outs</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-lg border-t-4 border-red-500">
+                    <div class="text-5xl mb-4">❌</div>
+                    <h3 class="text-xl font-bold mb-3 text-red-600">Error-Prone</h3>
+                    <p class="text-gray-600">Missed logs when employees forgot to mark attendance</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-lg border-t-4 border-red-500">
+                    <div class="text-5xl mb-4">📊</div>
+                    <h3 class="text-xl font-bold mb-3 text-red-600">No Insights</h3>
+                    <p class="text-gray-600">Zero visibility into break durations or overall floor occupancy</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20">
+        <div class="max-w-5xl mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-16">Implementation Timeline</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3 class="text-2xl font-bold mb-2" style="color: #00B46A;">Phase 1: Site Survey</h3>
+                        <p class="text-gray-600">Mapped all critical zones and existing camera angles across the facility</p>
+                    </div>
+                    <div class="flex-1"></div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="flex-1"></div>
+                    <div class="timeline-content">
+                        <h3 class="text-2xl font-bold mb-2" style="color: #00B46A;">Phase 2: Model Training</h3>
+                        <p class="text-gray-600">Fine-tuned face-embedding models optimized for top-view and low-angle cameras</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3 class="text-2xl font-bold mb-2" style="color: #00B46A;">Phase 3: Integration</h3>
+                        <p class="text-gray-600">Synced attendance data with HRMS and access-control systems</p>
+                    </div>
+                    <div class="flex-1"></div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="flex-1"></div>
+                    <div class="timeline-content">
+                        <h3 class="text-2xl font-bold mb-2" style="color: #00B46A;">Phase 4: Calibration</h3>
+                        <p class="text-gray-600">Multi-week validation to reduce false matches below 1%</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-green-50">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-16">Key Features</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="feature-card">
+                    <div class="relative z-10">
+                        <div class="text-5xl mb-4">👁️</div>
+                        <h3 class="text-xl font-bold mb-3 text-gray-900">Facial Recognition</h3>
+                        <p class="text-gray-700">Real-time identification using YOLOv8 and DeepSORT for multi-camera re-identification</p>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="relative z-10">
+                        <div class="text-5xl mb-4">🗺️</div>
+                        <h3 class="text-xl font-bold mb-3 text-gray-900">Zone Tracking</h3>
+                        <p class="text-gray-700">Cameras in work areas and meeting rooms map occupancy in real time</p>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="relative z-10">
+                        <div class="text-5xl mb-4">⏸️</div>
+                        <h3 class="text-xl font-bold mb-3 text-gray-900">Break Analysis</h3>
+                        <p class="text-gray-700">System identifies extended idle periods and patterns without employee input</p>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="relative z-10">
+                        <div class="text-5xl mb-4">🔔</div>
+                        <h3 class="text-xl font-bold mb-3 text-gray-900">Instant Alerts</h3>
+                        <p class="text-gray-700">Automated notifications for unusual activity patterns</p>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="relative z-10">
+                        <div class="text-5xl mb-4">🔒</div>
+                        <h3 class="text-xl font-bold mb-3 text-gray-900">Privacy-First</h3>
+                        <p class="text-gray-700">No continuous video storage; only metadata and encoded face signatures retained</p>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="relative z-10">
+                        <div class="text-5xl mb-4">⚡</div>
+                        <h3 class="text-xl font-bold mb-3 text-gray-900">Edge Processing</h3>
+                        <p class="text-gray-700">Low-latency recognition at the edge using NVIDIA Jetson devices</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-16">Accuracy Performance</h2>
+            <div class="space-y-8">
+                <div>
+                    <div class="flex justify-between mb-2">
+                        <span class="font-semibold text-lg">Recognition Accuracy</span>
+                        <span class="font-bold text-lg" style="color: #00B46A;">98%</span>
+                    </div>
+                    <div class="accuracy-bar">
+                        <div class="accuracy-fill" style="width: 98%;">98%</div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="flex justify-between mb-2">
+                        <span class="font-semibold text-lg">Multi-Camera Re-ID</span>
+                        <span class="font-bold text-lg" style="color: #00B46A;">95%</span>
+                    </div>
+                    <div class="accuracy-bar">
+                        <div class="accuracy-fill" style="width: 95%; animation-delay: 0.2s;">95%</div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="flex justify-between mb-2">
+                        <span class="font-semibold text-lg">Low-Light Performance</span>
+                        <span class="font-bold text-lg" style="color: #00B46A;">92%</span>
+                    </div>
+                    <div class="accuracy-bar">
+                        <div class="accuracy-fill" style="width: 92%; animation-delay: 0.4s;">92%</div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="flex justify-between mb-2">
+                        <span class="font-semibold text-lg">False Match Rate</span>
+                        <span class="font-bold text-emerald-600 text-lg">&lt;1%</span>
+                    </div>
+                    <div class="accuracy-bar">
+                        <div class="accuracy-fill" style="width: 99%; background: linear-gradient(90deg, #10b981, #14b8a6); animation-delay: 0.6s;">99% Accuracy</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 text-white" style="background: linear-gradient(to right, #00B46A, #059669);">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <div class="text-7xl mb-6">"</div>
+            <blockquote class="text-3xl font-semibold mb-8 leading-relaxed">
+                Attendance just happens in the background now. What we gained is real visibility into how teams actually use their time and spaces.
+            </blockquote>
+            <div class="flex items-center justify-center gap-4">
+                <div class="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center text-2xl font-bold backdrop-blur">
+                    O
+                </div>
+                <div class="text-left">
+                    <div class="font-bold text-xl">Operations Head</div>
+                    <div class="text-green-100">Vinfotech</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-16">Technology Stack</h2>
+            <div class="grid md:grid-cols-4 gap-6">
+                <div class="bg-white p-6 rounded-2xl shadow-lg text-center border-t-4" style="border-top-color: #00B46A;">
+                    <div class="text-4xl mb-3">🎥</div>
+                    <h3 class="font-bold mb-2" style="color: #00B46A;">Computer Vision</h3>
+                    <div class="space-y-2 text-sm text-gray-600">
+                        <div>YOLOv8</div>
+                        <div>DeepSORT</div>
+                        <div>FaceNet</div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow-lg text-center border-t-4" style="border-top-color: #00B46A;">
+                    <div class="text-4xl mb-3">🔧</div>
+                    <h3 class="font-bold mb-2" style="color: #00B46A;">Frameworks</h3>
+                    <div class="space-y-2 text-sm text-gray-600">
+                        <div>OpenCV</div>
+                        <div>PyTorch</div>
+                        <div>TensorRT</div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow-lg text-center border-t-4" style="border-top-color: #00B46A;">
+                    <div class="text-4xl mb-3">⚙️</div>
+                    <h3 class="font-bold mb-2" style="color: #00B46A;">Edge Hardware</h3>
+                    <div class="space-y-2 text-sm text-gray-600">
+                        <div>NVIDIA Jetson</div>
+                        <div>RTSP Cameras</div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow-lg text-center border-t-4" style="border-top-color: #00B46A;">
+                    <div class="text-4xl mb-3">☁️</div>
+                    <h3 class="font-bold mb-2" style="color: #00B46A;">Backend</h3>
+                    <div class="space-y-2 text-sm text-gray-600">
+                        <div>AWS ECS</div>
+                        <div>PostgreSQL</div>
+                        <div>Redis</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-12 bg-gray-900 text-white text-center">
+        <p>&copy; 2025 Vinfotech. Vision-Based Attendance & Productivity Monitoring Case Study.</p>
+    </footer>
+</body>
+</html>

@@ -59,7 +59,7 @@ export default function About() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
           <div className={`space-y-6 sm:space-y-8 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
             <div className="space-y-4 sm:space-y-5 text-center lg:text-left">
-              <p className="text-sm sm:text-base font-semibold tracking-[0.15em] uppercase" style={{ color: '#00B46A' }}>
+              <p className="text-base sm:text-lg font-semibold tracking-[0.15em] uppercase" style={{ color: '#00B46A' }}>
                 WHAT WE DO
               </p>
               <h2 className="text-gray-900 dark:text-white leading-[1.2] text-3xl sm:text-4xl md:text-5xl lg:text-[52px] font-bold">
@@ -67,7 +67,7 @@ export default function About() {
               </h2>
             </div>
 
-            <div className="space-y-6 text-gray-700 dark:text-gray-300 leading-[1.7] text-lg sm:text-xl md:text-[22px] lg:text-[24px] font-normal text-center lg:text-left">
+            <div className="space-y-6 text-gray-700 dark:text-gray-300 leading-[1.7] text-[22px] sm:text-xl md:text-[22px] lg:text-[24px] font-normal text-center lg:text-left">
               <p>
                 We are a specialized <span className="font-semibold text-gray-900 dark:text-white">AI Engineering</span> firm that turns your most ambitious business challenges into intelligent, production-ready applications.
               </p>
@@ -136,7 +136,7 @@ function FeatureCard({ icon, title, description, delay, isVisible }: FeatureCard
         </div>
 
         <div className="flex-1 min-w-0">
-          <h3 className="text-base sm:text-lg lg:text-xl font-semibold transition-all duration-500 group-hover:translate-x-1 break-words" style={{ color: '#00B46A' }}>
+          <h3 className="text-lg sm:text-xl lg:text-2xl font-semibold transition-all duration-500 group-hover:translate-x-1 break-words" style={{ color: '#00B46A' }}>
             {title}
           </h3>
         </div>

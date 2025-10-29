@@ -96,7 +96,7 @@ export default function Services() {
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 tracking-tight px-2">
             Our AI Services
           </h2>
-          <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed px-4">
+          <p className="text-lg sm:text-lg md:text-xl lg:text-2xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed px-4">
             Comprehensive AI solutions tailored to your business needs, from intelligent data processing to automated decision-making
           </p>
         </div>
@@ -123,25 +123,26 @@ export default function Services() {
                     <img
                       src={service.image}
                       alt={service.title}
+                      loading="lazy"
                       className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-gradient-to-br from-black/50 via-black/40 to-black/50"></div>
                     <div className="absolute inset-0 flex items-center justify-center sm:justify-center p-6 sm:p-8">
-                      <h2
-                        className={`text-[24px] sm:text-[36px] md:text-[42px] lg:text-[48px] font-bold text-white leading-tight text-left sm:text-center transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}
+                      <h3
+                        className={`text-[28px] sm:text-[36px] md:text-[42px] lg:text-[48px] font-bold text-white leading-tight text-left transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}
                         style={{
                           letterSpacing: '-0.03em',
                           transitionDelay: isVisible ? '400ms' : '0ms',
                         }}
                       >
                         {service.title}
-                      </h2>
+                      </h3>
                     </div>
                   </div>
 
                   <div className="bg-gray-50 dark:bg-black p-6 sm:p-8 lg:p-10 flex items-start h-auto min-h-[400px] sm:min-h-0 overflow-y-auto sm:overflow-y-visible">
                     <div className="space-y-6 sm:space-y-7 lg:space-y-8 w-full py-2">
-                      <p className={`text-sm sm:text-lg lg:text-xl text-gray-600 dark:text-gray-400 leading-relaxed mb-4 sm:mb-6 lg:mb-8 pt-2 sm:pt-8 transition-all duration-700 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'}`}
+                      <p className={`text-lg sm:text-lg lg:text-xl text-gray-600 dark:text-gray-400 leading-relaxed mb-4 sm:mb-6 lg:mb-8 pt-2 sm:pt-8 transition-all duration-700 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'}`}
                         style={{
                           transitionDelay: isVisible ? '300ms' : '0ms',
                         }}
@@ -160,7 +161,7 @@ export default function Services() {
                             <Check size={14} strokeWidth={3} className="text-white transition-transform duration-300 group-hover/highlight:scale-110" />
                           </div>
                           <p
-                            className="text-base sm:text-lg lg:text-xl text-gray-700 dark:text-gray-300 leading-relaxed transition-all duration-300 group-hover/highlight:text-[#00B46A] group-hover/highlight:translate-x-1"
+                            className="text-xl sm:text-lg lg:text-xl text-gray-700 dark:text-gray-300 leading-relaxed transition-all duration-300 group-hover/highlight:text-[#00B46A] group-hover/highlight:translate-x-1"
                             dangerouslySetInnerHTML={{ __html: highlight }}
                           ></p>
                         </div>
