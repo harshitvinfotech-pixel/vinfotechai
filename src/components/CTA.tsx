@@ -36,8 +36,7 @@ export default function CTA({ onQuoteClick }: CTAProps) {
                 <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-xl sm:rounded-2xl flex items-center justify-center">
                   <img
                     src="/vinfo-2.png"
-                    alt="Vinfotech AI Logo"
-                    loading="lazy"
+                    alt="Vinfo Logo"
                     className="w-full h-full object-contain"
                   />
                 </div>
@@ -48,10 +47,10 @@ export default function CTA({ onQuoteClick }: CTAProps) {
               </h2>
 
               <div className="max-w-3xl mx-auto mb-10 sm:mb-12">
-                <p className="text-xl sm:text-lg md:text-xl lg:text-2xl text-gray-700 dark:text-gray-300 mb-3 sm:mb-4 leading-relaxed px-4 sm:px-6">
+                <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-700 dark:text-gray-300 mb-3 sm:mb-4 leading-relaxed px-4 sm:px-6">
                   Bring us one workflow. We'll ship something real.
                 </p>
-                <p className="text-lg sm:text-lg md:text-xl lg:text-2xl font-medium px-4 sm:px-6" style={{ color: '#666666' }}>
+                <p className="text-sm sm:text-base md:text-lg lg:text-xl font-medium px-4 sm:px-6" style={{ color: '#666666' }}>
                   Let's discuss your custom AI Vision.
                 </p>
               </div>
@@ -59,8 +58,7 @@ export default function CTA({ onQuoteClick }: CTAProps) {
               <div className="flex justify-center px-2">
                 <button
                   onClick={onQuoteClick}
-                  className="bg-[#00B46A] text-white px-8 sm:px-10 py-3 sm:py-4 rounded-lg font-semibold text-lg sm:text-xl flex items-center justify-center gap-2 shadow-lg min-w-[240px] sm:w-auto"
-                  aria-label="Request a quote to start your AI development project"
+                  className="bg-[#00B46A] text-white px-8 sm:px-10 py-3 sm:py-4 rounded-lg font-semibold text-base sm:text-lg flex items-center justify-center gap-2 shadow-lg min-w-[240px] sm:w-auto"
                 >
                   Request a Quote
                   <ArrowRight

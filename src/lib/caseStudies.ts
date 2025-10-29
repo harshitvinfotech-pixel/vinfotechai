@@ -28,18 +28,12 @@ export async function getCaseStudyBySlug(slug: string): Promise<CaseStudyWithDet
   }
 
   const [
-    { data: contentBlocks },
     { data: metrics },
     { data: technologies },
     { data: timeline },
     { data: features },
     { data: images }
   ] = await Promise.all([
-    supabase
-      .from('case_study_content_blocks')
-      .select('*')
-      .eq('case_study_id', caseStudy.id)
-      .order('display_order', { ascending: true }),
     supabase
       .from('case_study_metrics')
       .select('*')
@@ -67,17 +61,13 @@ export async function getCaseStudyBySlug(slug: string): Promise<CaseStudyWithDet
       .order('display_order', { ascending: true })
   ]);
 
-  const galleryImages = images?.filter(img => img.type === 'gallery') || [];
-
   return {
     ...caseStudy,
-    content_blocks: contentBlocks || [],
     metrics: metrics || [],
     technologies: technologies || [],
     timeline: timeline || [],
     features: features || [],
-    images: images || [],
-    gallery_images: galleryImages
+    images: images || []
   };
 }
 

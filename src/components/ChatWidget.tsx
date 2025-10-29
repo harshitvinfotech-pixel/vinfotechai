@@ -99,7 +99,7 @@ export default function ChatWidget() {
           </div>
           <div className="relative md:hidden">
             <img
-              src="/Gemini_Generated_Image_eao7cteao7cteao7-removebg-preview copy copy.png"
+              src="/Gemini_Generated_Image_eao7cteao7cteao7-removebg-preview.png"
               alt="AI Assistant"
               className="w-12 h-12 object-contain drop-shadow-xl animate-float-3d"
             />
@@ -108,7 +108,7 @@ export default function ChatWidget() {
             </div>
           </div>
           <img
-            src="/Gemini_Generated_Image_eao7cteao7cteao7-removebg-preview copy copy.png"
+            src="/Gemini_Generated_Image_eao7cteao7cteao7-removebg-preview.png"
             alt="AI Assistant"
             className="w-16 h-16 object-contain drop-shadow-xl animate-float-3d hidden md:block"
           />
@@ -125,7 +125,7 @@ export default function ChatWidget() {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <img
-                  src="/Gemini_Generated_Image_eao7cteao7cteao7-removebg-preview copy copy.png"
+                  src="/Gemini_Generated_Image_eao7cteao7cteao7-removebg-preview.png"
                   alt="Vinfotech AI"
                   className="w-10 h-10 object-contain"
                 />
@@ -174,7 +174,7 @@ export default function ChatWidget() {
               <button
                 type="submit"
                 disabled={!question.trim() || isLoading}
-                className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 hover:scale-110 active:scale-95"
+                className="absolute right-2 top-1/2 -translate-y-0 p-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 hover:scale-110 active:scale-95"
               >
                 <Send className="w-4 h-4" />
               </button>
@@ -196,7 +196,7 @@ export default function ChatWidget() {
       <div className="flex items-center justify-between px-6 py-5 rounded-t-none md:rounded-t-3xl" style={{ backgroundColor: '#00B46A' }}>
         <div className="flex items-center gap-3">
           <img
-            src="/Gemini_Generated_Image_eao7cteao7cteao7-removebg-preview copy copy.png"
+            src="/Gemini_Generated_Image_eao7cteao7cteao7-removebg-preview.png"
             alt="Vinfotech AI"
             className="w-10 h-10 object-contain"
           />
@@ -227,7 +227,7 @@ export default function ChatWidget() {
         {messages.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full text-center px-4">
             <img
-              src="/Gemini_Generated_Image_eao7cteao7cteao7-removebg-preview copy copy.png"
+              src="/Gemini_Generated_Image_eao7cteao7cteao7-removebg-preview.png"
               alt="Vinfotech AI"
               className="w-32 h-32 object-contain mb-4 animate-float-3d"
             />
