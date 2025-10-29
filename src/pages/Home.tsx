@@ -12,7 +12,6 @@ import BlogPreview from '../components/BlogPreview';
 import Footer from '../components/Footer';
 import AbstractBackground from '../components/AbstractBackground';
 import SalesAgentStats from '../components/SalesAgentStats';
-import CompanyStatsBanner from '../components/CompanyStatsBanner';
 
 interface HomeProps {
   onQuoteClick: () => void;
@@ -82,13 +81,6 @@ export default function Home({ onQuoteClick }: HomeProps) {
       <main>
         <IntroSection />
         <About />
-
-        <section className="py-16 px-6 sm:px-8 lg:px-12 bg-white dark:bg-gray-900">
-          <div className="max-w-7xl mx-auto">
-            <CompanyStatsBanner />
-          </div>
-        </section>
-
         <Services />
         <TechStack />
         <CaseStudies />
