@@ -3,12 +3,12 @@ import { useState, useEffect, useRef } from 'react';
 import { Send, X, Maximize2, Minimize2, Sparkles } from 'lucide-react';
 import {
   getSuggestedQuestions,
-  findResponse,
   saveChatConversation,
   getSessionId,
   type SuggestedQuestion,
   type ChatMessage
 } from '../lib/chat';
+import { streamQuery, type SourceDocument, type ResponseMetadata } from '../lib/streamingChat';
 
 type WidgetState = 'collapsed' | 'preview' | 'full';
 
@@ -18,12 +18,32 @@ export default function ChatWidget() {
   const [question, setQuestion] = useState('');
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isStreaming, setIsStreaming] = useState(false);
   const [suggestedQuestions, setSuggestedQuestions] = useState<SuggestedQuestion[]>([]);
+  const [streamingSuggestions, setStreamingSuggestions] = useState<string[]>([]);
+  const [sources, setSources] = useState<SourceDocument[]>([]);
+  const [metadata, setMetadata] = useState<ResponseMetadata | null>(null);
+  const [completeResponse, setCompleteResponse] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const abortControllerRef = useRef<AbortController | null>(null);
 
   useEffect(() => {
     loadSuggestedQuestions();
   }, []);
+
+  useEffect(() => {
+    return () => {
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [messages, isStreaming]);
 
 
   const loadSuggestedQuestions = async () => {
@@ -42,28 +62,90 @@ export default function ChatWidget() {
     setQuestion('');
     setMessages(prev => [...prev, { type: 'user', text: questionText }]);
     setIsLoading(true);
+    setIsStreaming(false);
+    setCompleteResponse('');
+    setStreamingSuggestions([]);
+    setSources([]);
+    setMetadata(null);
 
     if (widgetState === 'preview') {
       setWidgetState('full');
     }
 
+    abortControllerRef.current = new AbortController();
+
+    setMessages(prev => [...prev, { type: 'assistant', text: '' }]);
+
     try {
-      const response = await findResponse(questionText);
-      const responseSource = response.includes('Get a Quote') ? 'fallback' : 'knowledge_base';
+      await streamQuery(
+        getSessionId(),
+        questionText,
+        {
+          onResponseChunk: (content: string) => {
+            setIsLoading(false);
+            setIsStreaming(true);
+            setMessages(prev => {
+              const newMessages = [...prev];
+              const lastMessage = newMessages[newMessages.length - 1];
+              if (lastMessage && lastMessage.type === 'assistant') {
+                lastMessage.text += content;
+              }
+              return newMessages;
+            });
+          },
+          onCompleteResponse: (content: string) => {
+            setCompleteResponse(content);
+          },
+          onSuggestedQuestions: (questions: string[]) => {
+            setStreamingSuggestions(questions);
+          },
+          onSources: (sourceDocs: SourceDocument[]) => {
+            setSources(sourceDocs);
+          },
+          onMetadata: (meta: ResponseMetadata) => {
+            setMetadata(meta);
+          },
+          onDone: async () => {
+            setIsLoading(false);
+            setIsStreaming(false);
 
-      await saveChatConversation(getSessionId(), questionText, response, responseSource);
-
-      setTimeout(() => {
-        setMessages(prev => [...prev, { type: 'assistant', text: response }]);
-        setIsLoading(false);
-      }, 800);
+            const finalResponse = completeResponse || messages[messages.length - 1]?.text || '';
+            if (finalResponse) {
+              await saveChatConversation(
+                getSessionId(),
+                questionText,
+                finalResponse,
+                'streaming_api'
+              );
+            }
+          },
+          onError: (error: string) => {
+            console.error('Streaming error:', error);
+            setMessages(prev => {
+              const newMessages = [...prev];
+              const lastMessage = newMessages[newMessages.length - 1];
+              if (lastMessage && lastMessage.type === 'assistant' && !lastMessage.text) {
+                lastMessage.text = "I apologize, but I'm having trouble connecting right now. Please try again or contact us directly for assistance.";
+              }
+              return newMessages;
+            });
+            setIsLoading(false);
+            setIsStreaming(false);
+          }
+        }
+      );
     } catch (error) {
       console.error('Error getting response:', error);
-      setMessages(prev => [...prev, {
-        type: 'assistant',
-        text: "I apologize, but I'm having trouble connecting right now. Please try again or contact us directly for assistance."
-      }]);
+      setMessages(prev => {
+        const newMessages = [...prev];
+        const lastMessage = newMessages[newMessages.length - 1];
+        if (lastMessage && lastMessage.type === 'assistant' && !lastMessage.text) {
+          lastMessage.text = "I apologize, but I'm having trouble connecting right now. Please try again or contact us directly for assistance.";
+        }
+        return newMessages;
+      });
       setIsLoading(false);
+      setIsStreaming(false);
     }
   };
 
@@ -81,6 +163,9 @@ export default function ChatWidget() {
   };
 
   const closeWidget = () => {
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+    }
     setWidgetState('collapsed');
     setIsExpanded(false);
   };
@@ -264,7 +349,7 @@ export default function ChatWidget() {
                 </div>
               </div>
             ))}
-            {isLoading && (
+            {(isLoading && !isStreaming) && (
               <div className="flex justify-start">
                 <div className="bg-white rounded-2xl px-4 py-3 shadow-sm border border-gray-100">
                   <div className="flex gap-1">
@@ -291,7 +376,7 @@ export default function ChatWidget() {
           />
           <button
             type="submit"
-            disabled={!question.trim() || isLoading}
+            disabled={!question.trim() || isLoading || isStreaming}
             className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 hover:scale-110 active:scale-95"
           >
             <Send className="w-4 h-4" />

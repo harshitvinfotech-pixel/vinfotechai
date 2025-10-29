@@ -9,15 +9,6 @@ export interface SuggestedQuestion {
   click_count: number;
 }
 
-export interface KnowledgeBaseEntry {
-  id: string;
-  keywords: string[];
-  question_patterns: string[];
-  response_text: string;
-  category: string;
-  priority: number;
-}
-
 export interface ChatMessage {
   type: 'user' | 'assistant';
   text: string;
@@ -46,50 +37,11 @@ export async function incrementQuestionClick(questionId: string): Promise<void> 
   }
 }
 
-export async function findResponse(question: string): Promise<string> {
-  const { data: knowledgeBase, error } = await supabase
-    .from('knowledge_base')
-    .select('*')
-    .eq('is_active', true)
-    .order('priority', { ascending: false });
-
-  if (error) {
-    console.error('Error fetching knowledge base:', error);
-    return getFallbackResponse();
-  }
-
-  if (!knowledgeBase || knowledgeBase.length === 0) {
-    return getFallbackResponse();
-  }
-
-  const normalizedQuestion = question.toLowerCase().trim();
-
-  for (const entry of knowledgeBase) {
-    const matchesKeyword = entry.keywords.some((keyword: string) =>
-      normalizedQuestion.includes(keyword.toLowerCase())
-    );
-
-    const matchesPattern = entry.question_patterns.some((pattern: string) =>
-      normalizedQuestion.includes(pattern.toLowerCase())
-    );
-
-    if (matchesKeyword || matchesPattern) {
-      return entry.response_text;
-    }
-  }
-
-  return getFallbackResponse();
-}
-
-function getFallbackResponse(): string {
-  return "Thank you for your question! I'd be happy to help you learn more about our services and solutions. For detailed information specific to your needs, please click 'Get a Quote' and our team will get back to you within 24 hours with a personalized response.";
-}
-
 export async function saveChatConversation(
   sessionId: string,
   userQuestion: string,
   assistantResponse: string,
-  responseSource: 'knowledge_base' | 'fallback'
+  responseSource: 'streaming_api' | 'knowledge_base' | 'fallback'
 ): Promise<void> {
   const { error } = await supabase
     .from('chat_conversations')
