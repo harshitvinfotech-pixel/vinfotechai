@@ -52,7 +52,7 @@ export default function Services() {
         'Automated <b>Worker Monitoring</b> for team attendance and break management',
         'Advanced <b>Object Detection</b> for asset tracking and process optimization',
       ],
-      image: 'https://images.pexels.com/photos/2599244/pexels-photo-2599244.jpeg?auto=compress&cs=tinysrgb&w=1200',
+      image: '/AI & Computer Vision for Visual Data.jpg',
     },
     {
       id: 'ai-agents',
