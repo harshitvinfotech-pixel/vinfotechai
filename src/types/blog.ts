@@ -26,7 +26,7 @@ export interface Blog {
   display_order: number;
   created_at: string;
   updated_at: string;
-  category?: BlogCategory;
+  category?: BlogCategory | null;
 }
 
 export interface BlogWithCategory extends Blog {

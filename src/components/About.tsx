@@ -112,12 +112,11 @@ export default function About() {
 interface FeatureCardProps {
   icon: React.ReactNode;
   title: string;
-  description: string;
   delay: string;
   isVisible: boolean;
 }
 
-function FeatureCard({ icon, title, description, delay, isVisible }: FeatureCardProps) {
+function FeatureCard({ icon, title, delay, isVisible }: FeatureCardProps) {
   return (
     <div
       className={`group relative bg-gray-50 dark:bg-gray-800/40 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-gray-200/60 dark:border-gray-700/40 transition-all duration-700 hover:-translate-y-2 hover:scale-[1.02] ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-8 scale-95'}`}

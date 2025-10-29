@@ -1,4 +1,14 @@
-import type { CaseStudyContentBlock, CaseStudyMetric, CaseStudyTimeline, CaseStudyFeature } from '../../types/caseStudy';
+import type {
+  CaseStudyContentBlock,
+  CaseStudyMetric,
+  CaseStudyTimeline,
+  CaseStudyFeature,
+  TextBlockData,
+  ImageBlockData,
+  PhoneMockupBlockData,
+  DiagramBlockData,
+  TwoColumnBlockData
+} from '../../types/caseStudy';
 import TextBlock from './TextBlock';
 import ImageBlock from './ImageBlock';
 import PhoneMockupBlock from './PhoneMockupBlock';
@@ -30,28 +40,28 @@ export default function ContentBlockRenderer({
           case 'text':
             return (
               <div key={block.id} className="animate-fade-in">
-                <TextBlock data={block.content} />
+                <TextBlock data={block.content as TextBlockData} />
               </div>
             );
 
           case 'image':
             return (
               <div key={block.id} className="animate-fade-in">
-                <ImageBlock data={block.content} />
+                <ImageBlock data={block.content as ImageBlockData} />
               </div>
             );
 
           case 'phone_mockup':
             return (
               <div key={block.id} className="animate-fade-in">
-                <PhoneMockupBlock data={block.content} />
+                <PhoneMockupBlock data={block.content as PhoneMockupBlockData} />
               </div>
             );
 
           case 'diagram':
             return (
               <div key={block.id} className="animate-fade-in">
-                <DiagramBlock data={block.content} />
+                <DiagramBlock data={block.content as DiagramBlockData} />
               </div>
             );
 
@@ -79,7 +89,7 @@ export default function ContentBlockRenderer({
           case 'two_column':
             return (
               <div key={block.id} className="animate-fade-in">
-                <TwoColumnBlock data={block.content} />
+                <TwoColumnBlock data={block.content as TwoColumnBlockData} />
               </div>
             );
 

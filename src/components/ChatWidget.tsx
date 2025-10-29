@@ -20,9 +20,9 @@ export default function ChatWidget() {
   const [isLoading, setIsLoading] = useState(false);
   const [isStreaming, setIsStreaming] = useState(false);
   const [suggestedQuestions, setSuggestedQuestions] = useState<SuggestedQuestion[]>([]);
-  const [streamingSuggestions, setStreamingSuggestions] = useState<string[]>([]);
-  const [sources, setSources] = useState<SourceDocument[]>([]);
-  const [metadata, setMetadata] = useState<ResponseMetadata | null>(null);
+  const [, setStreamingSuggestions] = useState<string[]>([]);
+  const [, setSources] = useState<SourceDocument[]>([]);
+  const [, setMetadata] = useState<ResponseMetadata | null>(null);
   const [completeResponse, setCompleteResponse] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const abortControllerRef = useRef<AbortController | null>(null);

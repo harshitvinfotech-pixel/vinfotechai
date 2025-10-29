@@ -117,7 +117,7 @@ export default function ColorBends({
   rotation = 45,
   speed = 0.2,
   colors = ['#00B46A'],
-  transparent = flase,
+  transparent = false,
   autoRotate = 0,
   scale = 1,
   frequency = 1,

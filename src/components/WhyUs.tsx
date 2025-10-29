@@ -33,6 +33,7 @@ export default function WhyUs() {
     {
       icon: Zap,
       title: 'Rapid Prototyping to Production',
+      description: 'Get from concept to working solution faster than ever before.',
       features: [
         '<b>Working prototype in 10 days</b><br/>Your working prototype ready in just 10 days of focused development.',
         '<b>Agile iterative approach</b><br/>Continuous feedback loops ensure we\'re always moving in the right direction.',
@@ -47,6 +48,7 @@ export default function WhyUs() {
     {
       icon: Users,
       title: 'Deep Technical Expertise',
+      description: 'Our team brings world-class AI expertise to every project.',
       features: [
         '<b>PhD-level AI researchers</b><br/>Our team brings deep academic knowledge and cutting-edge research.',
         '<b>Proven Mastery in RAG & Vision</b><br/>Specialized verticals within Vinfotech focused on RAG and Computer Vision automation.',
@@ -62,6 +64,7 @@ export default function WhyUs() {
     {
       icon: Lock,
       title: 'Built inside your environment',
+      description: 'Deploy securely within your infrastructure with full control.',
       features: [
         '<b>Your Data, Your Infrastructure</b><br/>Deployed securely within your servers or Private Cloud.',
         '<b>You Own the Code and IP</b><br/>Full ownership - delivered with complete code and IP rights.',

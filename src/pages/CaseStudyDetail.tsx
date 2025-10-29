@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import {
   ArrowLeft,
@@ -12,7 +12,8 @@ import {
   TrendingUp,
   Clock,
   Target,
-  Award
+  Award,
+  FileText
 } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -23,7 +24,6 @@ import ChallengeDiagram from '../components/ChallengeDiagram';
 export default function CaseStudyDetail() {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
-  const [showQuoteForm, setShowQuoteForm] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -54,7 +54,7 @@ export default function CaseStudyDetail() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
-      <Header onQuoteClick={() => setShowQuoteForm(true)} />
+      <Header onQuoteClick={() => {}} />
 
       <div className="relative h-[60vh] min-h-[500px] bg-black overflow-hidden">
         <div className="absolute inset-0">

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ArrowRight, Zap } from 'lucide-react';
+import { Zap } from 'lucide-react';
 import type { DiagramBlockData } from '../../types/caseStudy';
 
 interface DiagramBlockProps {
@@ -34,7 +34,7 @@ export default function DiagramBlock({ data }: DiagramBlockProps) {
           )}
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 lg:gap-8">
-            {nodes.map((node, index) => (
+            {nodes.map((node) => (
               <div key={node.id} className="relative">
                 <div
                   className={`group cursor-pointer transition-all duration-300 h-full ${

@@ -1,51 +1,8 @@
-import { Database, FileText, Zap, MessageSquare, CheckCircle, ArrowRight } from 'lucide-react';
+import { Database, Zap, MessageSquare, CheckCircle, ArrowRight } from 'lucide-react';
 import { useState } from 'react';
 
 export default function ArchitectureDiagram() {
   const [activeNode, setActiveNode] = useState<string | null>(null);
-
-  const nodes = [
-    {
-      id: 'user',
-      icon: MessageSquare,
-      label: 'User Query',
-      description: 'Visitor asks a product question',
-      color: 'from-blue-500 to-blue-600',
-      position: 'top'
-    },
-    {
-      id: 'search',
-      icon: Zap,
-      label: 'Vector Search',
-      description: 'Semantic search across knowledge base',
-      color: 'from-emerald-500 to-emerald-600',
-      position: 'middle-left'
-    },
-    {
-      id: 'knowledge',
-      icon: Database,
-      label: 'Knowledge Base',
-      description: 'PDFs, docs, sheets, web pages',
-      color: 'from-purple-500 to-purple-600',
-      position: 'middle-center'
-    },
-    {
-      id: 'llm',
-      icon: Zap,
-      label: 'LLM Processing',
-      description: 'GPT-4 Turbo synthesizes answer',
-      color: 'from-orange-500 to-orange-600',
-      position: 'middle-right'
-    },
-    {
-      id: 'response',
-      icon: CheckCircle,
-      label: 'Cited Response',
-      description: 'Verified answer with sources',
-      color: 'from-teal-500 to-teal-600',
-      position: 'bottom'
-    }
-  ];
 
   return (
     <div className="relative bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 rounded-2xl p-8 sm:p-12 overflow-hidden border-2 border-gray-200 dark:border-gray-700">
