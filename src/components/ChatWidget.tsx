@@ -1,3 +1,4 @@
+// src/components/ChatWidget.tsx
 import { useState, useEffect, useRef } from 'react';
 import { Send, X, Maximize2, Minimize2, Sparkles } from 'lucide-react';
 import {
