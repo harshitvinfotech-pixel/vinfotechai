@@ -145,32 +145,43 @@ export default function CaseStudyDetail() {
 
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-teal-500/10 rounded-3xl blur-3xl"></div>
-                <div className="relative bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-3xl p-6 sm:p-8 shadow-2xl border-2 border-gray-100 dark:border-gray-700">
-                  <div className="flex items-center gap-3 mb-6 pb-4 border-b border-gray-200 dark:border-gray-700">
-                    <div className="flex gap-1.5">
-                      <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                      <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                      <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                    </div>
-                    <div className="flex-1 text-center text-sm text-gray-500 dark:text-gray-400 font-medium">AI Sales Agent Demo</div>
+
+                {caseStudy.overview_image_url ? (
+                  <div className="relative rounded-3xl overflow-hidden shadow-2xl border-2 border-gray-100 dark:border-gray-700">
+                    <img
+                      src={caseStudy.overview_image_url}
+                      alt={`${caseStudy.title} overview`}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
-                  <div className="space-y-4">
-                    {chatMessages.slice(0, 2).map((msg, idx) => (
-                      <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                        <div
-                          className={`max-w-[85%] rounded-2xl px-4 sm:px-5 py-3.5 shadow-lg ${
-                            msg.role === 'user'
-                              ? 'text-white rounded-br-sm'
-                              : 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-bl-sm border border-gray-200 dark:border-gray-600'
-                          }`}
-                          style={msg.role === 'user' ? { backgroundColor: '#00B46A' } : {}}
-                        >
-                          <p className="text-sm sm:text-base leading-relaxed whitespace-pre-wrap">{msg.content}</p>
-                        </div>
+                ) : (
+                  <div className="relative bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-3xl p-6 sm:p-8 shadow-2xl border-2 border-gray-100 dark:border-gray-700">
+                    <div className="flex items-center gap-3 mb-6 pb-4 border-b border-gray-200 dark:border-gray-700">
+                      <div className="flex gap-1.5">
+                        <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div className="w-3 h-3 rounded-full bg-green-500"></div>
                       </div>
-                    ))}
+                      <div className="flex-1 text-center text-sm text-gray-500 dark:text-gray-400 font-medium">AI Sales Agent Demo</div>
+                    </div>
+                    <div className="space-y-4">
+                      {chatMessages.slice(0, 2).map((msg, idx) => (
+                        <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                          <div
+                            className={`max-w-[85%] rounded-2xl px-4 sm:px-5 py-3.5 shadow-lg ${
+                              msg.role === 'user'
+                                ? 'text-white rounded-br-sm'
+                                : 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-bl-sm border border-gray-200 dark:border-gray-600'
+                            }`}
+                            style={msg.role === 'user' ? { backgroundColor: '#00B46A' } : {}}
+                          >
+                            <p className="text-sm sm:text-base leading-relaxed whitespace-pre-wrap">{msg.content}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
             </div>
           </section>
