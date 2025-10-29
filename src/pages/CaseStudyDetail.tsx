@@ -265,6 +265,52 @@ export default function CaseStudyDetail() {
           </section>
 
           <section className="mb-16">
+            <div className="text-center mb-8">
+              <h3 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                Impact
+              </h3>
+              <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+                Measurable improvements across all key performance indicators
+              </p>
+            </div>
+
+            <div className="bg-gradient-to-r from-blue-600 via-blue-600 to-blue-700 rounded-3xl py-12 px-8 shadow-2xl mb-8">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+                <div className="text-center">
+                  <div className="text-4xl lg:text-5xl font-bold text-white mb-2">
+                    &lt; 2 sec
+                  </div>
+                  <div className="text-base lg:text-lg text-blue-100 font-medium">
+                    Response Time
+                  </div>
+                </div>
+                <div className="text-center">
+                  <div className="text-4xl lg:text-5xl font-bold text-white mb-2">
+                    94%
+                  </div>
+                  <div className="text-base lg:text-lg text-blue-100 font-medium">
+                    Accuracy
+                  </div>
+                </div>
+                <div className="text-center">
+                  <div className="text-4xl lg:text-5xl font-bold text-white mb-2">
+                    70%
+                  </div>
+                  <div className="text-base lg:text-lg text-blue-100 font-medium">
+                    Reduction
+                  </div>
+                </div>
+                <div className="text-center">
+                  <div className="text-4xl lg:text-5xl font-bold text-white mb-2">
+                    24/7
+                  </div>
+                  <div className="text-base lg:text-lg text-blue-100 font-medium">
+                    Availability
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {caseStudy.metrics && caseStudy.metrics.length > 0 ? (
                 caseStudy.metrics.map((metric, idx) => (
