@@ -11,6 +11,8 @@ import CTA from '../components/CTA';
 import BlogPreview from '../components/BlogPreview';
 import Footer from '../components/Footer';
 import AbstractBackground from '../components/AbstractBackground';
+import SalesAgentStats from '../components/SalesAgentStats';
+import CompanyStatsBanner from '../components/CompanyStatsBanner';
 
 interface HomeProps {
   onQuoteClick: () => void;
@@ -80,9 +82,31 @@ export default function Home({ onQuoteClick }: HomeProps) {
       <main>
         <IntroSection />
         <About />
+
+        <section className="py-16 px-6 sm:px-8 lg:px-12 bg-white dark:bg-gray-900">
+          <div className="max-w-7xl mx-auto">
+            <CompanyStatsBanner />
+          </div>
+        </section>
+
         <Services />
         <TechStack />
         <CaseStudies />
+
+        <section className="py-20 px-6 sm:px-8 lg:px-12 bg-gray-50 dark:bg-gray-800">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                Sales Agent Performance
+              </h2>
+              <p className="text-xl text-gray-600 dark:text-gray-400">
+                Real metrics from our AI-powered sales assistant
+              </p>
+            </div>
+            <SalesAgentStats />
+          </div>
+        </section>
+
         <WhyUs />
         <CTA onQuoteClick={onQuoteClick} />
         <BlogPreview />
