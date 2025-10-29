@@ -274,37 +274,53 @@ export default function CaseStudyDetail() {
               </p>
             </div>
 
-            <div className="bg-gradient-to-r from-blue-600 via-blue-600 to-blue-700 rounded-3xl py-12 px-8 shadow-2xl mb-8">
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="rounded-3xl py-12 px-8 shadow-2xl mb-8" style={{ background: 'linear-gradient(to right, #00B46A, #00B46A, #00A060)' }}>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 lg:gap-4">
                 <div className="text-center">
-                  <div className="text-4xl lg:text-5xl font-bold text-white mb-2">
+                  <div className="text-3xl lg:text-4xl font-bold text-white mb-2">
                     &lt; 2 sec
                   </div>
-                  <div className="text-base lg:text-lg text-blue-100 font-medium">
+                  <div className="text-sm lg:text-base text-white/90 font-medium">
                     Response Time
                   </div>
                 </div>
                 <div className="text-center">
-                  <div className="text-4xl lg:text-5xl font-bold text-white mb-2">
+                  <div className="text-3xl lg:text-4xl font-bold text-white mb-2">
                     94%
                   </div>
-                  <div className="text-base lg:text-lg text-blue-100 font-medium">
+                  <div className="text-sm lg:text-base text-white/90 font-medium">
                     Accuracy
                   </div>
                 </div>
                 <div className="text-center">
-                  <div className="text-4xl lg:text-5xl font-bold text-white mb-2">
+                  <div className="text-3xl lg:text-4xl font-bold text-white mb-2">
                     70%
                   </div>
-                  <div className="text-base lg:text-lg text-blue-100 font-medium">
+                  <div className="text-sm lg:text-base text-white/90 font-medium">
                     Reduction
                   </div>
                 </div>
                 <div className="text-center">
-                  <div className="text-4xl lg:text-5xl font-bold text-white mb-2">
+                  <div className="text-3xl lg:text-4xl font-bold text-white mb-2">
+                    2.3x
+                  </div>
+                  <div className="text-sm lg:text-base text-white/90 font-medium">
+                    Engagement
+                  </div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl lg:text-4xl font-bold text-white mb-2">
+                    +35%
+                  </div>
+                  <div className="text-sm lg:text-base text-white/90 font-medium">
+                    Conversions
+                  </div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl lg:text-4xl font-bold text-white mb-2">
                     24/7
                   </div>
-                  <div className="text-base lg:text-lg text-blue-100 font-medium">
+                  <div className="text-sm lg:text-base text-white/90 font-medium">
                     Availability
                   </div>
                 </div>
