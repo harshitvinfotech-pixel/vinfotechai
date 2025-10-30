@@ -6,9 +6,9 @@ export const caseStudiesData: CaseStudy[] = [
     slug: 'autonomous-enterprise-sales-agent',
     title: 'Autonomous Enterprise Sales Agent',
     subtitle: 'AI-powered sales assistant providing instant, accurate responses 24/7',
-    hero_image: '/a copy.jpg',
+    hero_image: '/1.1 copy.jpg',
     hero_description: 'Every day, potential clients visit the Vinfotech website with questions. Our AI Sales Agent provides accurate, contextual, and cited responses instantly, available 24/7.',
-    hero_background_image: '/a copy.jpg',
+    hero_background_image: '/1.1 copy.jpg',
     problem: 'Every day, potential clients visit the Vinfotech website with questions — about pricing, timelines, integrations, technologies, or specific product capabilities.\n\nEarlier, these inquiries often required manual intervention or follow-ups from the sales team. To solve this, Vinfotech built its own Autonomous AI Sales Agent that now provides accurate, contextual, and cited responses instantly, available 24/7 on the website.',
     solution: 'Vinfotech developed an Enterprise RAG-powered AI Sales Agent — an intelligent, conversational assistant trained on both structured and unstructured company knowledge. When a visitor asks a question, the agent searches across internal documents, pricing sheets, and web pages, synthesizes a verified, human-like answer with citations to the source documents, and offers relevant follow-up questions to guide the visitor deeper.',
     results: 'This internal project proved how Enterprise RAG and AI agents can revolutionize pre-sales and support. The system delivers factual, cited, and human-quality answers around the clock — allowing sales teams to focus on relationship-building rather than repetitive responses.',
@@ -25,7 +25,7 @@ export const caseStudiesData: CaseStudy[] = [
     ],
     meta_title: 'Autonomous Enterprise Sales Agent - Vinfotech Case Study',
     meta_description: 'Learn how Vinfotech built an AI-powered sales agent that provides instant, accurate responses to customer queries 24/7 using RAG technology.',
-    og_image: '/a copy.jpg',
+    og_image: '/1.1 copy.jpg',
     display_order: 1
   },
   {
