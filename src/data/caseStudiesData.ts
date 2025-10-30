@@ -47,6 +47,7 @@ export const caseStudiesData: CaseStudy[] = [
     overview_bullets: [],
     meta_title: 'Vision-Based Attendance & Productivity Monitoring | Vinfotech AI',
     meta_description: 'Computer Vision system that automates attendance tracking with 95%+ accuracy using facial recognition, reducing HR workload by 60% while providing real-time workplace analytics.',
+    og_image: '/2.2.jpg',
     display_order: 2
   },
   {
