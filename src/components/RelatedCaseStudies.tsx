@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
 import { useState } from 'react';
 import type { CaseStudy } from '../types/caseStudy';
 
@@ -30,7 +29,7 @@ export default function RelatedCaseStudies({
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-        {caseStudies.map((study) => (
+        {caseStudies.slice(0, 2).map((study) => (
           <RelatedCaseStudyCard
             key={study.id}
             study={study}
@@ -90,17 +89,6 @@ function RelatedCaseStudyCard({ study, onClick }: RelatedCaseStudyCardProps) {
             </p>
           )}
 
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              onClick();
-            }}
-            className="inline-flex items-center gap-2 text-sm font-semibold transition-all duration-300 group/btn mt-auto"
-            style={{ color: '#00B46A' }}
-          >
-            View Case Study
-            <ArrowRight size={16} className="transition-transform duration-300 group-hover/btn:translate-x-1" />
-          </button>
         </div>
       </div>
     </article>
