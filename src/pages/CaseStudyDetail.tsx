@@ -211,25 +211,27 @@ export default function CaseStudyDetail() {
           </section>
 
           <section className="mb-0 bg-white dark:bg-gray-900 py-12 sm:py-16">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-center mb-10 sm:mb-12">
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 leading-tight">
-                  Vinfotech's Approach
-                </h2>
-                <p className="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto px-4">
-                  Our systematic approach to building enterprise-grade AI solutions
-                </p>
-              </div>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
-                <div className="order-2 lg:order-1">
-                  <ApproachTimeline />
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-12 lg:gap-16 items-start">
+                <div className="order-1 lg:order-1 lg:sticky lg:top-24 lg:self-start">
+                  <div className="text-center lg:text-left mb-8 sm:mb-10">
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 leading-tight">
+                      Vinfotech's Approach
+                    </h2>
+                    <p className="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-400">
+                      Our systematic approach to building enterprise-grade AI solutions
+                    </p>
+                  </div>
+                  <div className="relative rounded-3xl overflow-hidden shadow-2xl border-2 border-gray-100 dark:border-gray-700 h-[400px] lg:h-[500px]">
+                    <img
+                      src={caseStudy.overview_image_url || heroBackground}
+                      alt="AI Agent Interaction"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
                 </div>
-                <div className="order-1 lg:order-2 relative rounded-3xl overflow-hidden shadow-2xl border-2 border-gray-100 dark:border-gray-700 h-[300px] lg:h-[600px]">
-                  <img
-                    src={caseStudy.overview_image_url || heroBackground}
-                    alt="Vinfotech's Approach"
-                    className="w-full h-full object-cover"
-                  />
+                <div className="order-2 lg:order-2 min-h-[400px] lg:min-h-[500px]">
+                  <ApproachTimeline />
                 </div>
               </div>
             </div>
