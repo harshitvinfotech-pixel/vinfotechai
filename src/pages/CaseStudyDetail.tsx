@@ -74,7 +74,7 @@ export default function CaseStudyDetail() {
   const heroBackground = caseStudy.hero_background_image || 'https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=1920';
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
+    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300 page-transition-enter">
       <Header onQuoteClick={() => {}} />
 
       <div className="relative h-[60vh] min-h-[500px] bg-black overflow-hidden">
