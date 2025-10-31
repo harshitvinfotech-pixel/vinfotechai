@@ -36,7 +36,7 @@ export const caseStudiesData: CaseStudy[] = [
     hero_image: '/2.2 copy.jpg',
     hero_description: 'Transforming ordinary CCTV cameras into intelligent sensors that automatically track attendance, monitor zones, and generate insights—completely hands-free.',
     hero_background_image: '/2.2 copy.jpg',
-    problem: 'In a dynamic software company with over 100 professionals across multiple departments, manual attendance tracking and productivity monitoring were both time-consuming and error-prone. <br> Vinfotech implemented a <b>Computer Vision-powered attendance and workplace analytics system </b>that records presence, monitors zone activity, and generates automated reports—completely hands-free.',
+    problem: 'In a dynamic software company with over 100 professionals across multiple departments, manual attendance tracking and productivity monitoring were both time-consuming and error-prone. Vinfotech implemented a Computer Vision-powered attendance and workplace analytics system that records presence, monitors zone activity, and generates automated reports—completely hands-free.',
     solution: 'Deployed a real-time Computer Vision system using facial recognition to automatically mark attendance at entry/exit points, track zone occupancy, analyze break patterns, and send instant alerts—all running on existing camera infrastructure.',
     results: '100% hands-free attendance, >95% recognition accuracy, 60% faster reporting for HR teams, automated break tracking, and real-time occupancy analytics for optimized space utilization.',
     client_quote: 'Attendance just happens in the background now. What we gained is real visibility into how teams actually use their time and spaces.',
