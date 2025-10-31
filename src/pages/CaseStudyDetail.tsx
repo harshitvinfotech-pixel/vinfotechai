@@ -275,13 +275,13 @@ export default function CaseStudyDetail() {
 
           <section className="mb-0 bg-gray-50 dark:bg-black py-12 sm:py-16">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="mb-6">
-                <h2 className="text-3xl sm:text-4xl font-bold" style={{ color: '#00B46A' }}>
-                  Impact
-                </h2>
-              </div>
-              <div className="rounded-3xl py-10 sm:py-12 px-6 sm:px-10 md:px-16" style={{ backgroundColor: '#00B46A' }}>
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 sm:gap-8 lg:gap-10">
+              <div className="relative rounded-3xl py-12 sm:py-16 px-6 sm:px-10 md:px-16" style={{ backgroundColor: '#00B46A' }}>
+                <div className="absolute -top-6 left-8 sm:left-12 bg-white rounded-t-2xl px-8 py-4 shadow-lg">
+                  <h2 className="text-2xl sm:text-3xl font-bold" style={{ color: '#00B46A' }}>
+                    Impact
+                  </h2>
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8 sm:gap-10 lg:gap-12 mt-4">
                   <div className="text-center">
                     <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-2">
                       &lt; 2 sec
