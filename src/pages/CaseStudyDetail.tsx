@@ -316,8 +316,8 @@ export default function CaseStudyDetail() {
             </div>
           </section>
 
-        <div className="py-12 sm:py-16" style={{ backgroundColor: 'var(--key-takeaway-bg)' }}>
-          <div className="w-full px-4 sm:px-6 lg:px-8">
+        <div style={{ backgroundColor: 'var(--key-takeaway-bg)' }}>
+          <div className="w-full">
             <KeyTakeawaySection
               takeaway={caseStudy.results || "This internal project proved how **Enterprise RAG and AI agents** can revolutionize pre-sales and support. The system delivers **factual, cited, and human-quality answers** around the clock — allowing sales teams to focus on **relationship-building** rather than repetitive responses."}
               quote={caseStudy.client_quote}
@@ -326,7 +326,9 @@ export default function CaseStudyDetail() {
             />
 
             {caseStudy.gallery_images && caseStudy.gallery_images.length > 0 && (
-              <ProductGallery images={caseStudy.gallery_images} />
+              <div className="px-4 sm:px-6 lg:px-8">
+                <ProductGallery images={caseStudy.gallery_images} />
+              </div>
             )}
           </div>
         </div>
