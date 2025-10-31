@@ -50,7 +50,7 @@ export default function TwoColumnSection({
           {bullets.map((bullet, idx) => (
             <li key={idx} className="flex items-start gap-2 sm:gap-3">
               {bullet.icon && (
-                <bullet.icon style={{ color: iconColor }} size={180} className="sm:w-6 sm:h-6 flex-shrink-0 mt-0.5 sm:mt-1" />
+                <bullet.icon style={{ color: iconColor }} size={18} className="sm:w-6 sm:h-6 flex-shrink-0 mt-0.5 sm:mt-1" />
               )}
               <span className="text-sm sm:text-base md:text-lg text-gray-700 dark:text-gray-300 leading-relaxed">{bullet.text}</span>
             </li>
