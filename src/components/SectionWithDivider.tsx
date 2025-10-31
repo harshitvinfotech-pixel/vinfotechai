@@ -17,7 +17,7 @@ interface SectionWithDividerProps {
 
 export default function SectionWithDivider({
   icon: Icon,
-  iconColor = '#00B46A',
+  iconColor = '#ffffff',
   title,
   content,
   imagePosition = 'right',
