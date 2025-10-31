@@ -137,28 +137,35 @@ function CaseStudyCard({ study, onClick }: CaseStudyCardProps) {
         </div>
 
         {isExpanded && (
-          <div className="flex-1 overflow-y-auto p-6 sm:p-8">
+          <div className="flex-1 overflow-y-auto p-6 sm:p-8 pb-20">
             <div className="space-y-4">
-              <p className="text-gray-700 dark:text-gray-300 text-lg sm:text-lg leading-relaxed">
-                {study.subtitle}
-              </p>
-              <div className="flex flex-wrap gap-2 mt-4">
-                {study.tags.map((tag, idx) => (
-                  <span
-                    key={idx}
-                    className="px-3 py-1 text-sm font-medium rounded-full bg-[#00B46A]/10 text-[#00B46A] border border-[#00B46A]/20"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-              <button
-                onClick={() => onClick()}
-                className="mt-6 w-full py-3 px-6 bg-[#00B46A] text-white font-semibold rounded-xl hover:bg-[#009557] transition-colors duration-300"
-              >
-                View Full Case Study
-              </button>
+              {study.overview_bullets && study.overview_bullets.length > 0 && (
+                <ul className="space-y-3">
+                  {study.overview_bullets.map((bullet, idx) => (
+                    <li key={idx} className="flex items-start gap-3">
+                      <div className="relative mt-2 flex-shrink-0">
+                        <div className="w-1.5 h-1.5 rounded-full bg-[#00B46A]"></div>
+                      </div>
+                      <span
+                        className="text-gray-700 dark:text-gray-300 text-base leading-relaxed"
+                        dangerouslySetInnerHTML={{ __html: bullet }}
+                      />
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
+          </div>
+        )}
+
+        {isExpanded && (
+          <div className="absolute bottom-0 left-0 right-0 p-6 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
+            <button
+              onClick={() => onClick()}
+              className="w-full py-3 px-6 bg-[#00B46A] text-white font-semibold rounded-xl hover:bg-[#009557] transition-colors duration-300"
+            >
+              View Full Case Study
+            </button>
           </div>
         )}
 
