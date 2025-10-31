@@ -158,7 +158,7 @@ export default function Services() {
                           }}
                         >
                           <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#00B46A] flex items-center justify-center flex-shrink-0 mt-1 transition-all duration-300 group-hover/highlight:scale-110 group-hover/highlight:rotate-12 group-hover/highlight:shadow-lg group-hover/highlight:shadow-[#00B46A]/50">
-                            <Check size={100} strokeWidth={3} className="text-white transition-transform duration-300 group-hover/highlight:scale-110" />
+                            <Check size={14} strokeWidth={3} className="text-white transition-transform duration-300 group-hover/highlight:scale-110" />
                           </div>
                           <p
                             className="text-xl sm:text-lg lg:text-xl text-gray-700 dark:text-gray-300 leading-relaxed transition-all duration-300 group-hover/highlight:text-[#00B46A] group-hover/highlight:translate-x-1"
