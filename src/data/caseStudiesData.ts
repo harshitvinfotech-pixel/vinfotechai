@@ -4,7 +4,7 @@ export const caseStudiesData: CaseStudy[] = [
   {
     id: '2e6984fc-f88e-40fd-95fa-a6cf622c0afe',
     slug: 'autonomous-enterprise-sales-agent',
-    title: 'Autonomous Enterprise Sales Agent',
+    title: 'AAAutonomous Enterprise Sales Agent',
     subtitle: 'AI-powered sales assistant providing instant, accurate responses 24/7',
     hero_image: '/1.1 copy.jpg',
     hero_description: 'Every day, potential clients visit the Vinfotech website with questions. Our AI Sales Agent provides accurate, contextual, and cited responses instantly, available 24/7.',
