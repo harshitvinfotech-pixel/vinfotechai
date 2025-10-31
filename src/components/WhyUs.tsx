@@ -31,7 +31,6 @@ export default function WhyUs() {
 
   const features = [
     {
-      icon: Zap,
       title: 'Rapid Prototyping to Production',
       description: 'Get from concept to working solution faster than ever before.',
       features: [
