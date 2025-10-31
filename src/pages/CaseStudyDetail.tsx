@@ -275,59 +275,63 @@ export default function CaseStudyDetail() {
 
           <section className="mb-0 bg-gray-50 dark:bg-black py-12 sm:py-16">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="relative rounded-3xl py-12 sm:py-16 px-6 sm:px-10 md:px-16" style={{ backgroundColor: '#00B46A' }}>
-                <div className="absolute -top-6 left-8 sm:left-12 bg-white rounded-t-2xl px-8 py-4 shadow-lg">
-                  <h2 className="text-2xl sm:text-3xl font-bold" style={{ color: '#00B46A' }}>
-                    Impact
-                  </h2>
+              <div className="relative pt-8">
+                <div className="absolute top-0 left-8 sm:left-12 z-10">
+                  <div className="bg-white rounded-t-2xl px-8 py-4 shadow-md">
+                    <h2 className="text-2xl sm:text-3xl font-bold" style={{ color: '#00B46A' }}>
+                      Impact
+                    </h2>
+                  </div>
                 </div>
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8 sm:gap-10 lg:gap-12 mt-4">
-                  <div className="text-center">
-                    <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-2">
-                      &lt; 2 sec
+                <div className="relative rounded-3xl py-12 sm:py-16 px-6 sm:px-10 md:px-16 pt-16 sm:pt-20" style={{ backgroundColor: '#00B46A' }}>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8 sm:gap-10 lg:gap-12">
+                    <div className="text-center">
+                      <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-2">
+                        &lt; 2 sec
+                      </div>
+                      <div className="text-sm sm:text-base text-white/95 font-normal">
+                        Response Time
+                      </div>
                     </div>
-                    <div className="text-sm sm:text-base text-white/95 font-normal">
-                      Response Time
+                    <div className="text-center">
+                      <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-2">
+                        94%
+                      </div>
+                      <div className="text-sm sm:text-base text-white/95 font-normal">
+                        Accuracy
+                      </div>
                     </div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-2">
-                      94%
+                    <div className="text-center">
+                      <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-2">
+                        70%
+                      </div>
+                      <div className="text-sm sm:text-base text-white/95 font-normal">
+                        Reduction
+                      </div>
                     </div>
-                    <div className="text-sm sm:text-base text-white/95 font-normal">
-                      Accuracy
+                    <div className="text-center">
+                      <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-2">
+                        2.3x
+                      </div>
+                      <div className="text-sm sm:text-base text-white/95 font-normal">
+                        Engagement
+                      </div>
                     </div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-2">
-                      70%
+                    <div className="text-center">
+                      <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-2">
+                        +35%
+                      </div>
+                      <div className="text-sm sm:text-base text-white/95 font-normal">
+                        Conversions
+                      </div>
                     </div>
-                    <div className="text-sm sm:text-base text-white/95 font-normal">
-                      Reduction
-                    </div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-2">
-                      2.3x
-                    </div>
-                    <div className="text-sm sm:text-base text-white/95 font-normal">
-                      Engagement
-                    </div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-2">
-                      +35%
-                    </div>
-                    <div className="text-sm sm:text-base text-white/95 font-normal">
-                      Conversions
-                    </div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-2">
-                      24/7
-                    </div>
-                    <div className="text-sm sm:text-base text-white/95 font-normal">
-                      Availability
+                    <div className="text-center">
+                      <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-2">
+                        24/7
+                      </div>
+                      <div className="text-sm sm:text-base text-white/95 font-normal">
+                        Availability
+                      </div>
                     </div>
                   </div>
                 </div>
