@@ -1,5 +1,5 @@
 import { ArrowRight, Plus, X } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getAllCaseStudies } from '../lib/caseStudies';
 
@@ -16,24 +16,9 @@ interface CaseStudy {
 }
 
 export default function CaseStudies() {
-  const [caseStudies, setCaseStudies] = useState<CaseStudy[]>([]);
-  const [loading, setLoading] = useState(true);
+  const caseStudies = getAllCaseStudies();
   const sectionRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    async function loadCaseStudies() {
-      setLoading(true);
-      try {
-        const studies = await getAllCaseStudies();
-        setCaseStudies(studies);
-      } catch (error) {
-        console.error('Error loading case studies:', error);
-      }
-      setLoading(false);
-    }
-    loadCaseStudies();
-  }, []);
 
   const handleCardClick = (slug: string) => {
     navigate(`/case-studies/${slug}`);
@@ -68,23 +53,15 @@ export default function CaseStudies() {
           </div>
         </div>
 
-        {loading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {[1, 2, 3, 4, 5, 6].map((i) => (
-              <div key={i} className="h-[360px] sm:h-[380px] bg-gray-200 dark:bg-gray-800 rounded-xl sm:rounded-2xl animate-pulse"></div>
-            ))}
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {caseStudies.map((study) => (
-              <CaseStudyCard
-                key={study.id}
-                study={study}
-                onClick={() => handleCardClick(study.slug)}
-              />
-            ))}
-          </div>
-        )}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          {caseStudies.map((study) => (
+            <CaseStudyCard
+              key={study.id}
+              study={study}
+              onClick={() => handleCardClick(study.slug)}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );

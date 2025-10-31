@@ -39,37 +39,19 @@ import type { CaseStudyWithDetails, CaseStudy } from '../types/caseStudy';
 export default function CaseStudyDetail() {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
-  const [caseStudy, setCaseStudy] = useState<CaseStudyWithDetails | null>(null);
-  const [relatedStudies, setRelatedStudies] = useState<CaseStudy[]>([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [slug]);
 
+  const caseStudy = slug ? getCaseStudyBySlug(slug) : null;
+  const relatedStudies = caseStudy ? getSuggestedCaseStudies(slug!, caseStudy.tags, 3) : [];
+
   useEffect(() => {
-    async function loadCaseStudy() {
-      if (!slug) return;
-
-      setLoading(true);
-      try {
-        const data = await getCaseStudyBySlug(slug);
-        if (data) {
-          setCaseStudy(data);
-          const related = await getSuggestedCaseStudies(slug, data.tags, 3);
-          setRelatedStudies(related);
-        } else {
-          navigate('/');
-        }
-      } catch (error) {
-        console.error('Error loading case study:', error);
-        navigate('/');
-      }
-      setLoading(false);
+    if (!caseStudy && slug) {
+      navigate('/');
     }
-
-    loadCaseStudy();
-  }, [slug, navigate]);
+  }, [caseStudy, slug, navigate]);
 
   const handleBackClick = () => {
     navigate('/', { state: { scrollTo: 'case-studies' } });
@@ -93,20 +75,6 @@ export default function CaseStudyDetail() {
       content: 'Our fantasy sports platform maintenance plans start at $2,500/month and include:\n\n• 24/7 monitoring\n• Performance optimization\n• Security updates\n• Bug fixes\n• Monthly reports\n\n📄 Source: Pricing Sheet 2024'
     }
   ];
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
-        <Header onQuoteClick={() => {}} />
-        <div className="flex items-center justify-center min-h-screen">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-16 w-16 border-b-2 mx-auto mb-4" style={{ borderColor: '#00B46A' }}></div>
-            <p className="text-gray-600 dark:text-gray-400">Loading case study...</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   if (!caseStudy) {
     return null;
@@ -154,60 +122,91 @@ export default function CaseStudyDetail() {
       </div>
 
       <main className="pb-12 sm:pb-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 mt-8 sm:mt-12 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 sm:mt-16 relative z-10">
 
-          <SectionWithDivider
-            icon={Info}
-            title="Overview"
-            content={
-              <>
-                {caseStudy.problem.split('\n\n').map((paragraph, idx) => (
-                  <p key={idx} className="text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-                    {paragraph}
-                  </p>
-                ))}
-              </>
-            }
-            imagePosition="right"
-            imageComponent={
-              <div className="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 shadow-xl border border-gray-200 dark:border-gray-700 w-full">
-                <div className="space-y-3 sm:space-y-4">
-                  {chatMessages.slice(0, 2).map((msg, idx) => (
-                    <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                      <div
-                        className={`max-w-[90%] sm:max-w-[85%] rounded-2xl px-3 sm:px-4 md:px-5 py-3 sm:py-4 ${
-                          msg.role === 'user'
-                            ? 'text-white rounded-br-sm'
-                            : 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-bl-sm'
-                        }`}
-                        style={msg.role === 'user' ? { backgroundColor: '#00B46A' } : {}}
-                      >
-                        <p className="text-xs sm:text-sm leading-relaxed whitespace-pre-wrap">{msg.content}</p>
-                      </div>
-                    </div>
-                  ))}
+          <section className="mb-12 sm:mb-20">
+            <div className="text-center mb-12 sm:mb-16">
+              <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 leading-tight">
+                Overview
+              </h2>
+              <div className="w-32 h-2 mx-auto rounded-full" style={{ backgroundColor: '#00B46A' }}></div>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+              <div className="space-y-6">
+                <div className="bg-gradient-to-br from-white via-gray-50 to-white dark:from-gray-800 dark:via-gray-850 dark:to-gray-800 rounded-3xl p-6 sm:p-8 shadow-xl border border-gray-200 dark:border-gray-700">
+                  <div className="space-y-4">
+                    {caseStudy.problem.split('\n\n').map((paragraph, idx) => (
+                      <p key={idx} className="text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+                        {paragraph}
+                      </p>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 rounded-2xl p-5 border border-emerald-100 dark:border-emerald-800">
+                    <div className="text-3xl sm:text-4xl font-bold mb-2" style={{ color: '#00B46A' }}>95%</div>
+                    <div className="text-sm sm:text-base text-gray-700 dark:text-gray-300 font-medium">Response Accuracy</div>
+                  </div>
+                  <div className="bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 rounded-2xl p-5 border border-blue-100 dark:border-blue-800">
+                    <div className="text-3xl sm:text-4xl font-bold text-blue-600 dark:text-blue-400 mb-2">24/7</div>
+                    <div className="text-sm sm:text-base text-gray-700 dark:text-gray-300 font-medium">Always Available</div>
+                  </div>
                 </div>
               </div>
-            }
-          />
+
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-teal-500/10 rounded-3xl blur-3xl"></div>
+                <div className="relative bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-3xl p-6 sm:p-8 shadow-2xl border-2 border-gray-100 dark:border-gray-700">
+                  <div className="flex items-center gap-3 mb-6 pb-4 border-b border-gray-200 dark:border-gray-700">
+                    <div className="flex gap-1.5">
+                      <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                      <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                      <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                    </div>
+                    <div className="flex-1 text-center text-sm text-gray-500 dark:text-gray-400 font-medium">AI Sales Agent Demo</div>
+                  </div>
+                  <div className="space-y-4">
+                    {chatMessages.slice(0, 2).map((msg, idx) => (
+                      <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                        <div
+                          className={`max-w-[85%] rounded-2xl px-4 sm:px-5 py-3.5 shadow-lg ${
+                            msg.role === 'user'
+                              ? 'text-white rounded-br-sm'
+                              : 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-bl-sm border border-gray-200 dark:border-gray-600'
+                          }`}
+                          style={msg.role === 'user' ? { backgroundColor: '#00B46A' } : {}}
+                        >
+                          <p className="text-sm sm:text-base leading-relaxed whitespace-pre-wrap">{msg.content}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-700 to-transparent mb-12 sm:mb-20"></div>
 
           <SectionWithDivider
             icon={Target}
             title="The Challenge"
             content={
               <>
-                <p className="text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+                <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
                   Even for a technology company, handling complex inbound queries efficiently was difficult. Visitors asked questions that required digging through:
                 </p>
-                <ul className="mt-3 sm:mt-4 space-y-2 sm:space-y-3">
+                <ul className="mt-4 sm:mt-5 space-y-3 sm:space-y-4">
                   {['Sales manuals and product PDFs', 'Project documentation', 'Internal spreadsheets (pricing, delivery timelines)', 'Web pages and feature listings'].map((item, idx) => (
-                    <li key={idx} className="flex items-start gap-2 sm:gap-3">
-                      <CheckCircle2 style={{ color: '#00B46A' }} size={18} className="flex-shrink-0 mt-0.5 sm:mt-1" />
-                      <span className="text-sm sm:text-base md:text-lg text-gray-700 dark:text-gray-300">{item}</span>
+                    <li key={idx} className="flex items-start gap-3 sm:gap-4">
+                      <CheckCircle2 style={{ color: '#00B46A' }} size={20} className="flex-shrink-0 mt-0.5" strokeWidth={2.5} />
+                      <span className="text-base sm:text-lg text-gray-600 dark:text-gray-400">{item}</span>
                     </li>
                   ))}
                 </ul>
-                <p className="text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed mt-3 sm:mt-4">
+                <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 leading-relaxed mt-5 sm:mt-6">
                   Human responses were slow and inconsistent. The challenge was to automate product Q&A and pre-sales support without losing accuracy or brand tone.
                 </p>
               </>
@@ -221,10 +220,10 @@ export default function CaseStudyDetail() {
             title="The AI Solution"
             content={
               <>
-                <p className="text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+                <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
                   {caseStudy.solution}
                 </p>
-                <p className="text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed mt-3 sm:mt-4">
+                <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 leading-relaxed mt-4 sm:mt-5">
                   The agent runs fully autonomously, providing reliable responses without needing manual approval — acting as an always-on digital sales executive.
                 </p>
               </>
