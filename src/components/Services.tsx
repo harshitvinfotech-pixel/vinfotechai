@@ -140,7 +140,7 @@ export default function Services() {
                     </div>
                   </div>
 
-                  <div className="bg-gray-50 dark:bg-black p-6 sm:p-8 lg:p-10 flex items-start min-h-[400px] sm:min-h-[450px] lg:min-h-[10px] overflow-y-auto sm:overflow-y-visible">
+                  <div className="bg-gray-50 dark:bg-black p-6 sm:p-8 lg:p-10 flex items-start min-h-[400px] sm:min-h-[450px] lg:min-h-[1000px] overflow-y-auto sm:overflow-y-visible">
                     <div className="space-y-6 sm:space-y-7 lg:space-y-8 w-full py-2">
                       <p className={`text-lg sm:text-lg lg:text-xl text-gray-600 dark:text-gray-400 leading-relaxed mb-4 sm:mb-6 lg:mb-8 pt-2 sm:pt-8 transition-all duration-700 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'}`}
                         style={{
