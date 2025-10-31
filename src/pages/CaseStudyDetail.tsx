@@ -112,17 +112,25 @@ export default function CaseStudyDetail() {
       <main className="pb-0">
 
           <section className="mb-0 bg-gray-50 dark:bg-black py-12 sm:py-16">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-center lg:text-left space-y-6">
+            <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="text-center space-y-6">
                 <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 leading-tight">
                   Overview
                 </h2>
-                <div className="space-y-4 max-w-4xl mx-auto lg:mx-0">
-                  {caseStudy.problem.split('\n\n').map((paragraph, idx) => (
-                    <p key={idx} className="text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-                      {paragraph}
-                    </p>
-                  ))}
+                <div className="space-y-4">
+                  {caseStudy.problem.split('\n\n').map((paragraph, idx) => {
+                    const parts = paragraph.split(/(\*\*.*?\*\*)/g);
+                    return (
+                      <p key={idx} className="text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+                        {parts.map((part, partIdx) => {
+                          if (part.startsWith('**') && part.endsWith('**')) {
+                            return <strong key={partIdx} className="font-bold text-gray-900 dark:text-white">{part.slice(2, -2)}</strong>;
+                          }
+                          return <span key={partIdx}>{part}</span>;
+                        })}
+                      </p>
+                    );
+                  })}
                 </div>
               </div>
             </div>
