@@ -72,7 +72,7 @@ export default function WhyUs() {
       bgColor: 'from-[#00B46A]/5 to-[#00B46A]/5',
       borderColor: 'border-[#00B46A]/20',
       hoverBorder: 'hover:border-[#00B46A]/40',
-      image: 'https://images.pexels.com/photos/8728382/pexels-photo-8728382.jpeg?auto=compress&cs=tinysrgb&w=800',
+      image: '/Built Inside.jpeg?auto=compress&cs=tinysrgb&w=800',
     },
   ];
 
