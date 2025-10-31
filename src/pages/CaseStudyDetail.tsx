@@ -113,11 +113,6 @@ export default function CaseStudyDetail() {
 
           <section className="mb-0 bg-gray-50 dark:bg-black py-12 sm:py-16">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="mb-4 text-left">
-                <span className="text-xs sm:text-sm font-semibold tracking-wider uppercase text-[#00B46A]">
-                  WHAT WE DO
-                </span>
-              </div>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
                 <div className="space-y-6">
                   <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 leading-tight">
@@ -276,12 +271,12 @@ export default function CaseStudyDetail() {
           <section className="mb-0 bg-gray-50 dark:bg-black py-12 sm:py-16">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="relative pt-8">
-                <div className="bg-white rounded-t-2xl px-8 py-4 shadow-md" style={{ position: 'absolute', top: '-22px', left: '0', width: '200px', zIndex: 1 }}>
+                <div className="bg-white rounded-t-2xl px-8 py-4 shadow-md" style={{ position: 'absolute', top: '-35px', left: '0', width: '200px', zIndex: 1 }}>
                   <h2 className="text-2xl sm:text-3xl font-bold" style={{ color: '#00B46A' }}>
                     Impact
                   </h2>
                 </div>
-                <div className="relative rounded-3xl py-12 sm:py-16 px-6 sm:px-10 md:px-16 pt-16 sm:pt-20" style={{ backgroundColor: '#00B46A', zIndex: 10 }}>
+                <div className="relative rounded-3xl py-12 sm:py-16 px-6 sm:px-10 md:px-16 pt-16 sm:pt-20" style={{ backgroundColor: '#00B46A', zIndex: 10, clipPath: 'polygon(0 0, 85% 0, 100% 100%, 0% 100%)' }}>
                   <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8 sm:gap-10 lg:gap-12">
                     <div className="text-center">
                       <div className="font-bold text-white mb-2" style={{ fontSize: '35px' }}>
