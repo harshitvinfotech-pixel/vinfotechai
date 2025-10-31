@@ -32,7 +32,6 @@ export default function WhyUs() {
   const features = [
     {
       title: 'Rapid Prototyping to Production',
-      description: 'Get from concept to working solution faster than ever before.',
       features: [
         '<b>Working prototype in 10 days</b><br/>Your working prototype ready in just 10 days of focused development.',
         '<b>Agile iterative approach</b><br/>Continuous feedback loops ensure we\'re always moving in the right direction.',
