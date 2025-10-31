@@ -108,7 +108,7 @@ function CaseStudyCard({ study, onClick }: CaseStudyCardProps) {
           </div>
 
           <div className="absolute bottom-0 left-0 right-0 z-10 p-6 flex flex-col gap-3">
-            <h3 className="font-bold text-white leading-tight text-left text-2xl w-full" aria-label={`Case study: ${study.title}`}>
+            <h3 className="font-bold text-white leading-tight text-left w-full opacity-100" style={{ fontSize: '30px' }} aria-label={`Case study: ${study.title}`}>
               {study.title}
             </h3>
 
