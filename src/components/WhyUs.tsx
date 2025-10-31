@@ -183,8 +183,8 @@ function FeatureCard({ feature, index, isVisible }: FeatureCardProps) {
           </div>
 
 
-          <div className="absolute inset-0 z-10 px-6 sm:px-8 flex items-center">
-            <h3 className="font-bold text-white leading-tight text-left font-['Helvetica','Arial',sans-serif]" style={{ fontSize: '42px' }}>
+          <div className="absolute bottom-0 left-0 right-0 z-10 p-6 flex flex-col gap-3">
+            <h3 className="font-bold text-white leading-tight text-left w-full opacity-100" style={{ fontSize: '30px' }}>
               {feature.title}
             </h3>
           </div>

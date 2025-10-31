@@ -128,8 +128,8 @@ function CaseStudyCard({ study, onClick }: CaseStudyCardProps) {
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
           </div>
 
-          <div className="absolute inset-0 z-10 px-6 sm:px-8 flex items-center">
-            <h3 className="font-bold text-white leading-tight text-left font-['Helvetica','Arial',sans-serif]" style={{ fontSize: '42px' }} aria-label={`Case study: ${study.title}`}>
+          <div className="absolute bottom-0 left-0 right-0 z-10 p-6 flex flex-col gap-3">
+            <h3 className="font-bold text-white leading-tight text-left w-full opacity-100" style={{ fontSize: '30px' }} aria-label={`Case study: ${study.title}`}>
               {study.title}
             </h3>
           </div>
