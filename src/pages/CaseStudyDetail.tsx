@@ -24,6 +24,9 @@ import ApproachTimeline from '../components/ApproachTimeline';
 import KeyTakeawaySection from '../components/KeyTakeawaySection';
 import ProductGallery from '../components/ProductGallery';
 import RelatedCaseStudies from '../components/RelatedCaseStudies';
+import ContentBlockRenderer from '../components/content-blocks/ContentBlockRenderer';
+import MetricsBlock from '../components/content-blocks/MetricsBlock';
+import TechStack from '../components/TechStack';
 import { getCaseStudyBySlug, getSuggestedCaseStudies } from '../lib/caseStudies';
 import type { CaseStudyWithDetails, CaseStudy } from '../types/caseStudy';
 
@@ -138,7 +141,41 @@ export default function CaseStudyDetail() {
       </div>
 
       <main className="pb-0">
+        {caseStudy.content_blocks && caseStudy.content_blocks.length > 0 ? (
+          <div className="bg-white dark:bg-gray-900">
+            <ContentBlockRenderer
+              blocks={caseStudy.content_blocks}
+              metrics={caseStudy.metrics}
+              timeline={caseStudy.timeline}
+              features={caseStudy.features}
+            />
 
+            {caseStudy.metrics && caseStudy.metrics.length > 0 && (
+              <section className="mb-0 bg-gray-50 dark:bg-black py-12 sm:py-16">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                  <MetricsBlock metrics={caseStudy.metrics} />
+                </div>
+              </section>
+            )}
+
+            {caseStudy.technologies && caseStudy.technologies.length > 0 && (
+              <section className="mb-0 bg-white dark:bg-gray-900 py-12 sm:py-16">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                  <div className="text-center mb-10 sm:mb-12">
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 leading-tight">
+                      Technology Stack
+                    </h2>
+                    <p className="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto px-4">
+                      Powered by cutting-edge technologies for optimal performance
+                    </p>
+                  </div>
+                  <TechStack technologies={caseStudy.technologies} />
+                </div>
+              </section>
+            )}
+          </div>
+        ) : (
+          <>
           <section className="mb-0 bg-gray-50 dark:bg-black py-12 sm:py-16">
             <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="text-center space-y-6">
@@ -353,6 +390,8 @@ export default function CaseStudyDetail() {
               </div>
             </div>
           </section>
+          </>
+        )}
 
         <div style={{ backgroundColor: 'var(--key-takeaway-bg)' }}>
           <div className="w-full">

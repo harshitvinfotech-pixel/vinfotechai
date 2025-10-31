@@ -1,7 +1,12 @@
-import { Code2, Database, Brain, Cloud } from 'lucide-react';
+import { Code2, Database, Brain, Cloud, Search, FileText, Layout, Server, Settings } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
+import type { CaseStudyTechnology } from '../types/caseStudy';
 
-export default function TechStack() {
+interface TechStackProps {
+  technologies?: CaseStudyTechnology[];
+}
+
+export default function TechStack({ technologies }: TechStackProps = { technologies: [] }) {
   const [visibleCards, setVisibleCards] = useState<number[]>([]);
   const sectionRef = useRef<HTMLDivElement>(null);
 
@@ -27,6 +32,38 @@ export default function TechStack() {
 
     return () => observer.disconnect();
   }, []);
+
+  if (technologies && technologies.length > 0) {
+    return (
+      <div ref={sectionRef} className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6">
+        {technologies.map((tech, index) => {
+          const Icon = getTechIcon(tech.category);
+          const isVisible = visibleCards.includes(index);
+
+          return (
+            <div
+              key={tech.id}
+              className={`bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 hover:border-[#00B46A] dark:hover:border-[#00B46A] transition-all duration-300 hover:shadow-lg group ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+              style={{ transitionDelay: `${index * 100}ms` }}
+            >
+              <div className="flex flex-col items-center text-center">
+                <div className="w-16 h-16 rounded-lg flex items-center justify-center mb-4 transition-all duration-300 group-hover:scale-110" style={{ backgroundColor: '#00B46A20' }}>
+                  <Icon style={{ color: '#00B46A' }} size={28} />
+                </div>
+                <h4 className="text-base font-bold text-gray-900 dark:text-white mb-1">
+                  {tech.name}
+                </h4>
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  {tech.category}
+                </p>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    );
+  }
+
   const techCategories = [
     {
       icon: Code2,
@@ -115,6 +152,17 @@ export default function TechStack() {
       </div>
     </section>
   );
+}
+
+function getTechIcon(category: string): React.ElementType {
+  const categoryLower = category.toLowerCase();
+  if (categoryLower.includes('llm') || categoryLower.includes('ai')) return Brain;
+  if (categoryLower.includes('search') || categoryLower.includes('retrieval')) return Search;
+  if (categoryLower.includes('vector') || categoryLower.includes('database')) return Database;
+  if (categoryLower.includes('frontend') || categoryLower.includes('ui')) return Layout;
+  if (categoryLower.includes('backend') || categoryLower.includes('server') || categoryLower.includes('infrastructure')) return Server;
+  if (categoryLower.includes('tool') || categoryLower.includes('framework')) return Settings;
+  return FileText;
 }
 
 function getCategoryDescription(title: string): string {

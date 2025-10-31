@@ -27,18 +27,18 @@ export function getAllCaseStudiesSync(): CaseStudy[] {
 
 export async function getCaseStudyBySlug(slug: string): Promise<CaseStudyWithDetails | null> {
   try {
-    const { data, error } = await supabase
+    const { data: caseStudy, error: caseStudyError } = await supabase
       .from('case_studies')
       .select('*')
       .eq('slug', slug)
       .maybeSingle();
 
-    if (error) {
-      console.error('Error fetching case study:', error);
-      const caseStudy = caseStudiesData.find(cs => cs.slug === slug);
-      if (!caseStudy) return null;
+    if (caseStudyError || !caseStudy) {
+      console.error('Error fetching case study:', caseStudyError);
+      const fallbackStudy = caseStudiesData.find(cs => cs.slug === slug);
+      if (!fallbackStudy) return null;
       return {
-        ...caseStudy,
+        ...fallbackStudy,
         content_blocks: [],
         metrics: [],
         technologies: [],
@@ -49,30 +49,57 @@ export async function getCaseStudyBySlug(slug: string): Promise<CaseStudyWithDet
       };
     }
 
-    if (!data) {
-      const caseStudy = caseStudiesData.find(cs => cs.slug === slug);
-      if (!caseStudy) return null;
-      return {
-        ...caseStudy,
-        content_blocks: [],
-        metrics: [],
-        technologies: [],
-        timeline: [],
-        features: [],
-        images: [],
-        gallery_images: []
-      };
-    }
+    const [
+      { data: contentBlocks },
+      { data: metrics },
+      { data: technologies },
+      { data: timeline },
+      { data: features },
+      { data: images }
+    ] = await Promise.all([
+      supabase
+        .from('case_study_content_blocks')
+        .select('*')
+        .eq('case_study_id', caseStudy.id)
+        .order('display_order', { ascending: true }),
+      supabase
+        .from('case_study_metrics')
+        .select('*')
+        .eq('case_study_id', caseStudy.id)
+        .order('display_order', { ascending: true }),
+      supabase
+        .from('case_study_technologies')
+        .select('*')
+        .eq('case_study_id', caseStudy.id)
+        .order('display_order', { ascending: true }),
+      supabase
+        .from('case_study_timeline')
+        .select('*')
+        .eq('case_study_id', caseStudy.id)
+        .order('display_order', { ascending: true }),
+      supabase
+        .from('case_study_features')
+        .select('*')
+        .eq('case_study_id', caseStudy.id)
+        .order('display_order', { ascending: true }),
+      supabase
+        .from('case_study_images')
+        .select('*')
+        .eq('case_study_id', caseStudy.id)
+        .order('display_order', { ascending: true })
+    ]);
+
+    const galleryImages = images?.filter(img => img.type === 'gallery') || [];
 
     return {
-      ...data,
-      content_blocks: [],
-      metrics: [],
-      technologies: [],
-      timeline: [],
-      features: [],
-      images: [],
-      gallery_images: []
+      ...caseStudy,
+      content_blocks: contentBlocks || [],
+      metrics: metrics || [],
+      technologies: technologies || [],
+      timeline: timeline || [],
+      features: features || [],
+      images: images || [],
+      gallery_images: galleryImages
     };
   } catch (err) {
     console.error('Error fetching case study:', err);
