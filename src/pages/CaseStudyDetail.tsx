@@ -84,7 +84,7 @@ export default function CaseStudyDetail() {
             alt={caseStudy.title}
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-black/40"></div>
+          <div className="absolute inset-0 bg-black/60"></div>
         </div>
 
         <div className="absolute top-24 sm:top-28 left-4 sm:left-8 lg:left-12 z-10">
