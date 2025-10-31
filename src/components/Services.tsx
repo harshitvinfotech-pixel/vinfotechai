@@ -115,7 +115,7 @@ export default function Services() {
                     transitionDelay: isVisible ? '100ms' : '0ms',
                   }}
                 >
-                  <div className={`relative h-[10px] sm:h-[400px] lg:h-full overflow-hidden transition-all duration-1000 ${isVisible ? 'scale-100 opacity-100' : 'scale-95 opacity-0'}`}
+                  <div className={`relative h-[160px] sm:h-[900px] lg:h-full overflow-hidden transition-all duration-1000 ${isVisible ? 'scale-100 opacity-100' : 'scale-95 opacity-0'}`}
                     style={{
                       transitionDelay: isVisible ? '200ms' : '0ms',
                     }}
