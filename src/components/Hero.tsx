@@ -14,7 +14,7 @@ export default function Hero({ onQuoteClick }: HeroProps) {
             </h1>
 
             <p className="text-xl sm:text-2xl md:text-2xl lg:text-3xl font-normal text-gray-700 dark:text-white/90 animate-fade-in-up px-4 sm:px-6 leading-relaxed max-w-4xl mx-auto" style={{ animationDelay: '0.6s', animationFillMode: 'both' }}>
-             Get a working, enterprise-ready custom-built pilot in weeks, built on your data, inside your environment.
+             Get a working, enterprise ready custom-built pilot in weeks, built on your data, inside your environment.
             </p>
 
             <div className="flex justify-center animate-fade-in-up mt-2 md:hidden w-full" style={{ animationDelay: '0.8s', animationFillMode: 'both' }}>
