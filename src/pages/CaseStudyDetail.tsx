@@ -98,7 +98,7 @@ export default function CaseStudyDetail() {
         </div>
 
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 sm:px-6">
-          <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 sm:mb-6 max-w-5xl leading-tight px-2">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 sm:mb-6 max-w-4xl leading-tight px-2">
             {caseStudy.title}
           </h1>
           {(caseStudy.subtitle || caseStudy.hero_description) && (
