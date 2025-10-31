@@ -373,8 +373,8 @@ export default function CaseStudyDetail() {
         </div>
 
         {relatedStudies.length > 0 && (
-          <div className="bg-gray-50 dark:bg-gray-900 pb-0">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+          <div className="bg-gray-50 dark:bg-gray-900">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 sm:pt-16">
               <RelatedCaseStudies caseStudies={relatedStudies} />
             </div>
           </div>

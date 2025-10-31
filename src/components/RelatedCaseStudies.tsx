@@ -17,6 +17,8 @@ export default function RelatedCaseStudies({
     return null;
   }
 
+  const displayStudies = caseStudies.slice(0, 2);
+
   return (
     <section className="w-full">
       <div className="text-center mb-12">
@@ -28,13 +30,18 @@ export default function RelatedCaseStudies({
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
-        {caseStudies.slice(0, 2).map((study) => (
-          <RelatedCaseStudyCard
-            key={study.id}
-            study={study}
-            onClick={() => navigate(`/case-studies/${study.slug}`)}
-          />
+      <div className="flex flex-col md:flex-row w-full">
+        {displayStudies.map((study, index) => (
+          <>
+            <RelatedCaseStudyCard
+              key={study.id}
+              study={study}
+              onClick={() => navigate(`/case-studies/${study.slug}`)}
+            />
+            {index < displayStudies.length - 1 && (
+              <div className="hidden md:block w-px bg-gray-300 dark:bg-gray-700"></div>
+            )}
+          </>
         ))}
       </div>
     </section>
@@ -52,7 +59,7 @@ function RelatedCaseStudyCard({ study, onClick }: RelatedCaseStudyCardProps) {
 
   return (
     <article
-      className="group relative transition-all duration-500 cursor-pointer h-[400px] overflow-hidden"
+      className="group relative transition-all duration-500 cursor-pointer h-[400px] overflow-hidden flex-1"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={onClick}
