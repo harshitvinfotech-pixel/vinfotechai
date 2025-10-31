@@ -145,7 +145,7 @@ export const caseStudiesData: CaseStudy[] = [
     slug: 'developer-prompt-optimization-tool',
     title: 'Developer Prompt Optimization Tool',
     subtitle: 'Guided system helping engineers craft high-quality AI coding prompts',
-    hero_image: '/7.7.jpg',
+    hero_image: '/1.1.jpg',
     hero_description: 'Interactive prompt-builder that guides developers through creating detailed, high-quality prompts for AI coding assistants—improving code generation success dramatically.',
     hero_background_image: '/7.7.jpg',
     problem: 'Developers complained about poor AI code generation, but the issue was vague, under-specified prompts. This led to repetitive trial-and-error cycles and low-quality outputs.',
