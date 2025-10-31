@@ -5,8 +5,7 @@ import Header from './components/Header';
 import Home from './pages/Home';
 import Blogs from './pages/Blogs';
 import BlogDetail from './pages/BlogDetail';
-import AutonomousEnterpriseSalesAgent from './pages/case-studies/AutonomousEnterpriseSalesAgent';
-import VisionBasedAttendance from './pages/case-studies/VisionBasedAttendance';
+import CaseStudyDetail from './pages/CaseStudyDetail';
 import Modal from './components/Modal';
 import QuoteForm from './components/QuoteForm';
 import QuoteSuccessConfirmation from './components/QuoteSuccessConfirmation';
@@ -65,8 +64,7 @@ function AppContent() {
         <Route path="/" element={<Home onQuoteClick={() => setIsQuoteModalOpen(true)} />} />
         <Route path="/blogs" element={<Blogs />} />
         <Route path="/blogs/:slug" element={<BlogDetail />} />
-        <Route path="/case-studies/autonomous-enterprise-sales-agent" element={<AutonomousEnterpriseSalesAgent />} />
-        <Route path="/case-studies/vision-based-attendance-productivity-monitoring" element={<VisionBasedAttendance />} />
+        <Route path="/case-studies/:slug" element={<CaseStudyDetail />} />
       </Routes>
 
       <Modal

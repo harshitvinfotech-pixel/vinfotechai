@@ -1,6 +1,7 @@
 import { Plus } from 'lucide-react';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { getAllCaseStudies } from '../lib/caseStudies';
 
 interface CaseStudy {
   id: string;
@@ -10,35 +11,25 @@ interface CaseStudy {
   hero_image: string;
   tags: string[];
   industry?: string;
+  overview_bullets?: string[];
   display_order?: number;
 }
 
-const caseStudiesData: CaseStudy[] = [
-  {
-    id: '1',
-    slug: 'autonomous-enterprise-sales-agent',
-    title: 'Autonomous Enterprise Sales Agent',
-    subtitle: 'AI-powered sales assistant providing instant, accurate responses 24/7',
-    hero_image: '/1.1 copy.jpg',
-    tags: ['AI', 'RAG', 'Sales', 'Automation', 'NLP'],
-    industry: 'Technology',
-    display_order: 1
-  },
-  {
-    id: '2',
-    slug: 'vision-based-attendance-productivity-monitoring',
-    title: 'Vision-Based Attendance & Productivity Monitoring',
-    subtitle: 'Computer Vision system for hands-free attendance and workplace analytics',
-    hero_image: '/2.2 copy.jpg',
-    tags: ['Computer Vision', 'Face Recognition', 'Edge AI', 'Workplace Analytics'],
-    industry: 'Operations & HR',
-    display_order: 2
-  }
-];
-
 export default function CaseStudies() {
+  const [caseStudies, setCaseStudies] = useState<CaseStudy[]>([]);
+  const [loading, setLoading] = useState(true);
   const sectionRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    async function loadCaseStudies() {
+      setLoading(true);
+      const studies = await getAllCaseStudies();
+      setCaseStudies(studies);
+      setLoading(false);
+    }
+    loadCaseStudies();
+  }, []);
 
   const handleCardClick = (slug: string) => {
     navigate(`/case-studies/${slug}`);
@@ -73,15 +64,24 @@ export default function CaseStudies() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-          {caseStudiesData.map((study) => (
-            <CaseStudyCard
-              key={study.id}
-              study={study}
-              onClick={() => handleCardClick(study.slug)}
-            />
-          ))}
-        </div>
+        {loading ? (
+          <div className="flex items-center justify-center py-20">
+            <div className="text-center">
+              <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-[#00B46A]"></div>
+              <p className="mt-4 text-gray-600 dark:text-gray-400">Loading case studies...</p>
+            </div>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            {caseStudies.map((study) => (
+              <CaseStudyCard
+                key={study.id}
+                study={study}
+                onClick={() => handleCardClick(study.slug)}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

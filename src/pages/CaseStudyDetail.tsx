@@ -205,43 +205,12 @@ export default function CaseStudyDetail() {
                     The AI Solution
                   </h2>
                   <div className="space-y-4 sm:space-y-5">
-                    {caseStudy.solution.split('\n\n').map((paragraph, idx) => {
-                      if (paragraph.trim().startsWith('•')) {
-                        const items = paragraph.split('\n').filter(line => line.trim().startsWith('•'));
-                        return (
-                          <ul key={idx} className="space-y-3 sm:space-y-4">
-                            {items.map((item, itemIdx) => {
-                              const cleanItem = item.replace(/^•\s*/, '').trim();
-                              const parts = cleanItem.split(/(<b>.*?<\/b>)/g);
-                              return (
-                                <li key={itemIdx} className="flex items-start gap-3 sm:gap-4">
-                                  <CheckCircle2 style={{ color: '#00B46A' }} size={20} className="flex-shrink-0 mt-0.5" strokeWidth={2.5} />
-                                  <span className="text-base sm:text-lg text-gray-600 dark:text-gray-400">
-                                    {parts.map((part, partIdx) => {
-                                      if (part.startsWith('<b>') && part.endsWith('</b>')) {
-                                        return <strong key={partIdx} className="font-bold text-gray-900 dark:text-white">{part.slice(3, -4)}</strong>;
-                                      }
-                                      return <span key={partIdx}>{part}</span>;
-                                    })}
-                                  </span>
-                                </li>
-                              );
-                            })}
-                          </ul>
-                        );
-                      }
-                      const parts = paragraph.split(/(<b>.*?<\/b>)/g);
-                      return (
-                        <p key={idx} className="text-base sm:text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
-                          {parts.map((part, partIdx) => {
-                            if (part.startsWith('<b>') && part.endsWith('</b>')) {
-                              return <strong key={partIdx} className="font-bold text-gray-900 dark:text-white">{part.slice(3, -4)}</strong>;
-                            }
-                            return <span key={partIdx}>{part}</span>;
-                          })}
-                        </p>
-                      );
-                    })}
+                    <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+                      {caseStudy.solution}
+                    </p>
+                    <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 leading-relaxed mt-4 sm:mt-5">
+                      The agent runs fully autonomously, providing reliable responses without needing manual approval — acting as an always-on digital sales executive.
+                    </p>
                   </div>
                 </div>
                 <div className="order-1 lg:order-2">
