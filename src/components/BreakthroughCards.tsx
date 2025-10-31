@@ -51,7 +51,7 @@ export default function BreakthroughCards() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
-    <>
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {breakthroughs.map((breakthrough, index) => (
         <div
           key={index}
@@ -95,6 +95,6 @@ export default function BreakthroughCards() {
           ></div>
         </div>
       ))}
-    </>
+    </div>
   );
 }

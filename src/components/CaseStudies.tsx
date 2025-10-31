@@ -87,7 +87,7 @@ function CaseStudyCard({ study, onClick }: CaseStudyCardProps) {
         className={`absolute -inset-0.5 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-3xl opacity-0 group-hover:opacity-20 transition-opacity duration-500 blur-xl`}
       ></div>
 
-      <div className="relative flex flex-col bg-white dark:bg-gray-900 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-emerald-500/30 dark:hover:border-emerald-500/30 transition-all duration-500 shadow-lg hover:shadow-2xl overflow-hidden h-[550px]">
+      <div className="relative flex flex-col bg-white dark:bg-gray-900 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-emerald-500/30 dark:hover:border-emerald-500/30 transition-all duration-500 shadow-lg hover:shadow-2xl overflow-hidden h-[380px]">
 
         <div className="relative overflow-hidden flex-shrink-0 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 h-full">
           <div className={`absolute inset-0 transition-all duration-1000 ${
@@ -107,23 +107,21 @@ function CaseStudyCard({ study, onClick }: CaseStudyCardProps) {
             <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/95 to-transparent"></div>
           </div>
 
-          <div className="absolute bottom-0 left-0 right-0 z-10 p-6 flex flex-col gap-3">
-            <h3 className="font-bold text-white leading-tight text-left w-full opacity-100" style={{ fontSize: '30px' }} aria-label={`Case study: ${study.title}`}>
+          <div className="absolute bottom-0 left-0 right-0 z-10 p-6 flex items-end justify-between">
+            <h3 className="font-bold text-white leading-tight text-left text-2xl max-w-[80%]" aria-label={`Case study: ${study.title}`}>
               {study.title}
             </h3>
 
-            <div className="flex justify-end">
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onClick();
-                }}
-                className="flex-shrink-0 w-10 h-10 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
-                aria-label={`View case study: ${study.title}`}
-              >
-                <Plus style={{ color: '#00B46A' }} size={20} strokeWidth={2.5} />
-              </button>
-            </div>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                onClick();
+              }}
+              className="flex-shrink-0 w-10 h-10 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
+              aria-label={`View case study: ${study.title}`}
+            >
+              <Plus style={{ color: '#00B46A' }} size={20} strokeWidth={2.5} />
+            </button>
           </div>
         </div>
       </div>

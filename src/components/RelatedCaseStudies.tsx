@@ -19,7 +19,7 @@ export default function RelatedCaseStudies({
   }
 
   return (
-    <section>
+    <section className="mb-16">
       <div className="text-center mb-8">
         <h3 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-3">
           {title}
@@ -29,7 +29,7 @@ export default function RelatedCaseStudies({
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
         {caseStudies.map((study) => (
           <RelatedCaseStudyCard
             key={study.id}
@@ -60,9 +60,9 @@ function RelatedCaseStudyCard({ study, onClick }: RelatedCaseStudyCardProps) {
     >
       <div className="absolute -inset-0.5 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-500 blur-xl"></div>
 
-      <div className="relative flex flex-row bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 hover:border-emerald-500/30 dark:hover:border-emerald-500/30 transition-all duration-500 shadow-lg hover:shadow-2xl overflow-hidden h-[300px]">
+      <div className="relative flex flex-col bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 hover:border-emerald-500/30 dark:hover:border-emerald-500/30 transition-all duration-500 shadow-lg hover:shadow-2xl overflow-hidden h-[380px]">
 
-        <div className="relative w-1/2 overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900">
+        <div className="relative h-48 overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900">
           <div className={`absolute inset-0 transition-all duration-1000 ${
             imageLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
           }`}>
@@ -75,17 +75,17 @@ function RelatedCaseStudyCard({ study, onClick }: RelatedCaseStudyCardProps) {
               onLoad={() => setImageLoaded(true)}
               loading="lazy"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/20"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
           </div>
         </div>
 
-        <div className="w-1/2 p-6 flex flex-col justify-center">
-          <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-3 leading-tight">
+        <div className="flex-1 p-6 flex flex-col">
+          <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-3 leading-tight line-clamp-2">
             {study.title}
           </h4>
 
           {study.subtitle && (
-            <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed line-clamp-3 mb-4">
+            <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed line-clamp-2 mb-4 flex-1">
               {study.subtitle}
             </p>
           )}
@@ -95,7 +95,7 @@ function RelatedCaseStudyCard({ study, onClick }: RelatedCaseStudyCardProps) {
               e.stopPropagation();
               onClick();
             }}
-            className="inline-flex items-center gap-2 text-sm font-semibold transition-all duration-300 group/btn mt-auto"
+            className="inline-flex items-center gap-2 text-sm font-semibold transition-all duration-300 group/btn"
             style={{ color: '#00B46A' }}
           >
             View Case Study
