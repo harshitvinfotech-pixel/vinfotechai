@@ -39,7 +39,7 @@ export default function WhyUs() {
       benefits: ['Speed to Market', 'Rapid Iteration', 'Fast Deployment'],
       gradient: 'from-[#00B46A] to-[#00B46A]',
       bgColor: 'from-[#00B46A]/5 to-[#00B46A]/5',
-      borderColor: 'border-[#00C46A]/20',
+      borderColor: 'border-[#00B46A]/20',
       hoverBorder: 'hover:border-[#00B46A]/40',
       image: 'https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=800',
     },
