@@ -1,11 +1,97 @@
 import type { CaseStudy, CaseStudyWithDetails } from '../types/caseStudy';
 import { caseStudiesData } from '../data/caseStudiesData';
+import { supabase } from './supabase';
 
-export function getAllCaseStudies(): CaseStudy[] {
+export async function getAllCaseStudies(): Promise<CaseStudy[]> {
+  try {
+    const { data, error } = await supabase
+      .from('case_studies')
+      .select('*')
+      .order('display_order', { ascending: true });
+
+    if (error) {
+      console.error('Error fetching case studies:', error);
+      return caseStudiesData;
+    }
+
+    return data || caseStudiesData;
+  } catch (err) {
+    console.error('Error fetching case studies:', err);
+    return caseStudiesData;
+  }
+}
+
+export function getAllCaseStudiesSync(): CaseStudy[] {
   return caseStudiesData;
 }
 
-export function getCaseStudyBySlug(slug: string): CaseStudyWithDetails | null {
+export async function getCaseStudyBySlug(slug: string): Promise<CaseStudyWithDetails | null> {
+  try {
+    const { data, error } = await supabase
+      .from('case_studies')
+      .select('*')
+      .eq('slug', slug)
+      .maybeSingle();
+
+    if (error) {
+      console.error('Error fetching case study:', error);
+      const caseStudy = caseStudiesData.find(cs => cs.slug === slug);
+      if (!caseStudy) return null;
+      return {
+        ...caseStudy,
+        content_blocks: [],
+        metrics: [],
+        technologies: [],
+        timeline: [],
+        features: [],
+        images: [],
+        gallery_images: []
+      };
+    }
+
+    if (!data) {
+      const caseStudy = caseStudiesData.find(cs => cs.slug === slug);
+      if (!caseStudy) return null;
+      return {
+        ...caseStudy,
+        content_blocks: [],
+        metrics: [],
+        technologies: [],
+        timeline: [],
+        features: [],
+        images: [],
+        gallery_images: []
+      };
+    }
+
+    return {
+      ...data,
+      content_blocks: [],
+      metrics: [],
+      technologies: [],
+      timeline: [],
+      features: [],
+      images: [],
+      gallery_images: []
+    };
+  } catch (err) {
+    console.error('Error fetching case study:', err);
+    const caseStudy = caseStudiesData.find(cs => cs.slug === slug);
+    if (!caseStudy) return null;
+    return {
+      ...caseStudy,
+      content_blocks: [],
+      metrics: [],
+      technologies: [],
+      timeline: [],
+      features: [],
+      images: [],
+      gallery_images: []
+    };
+  }
+}
+
+export function getCaseStudyBySlugSync(slug: string): CaseStudyWithDetails | null {
   const caseStudy = caseStudiesData.find(cs => cs.slug === slug);
 
   if (!caseStudy) {

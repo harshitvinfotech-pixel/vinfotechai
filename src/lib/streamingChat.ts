@@ -44,6 +44,8 @@ export async function streamQuery(
   userId: string = defaultUserId,
   teamId: string = defaultTeamId
 ): Promise<void> {
+  console.log('🚀 streamQuery called for question:', question.substring(0, 50));
+  
   const requestPayload: StreamQueryRequest = {
     user_id: userId,
     team_id: teamId,
@@ -51,7 +53,7 @@ export async function streamQuery(
     question: question
   };
 
-  const response = await fetch(`${chatApiUrl}/chat/query/stream`, {
+  const response = await fetch(`${chatApiUrl}/api/chat/query/stream`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -70,6 +72,9 @@ export async function streamQuery(
   const reader = response.body.getReader();
   const decoder = new TextDecoder('utf-8');
   let buffer = '';
+  let chunkCount = 0;
+
+  console.log('📡 Starting to read stream...');
 
   try {
     while (true) {
@@ -97,6 +102,8 @@ export async function streamQuery(
             switch (data.type) {
               case 'response_chunk':
                 if (handlers.onResponseChunk && typeof data.content === 'string') {
+                  chunkCount++;
+                  console.log(`📦 Chunk #${chunkCount}:`, JSON.stringify(data.content));
                   handlers.onResponseChunk(data.content);
                 }
                 break;
