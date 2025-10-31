@@ -14,11 +14,18 @@ import {
   FileCheck,
   CheckCircle2,
   Users,
-  Globe
+  Globe,
+  Brain,
+  Search,
+  FileText,
+  Layout,
+  Server,
+  Settings
 } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import TwoColumnSection from '../components/TwoColumnSection';
+import SectionWithDivider from '../components/SectionWithDivider';
 import PhoneMockup from '../components/PhoneMockup';
 import ChallengeDiagram from '../components/ChallengeDiagram';
 import BreakthroughCards from '../components/BreakthroughCards';
@@ -121,41 +128,41 @@ export default function CaseStudyDetail() {
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70"></div>
         </div>
 
-        <div className="absolute top-24 left-6 sm:left-8 lg:left-12 z-10">
+        <div className="absolute top-20 left-4 sm:left-8 lg:left-12 z-10">
           <button
             onClick={handleBackClick}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-black/30 backdrop-blur-sm text-white hover:bg-black/50 transition-all duration-300 group border border-white/20"
+            className="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-black/30 backdrop-blur-sm text-white hover:bg-black/50 transition-all duration-300 group border border-white/20"
           >
-            <ArrowLeft size={20} className="transition-transform duration-300 group-hover:-translate-x-1" />
-            <span className="font-medium text-sm sm:text-base">Back to Case Studies</span>
+            <ArrowLeft size={18} className="transition-transform duration-300 group-hover:-translate-x-1" />
+            <span className="font-medium text-xs sm:text-sm md:text-base">Back to Case Studies</span>
           </button>
         </div>
 
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
-          <span className="inline-block px-4 py-2 rounded-full text-sm font-semibold mb-6" style={{ backgroundColor: '#00B46A', color: 'white' }}>
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 sm:px-6">
+          <span className="inline-block px-3 py-1.5 rounded-full text-xs sm:text-sm font-semibold mb-4 sm:mb-6" style={{ backgroundColor: '#00B46A', color: 'white' }}>
             Case Study
           </span>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 max-w-5xl leading-tight">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 sm:mb-6 max-w-5xl leading-tight px-2">
             {caseStudy.title}
           </h1>
           {(caseStudy.subtitle || caseStudy.hero_description) && (
-            <p className="text-lg sm:text-xl lg:text-2xl text-white/90 max-w-4xl leading-relaxed">
+            <p className="text-sm sm:text-lg md:text-xl lg:text-2xl text-white/90 max-w-4xl leading-relaxed px-2">
               {caseStudy.subtitle || caseStudy.hero_description}
             </p>
           )}
         </div>
       </div>
 
-      <main className="pb-16">
-        <div className="max-w-7xl mx-auto px-6 -mt-16 relative z-10">
+      <main className="pb-12 sm:pb-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 mt-8 sm:mt-12 relative z-10">
 
-          <TwoColumnSection
+          <SectionWithDivider
             icon={Info}
             title="Overview"
             content={
               <>
                 {caseStudy.problem.split('\n\n').map((paragraph, idx) => (
-                  <p key={idx} className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+                  <p key={idx} className="text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
                     {paragraph}
                   </p>
                 ))}
@@ -163,19 +170,19 @@ export default function CaseStudyDetail() {
             }
             imagePosition="right"
             imageComponent={
-              <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-xl border border-gray-200 dark:border-gray-700 w-full">
-                <div className="space-y-4">
+              <div className="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 shadow-xl border border-gray-200 dark:border-gray-700 w-full">
+                <div className="space-y-3 sm:space-y-4">
                   {chatMessages.slice(0, 2).map((msg, idx) => (
                     <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                       <div
-                        className={`max-w-[85%] rounded-2xl px-5 py-4 ${
+                        className={`max-w-[90%] sm:max-w-[85%] rounded-2xl px-3 sm:px-4 md:px-5 py-3 sm:py-4 ${
                           msg.role === 'user'
                             ? 'text-white rounded-br-sm'
                             : 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-bl-sm'
                         }`}
                         style={msg.role === 'user' ? { backgroundColor: '#00B46A' } : {}}
                       >
-                        <p className="text-sm leading-relaxed whitespace-pre-wrap">{msg.content}</p>
+                        <p className="text-xs sm:text-sm leading-relaxed whitespace-pre-wrap">{msg.content}</p>
                       </div>
                     </div>
                   ))}
@@ -184,23 +191,23 @@ export default function CaseStudyDetail() {
             }
           />
 
-          <TwoColumnSection
+          <SectionWithDivider
             icon={Target}
             title="The Challenge"
             content={
               <>
-                <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+                <p className="text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
                   Even for a technology company, handling complex inbound queries efficiently was difficult. Visitors asked questions that required digging through:
                 </p>
-                <ul className="mt-4 space-y-3">
+                <ul className="mt-3 sm:mt-4 space-y-2 sm:space-y-3">
                   {['Sales manuals and product PDFs', 'Project documentation', 'Internal spreadsheets (pricing, delivery timelines)', 'Web pages and feature listings'].map((item, idx) => (
-                    <li key={idx} className="flex items-start gap-3">
-                      <CheckCircle2 style={{ color: '#00B46A' }} size={20} className="flex-shrink-0 mt-1" />
-                      <span className="text-lg text-gray-700 dark:text-gray-300">{item}</span>
+                    <li key={idx} className="flex items-start gap-2 sm:gap-3">
+                      <CheckCircle2 style={{ color: '#00B46A' }} size={18} className="flex-shrink-0 mt-0.5 sm:mt-1" />
+                      <span className="text-sm sm:text-base md:text-lg text-gray-700 dark:text-gray-300">{item}</span>
                     </li>
                   ))}
                 </ul>
-                <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mt-4">
+                <p className="text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed mt-3 sm:mt-4">
                   Human responses were slow and inconsistent. The challenge was to automate product Q&A and pre-sales support without losing accuracy or brand tone.
                 </p>
               </>
@@ -209,20 +216,21 @@ export default function CaseStudyDetail() {
             imageComponent={<ChallengeDiagram />}
           />
 
-          <TwoColumnSection
+          <SectionWithDivider
             icon={Lightbulb}
             title="The AI Solution"
             content={
               <>
-                <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+                <p className="text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
                   {caseStudy.solution}
                 </p>
-                <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mt-4">
+                <p className="text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed mt-3 sm:mt-4">
                   The agent runs fully autonomously, providing reliable responses without needing manual approval — acting as an always-on digital sales executive.
                 </p>
               </>
             }
             imagePosition="right"
+            showDivider={false}
             imageComponent={
               <div className="w-full max-w-md mx-auto">
                 <PhoneMockup messages={chatMessages} appName="Vinfotech AI Assistant" />
@@ -230,97 +238,97 @@ export default function CaseStudyDetail() {
             }
           />
 
-          <section className="mb-16">
-            <div className="text-center mb-8">
-              <div className="flex items-center justify-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-full flex items-center justify-center" style={{ backgroundColor: '#00B46A20' }}>
-                  <Cpu style={{ color: '#00B46A' }} size={28} />
+          <section className="mb-12 sm:mb-16">
+            <div className="text-center mb-6 sm:mb-8">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center" style={{ backgroundColor: '#00B46A20' }}>
+                  <Cpu style={{ color: '#00B46A' }} size={24} className="sm:w-7 sm:h-7" />
                 </div>
-                <h3 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">
+                <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white">
                   How AI Made It Possible
                 </h3>
               </div>
-              <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+              <p className="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto px-4">
                 Traditional chatbots relied on predefined flows and couldn't handle nuanced, domain-specific questions. This solution leveraged AI to read and reason, not just match keywords.
               </p>
             </div>
             <BreakthroughCards />
           </section>
 
-          <section className="mb-16">
-            <div className="bg-white dark:bg-gray-900 rounded-2xl p-8 sm:p-12 shadow-xl border border-gray-200 dark:border-gray-700">
-              <div className="flex items-center justify-center gap-3 mb-8">
-                <div className="w-12 h-12 rounded-full flex items-center justify-center" style={{ backgroundColor: '#00B46A20' }}>
-                  <FileCheck style={{ color: '#00B46A' }} size={28} />
+          <section className="mb-12 sm:mb-16">
+            <div className="bg-white dark:bg-gray-900 rounded-xl sm:rounded-2xl p-6 sm:p-8 md:p-12 shadow-xl border border-gray-200 dark:border-gray-700">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 mb-6 sm:mb-8">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center" style={{ backgroundColor: '#00B46A20' }}>
+                  <FileCheck style={{ color: '#00B46A' }} size={24} className="sm:w-7 sm:h-7" />
                 </div>
-                <h3 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white text-center">
+                <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white text-center">
                   Vinfotech's Approach
                 </h3>
               </div>
-              <p className="text-lg text-gray-600 dark:text-gray-400 text-center mb-8 max-w-3xl mx-auto">
+              <p className="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-400 text-center mb-6 sm:mb-8 max-w-3xl mx-auto px-2">
                 Our systematic approach to building enterprise-grade AI solutions
               </p>
               <ApproachTimeline />
             </div>
           </section>
 
-          <section className="mb-16">
-            <div className="text-center mb-8">
-              <h3 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+          <section className="mb-12 sm:mb-16">
+            <div className="text-center mb-6 sm:mb-8">
+              <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 px-4">
                 Impact
               </h3>
-              <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+              <p className="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto px-4">
                 Measurable improvements across all key performance indicators
               </p>
             </div>
 
-            <div className="rounded-3xl py-12 px-8 shadow-2xl mb-8" style={{ background: 'linear-gradient(to right, #00B46A, #00B46A, #00A060)' }}>
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 lg:gap-4">
+            <div className="rounded-2xl sm:rounded-3xl py-8 sm:py-10 md:py-12 px-4 sm:px-6 md:px-8 shadow-2xl mb-6 sm:mb-8" style={{ background: 'linear-gradient(to right, #00B46A, #00B46A, #00A060)' }}>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6 lg:gap-4">
                 <div className="text-center">
-                  <div className="text-3xl lg:text-4xl font-bold text-white mb-2">
+                  <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-1 sm:mb-2">
                     &lt; 2 sec
                   </div>
-                  <div className="text-sm lg:text-base text-white/90 font-medium">
+                  <div className="text-xs sm:text-sm lg:text-base text-white/90 font-medium px-1">
                     Response Time
                   </div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl lg:text-4xl font-bold text-white mb-2">
+                  <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-1 sm:mb-2">
                     94%
                   </div>
-                  <div className="text-sm lg:text-base text-white/90 font-medium">
+                  <div className="text-xs sm:text-sm lg:text-base text-white/90 font-medium px-1">
                     Accuracy
                   </div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl lg:text-4xl font-bold text-white mb-2">
+                  <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-1 sm:mb-2">
                     70%
                   </div>
-                  <div className="text-sm lg:text-base text-white/90 font-medium">
+                  <div className="text-xs sm:text-sm lg:text-base text-white/90 font-medium px-1">
                     Reduction
                   </div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl lg:text-4xl font-bold text-white mb-2">
+                  <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-1 sm:mb-2">
                     2.3x
                   </div>
-                  <div className="text-sm lg:text-base text-white/90 font-medium">
+                  <div className="text-xs sm:text-sm lg:text-base text-white/90 font-medium px-1">
                     Engagement
                   </div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl lg:text-4xl font-bold text-white mb-2">
+                  <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-1 sm:mb-2">
                     +35%
                   </div>
-                  <div className="text-sm lg:text-base text-white/90 font-medium">
+                  <div className="text-xs sm:text-sm lg:text-base text-white/90 font-medium px-1">
                     Conversions
                   </div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl lg:text-4xl font-bold text-white mb-2">
+                  <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-1 sm:mb-2">
                     24/7
                   </div>
-                  <div className="text-sm lg:text-base text-white/90 font-medium">
+                  <div className="text-xs sm:text-sm lg:text-base text-white/90 font-medium px-1">
                     Availability
                   </div>
                 </div>
@@ -328,16 +336,16 @@ export default function CaseStudyDetail() {
             </div>
           </section>
 
-          <section className="mb-16">
-            <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 sm:p-12 shadow-xl border border-gray-200 dark:border-gray-700">
-              <div className="flex items-center gap-3 mb-8">
-                <div className="w-12 h-12 rounded-full flex items-center justify-center" style={{ backgroundColor: '#00B46A20' }}>
-                  <Database style={{ color: '#00B46A' }} size={28} />
+          <section className="mb-12 sm:mb-16">
+            <div className="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl p-6 sm:p-8 md:p-12 shadow-xl border border-gray-200 dark:border-gray-700">
+              <div className="flex items-center gap-2 sm:gap-3 mb-6 sm:mb-8">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center" style={{ backgroundColor: '#00B46A20' }}>
+                  <Database style={{ color: '#00B46A' }} size={20} className="sm:w-7 sm:h-7" />
                 </div>
-                <h3 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">Technology Stack</h3>
+                <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white">Technology Stack</h3>
               </div>
 
-              <div className="space-y-6">
+              <div className="space-y-2 sm:space-y-3">
                 <TechStackRow
                   category="LLMs"
                   technologies={['GPT-4 Turbo', 'Mistral 7B']}
@@ -415,16 +423,29 @@ interface TechStackRowProps {
   technologies: string[];
 }
 
+function getTechIcon(category: string): React.ElementType {
+  const categoryLower = category.toLowerCase();
+  if (categoryLower.includes('llm')) return Brain;
+  if (categoryLower.includes('retrieval')) return Search;
+  if (categoryLower.includes('knowledge') || categoryLower.includes('source')) return FileText;
+  if (categoryLower.includes('frontend')) return Layout;
+  if (categoryLower.includes('infrastructure')) return Server;
+  if (categoryLower.includes('operation')) return Settings;
+  return Database;
+}
+
 function TechStackRow({ category, technologies }: TechStackRowProps) {
+  const Icon = getTechIcon(category);
   return (
-    <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 py-4 border-b border-gray-200 dark:border-gray-700 last:border-b-0">
-      <div className="sm:w-48 flex-shrink-0">
-        <h4 className="text-base font-bold text-gray-900 dark:text-white">
+    <div className="flex items-start gap-2 sm:gap-3 py-3 sm:py-4 border-b border-gray-200 dark:border-gray-700 last:border-b-0">
+      <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5" style={{ backgroundColor: '#00B46A20' }}>
+        <Icon style={{ color: '#00B46A' }} size={14} className="sm:w-4 sm:h-4" />
+      </div>
+      <div className="flex-1 min-w-0">
+        <h4 className="text-xs sm:text-sm font-semibold text-gray-900 dark:text-white mb-1">
           {category}:
         </h4>
-      </div>
-      <div className="flex-1">
-        <p className="text-base text-gray-700 dark:text-gray-300 leading-relaxed">
+        <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
           {technologies.join(', ')}
         </p>
       </div>
