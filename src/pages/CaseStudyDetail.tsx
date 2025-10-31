@@ -271,7 +271,7 @@ export default function CaseStudyDetail() {
           <section className="mb-0 bg-gray-50 dark:bg-black py-12 sm:py-16">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="relative pt-8">
-                <div className="bg-white rounded-t-2xl px-8 py-4 shadow-md" style={{ position: 'absolute', top: '-35px', left: '0', width: '200px', zIndex: 1, clipPath: 'polygon(0 0, 85% 0, 100% 100%, 0% 100%)' }}>
+                <div className="bg-white rounded-t-2xl px-8 py-4 shadow-md" style={{ position: 'absolute', top: '-22px', left: '0', width: '200px', zIndex: 1, clipPath: 'polygon(0 0, 85% 0, 100% 100%, 0% 100%)', border-top-right-radius:'200px'}}>
                   <h2 className="text-2xl sm:text-3xl font-bold" style={{ color: '#00B46A' }}>
                     Impact
                   </h2>
