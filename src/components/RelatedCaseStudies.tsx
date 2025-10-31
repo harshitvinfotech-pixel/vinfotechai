@@ -9,7 +9,7 @@ interface RelatedCaseStudiesProps {
 
 export default function RelatedCaseStudies({
   caseStudies,
-  title = 'Other Case Studies'
+  title = 'Other Case Studiessssss'
 }: RelatedCaseStudiesProps) {
   const navigate = useNavigate();
 
