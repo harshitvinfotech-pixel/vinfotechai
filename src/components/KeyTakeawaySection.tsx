@@ -17,7 +17,7 @@ export default function KeyTakeawaySection({
 }: KeyTakeawaySectionProps) {
   return (
     <section className="mb-16 relative">
-      <div className={`bg-gray-50 dark:bg-black p-8 sm:p-12 text-center ${quote ? 'pb-32 sm:pb-36' : ''}`}>
+      <div className={`p-8 sm:p-12 text-center ${quote ? 'pb-32 sm:pb-36' : ''}`} style={{ backgroundColor: 'var(--key-takeaway-bg)' }}>
         <div className="w-full mx-auto">
           <div className="mb-6">
             <h3 className="text-3xl sm:text-4xl font-bold mb-4 text-gray-900 dark:text-white">{title}</h3>

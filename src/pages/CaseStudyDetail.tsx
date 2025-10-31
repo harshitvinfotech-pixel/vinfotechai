@@ -357,7 +357,7 @@ export default function CaseStudyDetail() {
             </div>
           </section>
 
-        <div className="bg-gray-50 dark:bg-black py-12 sm:py-16">
+        <div className="py-12 sm:py-16" style={{ backgroundColor: 'var(--key-takeaway-bg)' }}>
           <div className="w-full px-4 sm:px-6 lg:px-8">
             <KeyTakeawaySection
               takeaway={caseStudy.results || "This internal project proved how **Enterprise RAG and AI agents** can revolutionize pre-sales and support. The system delivers **factual, cited, and human-quality answers** around the clock — allowing sales teams to focus on **relationship-building** rather than repetitive responses."}

@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --key-takeaway-bg: #e3f6ef;
+}
+
+.dark {
+  --key-takeaway-bg: #000000;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
