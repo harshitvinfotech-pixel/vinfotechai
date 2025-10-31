@@ -107,21 +107,23 @@ function CaseStudyCard({ study, onClick }: CaseStudyCardProps) {
             <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/95 to-transparent"></div>
           </div>
 
-          <div className="absolute bottom-0 left-0 right-0 z-10 p-6 flex items-start justify-between">
-            <h3 className="font-bold text-white leading-tight text-left text-2xl max-w-[80%]" aria-label={`Case study: ${study.title}`}>
+          <div className="absolute bottom-0 left-0 right-0 z-10 p-6 flex flex-col gap-3">
+            <h3 className="font-bold text-white leading-tight text-left text-2xl w-full" aria-label={`Case study: ${study.title}`}>
               {study.title}
             </h3>
 
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                onClick();
-              }}
-              className="flex-shrink-0 w-10 h-10 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
-              aria-label={`View case study: ${study.title}`}
-            >
-              <Plus style={{ color: '#00B46A' }} size={20} strokeWidth={2.5} />
-            </button>
+            <div className="flex justify-end">
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onClick();
+                }}
+                className="flex-shrink-0 w-10 h-10 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
+                aria-label={`View case study: ${study.title}`}
+              >
+                <Plus style={{ color: '#00B46A' }} size={20} strokeWidth={2.5} />
+              </button>
+            </div>
           </div>
         </div>
       </div>
