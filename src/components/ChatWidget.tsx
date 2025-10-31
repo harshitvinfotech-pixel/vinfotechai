@@ -11,6 +11,7 @@ import {
   type ChatMessage
 } from '../lib/chat';
 import { streamQuery, type SourceDocument, type ResponseMetadata } from '../lib/streamingChat';
+import { useTheme } from '../contexts/ThemeContext';
 
 type WidgetState = 'collapsed' | 'preview' | 'full' | 'contact';
 
@@ -67,6 +68,7 @@ const FALLBACK_QUESTIONS: SuggestedQuestion[] = [
 ];
 
 export default function ChatWidget() {
+  const { theme } = useTheme();
   const [widgetState, setWidgetState] = useState<WidgetState>('collapsed');
   const [isExpanded, setIsExpanded] = useState(false);
   const [question, setQuestion] = useState('');
@@ -77,14 +79,16 @@ export default function ChatWidget() {
   const [dynamicSuggestions, setDynamicSuggestions] = useState<string[]>([]);
   const [clickedSuggestions, setClickedSuggestions] = useState<Set<string>>(new Set());
   const [showPredefinedQuestions, setShowPredefinedQuestions] = useState(true);
-  const [sources, setSources] = useState<SourceDocument[]>([]);
-  const [metadata, setMetadata] = useState<ResponseMetadata | null>(null);
+  const [_sources, setSources] = useState<SourceDocument[]>([]);
+  const [_metadata, setMetadata] = useState<ResponseMetadata | null>(null);
   const [completeResponse, setCompleteResponse] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
   const abortControllerRef = useRef<AbortController | null>(null);
   const sessionTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const lastChunkRef = useRef<string>(''); // Track last chunk to prevent duplicates
   const isProcessingRef = useRef<boolean>(false); // Prevent concurrent processing
+  const latestUserMessageRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     loadSuggestedQuestions();
@@ -112,15 +116,9 @@ export default function ChatWidget() {
     };
   }, []);
 
+  // Only auto-scroll when widget opens in full mode (not during streaming)
   useEffect(() => {
-    if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, [messages, isStreaming]);
-
-  // Auto-scroll to bottom when widget opens in full mode
-  useEffect(() => {
-    if (widgetState === 'full' && messagesEndRef.current && messages.length > 0) {
+    if (widgetState === 'full' && messagesEndRef.current && messages.length > 0 && !isStreaming) {
       // Small delay to ensure DOM is rendered
       setTimeout(() => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -182,6 +180,13 @@ export default function ChatWidget() {
     isProcessingRef.current = true;
     lastChunkRef.current = ''; // Reset chunk tracking
 
+    // Switch to full mode first if needed
+    if (widgetState === 'preview') {
+      setWidgetState('full');
+      // Wait for widget to expand
+      await new Promise(resolve => setTimeout(resolve, 300));
+    }
+
     setQuestion('');
     setMessages(prev => [...prev, { type: 'user', text: questionText }]);
     setIsLoading(true);
@@ -197,9 +202,17 @@ export default function ChatWidget() {
     // Reset session timeout on activity
     resetSessionTimeout();
 
-    if (widgetState === 'preview') {
-      setWidgetState('full');
-    }
+    // Force scroll to bottom after adding user message
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        if (chatContainerRef.current) {
+          chatContainerRef.current.scrollTo({
+            top: chatContainerRef.current.scrollHeight,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
 
     // Cancel any existing stream
     if (abortControllerRef.current) {
@@ -207,9 +220,10 @@ export default function ChatWidget() {
     }
     abortControllerRef.current = new AbortController();
 
-    setMessages(prev => [...prev, { type: 'assistant', text: '' }]);
+    // Don't add empty assistant message here - we'll add it when first chunk arrives
 
     try {
+      let firstChunk = true;
       await streamQuery(
         getSessionId(),
         questionText,
@@ -225,9 +239,18 @@ export default function ChatWidget() {
             console.log('✅ Processing chunk:', content);
             setIsLoading(false);
             setIsStreaming(true);
+            
             setMessages(prev => {
               const newMessages = [...prev];
               const lastMessage = newMessages[newMessages.length - 1];
+              
+              // If this is the first chunk, add a new assistant message
+              if (firstChunk || !lastMessage || lastMessage.type !== 'assistant') {
+                firstChunk = false;
+                return [...newMessages, { type: 'assistant', text: content }];
+              }
+              
+              // Otherwise, append to existing assistant message
               if (lastMessage && lastMessage.type === 'assistant') {
                 lastMessage.text += content;
               }
@@ -315,15 +338,8 @@ export default function ChatWidget() {
   };
 
   const handleCollapsedClick = () => {
-    const isMobile = window.innerWidth < 768;
-    // If there are existing messages, open in full mode to show chat history
-    if (messages.length > 0) {
-      setWidgetState('full');
-    } else if (isMobile) {
-      setWidgetState('full');
-    } else {
-      setWidgetState('preview');
-    }
+    // Always open in full mode directly
+    setWidgetState('full');
   };
 
   const closeWidget = () => {
@@ -339,14 +355,14 @@ export default function ChatWidget() {
   };
 
   const closeContactForm = () => {
-    setWidgetState(messages.length > 0 ? 'full' : 'preview');
+    setWidgetState('full');
   };
 
   if (widgetState === 'collapsed') {
     return (
       <button
         onClick={handleCollapsedClick}
-        className="fixed bottom-6 right-6 text-white shadow-2xl transition-all duration-300 hover:scale-105 z-50 group rounded-full md:rounded-3xl"
+        className={`fixed bottom-6 right-6 text-white shadow-2xl transition-all duration-300 hover:scale-105 z-50 group rounded-full md:rounded-3xl ${theme === 'dark' ? 'shadow-emerald-500/20' : ''}`}
         style={{ backgroundColor: '#00B46A' }}
       >
         <div className="flex items-center gap-2 p-3 md:gap-3 md:px-5 md:py-4">
@@ -446,7 +462,7 @@ export default function ChatWidget() {
   if (widgetState === 'preview') {
     return (
       <div className="fixed bottom-6 right-6 w-[90vw] max-w-[420px] z-50">
-        <div className="bg-white rounded-3xl shadow-2xl overflow-hidden backdrop-blur-sm">
+        <div className={`rounded-3xl shadow-2xl overflow-hidden backdrop-blur-sm ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
           <div className="px-6 py-5 rounded-t-3xl" style={{ backgroundColor: '#00B46A' }}>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
@@ -521,7 +537,7 @@ export default function ChatWidget() {
                 value={question}
                 onChange={(e) => setQuestion(e.target.value)}
                 placeholder="Or ask your own question..."
-                className="w-full px-4 py-3 pr-12 rounded-xl border border-gray-200 outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-none"
+                className={`w-full px-4 py-3 pr-12 rounded-xl border outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-none ${theme === 'dark' ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' : 'bg-white border-gray-200 text-gray-900'}`}
               />
               <button
                 type="submit"
@@ -547,10 +563,10 @@ export default function ChatWidget() {
 
   return (
     <div
-      className={`fixed ${isExpanded ? 'inset-1' : 'bottom-0 left-0 right-0 md:bottom-6 md:right-6 md:left-auto md:w-[450px] md:h-[700px]'} z-50 bg-white shadow-2xl flex flex-col overflow-hidden ${isExpanded ? 'md:rounded-3xl' : 'rounded-t-3xl md:rounded-3xl'}`}
+      className={`fixed inset-0 md:bottom-6 md:right-6 md:w-[450px] md:h-[700px] md:inset-auto z-50 shadow-2xl flex flex-col overflow-hidden rounded-none md:rounded-3xl ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}
       style={{
-        height: isExpanded ? '100%' : 'calc(100% - 60px)',
-        maxHeight: isExpanded ? '100%' : 'min(85vh, 700px)',
+        height: '100%',
+        maxHeight: '100%',
         transformOrigin: 'bottom center',
         transition: 'all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
         animation: 'slideUpFromBottom 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
@@ -571,12 +587,7 @@ export default function ChatWidget() {
             className="w-9 h-9 object-contain"
           />
           <div>
-            <span
-              className="font-medium text-white text-base"
-              style={{ fontFamily: 'Helvetica, Arial, sans-serif', fontWeight: 500 }}
-            >
-              Vinfotech AI
-            </span>
+            <span className="font-bold text-white text-base">Vinfotech AI</span>
           </div>
         </div>
         <div className="flex items-center gap-1">
@@ -597,32 +608,25 @@ export default function ChatWidget() {
         </div>
       </div>
 
-      {/* Scrollable Content Area */}
-      <div className="flex-1 overflow-y-auto px-4 py-5 space-y-4 bg-white" style={{
-        scrollbarWidth: 'thin',
-        scrollbarColor: '#E5E7EB #FFFFFF'
-      }}>
+      <div ref={chatContainerRef} className={`flex-1 overflow-y-auto px-6 py-4 space-y-4 ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'}`}>
         {messages.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full text-center px-4">
             <img
               src="/ai-bot.png"
               alt="Vinfotech AI"
-              className="w-24 h-24 object-contain mb-4 opacity-90"
+              className="w-24 h-24 object-contain mb-6 animate-float-3d"
             />
-            <h3 className="text-lg font-semibold mb-2" style={{ color: '#1A1A1A' }}>How can I help you today?</h3>
-            <p className="text-sm mb-6" style={{ color: '#9CA3AF' }}>Ask me anything about our services</p>
+            <h3 className={`text-lg font-bold mb-1 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>How can I help you today?</h3>
+            <p className={`text-sm mb-6 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-400'}`}>Ask me anything about our services</p>
 
             {showPredefinedQuestions && (
-              <div className="flex flex-col gap-2.5 w-full max-w-md">
+              <div className="grid grid-cols-1 gap-3 w-full max-w-sm">
                 {suggestedQuestions.slice(0, 3).map((sq, index) => (
                   <button
                     key={sq.id}
                     onClick={() => handleSuggestedQuestionClick(sq)}
-                    className="text-left px-4 py-3 rounded-2xl bg-gray-50 hover:bg-gray-100 transition-all duration-200 text-sm"
-                    style={{
-                      color: '#1A1A1A',
-                      border: '1px solid #E5E7EB'
-                    }}
+                    className={`text-left px-4 py-3 rounded-lg border transition-all duration-300 text-sm hover:scale-[1.02] hover:-translate-y-0.5 active:scale-[0.98] ${theme === 'dark' ? 'bg-gray-700 hover:bg-gray-600 border-gray-600 hover:border-emerald-500 text-gray-200' : 'bg-white hover:bg-gray-50 border-gray-200 hover:border-gray-300 text-gray-700'}`}
+                    style={{ animationDelay: `${index * 50}ms` }}
                   >
                     {sq.question_text}
                   </button>
@@ -633,111 +637,126 @@ export default function ChatWidget() {
         ) : (
           <>
             {messages.map((message, index) => (
-              <div key={index}>
-                <div
-                  className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
-                >
-                  <div className={`max-w-[80%] rounded-2xl px-4 py-3 ${
-                    message.type === 'user'
-                      ? 'text-white shadow-sm'
-                      : 'bg-white shadow-md'
-                  }`}
-                  style={{
-                    backgroundColor: message.type === 'user' ? '#00B46A' : '#FFFFFF',
-                    color: message.type === 'user' ? '#FFFFFF' : '#1A1A1A'
-                  }}>
-                    {message.type === 'user' ? (
-                      <p className="text-sm leading-relaxed whitespace-pre-line">{message.text}</p>
-                    ) : (
-                      <div className="text-sm leading-relaxed prose prose-sm max-w-none">
-                        <ReactMarkdown
-                          remarkPlugins={[remarkGfm]}
-                          components={{
-                            a: ({ node, ...props }) => (
-                              <a
-                                {...props}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                style={{ color: '#00B46A' }}
-                                className="hover:underline font-medium cursor-pointer"
-                              />
-                            ),
-                            p: ({ node, ...props }) => (
-                              <p {...props} className="mb-2 last:mb-0" style={{ color: '#1A1A1A' }} />
-                            ),
-                            ul: ({ node, ...props }) => (
-                              <ul {...props} className="list-disc pl-4 mb-2 space-y-1" />
-                            ),
-                            ol: ({ node, ...props }) => (
-                              <ol {...props} className="list-decimal pl-4 mb-2 space-y-1" />
-                            ),
-                            li: ({ node, ...props }) => (
-                              <li {...props} style={{ color: '#1A1A1A' }} />
-                            ),
-                            h1: ({ node, ...props }) => (
-                              <h1 {...props} className="text-base font-bold mb-2 mt-3 first:mt-0" style={{ color: '#1A1A1A' }} />
-                            ),
-                            h2: ({ node, ...props }) => (
-                              <h2 {...props} className="text-sm font-bold mb-2 mt-3 first:mt-0" style={{ color: '#1A1A1A' }} />
-                            ),
-                            h3: ({ node, ...props }) => (
-                              <h3 {...props} className="text-sm font-semibold mb-1 mt-2 first:mt-0" style={{ color: '#1A1A1A' }} />
-                            ),
-                            strong: ({ node, ...props }) => (
-                              <strong {...props} className="font-bold" style={{ color: '#1A1A1A' }} />
-                            ),
-                            code: ({ node, inline, ...props }: any) =>
-                              inline ? (
-                                <code {...props} className="bg-gray-100 px-1 py-0.5 rounded text-xs font-mono" style={{ color: '#00B46A' }} />
-                              ) : (
-                                <code {...props} className="block bg-gray-100 p-2 rounded text-xs font-mono overflow-x-auto" style={{ color: '#1A1A1A' }} />
-                              )
-                          }}
-                        >
-                          {message.text}
-                        </ReactMarkdown>
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                {/* Show suggestions after bot messages */}
-                {message.type === 'assistant' &&
-                 index === messages.length - 1 &&
-                 dynamicSuggestions.length > 0 &&
-                 !isLoading && (
-                  <div className="mt-3 flex flex-col gap-2">
-                    <p className="text-xs font-medium px-1" style={{ color: '#9CA3AF' }}>You can also ask:</p>
-                    <div className="flex flex-wrap gap-2">
-                      {dynamicSuggestions
-                        .filter(suggestion => !clickedSuggestions.has(suggestion))
-                        .map((suggestion, idx) => (
-                          <button
-                            key={idx}
-                            onClick={() => handleDynamicSuggestionClick(suggestion)}
-                            className="text-left px-3 py-2 rounded-full text-xs transition-all duration-200 hover:shadow-md"
-                            style={{
-                              backgroundColor: '#F3F4F6',
-                              color: '#1A1A1A',
-                              border: '1px solid #E5E7EB'
-                            }}
-                          >
-                            {suggestion}
-                          </button>
-                        ))}
-                    </div>
+              <div
+                key={index}
+                ref={index === messages.length - 1 && message.type === 'user' ? latestUserMessageRef : null}
+                className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start items-end gap-2'} animate-slide-up-fade`}
+                style={{ animationDelay: `${index * 50}ms` }}
+              >
+                {message.type === 'assistant' && (
+                  <div className="flex-shrink-0 mb-1">
+                    <img
+                      src="/ai-bot.png"
+                      alt="AI Assistant"
+                      className="w-8 h-8 object-contain"
+                    />
                   </div>
                 )}
+                <div className={`max-w-[85%] rounded-2xl px-4 py-3 transition-all duration-300 hover:scale-[1.02] ${
+                  message.type === 'user'
+                    ? 'bg-emerald-500 text-white'
+                    : theme === 'dark'
+                      ? 'bg-gray-700 text-gray-100 shadow-sm border border-gray-600'
+                      : 'bg-white text-gray-900 shadow-sm border border-gray-100'
+                }`}>
+                  {message.type === 'user' ? (
+                    <p className="text-sm leading-relaxed whitespace-pre-line">{message.text}</p>
+                  ) : (
+                    <div className="text-sm leading-relaxed prose prose-sm max-w-none prose-headings:font-bold prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-emerald-600 prose-a:no-underline hover:prose-a:underline prose-strong:text-gray-900 prose-ul:list-disc prose-ol:list-decimal prose-li:text-gray-700">
+                      <ReactMarkdown
+                        remarkPlugins={[remarkGfm]}
+                        components={{
+                          a: ({ node, ...props }) => (
+                            <a 
+                              {...props} 
+                              target="_blank" 
+                              rel="noopener noreferrer" 
+                              className="text-emerald-600 hover:text-emerald-700 hover:underline font-medium cursor-pointer"
+                            />
+                          ),
+                          p: ({ node, ...props }) => (
+                            <p {...props} className="mb-2 last:mb-0" />
+                          ),
+                          ul: ({ node, ...props }) => (
+                            <ul {...props} className="list-disc pl-4 mb-2 space-y-1" />
+                          ),
+                          ol: ({ node, ...props }) => (
+                            <ol {...props} className="list-decimal pl-4 mb-2 space-y-1" />
+                          ),
+                          li: ({ node, ...props }) => (
+                            <li {...props} className="text-gray-700" />
+                          ),
+                          h1: ({ node, ...props }) => (
+                            <h1 {...props} className="text-lg font-bold text-gray-900 mb-2 mt-3 first:mt-0" />
+                          ),
+                          h2: ({ node, ...props }) => (
+                            <h2 {...props} className="text-base font-bold text-gray-900 mb-2 mt-3 first:mt-0" />
+                          ),
+                          h3: ({ node, ...props }) => (
+                            <h3 {...props} className="text-sm font-bold text-gray-900 mb-1 mt-2 first:mt-0" />
+                          ),
+                          strong: ({ node, ...props }) => (
+                            <strong {...props} className="font-bold text-gray-900" />
+                          ),
+                          code: ({ node, inline, ...props }: any) => 
+                            inline ? (
+                              <code {...props} className="bg-gray-100 text-emerald-700 px-1 py-0.5 rounded text-xs font-mono" />
+                            ) : (
+                              <code {...props} className="block bg-gray-100 text-gray-800 p-2 rounded text-xs font-mono overflow-x-auto" />
+                            )
+                        }}
+                      >
+                        {message.text}
+                      </ReactMarkdown>
+                    </div>
+                  )}
+                </div>
               </div>
             ))}
             {(isLoading && !isStreaming) && (
-              <div className="flex justify-start">
-                <div className="bg-white rounded-2xl px-4 py-3 shadow-md">
-                  <div className="flex gap-1">
-                    <div className="w-2 h-2 rounded-full animate-bounce" style={{ backgroundColor: '#00B46A', animationDelay: '0ms' }}></div>
-                    <div className="w-2 h-2 rounded-full animate-bounce" style={{ backgroundColor: '#00B46A', animationDelay: '150ms' }}></div>
-                    <div className="w-2 h-2 rounded-full animate-bounce" style={{ backgroundColor: '#00B46A', animationDelay: '300ms' }}></div>
+              <div className="flex justify-start items-end gap-3 animate-slide-up-fade">
+                <div className="flex-shrink-0 mb-1">
+                  <img
+                    src="/ai-bot.png"
+                    alt="AI Assistant"
+                    className="w-8 h-8 object-contain animate-pulse"
+                  />
+                </div>
+                <div className={`rounded-2xl px-5 py-3 shadow-sm border ${theme === 'dark' ? 'bg-gray-700 border-gray-600' : 'bg-white border-gray-100'}`}>
+                  <div className="flex items-center gap-2">
+                    <span className={`text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>Thinking</span>
+                    <div className="flex gap-1">
+                      <div className="w-2 h-2 bg-emerald-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                      <div className="w-2 h-2 bg-emerald-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                      <div className="w-2 h-2 bg-emerald-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                    </div>
                   </div>
+                </div>
+              </div>
+            )}
+            {dynamicSuggestions.length > 0 && !isLoading && (
+              <div className="flex justify-start animate-slide-up-fade pl-10">
+                <div className="flex flex-col gap-3 max-w-[85%]">
+                  <div className="flex items-center gap-2">
+                    <Sparkles className="w-4 h-4 text-emerald-500" />
+                    <p className={`text-base font-bold ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>You can also ask:</p>
+                  </div>
+                  {dynamicSuggestions
+                    .filter(suggestion => !clickedSuggestions.has(suggestion))
+                    .map((suggestion, index) => (
+                      <button
+                        key={index}
+                        onClick={() => handleDynamicSuggestionClick(suggestion)}
+                        className={`text-left px-4 py-2.5 rounded-xl border transition-all duration-300 hover:scale-[1.02] hover:-translate-y-0.5 active:scale-[0.98] group shadow-sm ${theme === 'dark' ? 'bg-gradient-to-r from-gray-700 to-gray-600 hover:from-gray-600 hover:to-gray-500 border-emerald-500/30 hover:border-emerald-400' : 'bg-gradient-to-r from-emerald-50 to-teal-50 hover:from-emerald-100 hover:to-teal-100 border-emerald-200 hover:border-emerald-300'}`}
+                      >
+                        <div className="flex items-start gap-2">
+                          <Sparkles className="w-4 h-4 mt-0.5 text-emerald-500 flex-shrink-0 group-hover:scale-110 transition-transform" />
+                          <span className={`text-sm font-medium leading-relaxed ${theme === 'dark' ? 'text-gray-100 group-hover:text-emerald-300' : 'text-gray-800 group-hover:text-emerald-700'}`}>
+                            {suggestion}
+                          </span>
+                        </div>
+                      </button>
+                    ))}
                 </div>
               </div>
             )}
@@ -746,34 +765,14 @@ export default function ChatWidget() {
         )}
       </div>
 
-      {/* Fixed Footer */}
-      <div
-        className="px-4 py-3 bg-white"
-        style={{
-          borderTop: '1px solid #E5E7EB',
-          boxShadow: '0 -2px 10px rgba(0, 0, 0, 0.05)'
-        }}
-      >
-        <form onSubmit={handleSubmit} className="relative">
+      <div className="px-6 py-4 bg-white border-t border-gray-200">
+        <form onSubmit={handleSubmit} className="relative mb-3">
           <input
             type="text"
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
-            placeholder="Ask about our services..."
-            className="w-full px-4 py-3 pr-12 rounded-full outline-none transition-all"
-            style={{
-              backgroundColor: '#FFFFFF',
-              border: '1px solid #E5E7EB',
-              color: '#1A1A1A'
-            }}
-            onFocus={(e) => {
-              e.target.style.borderColor = '#00B46A';
-              e.target.style.boxShadow = '0 0 0 3px rgba(0, 180, 106, 0.1)';
-            }}
-            onBlur={(e) => {
-              e.target.style.borderColor = '#E5E7EB';
-              e.target.style.boxShadow = 'none';
-            }}
+            placeholder="Ask a question..."
+            className={`w-full px-4 py-3 pr-12 rounded-xl border outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all ${theme === 'dark' ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' : 'bg-gray-50 border-gray-200 text-gray-900'}`}
           />
           <button
             type="submit"
@@ -784,8 +783,16 @@ export default function ChatWidget() {
             <Send className="w-4 h-4" />
           </button>
         </form>
-
-        <p className="text-xs text-center mt-2" style={{ color: '#9CA3AF' }}>
+        
+        <button
+          onClick={openContactForm}
+          className={`w-full flex items-center justify-center gap-2 px-4 py-2 rounded-lg border transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] mb-2 ${theme === 'dark' ? 'bg-gray-700 hover:bg-gray-600 border-gray-600' : 'bg-gray-100 hover:bg-gray-200 border-gray-200'}`}
+        >
+          <Mail className={`w-4 h-4 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`} />
+          <span className={`text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>Contact Us</span>
+        </button>
+        
+        <p className={`text-xs text-center ${theme === 'dark' ? 'text-gray-500' : 'text-gray-400'}`}>
           Powered by Vinfotech AI
         </p>
       </div>
