@@ -30,19 +30,37 @@ import type { CaseStudyWithDetails, CaseStudy } from '../types/caseStudy';
 export default function CaseStudyDetail() {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
+  const [caseStudy, setCaseStudy] = useState<CaseStudyWithDetails | null>(null);
+  const [relatedStudies, setRelatedStudies] = useState<CaseStudy[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [slug]);
 
-  const caseStudy = slug ? getCaseStudyBySlug(slug) : null;
-  const relatedStudies = caseStudy ? getSuggestedCaseStudies(slug!, caseStudy.tags, 3) : [];
-
   useEffect(() => {
-    if (!caseStudy && slug) {
-      navigate('/');
+    async function loadCaseStudy() {
+      if (!slug) {
+        setLoading(false);
+        return;
+      }
+
+      setLoading(true);
+      const study = await getCaseStudyBySlug(slug);
+
+      if (!study) {
+        navigate('/');
+        return;
+      }
+
+      setCaseStudy(study);
+      const related = getSuggestedCaseStudies(slug, study.tags, 3);
+      setRelatedStudies(related);
+      setLoading(false);
     }
-  }, [caseStudy, slug, navigate]);
+
+    loadCaseStudy();
+  }, [slug, navigate]);
 
   const handleBackClick = () => {
     navigate('/', { state: { scrollTo: 'case-studies' } });
@@ -67,8 +85,18 @@ export default function CaseStudyDetail() {
     }
   ];
 
-  if (!caseStudy) {
-    return null;
+  if (loading || !caseStudy) {
+    return (
+      <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
+        <Header onQuoteClick={() => {}} />
+        <div className="flex items-center justify-center h-screen">
+          <div className="text-center">
+            <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-[#00B46A]"></div>
+            <p className="mt-4 text-gray-600 dark:text-gray-400">Loading case study...</p>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   const heroBackground = caseStudy.hero_background_image || 'https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=1920';

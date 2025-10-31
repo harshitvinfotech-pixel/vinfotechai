@@ -1,5 +1,5 @@
 import { Plus } from 'lucide-react';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getAllCaseStudies } from '../lib/caseStudies';
 
@@ -16,9 +16,20 @@ interface CaseStudy {
 }
 
 export default function CaseStudies() {
-  const caseStudies = getAllCaseStudies();
+  const [caseStudies, setCaseStudies] = useState<CaseStudy[]>([]);
+  const [loading, setLoading] = useState(true);
   const sectionRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    async function loadCaseStudies() {
+      setLoading(true);
+      const studies = await getAllCaseStudies();
+      setCaseStudies(studies);
+      setLoading(false);
+    }
+    loadCaseStudies();
+  }, []);
 
   const handleCardClick = (slug: string) => {
     navigate(`/case-studies/${slug}`);
@@ -53,15 +64,24 @@ export default function CaseStudies() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-          {caseStudies.map((study) => (
-            <CaseStudyCard
-              key={study.id}
-              study={study}
-              onClick={() => handleCardClick(study.slug)}
-            />
-          ))}
-        </div>
+        {loading ? (
+          <div className="flex items-center justify-center py-20">
+            <div className="text-center">
+              <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-[#00B46A]"></div>
+              <p className="mt-4 text-gray-600 dark:text-gray-400">Loading case studies...</p>
+            </div>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            {caseStudies.map((study) => (
+              <CaseStudyCard
+                key={study.id}
+                study={study}
+                onClick={() => handleCardClick(study.slug)}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
