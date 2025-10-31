@@ -109,7 +109,7 @@ export default function CaseStudyDetail() {
         </div>
       </div>
 
-      <main className="pb-12 sm:pb-16">
+      <main className="pb-0">
 
           <section className="mb-0 bg-gray-50 dark:bg-black py-12 sm:py-16">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -373,9 +373,12 @@ export default function CaseStudyDetail() {
         </div>
 
         {relatedStudies.length > 0 && (
-          <div className="bg-gray-50 dark:bg-gray-900">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 sm:pt-16">
-              <RelatedCaseStudies caseStudies={relatedStudies} />
+          <div className="bg-gray-50 dark:bg-gray-900 py-12 sm:py-16">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <RelatedCaseStudies
+                caseStudies={relatedStudies}
+                title="Other Case Studies"
+              />
             </div>
           </div>
         )}
