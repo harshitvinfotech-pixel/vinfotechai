@@ -82,7 +82,7 @@ export default function TechStack() {
               >
 
                 <div className="relative flex items-start gap-3 sm:gap-4 md:gap-5">
-                  <div className={`flex-shrink-0 w-12 h-1 sm:w-14 sm:h-14 bg-gradient-to-br from-[#00B46A] to-[#00964F] dark:from-[#00D68A] dark:to-[#00B46A] rounded-lg sm:rounded-xl flex items-center justify-center shadow-lg shadow-[#00B46A]/30 dark:shadow-[#00B46A]/40 group-hover:shadow-2xl group-hover:shadow-[#00B46A]/60 dark:group-hover:shadow-[#00B46A]/70 transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 ${isVisible ? 'opacity-100 scale-100 rotate-0' : 'opacity-0 scale-50 -rotate-180'}`}
+                  <div className={`flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-[#00B46A] to-[#00964F] dark:from-[#00D68A] dark:to-[#00B46A] rounded-lg sm:rounded-xl flex items-center justify-center shadow-lg shadow-[#00B46A]/30 dark:shadow-[#00B46A]/40 group-hover:shadow-2xl group-hover:shadow-[#00B46A]/60 dark:group-hover:shadow-[#00B46A]/70 transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 ${isVisible ? 'opacity-100 scale-100 rotate-0' : 'opacity-0 scale-50 -rotate-180'}`}
                     style={{
                       transitionDelay: isVisible ? `${index * 150 + 200}ms` : '0ms',
                     }}
