@@ -220,16 +220,20 @@ export default function CaseStudyDetail() {
                   Our systematic approach to building enterprise-grade AI solutions
                 </p>
               </div>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-12 lg:gap-16 items-center">
                 <div className="order-2 lg:order-1">
                   <ApproachTimeline />
                 </div>
-                <div className="order-1 lg:order-2 relative rounded-3xl overflow-hidden shadow-2xl border-2 border-gray-100 dark:border-gray-700 h-[300px] lg:h-[600px]">
-                  <img
-                    src={caseStudy.overview_image_url || heroBackground}
-                    alt="Vinfotech's Approach"
-                    className="w-full h-full object-cover"
-                  />
+                <div className="order-1 lg:order-1">
+                  <div className="relative rounded-3xl overflow-hidden shadow-2xl border-2 border-gray-200 dark:border-gray-700">
+                    <div className="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 rounded-2xl p-8 lg:p-10">
+                      <img
+                        src={caseStudy.overview_image_url || heroBackground}
+                        alt="AI Agent Interaction"
+                        className="w-full h-auto rounded-xl shadow-lg"
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
