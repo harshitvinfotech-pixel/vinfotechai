@@ -276,17 +276,15 @@ export default function CaseStudyDetail() {
           <section className="mb-0 bg-gray-50 dark:bg-black py-12 sm:py-16">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="relative pt-8">
-                <div className="absolute top-0 left-8 sm:left-12 z-10">
-                  <div className="bg-white rounded-t-2xl px-8 py-4 shadow-md">
-                    <h2 className="text-2xl sm:text-3xl font-bold" style={{ color: '#00B46A' }}>
-                      Impact
-                    </h2>
-                  </div>
+                <div className="bg-white rounded-t-2xl px-8 py-4 shadow-md" style={{ position: 'absolute', top: '-22px', left: '-46px', width: '200px', zIndex: 10 }}>
+                  <h2 className="text-2xl sm:text-3xl font-bold" style={{ color: '#00B46A' }}>
+                    Impact
+                  </h2>
                 </div>
                 <div className="relative rounded-3xl py-12 sm:py-16 px-6 sm:px-10 md:px-16 pt-16 sm:pt-20" style={{ backgroundColor: '#00B46A' }}>
                   <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8 sm:gap-10 lg:gap-12">
                     <div className="text-center">
-                      <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-2">
+                      <div className="font-bold text-white mb-2" style={{ fontSize: '35px' }}>
                         &lt; 2 sec
                       </div>
                       <div className="text-sm sm:text-base text-white/95 font-normal">
@@ -294,7 +292,7 @@ export default function CaseStudyDetail() {
                       </div>
                     </div>
                     <div className="text-center">
-                      <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-2">
+                      <div className="font-bold text-white mb-2" style={{ fontSize: '35px' }}>
                         94%
                       </div>
                       <div className="text-sm sm:text-base text-white/95 font-normal">
@@ -302,7 +300,7 @@ export default function CaseStudyDetail() {
                       </div>
                     </div>
                     <div className="text-center">
-                      <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-2">
+                      <div className="font-bold text-white mb-2" style={{ fontSize: '35px' }}>
                         70%
                       </div>
                       <div className="text-sm sm:text-base text-white/95 font-normal">
@@ -310,7 +308,7 @@ export default function CaseStudyDetail() {
                       </div>
                     </div>
                     <div className="text-center">
-                      <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-2">
+                      <div className="font-bold text-white mb-2" style={{ fontSize: '35px' }}>
                         2.3x
                       </div>
                       <div className="text-sm sm:text-base text-white/95 font-normal">
@@ -318,7 +316,7 @@ export default function CaseStudyDetail() {
                       </div>
                     </div>
                     <div className="text-center">
-                      <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-2">
+                      <div className="font-bold text-white mb-2" style={{ fontSize: '35px' }}>
                         +35%
                       </div>
                       <div className="text-sm sm:text-base text-white/95 font-normal">
@@ -326,7 +324,7 @@ export default function CaseStudyDetail() {
                       </div>
                     </div>
                     <div className="text-center">
-                      <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-2">
+                      <div className="font-bold text-white mb-2" style={{ fontSize: '35px' }}>
                         24/7
                       </div>
                       <div className="text-sm sm:text-base text-white/95 font-normal">
