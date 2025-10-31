@@ -52,7 +52,7 @@ export default function CaseStudies() {
           <div className="mb-6 sm:mb-8 text-center">
             <div className="mb-3 sm:mb-4">
               <span className="text-base font-semibold tracking-wider uppercase" style={{ color: '#00B46A' }}>
-                Case Studiessssss
+                Case Studies
               </span>
             </div>
             <h2 className="text-[30px] sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 tracking-tight">
