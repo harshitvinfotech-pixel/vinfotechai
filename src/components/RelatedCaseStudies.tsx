@@ -26,7 +26,7 @@ export default function RelatedCaseStudies({
           {title}
         </h3>
         <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400">
-          Explore more success stories and solutionssssss
+          Explore more success stories and solutions
         </p>
       </div>
 
