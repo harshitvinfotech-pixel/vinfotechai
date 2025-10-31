@@ -6,6 +6,7 @@ export interface CaseStudy {
   hero_image: string;
   hero_description?: string;
   hero_background_image?: string;
+  overview_image_url?: string;
   problem: string;
   solution: string;
   results?: string;

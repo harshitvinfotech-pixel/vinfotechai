@@ -1,4 +1,4 @@
-import { ArrowRight, Plus, X } from 'lucide-react';
+import { Plus } from 'lucide-react';
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getAllCaseStudies } from '../lib/caseStudies';
@@ -75,39 +75,21 @@ interface CaseStudyCardProps {
 function CaseStudyCard({ study, onClick }: CaseStudyCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
-  const [showPreview, setShowPreview] = useState(false);
-
-  const handleViewCaseStudy = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    onClick();
-  };
-
-  const handleTogglePreview = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setShowPreview(!showPreview);
-  };
-
-  const truncateText = (text: string, maxLength: number = 120) => {
-    if (text.length <= maxLength) return text;
-    return text.slice(0, maxLength) + '...';
-  };
 
   return (
     <article
       className="group relative transition-all duration-500 h-full cursor-pointer"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      onClick={handleViewCaseStudy}
+      onClick={onClick}
     >
       <div
-        className={`absolute -inset-0.5 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-500 blur-xl`}
+        className={`absolute -inset-0.5 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-3xl opacity-0 group-hover:opacity-20 transition-opacity duration-500 blur-xl`}
       ></div>
 
-      <div className="relative flex flex-col bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 hover:border-emerald-500/30 dark:hover:border-emerald-500/30 transition-all duration-500 shadow-lg hover:shadow-2xl overflow-hidden h-[420px]">
+      <div className="relative flex flex-col bg-white dark:bg-gray-900 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-emerald-500/30 dark:hover:border-emerald-500/30 transition-all duration-500 shadow-lg hover:shadow-2xl overflow-hidden h-[550px]">
 
-        <div className={`relative overflow-hidden flex-shrink-0 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 transition-all duration-500 ${
-          showPreview ? 'h-[240px]' : 'h-full'
-        }`}>
+        <div className="relative overflow-hidden flex-shrink-0 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 h-full">
           <div className={`absolute inset-0 transition-all duration-1000 ${
             imageLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
           }`}>
@@ -115,51 +97,35 @@ function CaseStudyCard({ study, onClick }: CaseStudyCardProps) {
               src={study.hero_image}
               alt={study.title}
               className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ${
-                isHovered && !showPreview ? 'scale-110 brightness-110' : 'scale-100 brightness-100'
+                isHovered ? 'scale-110 brightness-105' : 'scale-100 brightness-100'
               }`}
               onLoad={() => setImageLoaded(true)}
               loading="lazy"
             />
 
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent"></div>
+            <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/95 to-transparent"></div>
           </div>
 
-          <div className="absolute inset-0 z-10 px-6 flex items-center">
-            <h3 className="font-bold text-white leading-tight text-left text-[42px]" aria-label={`Case study: ${study.title}`}>
+          <div className="absolute bottom-0 left-0 right-0 z-10 p-6 flex flex-col gap-3">
+            <h3 className="font-bold text-white leading-tight text-left w-full opacity-100" style={{ fontSize: '30px' }} aria-label={`Case study: ${study.title}`}>
               {study.title}
             </h3>
+
+            <div className="flex justify-end">
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onClick();
+                }}
+                className="flex-shrink-0 w-10 h-10 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
+                aria-label={`View case study: ${study.title}`}
+              >
+                <Plus style={{ color: '#00B46A' }} size={20} strokeWidth={2.5} />
+              </button>
+            </div>
           </div>
         </div>
-
-        {showPreview && (
-          <div className="flex-1 p-6 bg-white dark:bg-gray-900 flex flex-col justify-between">
-            <p className="text-gray-700 dark:text-gray-300 text-base leading-relaxed line-clamp-2 mb-4">
-              {truncateText(study.subtitle || '', 140)}
-            </p>
-            <button
-              onClick={handleViewCaseStudy}
-              className="w-full py-3 px-4 text-white font-semibold rounded-lg transition-all duration-300 flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
-              style={{ backgroundColor: '#00B46A' }}
-              aria-label={`View full case study: ${study.title}`}
-            >
-              View Full Case Study
-              <ArrowRight size={18} />
-            </button>
-          </div>
-        )}
-
-        <button
-          onClick={handleTogglePreview}
-          className="absolute bottom-4 right-4 z-20 w-12 h-12 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 border-2 border-gray-200 dark:border-gray-700"
-          style={{ borderColor: showPreview ? '#00B46A' : '' }}
-          aria-label={showPreview ? 'Hide preview' : 'Show preview'}
-        >
-          {showPreview ? (
-            <X style={{ color: '#00B46A' }} size={20} strokeWidth={2.5} />
-          ) : (
-            <Plus style={{ color: '#00B46A' }} size={20} strokeWidth={2.5} />
-          )}
-        </button>
       </div>
     </article>
   );
