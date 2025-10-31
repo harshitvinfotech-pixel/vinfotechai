@@ -222,7 +222,7 @@ export default function CaseStudyDetail() {
               </div>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-12 lg:gap-16 items-start">
                 <div className="order-1 lg:order-1 lg:sticky lg:top-24 lg:self-start">
-                  <div className="relative rounded-3xl overflow-hidden shadow-2xl border-2 border-gray-100 dark:border-gray-700 h-[500px] lg:h-[800px]">
+                  <div className="relative rounded-3xl overflow-hidden shadow-2xl border-2 border-gray-100 dark:border-gray-700 h-[400px] lg:h-[500px]">
                     <img
                       src={caseStudy.overview_image_url || heroBackground}
                       alt="AI Agent Interaction"
@@ -230,7 +230,7 @@ export default function CaseStudyDetail() {
                     />
                   </div>
                 </div>
-                <div className="order-2 lg:order-2 min-h-[500px] lg:min-h-[800px]">
+                <div className="order-2 lg:order-2 min-h-[400px] lg:min-h-[500px]">
                   <ApproachTimeline />
                 </div>
               </div>
