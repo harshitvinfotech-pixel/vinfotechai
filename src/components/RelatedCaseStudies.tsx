@@ -80,18 +80,6 @@ function RelatedCaseStudyCard({ study, onClick }: RelatedCaseStudyCardProps) {
         </div>
 
         <div className="flex-1 p-6 flex flex-col">
-          <div className="flex flex-wrap gap-2 mb-3">
-            {study.tags.slice(0, 2).map((tag, idx) => (
-              <span
-                key={idx}
-                className="px-3 py-1 text-xs font-semibold rounded-full"
-                style={{ backgroundColor: '#00B46A20', color: '#00B46A' }}
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-
           <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-3 leading-tight line-clamp-2">
             {study.title}
           </h4>
