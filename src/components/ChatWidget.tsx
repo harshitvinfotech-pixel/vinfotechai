@@ -456,7 +456,7 @@ export default function ChatWidget() {
                   className="w-10 h-10 object-contain"
                 />
                 <div>
-                  <h3 className="text-white font-bold text-lg">Ask Us Anything</h3>
+                  <h3 className="text-white font-bold text-lg">Ask Us Anything??</h3>
                   <p className="text-white/90 text-xs">Choose a question or ask your own</p>
                 </div>
               </div>
