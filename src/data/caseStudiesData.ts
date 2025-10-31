@@ -2,7 +2,7 @@ import type { CaseStudy } from '../types/caseStudy';
 
 export const caseStudiesData: CaseStudy[] = [
   {
-    id: '2e6984fc-f88e-40fd-95fa-a6cf622c0afe',
+    id: '2e6984fc-f88e-40fd-95fa-a6cf622c0af9',
     slug: 'autonomous-enterprise-sales-agent',
     title: 'AAAutonomous Enterprise Sales Agent',
     subtitle: 'AI-powered sales assistant providing instant, accurate responses 24/7',
