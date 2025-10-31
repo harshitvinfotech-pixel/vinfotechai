@@ -1,43 +1,14 @@
-Skip to content
-Navigation Menu
-harshitvinfotech-pixel
-vinfotechai
-
-Type / to search
-Code
-Issues
-Pull requests
-Actions
-Projects
-Security
-Insights
-Settings
-Comparing changes
-Choose two branches to see what’s changed or to start a new pull request. If you need to, you can also  or learn more about diff comparisons.
-...
- 1 commit
- 1 file changed
- 1 contributor
-Commits on Oct 31, 2025
-Updated caseStudiesData.ts
-
-@harshitvinfotech-pixel
-harshitvinfotech-pixel authored 3 minutes ago
- Showing  with 1 addition and 1 deletion.
-  2 changes: 1 addition & 1 deletion2  
-src/data/caseStudiesData.ts
-Copied!
-Original file line number	Diff line number	Diff line change
 import type { CaseStudy } from '../types/caseStudy';
+
 export const caseStudiesData: CaseStudy[] = [
   {
     id: '2e6984fc-f88e-40fd-95fa-a6cf622c0afe',
     slug: 'autonomous-enterprise-sales-agent',
     title: 'Autonomous Enterprise Sales Agent',
     subtitle: 'AI-powered sales assistant providing instant, accurate responses 24/7',
-    hero_image: '/1.1.jpg',
+    hero_image: '/1.1 copy.jpg',
     hero_description: 'Every day, potential clients visit the Vinfotech website with questions. Our AI Sales Agent provides accurate, contextual, and cited responses instantly, available 24/7.',
-    hero_background_image: '/1.1.jpg',
+    hero_background_image: '/1.1 copy.jpg',
     problem: 'Every day, potential clients visit the Vinfotech website with questions — about pricing, timelines, integrations, technologies, or specific product capabilities.\n\nEarlier, these inquiries often required manual intervention or follow-ups from the sales team. To solve this, Vinfotech built its own Autonomous AI Sales Agent that now provides accurate, contextual, and cited responses instantly, available 24/7 on the website.',
     solution: 'Vinfotech developed an Enterprise RAG-powered AI Sales Agent — an intelligent, conversational assistant trained on both structured and unstructured company knowledge. When a visitor asks a question, the agent searches across internal documents, pricing sheets, and web pages, synthesizes a verified, human-like answer with citations to the source documents, and offers relevant follow-up questions to guide the visitor deeper.',
     results: 'This internal project proved how Enterprise RAG and AI agents can revolutionize pre-sales and support. The system delivers factual, cited, and human-quality answers around the clock — allowing sales teams to focus on relationship-building rather than repetitive responses.',
@@ -54,7 +25,7 @@ export const caseStudiesData: CaseStudy[] = [
     ],
     meta_title: 'Autonomous Enterprise Sales Agent - Vinfotech Case Study',
     meta_description: 'Learn how Vinfotech built an AI-powered sales agent that provides instant, accurate responses to customer queries 24/7 using RAG technology.',
-    og_image: '/1.1.jpg',
+    og_image: '/1.1 copy.jpg',
     display_order: 1
   },
   {
@@ -62,7 +33,7 @@ export const caseStudiesData: CaseStudy[] = [
     slug: 'vision-based-attendance-productivity-monitoring',
     title: 'Vision-Based Attendance & Productivity Monitoring',
     subtitle: 'Computer Vision system for hands-free attendance and workplace analytics',
-    hero_image: '/2.2 copy.jpg',
+    hero_image: '/2.2.jpg',
     hero_description: 'Transforming ordinary CCTV cameras into intelligent sensors that automatically track attendance, monitor zones, and generate insights—completely hands-free.',
     hero_background_image: '/2.2 copy.jpg',
     problem: 'In a dynamic software company with over 100 professionals across multiple departments, manual attendance tracking and productivity monitoring were both time-consuming and error-prone. Vinfotech implemented a Computer Vision-powered attendance and workplace analytics system that records presence, monitors zone activity, and generates automated reports—completely hands-free.',
@@ -175,7 +146,6 @@ export const caseStudiesData: CaseStudy[] = [
     title: 'Developer Prompt Optimization Tool',
     subtitle: 'Guided system helping engineers craft high-quality AI coding prompts',
     hero_image: '/7.7.jpg',
-    hero_image: '/1.1.jpg',
     hero_description: 'Interactive prompt-builder that guides developers through creating detailed, high-quality prompts for AI coding assistants—improving code generation success dramatically.',
     hero_background_image: '/7.7.jpg',
     problem: 'Developers complained about poor AI code generation, but the issue was vague, under-specified prompts. This led to repetitive trial-and-error cycles and low-quality outputs.',
@@ -215,16 +185,3 @@ export const caseStudiesData: CaseStudy[] = [
     display_order: 8
   }
 ];
-Footer
-© 2025 GitHub, Inc.
-Footer navigation
-Terms
-Privacy
-Security
-Status
-Community
-Docs
-Contact
-Manage cookies
-Do not share my personal information
-Copied!
