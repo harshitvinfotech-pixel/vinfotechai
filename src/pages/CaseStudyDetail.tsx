@@ -210,7 +210,7 @@ export default function CaseStudyDetail() {
             </div>
           </section>
 
-          <section className="mb-0 bg-white dark:bg-gray-900 py-12 sm:py-16 lg:min-h-screen lg:flex lg:items-start">
+          <section className="mb-0 bg-white dark:bg-gray-900 py-12 sm:py-16">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
               <div className="text-center mb-10 sm:mb-12">
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 leading-tight">
@@ -221,8 +221,8 @@ export default function CaseStudyDetail() {
                 </p>
               </div>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-12 lg:gap-16 items-start">
-                <div className="order-1 lg:order-1 lg:sticky lg:top-24">
-                  <div className="relative rounded-3xl overflow-hidden shadow-2xl border-2 border-gray-100 dark:border-gray-700 h-[300px] lg:h-[600px]">
+                <div className="order-1 lg:order-1 lg:sticky lg:top-24 lg:self-start">
+                  <div className="relative rounded-3xl overflow-hidden shadow-2xl border-2 border-gray-100 dark:border-gray-700 h-[500px] lg:h-[800px]">
                     <img
                       src={caseStudy.overview_image_url || heroBackground}
                       alt="AI Agent Interaction"
@@ -230,7 +230,7 @@ export default function CaseStudyDetail() {
                     />
                   </div>
                 </div>
-                <div className="order-2 lg:order-2">
+                <div className="order-2 lg:order-2 min-h-[500px] lg:min-h-[800px]">
                   <ApproachTimeline />
                 </div>
               </div>
