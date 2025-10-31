@@ -1,7 +1,6 @@
-import { Plus } from 'lucide-react';
-import { useRef, useState, useEffect } from 'react';
+import { Plus, X } from 'lucide-react';
+import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getAllCaseStudies } from '../lib/caseStudies';
 
 interface CaseStudy {
   id: string;
@@ -11,25 +10,35 @@ interface CaseStudy {
   hero_image: string;
   tags: string[];
   industry?: string;
-  overview_bullets?: string[];
   display_order?: number;
 }
 
+const caseStudiesData: CaseStudy[] = [
+  {
+    id: '1',
+    slug: 'autonomous-enterprise-sales-agent',
+    title: 'Autonomous Enterprise Sales Agent',
+    subtitle: 'AI-powered sales assistant providing instant, accurate responses 24/7',
+    hero_image: '/1.1 copy.jpg',
+    tags: ['AI', 'RAG', 'Sales', 'Automation', 'NLP'],
+    industry: 'Technology',
+    display_order: 1
+  },
+  {
+    id: '2',
+    slug: 'vision-based-attendance-productivity-monitoring',
+    title: 'Vision-Based Attendance & Productivity Monitoring',
+    subtitle: 'Computer Vision system for hands-free attendance and workplace analytics',
+    hero_image: '/2.2 copy.jpg',
+    tags: ['Computer Vision', 'Face Recognition', 'Edge AI', 'Workplace Analytics'],
+    industry: 'Operations & HR',
+    display_order: 2
+  }
+];
+
 export default function CaseStudies() {
-  const [caseStudies, setCaseStudies] = useState<CaseStudy[]>([]);
-  const [loading, setLoading] = useState(true);
   const sectionRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    async function loadCaseStudies() {
-      setLoading(true);
-      const studies = await getAllCaseStudies();
-      setCaseStudies(studies);
-      setLoading(false);
-    }
-    loadCaseStudies();
-  }, []);
 
   const handleCardClick = (slug: string) => {
     navigate(`/case-studies/${slug}`);
@@ -64,24 +73,15 @@ export default function CaseStudies() {
           </div>
         </div>
 
-        {loading ? (
-          <div className="flex items-center justify-center py-20">
-            <div className="text-center">
-              <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-[#00B46A]"></div>
-              <p className="mt-4 text-gray-600 dark:text-gray-400">Loading case studies...</p>
-            </div>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {caseStudies.map((study) => (
-              <CaseStudyCard
-                key={study.id}
-                study={study}
-                onClick={() => handleCardClick(study.slug)}
-              />
-            ))}
-          </div>
-        )}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          {caseStudiesData.map((study) => (
+            <CaseStudyCard
+              key={study.id}
+              study={study}
+              onClick={() => handleCardClick(study.slug)}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -95,21 +95,23 @@ interface CaseStudyCardProps {
 function CaseStudyCard({ study, onClick }: CaseStudyCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   return (
     <article
-      className="group relative transition-all duration-500 h-full cursor-pointer"
+      className="group relative transition-all duration-700"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      onClick={onClick}
     >
       <div
         className={`absolute -inset-0.5 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-3xl opacity-0 group-hover:opacity-20 transition-opacity duration-500 blur-xl`}
       ></div>
 
-      <div className="relative flex flex-col bg-white dark:bg-gray-900 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-emerald-500/30 dark:hover:border-emerald-500/30 transition-all duration-500 shadow-lg hover:shadow-2xl overflow-hidden h-[550px]">
+      <div className="relative flex flex-col bg-white dark:bg-gray-900 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-emerald-500/30 dark:hover:border-emerald-500/30 transition-all duration-500 shadow-lg hover:shadow-2xl h-[500px] sm:h-[600px] lg:h-[650px] overflow-hidden">
 
-        <div className="relative overflow-hidden flex-shrink-0 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 h-full">
+        <div className={`relative overflow-hidden flex-shrink-0 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 transition-all duration-500 ${
+          isExpanded ? 'h-48 sm:h-56' : 'h-full'
+        }`}>
           <div className={`absolute inset-0 transition-all duration-1000 ${
             imageLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
           }`}>
@@ -117,35 +119,62 @@ function CaseStudyCard({ study, onClick }: CaseStudyCardProps) {
               src={study.hero_image}
               alt={study.title}
               className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ${
-                isHovered ? 'scale-110 brightness-105' : 'scale-100 brightness-100'
+                isHovered && !isExpanded ? 'scale-110 brightness-105' : 'scale-100 brightness-100'
               }`}
               onLoad={() => setImageLoaded(true)}
               loading="lazy"
             />
 
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent"></div>
-            <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/95 to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
           </div>
 
-          <div className="absolute bottom-0 left-0 right-0 z-10 p-6 flex flex-col gap-3">
-            <h3 className="font-bold text-white leading-tight text-left w-full opacity-100" style={{ fontSize: '30px' }} aria-label={`Case study: ${study.title}`}>
+          <div className="absolute inset-0 z-10 px-6 sm:px-8 flex items-center">
+            <h3 className="font-bold text-white leading-tight text-left font-['Helvetica','Arial',sans-serif]" style={{ fontSize: '42px' }} aria-label={`Case study: ${study.title}`}>
               {study.title}
             </h3>
+          </div>
+        </div>
 
-            <div className="flex justify-end">
+        {isExpanded && (
+          <div className="flex-1 overflow-y-auto p-6 sm:p-8">
+            <div className="space-y-4">
+              <p className="text-gray-700 dark:text-gray-300 text-lg sm:text-lg leading-relaxed">
+                {study.subtitle}
+              </p>
+              <div className="flex flex-wrap gap-2 mt-4">
+                {study.tags.map((tag, idx) => (
+                  <span
+                    key={idx}
+                    className="px-3 py-1 text-sm font-medium rounded-full bg-[#00B46A]/10 text-[#00B46A] border border-[#00B46A]/20"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
               <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onClick();
-                }}
-                className="flex-shrink-0 w-10 h-10 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
-                aria-label={`View case study: ${study.title}`}
+                onClick={() => onClick()}
+                className="mt-6 w-full py-3 px-6 bg-[#00B46A] text-white font-semibold rounded-xl hover:bg-[#009557] transition-colors duration-300"
               >
-                <Plus style={{ color: '#00B46A' }} size={20} strokeWidth={2.5} />
+                View Full Case Study
               </button>
             </div>
           </div>
-        </div>
+        )}
+
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            setIsExpanded(!isExpanded);
+          }}
+          className="absolute bottom-4 right-4 z-20 w-12 h-12 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 border-2 border-gray-200 dark:border-gray-700 hover:border-[#00B46A] dark:hover:border-[#00B46A]"
+          aria-label={isExpanded ? 'Collapse details' : 'Expand details'}
+        >
+          {isExpanded ? (
+            <X className="text-[#00B46A]" size={20} strokeWidth={2.5} />
+          ) : (
+            <Plus className="text-[#00B46A]" size={20} strokeWidth={2.5} />
+          )}
+        </button>
       </div>
     </article>
   );
