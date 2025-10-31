@@ -2,14 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --key-takeaway-bg: #e3f6ef;
-}
-
-.dark {
-  --key-takeaway-bg: #000000;
-}
-
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -72,7 +64,7 @@
 
 @layer base {
   html {
-    scroll-behavior: auto;
+    scroll-behavior: smooth;
     font-size: 16px;
   }
 
@@ -288,21 +280,6 @@
 }
 
 @layer utilities {
-  .page-transition-enter {
-    animation: page-enter 0.3s ease-out;
-  }
-
-  @keyframes page-enter {
-    0% {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
   .animate-on-scroll {
     opacity: 0;
     transform: translateY(20px);
@@ -590,28 +567,12 @@
     animation: scaleIn 0.3s ease-out;
   }
 
-  @keyframes slideUpFromBottom {
-    0% {
-      opacity: 0;
-      transform: translateY(100%);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .animate-slideUpFromBottom {
-    animation: slideUpFromBottom 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  }
-
   @media (prefers-reduced-motion: reduce) {
     .animate-chat-entrance,
     .animate-chat-exit,
     .animate-backdrop-fade,
     .animate-shadow-grow,
-    .chat-widget-transition,
-    .animate-slideUpFromBottom {
+    .chat-widget-transition {
       animation: none !important;
       transition: none !important;
     }

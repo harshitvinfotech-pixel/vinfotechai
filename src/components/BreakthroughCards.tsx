@@ -13,37 +13,37 @@ const breakthroughs: Breakthrough[] = [
     icon: Sparkles,
     title: 'RAG Across Mixed Data',
     description: 'Unified search across website text, PDFs, spreadsheets, and live database entries',
-    color: 'from-[#00B46A] to-[#00A060]'
+    color: 'from-blue-500 to-blue-600'
   },
   {
     icon: Target,
     title: 'Vector Search + Reranking',
     description: 'Context-preserving retrieval with semantic search and intelligent reranking for precision',
-    color: 'from-[#00B46A] to-[#00A060]'
+    color: 'from-emerald-500 to-emerald-600'
   },
   {
     icon: Shield,
     title: 'Citation-First Policy',
     description: 'Every answer links back to verified documents and URLs for transparency',
-    color: 'from-[#00B46A] to-[#00A060]'
+    color: 'from-purple-500 to-purple-600'
   },
   {
     icon: MessageCircle,
     title: 'Adaptive Brand Tone',
     description: 'Prompts tuned to professional yet approachable brand voice',
-    color: 'from-[#00B46A] to-[#00A060]'
+    color: 'from-orange-500 to-orange-600'
   },
   {
     icon: RefreshCw,
     title: 'Nightly Auto-Indexing',
     description: 'Continuous learning with automatic indexing of new content and FAQs',
-    color: 'from-[#00B46A] to-[#00A060]'
+    color: 'from-teal-500 to-teal-600'
   },
   {
     icon: Zap,
     title: 'Real-Time Processing',
     description: 'Sub-2-second response times with streaming answers for instant feedback',
-    color: 'from-[#00B46A] to-[#00A060]'
+    color: 'from-pink-500 to-pink-600'
   }
 ];
 
@@ -51,7 +51,7 @@ export default function BreakthroughCards() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
-    <>
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {breakthroughs.map((breakthrough, index) => (
         <div
           key={index}
@@ -95,6 +95,6 @@ export default function BreakthroughCards() {
           ></div>
         </div>
       ))}
-    </>
+    </div>
   );
 }

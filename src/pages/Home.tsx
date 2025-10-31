@@ -64,7 +64,7 @@ export default function Home({ onQuoteClick }: HomeProps) {
   }, [location]);
 
   return (
-    <div className="page-transition-enter">
+    <>
       <div
         className={`relative min-h-screen overflow-hidden transition-opacity duration-1000 ${
           isHeroVisible ? 'opacity-100' : 'opacity-0'
@@ -89,6 +89,6 @@ export default function Home({ onQuoteClick }: HomeProps) {
       </main>
 
       <Footer />
-    </div>
+    </>
   );
 }
