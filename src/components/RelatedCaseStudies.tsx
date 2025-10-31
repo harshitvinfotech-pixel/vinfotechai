@@ -61,12 +61,12 @@ function RelatedCaseStudyCard({ study, onClick }: RelatedCaseStudyCardProps) {
 
   return (
     <article
-      className="group relative transition-all duration-500 cursor-pointer overflow-hidden flex-1 rounded-xl md:rounded-none shadow-xl md:shadow-none border border-gray-200 dark:border-gray-700 md:border-0"
+      className="group relative transition-all duration-500 cursor-pointer overflow-hidden flex-1 rounded-xl md:rounded-none shadow-xl md:shadow-none border border-gray-200 dark:border-gray-700 md:border-0 md:h-full md:flex md:flex-col"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={onClick}
     >
-      <div className="relative w-full h-48 md:h-64 overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900">
+      <div className="relative w-full h-48 md:h-64 md:flex-shrink-0 overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900">
         {imageUrl ? (
           <div className={`absolute inset-0 transition-all duration-1000 ${
             imageLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
@@ -100,16 +100,18 @@ function RelatedCaseStudyCard({ study, onClick }: RelatedCaseStudyCardProps) {
         )}
       </div>
 
-      <div className="p-5 md:p-6 lg:p-8 bg-white dark:bg-gray-900">
-        <h4 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 dark:text-white mb-2 leading-tight line-clamp-2">
-          {study.title}
-        </h4>
+      <div className="p-5 md:p-6 lg:p-8 bg-white dark:bg-gray-900 md:flex-1 md:flex md:flex-col md:justify-between">
+        <div>
+          <h4 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 dark:text-white mb-2 leading-tight line-clamp-2">
+            {study.title}
+          </h4>
 
-        {study.subtitle && (
-          <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm md:text-base leading-relaxed line-clamp-2">
-            {study.subtitle}
-          </p>
-        )}
+          {study.subtitle && (
+            <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm md:text-base leading-relaxed line-clamp-2">
+              {study.subtitle}
+            </p>
+          )}
+        </div>
       </div>
     </article>
   );
