@@ -35,7 +35,7 @@ export default function SectionWithDivider({
               className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-sm"
               style={{
                 backgroundColor: `${iconColor}15`,
-                border: `2px solid ${iconColor}30`
+                border: `100px solid ${iconColor}30`
               }}
             >
               <Icon style={{ color: iconColor }} size={22} className="sm:w-7 sm:h-7" />
