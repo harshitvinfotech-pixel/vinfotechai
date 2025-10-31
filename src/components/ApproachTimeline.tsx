@@ -57,9 +57,13 @@ export default function ApproachTimeline() {
 
   return (
     <div className="relative">
+      {/* Desktop center line */}
       <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-0.5 hidden md:block" style={{ backgroundColor: '#00B46A' }}></div>
 
-      <div className="space-y-12">
+      {/* Mobile left line */}
+      <div className="absolute left-4 top-0 bottom-0 w-0.5 md:hidden" style={{ backgroundColor: '#00B46A' }}></div>
+
+      <div className="space-y-8 md:space-y-12">
         {approachSteps.map((step, index) => (
           <div
             key={index}
@@ -73,7 +77,8 @@ export default function ApproachTimeline() {
               transitionDelay: `${index * 100}ms`
             }}
           >
-            <div className={`flex items-center gap-6 ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}>
+            {/* Desktop layout - alternating sides */}
+            <div className={`hidden md:flex items-center gap-6 ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}>
               <div className="flex-1">
                 <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700 hover:border-[#00B46A] transition-all duration-300">
                   <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
@@ -85,7 +90,7 @@ export default function ApproachTimeline() {
                 </div>
               </div>
 
-              <div className="hidden md:flex flex-shrink-0 items-center justify-center relative z-10">
+              <div className="flex flex-shrink-0 items-center justify-center relative z-10">
                 <div
                   className={`w-12 h-12 rounded-full flex items-center justify-center text-white font-bold shadow-lg transition-all duration-500 ${
                     visibleSteps.has(index) ? 'scale-100' : 'scale-0'
@@ -96,12 +101,23 @@ export default function ApproachTimeline() {
                 </div>
               </div>
 
-              <div className="flex-1 hidden md:block"></div>
+              <div className="flex-1"></div>
             </div>
 
-            <div className="md:hidden flex items-start gap-4 mt-2">
-              <div className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm" style={{ backgroundColor: '#00B46A' }}>
+            {/* Mobile layout - timeline on left */}
+            <div className="flex md:hidden items-start gap-4">
+              <div className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg relative z-10" style={{ backgroundColor: '#00B46A' }}>
                 {index + 1}
+              </div>
+              <div className="flex-1">
+                <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-lg border border-gray-200 dark:border-gray-700">
+                  <h4 className="text-base font-bold text-gray-900 dark:text-white mb-2">
+                    {step.title}
+                  </h4>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                    {step.description}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
