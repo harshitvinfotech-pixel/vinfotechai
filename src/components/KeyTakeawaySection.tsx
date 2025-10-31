@@ -20,7 +20,7 @@ export default function KeyTakeawaySection({
       <div className={`p-8 sm:p-12 text-center ${quote ? 'pb-32 sm:pb-36' : ''}`} style={{ backgroundColor: 'var(--key-takeaway-bg)' }}>
         <div className="w-full mx-auto">
           <div className="mb-6">
-            <h3 className="text-3xl sm:text-4xl font-bold mb-4 text-gray-900 dark:text-white">{title}</h3>
+            <h3 className="font-bold mb-4 text-gray-900 dark:text-white" style={{ fontSize: '3rem' }}>{title}</h3>
           </div>
           <div className="text-lg sm:text-xl leading-relaxed text-gray-700 dark:text-gray-300">
             {takeaway.split('\n\n').map((paragraph, idx) => {
