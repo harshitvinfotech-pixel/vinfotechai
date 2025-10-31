@@ -563,8 +563,10 @@ export default function ChatWidget() {
 
   return (
     <div
-      className={`fixed inset-0 md:inset-auto md:bottom-6 md:right-6 md:w-[450px] md:h-[700px] z-50 shadow-2xl flex flex-col overflow-hidden rounded-none md:rounded-3xl ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}
+      className={`fixed inset-0 md:bottom-6 md:right-6 md:w-[450px] md:h-[700px] md:inset-auto z-50 shadow-2xl flex flex-col overflow-hidden rounded-none md:rounded-3xl ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}
       style={{
+        height: '100%',
+        maxHeight: '100%',
         transformOrigin: 'bottom center',
         transition: 'all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
         animation: 'slideUpFromBottom 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
