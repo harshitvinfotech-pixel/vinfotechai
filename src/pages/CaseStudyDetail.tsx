@@ -98,11 +98,11 @@ export default function CaseStudyDetail() {
         </div>
 
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 sm:px-6">
-          <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 sm:mb-6 max-w-5xl leading-tight px-2">
+          <h1 className="text-[30px] sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 sm:mb-6 max-w-5xl leading-tight px-2">
             {caseStudy.title}
           </h1>
           {(caseStudy.subtitle || caseStudy.hero_description) && (
-            <p className="text-sm sm:text-lg md:text-xl lg:text-2xl text-white/90 max-w-4xl leading-relaxed px-2">
+            <p className="text-[18px] sm:text-lg md:text-xl lg:text-2xl text-white/90 max-w-4xl leading-relaxed px-2">
               {caseStudy.subtitle || caseStudy.hero_description}
             </p>
           )}
@@ -113,57 +113,16 @@ export default function CaseStudyDetail() {
 
           <section className="mb-0 bg-gray-50 dark:bg-black py-12 sm:py-16">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-                <div className="space-y-6">
-                  <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 leading-tight">
-                    Overview
-                  </h2>
-                  <div className="space-y-4">
-                    {caseStudy.problem.split('\n\n').map((paragraph, idx) => (
-                      <p key={idx} className="text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-                        {paragraph}
-                      </p>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="relative">
-                  {caseStudy.overview_image_url ? (
-                    <div className="relative rounded-3xl overflow-hidden shadow-2xl border-2 border-gray-100 dark:border-gray-700">
-                      <img
-                        src={caseStudy.overview_image_url}
-                        alt={`${caseStudy.title} overview`}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  ) : (
-                    <div className="relative bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-3xl p-6 sm:p-8 shadow-2xl border-2 border-gray-100 dark:border-gray-700">
-                      <div className="flex items-center gap-3 mb-6 pb-4 border-b border-gray-200 dark:border-gray-700">
-                        <div className="flex gap-1.5">
-                          <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                          <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                          <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                        </div>
-                        <div className="flex-1 text-center text-sm text-gray-500 dark:text-gray-400 font-medium">AI Sales Agent Demo</div>
-                      </div>
-                      <div className="space-y-4">
-                        {chatMessages.slice(0, 2).map((msg, idx) => (
-                          <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                            <div
-                              className={`max-w-[85%] rounded-2xl px-4 sm:px-5 py-3.5 shadow-lg ${
-                                msg.role === 'user'
-                                  ? 'text-white rounded-br-sm'
-                                  : 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-bl-sm border border-gray-200 dark:border-gray-600'
-                              }`}
-                              style={msg.role === 'user' ? { backgroundColor: '#00B46A' } : {}}
-                            >
-                              <p className="text-sm sm:text-base leading-relaxed whitespace-pre-wrap">{msg.content}</p>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
+              <div className="text-center lg:text-left space-y-6">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 leading-tight">
+                  Overview
+                </h2>
+                <div className="space-y-4 max-w-4xl mx-auto lg:mx-0">
+                  {caseStudy.problem.split('\n\n').map((paragraph, idx) => (
+                    <p key={idx} className="text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+                      {paragraph}
+                    </p>
+                  ))}
                 </div>
               </div>
             </div>
@@ -205,7 +164,7 @@ export default function CaseStudyDetail() {
           <section className="mb-0 bg-white dark:bg-gray-900 py-12 sm:py-16">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-12 lg:gap-16 items-center">
-                <div className="order-1">
+                <div className="order-2 lg:order-1">
                   <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
                     The AI Solution
                   </h2>
@@ -218,7 +177,7 @@ export default function CaseStudyDetail() {
                     </p>
                   </div>
                 </div>
-                <div className="order-2">
+                <div className="order-1 lg:order-2">
                   <div className="w-full max-w-sm mx-auto">
                     <PhoneMockup messages={chatMessages} appName="Vinfotech AI Assistant" />
                   </div>
@@ -254,10 +213,10 @@ export default function CaseStudyDetail() {
                 </p>
               </div>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
-                <div className="max-h-[600px] overflow-y-auto">
+                <div className="order-2 lg:order-1">
                   <ApproachTimeline />
                 </div>
-                <div className="relative rounded-3xl overflow-hidden shadow-2xl border-2 border-gray-100 dark:border-gray-700 h-[600px]">
+                <div className="order-1 lg:order-2 relative rounded-3xl overflow-hidden shadow-2xl border-2 border-gray-100 dark:border-gray-700 h-[300px] lg:h-[600px]">
                   <img
                     src={caseStudy.overview_image_url || heroBackground}
                     alt="Vinfotech's Approach"
@@ -343,7 +302,7 @@ export default function CaseStudyDetail() {
                 </p>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6">
-                <TechStackCard icon={Brain} name="GPT-4 Turbo" category="LLM" />
+                <TechStackCard iconImage="/images.png" name="GPT-4 Turbo" category="LLM" />
                 <TechStackCard icon={Brain} name="Mistral 7B" category="LLM" />
                 <TechStackCard icon={Search} name="LangChain" category="Retrieval" />
                 <TechStackCard icon={Search} name="pgvector" category="Vector DB" />
@@ -447,17 +406,22 @@ function TechStackRow({ category, technologies }: TechStackRowProps) {
 }
 
 interface TechStackCardProps {
-  icon: React.ElementType;
+  icon?: React.ElementType;
   name: string;
   category: string;
+  iconImage?: string;
 }
 
-function TechStackCard({ icon: Icon, name, category }: TechStackCardProps) {
+function TechStackCard({ icon: Icon, name, category, iconImage }: TechStackCardProps) {
   return (
     <div className="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 hover:border-[#00B46A] dark:hover:border-[#00B46A] transition-all duration-300 hover:shadow-lg group">
       <div className="flex flex-col items-center text-center">
         <div className="w-16 h-16 rounded-lg flex items-center justify-center mb-4 transition-all duration-300 group-hover:scale-110" style={{ backgroundColor: '#00B46A20' }}>
-          <Icon style={{ color: '#00B46A' }} size={28} />
+          {iconImage ? (
+            <img src={iconImage} alt={name} className="w-10 h-10 object-contain" />
+          ) : Icon ? (
+            <Icon style={{ color: '#00B46A' }} size={28} />
+          ) : null}
         </div>
         <h4 className="text-base font-bold text-gray-900 dark:text-white mb-1">
           {name}
