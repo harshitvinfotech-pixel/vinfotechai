@@ -57,53 +57,51 @@ export default function ApproachTimeline() {
 
   return (
     <div className="relative">
-      <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-emerald-500 via-teal-500 to-emerald-500 hidden md:block"></div>
+      <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-0.5 hidden md:block" style={{ backgroundColor: '#00B46A' }}></div>
 
-      <div className="space-y-8">
+      <div className="space-y-12">
         {approachSteps.map((step, index) => (
           <div
             key={index}
             ref={(el) => (stepRefs.current[index] = el)}
             className={`relative transition-all duration-700 ${
               visibleSteps.has(index)
-                ? 'opacity-100 translate-x-0'
-                : 'opacity-0 translate-x-8'
+                ? 'opacity-100 translate-y-0'
+                : 'opacity-0 translate-y-8'
             }`}
             style={{
               transitionDelay: `${index * 100}ms`
             }}
           >
-            <div className="flex items-start gap-6">
-              <div className="hidden md:flex flex-shrink-0 items-center justify-center">
-                <div
-                  className={`w-16 h-16 rounded-full bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center text-white font-bold text-xl shadow-lg transition-all duration-500 ${
-                    visibleSteps.has(index) ? 'scale-100 rotate-0' : 'scale-0 rotate-180'
-                  }`}
-                >
-                  {visibleSteps.has(index) ? (
-                    <CheckCircle2 size={28} />
-                  ) : (
-                    <span>{index + 1}</span>
-                  )}
+            <div className={`flex items-center gap-6 ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}>
+              <div className="flex-1">
+                <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700 hover:border-[#00B46A] transition-all duration-300">
+                  <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                    {step.title}
+                  </h4>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                    {step.description}
+                  </p>
                 </div>
               </div>
 
-              <div className="flex-1">
-                <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border-2 border-gray-200 dark:border-gray-700 hover:border-emerald-500 dark:hover:border-emerald-400 transition-all duration-300 hover:shadow-xl hover:shadow-emerald-500/10">
-                  <div className="flex items-start gap-4 mb-3">
-                    <div className="md:hidden flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center text-white font-bold shadow-md">
-                      {index + 1}
-                    </div>
-                    <div className="flex-1">
-                      <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
-                        {step.title}
-                      </h4>
-                      <p className="text-base text-gray-600 dark:text-gray-400 leading-relaxed">
-                        {step.description}
-                      </p>
-                    </div>
-                  </div>
+              <div className="hidden md:flex flex-shrink-0 items-center justify-center relative z-10">
+                <div
+                  className={`w-12 h-12 rounded-full flex items-center justify-center text-white font-bold shadow-lg transition-all duration-500 ${
+                    visibleSteps.has(index) ? 'scale-100' : 'scale-0'
+                  }`}
+                  style={{ backgroundColor: '#00B46A' }}
+                >
+                  <CheckCircle2 size={20} />
                 </div>
+              </div>
+
+              <div className="flex-1 hidden md:block"></div>
+            </div>
+
+            <div className="md:hidden flex items-start gap-4 mt-2">
+              <div className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm" style={{ backgroundColor: '#00B46A' }}>
+                {index + 1}
               </div>
             </div>
           </div>

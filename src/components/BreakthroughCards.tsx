@@ -13,37 +13,37 @@ const breakthroughs: Breakthrough[] = [
     icon: Sparkles,
     title: 'RAG Across Mixed Data',
     description: 'Unified search across website text, PDFs, spreadsheets, and live database entries',
-    color: 'from-blue-500 to-blue-600'
+    color: 'from-[#00B46A] to-[#00A060]'
   },
   {
     icon: Target,
     title: 'Vector Search + Reranking',
     description: 'Context-preserving retrieval with semantic search and intelligent reranking for precision',
-    color: 'from-emerald-500 to-emerald-600'
+    color: 'from-[#00B46A] to-[#00A060]'
   },
   {
     icon: Shield,
     title: 'Citation-First Policy',
     description: 'Every answer links back to verified documents and URLs for transparency',
-    color: 'from-purple-500 to-purple-600'
+    color: 'from-[#00B46A] to-[#00A060]'
   },
   {
     icon: MessageCircle,
     title: 'Adaptive Brand Tone',
     description: 'Prompts tuned to professional yet approachable brand voice',
-    color: 'from-orange-500 to-orange-600'
+    color: 'from-[#00B46A] to-[#00A060]'
   },
   {
     icon: RefreshCw,
     title: 'Nightly Auto-Indexing',
     description: 'Continuous learning with automatic indexing of new content and FAQs',
-    color: 'from-teal-500 to-teal-600'
+    color: 'from-[#00B46A] to-[#00A060]'
   },
   {
     icon: Zap,
     title: 'Real-Time Processing',
     description: 'Sub-2-second response times with streaming answers for instant feedback',
-    color: 'from-pink-500 to-pink-600'
+    color: 'from-[#00B46A] to-[#00A060]'
   }
 ];
 
