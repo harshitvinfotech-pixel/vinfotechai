@@ -5,7 +5,7 @@ interface ChallengeSectionProps {
 
 export default function ChallengeSection({ challengeImage, challengeText }: ChallengeSectionProps) {
   return (
-    <section className="py-16 sm:py-24 bg-white dark:bg-gray-900">
+    <section className="py-16 sm:py-20 bg-gray-50 dark:bg-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <div className="order-2 lg:order-1">
@@ -19,13 +19,12 @@ export default function ChallengeSection({ challengeImage, challengeText }: Chal
           </div>
 
           <div className="order-1 lg:order-2">
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-8">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
               The Challenge
             </h2>
-            <div
-              className="prose prose-lg sm:prose-xl max-w-none text-gray-700 dark:text-gray-300 leading-relaxed"
-              dangerouslySetInnerHTML={{ __html: challengeText }}
-            />
+            <div className="space-y-4 text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+              <p>{challengeText}</p>
+            </div>
           </div>
         </div>
       </div>

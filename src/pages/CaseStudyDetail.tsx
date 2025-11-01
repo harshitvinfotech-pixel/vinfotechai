@@ -6,6 +6,7 @@ import Footer from '../components/Footer';
 import { getCaseStudyBySlug, getSuggestedCaseStudies } from '../lib/caseStudies';
 import type { CaseStudyWithDetails, CaseStudy } from '../types/caseStudy';
 import HeroSection from '../components/case-study-sections/HeroSection';
+import OverviewSection from '../components/case-study-sections/OverviewSection';
 import ChallengeSection from '../components/case-study-sections/ChallengeSection';
 import SolutionSection from '../components/case-study-sections/SolutionSection';
 import AIFeaturesSection from '../components/case-study-sections/AIFeaturesSection';
@@ -13,7 +14,6 @@ import ApproachSection from '../components/case-study-sections/ApproachSection';
 import ImpactSection from '../components/case-study-sections/ImpactSection';
 import TechStackSection from '../components/case-study-sections/TechStackSection';
 import KeyTakeawaySection from '../components/case-study-sections/KeyTakeawaySection';
-import ProductGallerySection from '../components/case-study-sections/ProductGallerySection';
 import QuoteBannerSection from '../components/case-study-sections/QuoteBannerSection';
 import RelatedCaseStudiesSection from '../components/case-study-sections/RelatedCaseStudiesSection';
 
@@ -91,8 +91,6 @@ export default function CaseStudyDetail() {
     name: t.name
   })) || [];
 
-  const galleryImages = caseStudy.gallery_images?.map(img => img.image_url) || [];
-
   const relatedStudiesData = relatedStudies.map(study => ({
     slug: study.slug,
     image: study.hero_image,
@@ -122,6 +120,10 @@ export default function CaseStudyDetail() {
       </div>
 
       <main>
+        {caseStudy.problem && (
+          <OverviewSection overviewText={caseStudy.problem} />
+        )}
+
         <ChallengeSection
           challengeImage={caseStudy.overview_image_url || caseStudy.hero_image}
           challengeText={caseStudy.challenge || caseStudy.problem}
@@ -150,10 +152,6 @@ export default function CaseStudyDetail() {
 
         {caseStudy.results && (
           <KeyTakeawaySection takeawayText={caseStudy.results} />
-        )}
-
-        {galleryImages.length > 0 && (
-          <ProductGallerySection galleryImages={galleryImages} />
         )}
 
         {caseStudy.client_quote && (
