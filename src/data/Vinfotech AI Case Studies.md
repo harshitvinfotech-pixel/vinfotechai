@@ -16,8 +16,6 @@ Even for a technology company, handling complex inbound queries efficiently was 
 
 * Project documentation
 
-* Project documentation
-
 * Internal spreadsheets (pricing, delivery timelines)
 
 * Web pages and feature listings
