@@ -78,7 +78,7 @@ export default function ProductGallerySection({ images }: ProductGallerySectionP
 
   if (sortedImages.length === 1) {
     return (
-      <section className="py-16 sm:py-20 bg-gray-50 dark:bg-gray-900">
+      <section className="py-16 sm:py-20 bg-white dark:bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="relative overflow-hidden rounded-2xl shadow-2xl">
             <img
@@ -96,8 +96,13 @@ export default function ProductGallerySection({ images }: ProductGallerySectionP
   const nextIndex = getNextIndex(currentIndex);
 
   return (
-    <section className="py-16 sm:py-20 bg-gray-50 dark:bg-gray-900">
-      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-16 sm:py-20 bg-white dark:bg-gray-900">
+      <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="mb-16 text-center">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 dark:text-white">
+            Gallery
+          </h2>
+        </div>
         <div className="relative flex items-center justify-center gap-6 sm:gap-8 lg:gap-10">
           <button
             onClick={handlePrev}
@@ -112,9 +117,9 @@ export default function ProductGallerySection({ images }: ProductGallerySectionP
             <div className="flex items-center justify-center gap-6 sm:gap-8 lg:gap-10">
               <div
                 onClick={() => handleImageClick(prevIndex)}
-                className="relative w-[200px] sm:w-[240px] lg:w-[280px] cursor-pointer opacity-40 hover:opacity-60 transition-all duration-300 transform scale-90 hover:scale-95 flex-shrink-0"
+                className="relative w-[280px] sm:w-[340px] lg:w-[400px] cursor-pointer opacity-40 hover:opacity-60 transition-all duration-300 transform scale-90 hover:scale-95 flex-shrink-0"
               >
-                <div className="relative overflow-hidden rounded-2xl shadow-xl aspect-video">
+                <div className="relative overflow-hidden rounded-2xl shadow-xl aspect-video h-[160px] sm:h-[190px] lg:h-[225px]">
                   <img
                     src={sortedImages[prevIndex].image_url}
                     alt={sortedImages[prevIndex].caption || `Gallery image ${prevIndex + 1}`}
@@ -124,8 +129,8 @@ export default function ProductGallerySection({ images }: ProductGallerySectionP
                 </div>
               </div>
 
-              <div className="relative flex-1 max-w-4xl">
-                <div className="relative overflow-hidden rounded-3xl shadow-2xl aspect-video">
+              <div className="relative flex-1 max-w-6xl">
+                <div className="relative overflow-hidden rounded-3xl shadow-2xl aspect-video h-[480px] sm:h-[560px] lg:h-[650px]">
                   {sortedImages.map((image, index) => (
                     <div
                       key={image.id}
@@ -148,9 +153,9 @@ export default function ProductGallerySection({ images }: ProductGallerySectionP
 
               <div
                 onClick={() => handleImageClick(nextIndex)}
-                className="relative w-[200px] sm:w-[240px] lg:w-[280px] cursor-pointer opacity-40 hover:opacity-60 transition-all duration-300 transform scale-90 hover:scale-95 flex-shrink-0"
+                className="relative w-[280px] sm:w-[340px] lg:w-[400px] cursor-pointer opacity-40 hover:opacity-60 transition-all duration-300 transform scale-90 hover:scale-95 flex-shrink-0"
               >
-                <div className="relative overflow-hidden rounded-2xl shadow-xl aspect-video">
+                <div className="relative overflow-hidden rounded-2xl shadow-xl aspect-video h-[160px] sm:h-[190px] lg:h-[225px]">
                   <img
                     src={sortedImages[nextIndex].image_url}
                     alt={sortedImages[nextIndex].caption || `Gallery image ${nextIndex + 1}`}
