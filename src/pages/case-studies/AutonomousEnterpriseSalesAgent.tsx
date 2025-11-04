@@ -150,7 +150,7 @@ export default function AutonomousEnterpriseSalesAgent() {
                 </h2>
                 <div className="space-y-4 sm:space-y-5">
                   <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
-                    Vinfotech developed an <strong className="font-bold text-gray-900 dark:text-white">Enterprise RAG-powered AI Sales Agent</strong> — an intelligent, conversational assistant trained on both structured and unstructured company knowledge.
+                    Vinfotech developed an <strong className="font-bold text-gray-900 dark:text-white">Enterprise RAG-powered AI Sales Agen</strong> — an intelligent, conversational assistant trained on both structured and unstructured company knowledge.
                   </p>
                   <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
                     When a visitor asks a question like:
