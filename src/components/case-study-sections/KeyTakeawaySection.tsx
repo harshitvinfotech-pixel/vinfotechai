@@ -10,9 +10,9 @@ export default function KeyTakeawaySection({ takeawayText }: KeyTakeawaySectionP
         <div className="bg-white dark:bg-gray-900 rounded-2xl lg:rounded-3xl p-6 sm:p-10 lg:p-16 flex flex-col items-center text-center">
           <div className="mb-5 sm:mb-6 lg:mb-8">
             <img
-              src="/vinfo-2.png"
-              alt="Vinfotech Logo"
-              className="w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 object-contain"
+              src="/qt.png"
+              alt="Quote Icon"
+              className="w-12 h-12 sm:w-16 sm:h-16 lg:w-24 lg:h-24 object-contain"
             />
           </div>
 
