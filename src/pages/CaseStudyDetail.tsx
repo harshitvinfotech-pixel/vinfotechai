@@ -152,14 +152,6 @@ export default function CaseStudyDetail() {
           />
         )}
 
-        {aiFeatures.length > 0 && (
-          <AIFeaturesSection aiFeatures={aiFeatures} />
-        )}
-
-        {approachTimeline.length > 0 && (
-          <ApproachSection approachTimeline={approachTimeline} />
-        )}
-
         {impactMetrics.length > 0 && (
           <ImpactSection impactMetrics={impactMetrics} />
         )}
