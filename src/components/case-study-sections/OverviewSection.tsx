@@ -1,3 +1,6 @@
+import { useRef } from 'react';
+import { useScrollTrigger } from '../../hooks/useScrollTrigger';
+
 interface OverviewSectionProps {
   overviewText: string;
 }
@@ -33,25 +36,16 @@ function parseOverviewText(text: string) {
 }
 
 export default function OverviewSection({ overviewText }: OverviewSectionProps) {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const isVisible = useScrollTrigger(sectionRef, { threshold: 0.2 });
+
   return (
-    <section className="py-12 sm:py-16 lg:py-20 bg-white dark:bg-gray-900 transition-colors duration-300">
+    <section ref={sectionRef} className="py-12 sm:py-16 lg:py-20 bg-white dark:bg-gray-900 transition-colors duration-300">
       <div className="max-w-6xl mx-auto px-6 sm:px-6 lg:px-8">
-        <div className="text-left lg:text-center space-y-4 sm:space-y-6 animate-[fadeInUp_0.8s_ease-out]">
+        <div className={`text-left lg:text-center space-y-4 sm:space-y-6 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
           {parseOverviewText(overviewText)}
         </div>
       </div>
-      <style>{`
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-      `}</style>
     </section>
   );
 }
