@@ -78,8 +78,8 @@ export default function ApproachTimeline() {
             }}
           >
             {/* Desktop layout - alternating sides */}
-            <div className={`hidden md:flex items-center gap-6 ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}>
-              <div className="flex-1">
+            <div className="hidden md:grid grid-cols-[1fr_auto_1fr] items-center gap-6">
+              <div className={index % 2 === 0 ? 'order-1' : 'order-3'}>
                 <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700 hover:border-[#00B46A] transition-all duration-300">
                   <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
                     {step.title}
@@ -90,7 +90,7 @@ export default function ApproachTimeline() {
                 </div>
               </div>
 
-              <div className="flex flex-shrink-0 items-center justify-center relative z-10">
+              <div className="flex items-center justify-center relative z-10 order-2">
                 <div
                   className={`w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg transition-all duration-500 ${
                     visibleSteps.has(index) ? 'scale-100' : 'scale-0'
@@ -101,7 +101,7 @@ export default function ApproachTimeline() {
                 </div>
               </div>
 
-              <div className="flex-1"></div>
+              <div className={index % 2 === 0 ? 'order-3' : 'order-1'}></div>
             </div>
 
             {/* Mobile layout - timeline on left */}
