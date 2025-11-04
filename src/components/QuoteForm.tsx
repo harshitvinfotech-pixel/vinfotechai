@@ -1,7 +1,8 @@
 import { useState, FormEvent } from 'react';
 import { submitQuote, QuoteSubmission } from '../lib/supabase';
-import { AlertCircle, Loader2, ChevronDown } from 'lucide-react';
+import { AlertCircle, Loader2 } from 'lucide-react';
 import { validateProjectDescription, getCharacterCount, getRemainingCharacters } from '../lib/validation';
+import CountryCodeSelect from './CountryCodeSelect';
 
 interface QuoteFormProps {
   onShowSuccessConfirmation: () => void;
@@ -196,24 +197,11 @@ export default function QuoteForm({ onShowSuccessConfirmation }: QuoteFormProps)
             Phone Number *
           </label>
           <div className="flex gap-2">
-            <div className="relative">
-              <select
-                value={selectedCountryCode}
-                onChange={(e) => setSelectedCountryCode(e.target.value)}
-                className="appearance-none h-full px-2.5 py-2.5 pr-7 text-sm border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent outline-none transition-all duration-200 cursor-pointer"
-                style={{ maxHeight: '42px' }}
-              >
-                {countryCodes.map((country) => (
-                  <option key={country.code} value={country.code}>
-                    {country.flag} {country.code}
-                  </option>
-                ))}
-              </select>
-              <ChevronDown
-                size={14}
-                className="absolute right-1.5 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400 pointer-events-none"
-              />
-            </div>
+            <CountryCodeSelect
+              value={selectedCountryCode}
+              onChange={setSelectedCountryCode}
+              countryCodes={countryCodes}
+            />
             <input
               type="tel"
               id="phone_number"

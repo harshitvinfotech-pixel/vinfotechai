@@ -1121,3 +1121,17 @@ input[type=number] {
 .dark .prose blockquote {
   border-left-color: #00FFB2;
 }
+
+select[size="1"] {
+  height: auto !important;
+}
+
+select {
+  max-height: 200px;
+}
+
+select option {
+  padding: 8px 12px;
+  font-size: 14px;
+  line-height: 1.5;
+}
