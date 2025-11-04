@@ -127,7 +127,7 @@ export default function Services() {
                       className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-gradient-to-br from-black/50 via-black/40 to-black/50"></div>
-                    <div className="absolute inset-0 flex items-center justify-center sm:justify-center p-6 sm:p-8">
+                    <div className="absolute inset-0 flex items-end p-6 sm:p-8">
                       <h3
                         className={`text-[28px] sm:text-[36px] md:text-[42px] lg:text-[48px] font-bold text-white leading-tight text-left transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}
                         style={{
