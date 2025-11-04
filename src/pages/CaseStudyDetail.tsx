@@ -3,6 +3,9 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import Modal from '../components/Modal';
+import QuoteForm from '../components/QuoteForm';
+import QuoteSuccessConfirmation from '../components/QuoteSuccessConfirmation';
 import { getCaseStudyBySlug, getCaseStudyBySlugSync } from '../lib/caseStudies';
 import type { CaseStudyWithDetails } from '../types/caseStudy';
 import HeroSection from '../components/case-study-sections/HeroSection';
@@ -23,6 +26,8 @@ import ProductGallerySection from '../components/case-study-sections/ProductGall
 export default function CaseStudyDetail() {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
+  const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
+  const [showSuccessConfirmation, setShowSuccessConfirmation] = useState(false);
 
   const initialCaseStudy = useMemo(() => {
     return slug ? getCaseStudyBySlugSync(slug) : null;
@@ -58,6 +63,15 @@ export default function CaseStudyDetail() {
 
   const handleBackClick = () => {
     navigate('/', { state: { scrollTo: 'case-studies' } });
+  };
+
+  const handleShowSuccessConfirmation = () => {
+    setShowSuccessConfirmation(true);
+  };
+
+  const handleCloseSuccessConfirmation = () => {
+    setShowSuccessConfirmation(false);
+    setIsQuoteModalOpen(false);
   };
 
   if (!caseStudy) {
@@ -106,7 +120,7 @@ export default function CaseStudyDetail() {
           overflow-x: hidden;
         }
       `}</style>
-      <Header onQuoteClick={() => {}} />
+      <Header onQuoteClick={() => setIsQuoteModalOpen(true)} />
 
       <div className="relative">
         <div className="absolute top-24 sm:top-28 left-4 sm:left-8 z-40">
@@ -197,6 +211,23 @@ export default function CaseStudyDetail() {
       </main>
 
       <Footer />
+
+      <Modal
+        isOpen={isQuoteModalOpen}
+        onClose={() => {
+          setIsQuoteModalOpen(false);
+          setShowSuccessConfirmation(false);
+        }}
+        title={showSuccessConfirmation ? '' : 'Get a Quote'}
+      >
+        {showSuccessConfirmation ? (
+          <QuoteSuccessConfirmation onClose={handleCloseSuccessConfirmation} />
+        ) : (
+          <QuoteForm
+            onShowSuccessConfirmation={handleShowSuccessConfirmation}
+          />
+        )}
+      </Modal>
     </div>
   );
 }
