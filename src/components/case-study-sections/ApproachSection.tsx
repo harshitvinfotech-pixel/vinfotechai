@@ -1,3 +1,5 @@
+import { Check } from 'lucide-react';
+
 interface TimelineStep {
   title: string;
   description: string;
@@ -24,8 +26,8 @@ export default function ApproachSection({ approachTimeline }: ApproachSectionPro
             {approachTimeline.map((step, index) => (
               <div key={index} className="relative flex items-start gap-6 sm:gap-8">
                 <div className="relative z-10 flex-shrink-0">
-                  <div className="w-16 h-16 rounded-full bg-[#00B46A] flex items-center justify-center shadow-lg">
-                    <div className="w-6 h-6 rounded-full bg-white"></div>
+                  <div className="w-16 h-16 rounded-full bg-[#00B46A] flex items-center justify-center shadow-lg ring-4 ring-white dark:ring-gray-900">
+                    <Check className="w-8 h-8 text-white" strokeWidth={3} />
                   </div>
                 </div>
 
