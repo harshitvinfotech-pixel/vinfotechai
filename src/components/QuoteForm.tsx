@@ -113,12 +113,13 @@ export default function QuoteForm({ onShowSuccessConfirmation }: QuoteFormProps)
   };
 
   return (
-    <div>
-      <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
-        We'd love to build something amazing together. Share your project details and we'll get back to you within 24 hours.
-      </p>
+    <div className="flex flex-col h-full">
+      <div className="flex-1 overflow-y-auto pb-24">
+        <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
+          We'd love to build something amazing together. Share your project details and we'll get back to you within 24 hours.
+        </p>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4" id="quote-form">
         <div>
           <label htmlFor="name" className="block text-base font-semibold text-gray-700 dark:text-gray-300 mb-1">
             Full Name *
@@ -238,25 +239,29 @@ export default function QuoteForm({ onShowSuccessConfirmation }: QuoteFormProps)
           </div>
         </div>
 
-        {submitStatus === 'error' && (
-          <div className="flex flex-col gap-2 p-5 bg-gradient-to-r from-red-50 to-pink-50 dark:from-red-900/20 dark:to-pink-900/20 border-2 border-red-400 dark:border-red-600 rounded-xl text-red-900 dark:text-red-200 shadow-lg animate-slide-down">
-            <div className="flex items-start gap-3">
-              <div className="flex-shrink-0 w-10 h-10 bg-red-500 dark:bg-red-600 rounded-full flex items-center justify-center">
-                <AlertCircle size={24} className="text-white" />
+          {submitStatus === 'error' && (
+            <div className="flex flex-col gap-2 p-5 bg-gradient-to-r from-red-50 to-pink-50 dark:from-red-900/20 dark:to-pink-900/20 border-2 border-red-400 dark:border-red-600 rounded-xl text-red-900 dark:text-red-200 shadow-lg animate-slide-down">
+              <div className="flex items-start gap-3">
+                <div className="flex-shrink-0 w-10 h-10 bg-red-500 dark:bg-red-600 rounded-full flex items-center justify-center">
+                  <AlertCircle size={24} className="text-white" />
+                </div>
+                <div className="flex-1">
+                  <p className="font-bold text-xl">Submission Failed</p>
+                  <p className="text-base mt-1 text-red-700 dark:text-red-300">{errorMessage}</p>
+                </div>
               </div>
-              <div className="flex-1">
-                <p className="font-bold text-xl">Submission Failed</p>
-                <p className="text-base mt-1 text-red-700 dark:text-red-300">{errorMessage}</p>
-              </div>
+              <p className="text-sm ml-13 text-red-600 dark:text-red-400">
+                Please check your internet connection and try again. If the problem persists, contact us directly.
+              </p>
             </div>
-            <p className="text-sm ml-13 text-red-600 dark:text-red-400">
-              Please check your internet connection and try again. If the problem persists, contact us directly.
-            </p>
-          </div>
-        )}
+          )}
+        </form>
+      </div>
 
+      <div className="sticky bottom-0 left-0 right-0 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 p-4 shadow-lg z-10">
         <button
           type="submit"
+          form="quote-form"
           disabled={isSubmitting}
           className="w-full bg-[#00B46A] text-white px-6 py-3.5 rounded-lg font-semibold hover:shadow-lg hover:shadow-[#00B46A]/50 transition-all duration-500 transform hover:scale-105 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2 active:scale-100"
         >
@@ -269,7 +274,7 @@ export default function QuoteForm({ onShowSuccessConfirmation }: QuoteFormProps)
             'Submit Request'
           )}
         </button>
-      </form>
+      </div>
     </div>
   );
 }
