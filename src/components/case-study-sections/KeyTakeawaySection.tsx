@@ -1,3 +1,4 @@
+import ReactMarkdown from 'react-markdown';
 
 interface KeyTakeawaySectionProps {
   takeawayText: string;
@@ -20,9 +21,20 @@ export default function KeyTakeawaySection({ takeawayText }: KeyTakeawaySectionP
             Key Takeaway
           </h2>
 
-          <p className="text-base sm:text-lg lg:text-xl text-gray-600 dark:text-gray-300 leading-relaxed max-w-4xl">
-            {takeawayText}
-          </p>
+          <div className="text-base sm:text-lg lg:text-xl text-gray-600 dark:text-gray-300 leading-relaxed max-w-4xl prose prose-lg dark:prose-invert mx-auto">
+            <ReactMarkdown
+              components={{
+                p: ({ children }) => (
+                  <p className="mb-4 last:mb-0">{children}</p>
+                ),
+                strong: ({ children }) => (
+                  <strong className="font-bold text-gray-900 dark:text-white">{children}</strong>
+                ),
+              }}
+            >
+              {takeawayText}
+            </ReactMarkdown>
+          </div>
         </div>
       </div>
     </section>
