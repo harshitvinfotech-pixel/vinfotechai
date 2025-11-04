@@ -107,6 +107,39 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Performance optimizations -->
+    <link rel="dns-prefetch" href="https://images.pexels.com" />
+    <meta name="theme-color" content="#00B46A" />
+    <style>
+      /* Critical CSS for instant load */
+      #root {
+        min-height: 100vh;
+        background: white;
+      }
+      @media (prefers-color-scheme: dark) {
+        #root {
+          background: #111827;
+        }
+      }
+      /* Smooth scroll globally */
+      html {
+        scroll-behavior: smooth;
+      }
+      /* Loading spinner */
+      .loading-spinner {
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        border: 3px solid rgba(0, 180, 106, 0.3);
+        border-radius: 50%;
+        border-top-color: #00B46A;
+        animation: spin 1s ease-in-out infinite;
+      }
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>
