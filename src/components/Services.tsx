@@ -63,7 +63,7 @@ export default function Services() {
         'Predictive modeling and <b>Intelligent Forecasting</b> based on proprietary data',
         'Internal <b>Recommendation Engines</b> for optimizing complex workflows',
       ],
-      image: '/ai-agents-decisive-action.jpg?auto=compress&cs=tinysrgb&w=1200',
+      image: '/ai-agents-decisive-action.jpg',
     },
   ];
 
