@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Hero from '../components/Hero';
 import IntroSection from '../components/IntroSection';
@@ -18,32 +18,6 @@ interface HomeProps {
 
 export default function Home({ onQuoteClick }: HomeProps) {
   const location = useLocation();
-  const [isHeroVisible, setIsHeroVisible] = useState(false);
-
-  useEffect(() => {
-    const heroSection = document.getElementById('hero-section');
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsHeroVisible(true);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    if (heroSection) {
-      observer.observe(heroSection);
-    }
-
-    return () => {
-      if (heroSection) {
-        observer.unobserve(heroSection);
-      }
-    };
-  }, []);
 
   useEffect(() => {
     if (location.state?.scrollTo) {
@@ -66,9 +40,7 @@ export default function Home({ onQuoteClick }: HomeProps) {
   return (
     <div className="page-transition-enter">
       <div
-        className={`relative min-h-screen overflow-hidden transition-opacity duration-1000 ${
-          isHeroVisible ? 'opacity-100' : 'opacity-0'
-        }`}
+        className="relative min-h-screen overflow-hidden"
         id="hero-section"
       >
         <AbstractBackground />
