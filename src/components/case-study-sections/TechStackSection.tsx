@@ -42,45 +42,46 @@ export default function TechStackSection({
   if (!techStack || techStack.length === 0) return null;
 
   return (
-    <section className="py-16 sm:py-20 bg-gray-50 dark:bg-gray-800">
+    <section className="py-16 sm:py-20 bg-white dark:bg-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
+        <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
             {title}
           </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg text-gray-500 dark:text-gray-400 max-w-3xl mx-auto">
             {subtitle}
           </p>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6">
           {techStack.map((tech, index) => {
             const IconComponent = getTechIcon(tech.category, tech.name);
 
             return (
               <div
                 key={index}
-                className="flex flex-col items-center text-center group"
+                className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-6 sm:p-8 flex flex-col items-center justify-center text-center transition-all duration-300 hover:shadow-lg hover:bg-gray-100 dark:hover:bg-gray-750 border border-gray-100 dark:border-gray-700"
               >
-                <div className="w-32 h-32 rounded-2xl bg-white dark:bg-gray-900 shadow-lg border border-gray-200 dark:border-gray-700 flex items-center justify-center mb-4 transition-all duration-300 group-hover:shadow-xl group-hover:border-[#00B46A] group-hover:-translate-y-1">
+                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-white dark:bg-gray-900 shadow-sm border border-gray-200 dark:border-gray-700 flex items-center justify-center mb-6">
                   {tech.logo_url ? (
                     <img
                       src={tech.logo_url}
                       alt={tech.name}
-                      className="w-16 h-16 object-contain"
+                      className="w-12 h-12 sm:w-14 sm:h-14 object-contain"
                     />
                   ) : (
                     <IconComponent
-                      className="text-gray-700 dark:text-gray-300 group-hover:text-[#00B46A] transition-colors"
-                      size={48}
+                      className="text-gray-800 dark:text-gray-200"
+                      size={40}
+                      strokeWidth={1.5}
                     />
                   )}
                 </div>
-                <h3 className="text-base font-bold text-gray-900 dark:text-white mb-1">
+                <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white mb-2">
                   {tech.name}
                 </h3>
                 {tech.description && (
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                  <p className="text-sm text-gray-500 dark:text-gray-400 font-medium">
                     {tech.description}
                   </p>
                 )}
