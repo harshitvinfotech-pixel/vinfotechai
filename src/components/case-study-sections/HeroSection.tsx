@@ -6,12 +6,13 @@ interface HeroSectionProps {
 
 export default function HeroSection({ heroImage, title, overviewText }: HeroSectionProps) {
   return (
-    <section className="relative w-full h-[500px] sm:h-[600px] lg:h-[700px] bg-black overflow-hidden">
+    <section className="relative w-full h-[500px] sm:h-[600px] lg:h-[700px] bg-gray-900 overflow-hidden">
       <div className="absolute inset-0">
         <img
           src={heroImage}
           alt={title}
-          className="w-full h-full object-cover opacity-50 animate-[fadeIn_0.8s_ease-out]" loading="eager"
+          className="w-full h-full object-cover opacity-50"
+          loading="eager"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/60"></div>
       </div>
@@ -25,10 +26,6 @@ export default function HeroSection({ heroImage, title, overviewText }: HeroSect
         </p>
       </div>
       <style>{`
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 0.5; }
-        }
         @keyframes fadeInUp {
           from {
             opacity: 0;
