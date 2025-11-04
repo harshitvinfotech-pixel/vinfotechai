@@ -1,6 +1,6 @@
 // src/components/ChatWidget.tsx
 import { useState, useEffect, useRef } from 'react';
-import { Send, X, Maximize2, Minimize2, Sparkles, Mail } from 'lucide-react';
+import { Send, X, Maximize2, Minimize2, Sparkles, Mail, ThumbsUp, ThumbsDown } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import {
@@ -90,6 +90,7 @@ export default function ChatWidget() {
   const isProcessingRef = useRef<boolean>(false); // Prevent concurrent processing
   const latestUserMessageRef = useRef<HTMLDivElement>(null);
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 768);
+  const [messageFeedback, setMessageFeedback] = useState<Record<number, 'positive' | 'negative'>>({});
 
   useEffect(() => {
     loadSuggestedQuestions();
@@ -366,6 +367,31 @@ export default function ChatWidget() {
     setWidgetState('full');
   };
 
+  const handleFeedback = async (messageIndex: number, feedbackType: 'positive' | 'negative') => {
+    try {
+      const message = messages[messageIndex];
+      if (!message || message.type !== 'assistant') return;
+
+      // Update local state
+      setMessageFeedback(prev => ({
+        ...prev,
+        [messageIndex]: feedbackType
+      }));
+
+      // Submit to database
+      const { supabase } = await import('../lib/supabase');
+      await supabase.from('chat_feedback').insert({
+        session_id: getSessionId(),
+        message_index: messageIndex,
+        message_text: message.text,
+        feedback_type: feedbackType,
+        user_agent: navigator.userAgent
+      });
+    } catch (error) {
+      console.error('Error submitting feedback:', error);
+    }
+  };
+
   if (widgetState === 'collapsed') {
     return (
       <button
@@ -589,7 +615,8 @@ export default function ChatWidget() {
           right: '24px',
           width: isExpanded ? '800px' : '450px',
           maxWidth: 'calc(100vw - 48px)',
-          height: 'auto',
+          height: '600px',
+          minHeight: '500px',
           maxHeight: 'calc(100vh - 120px)',
           borderRadius: '24px',
         }),
@@ -601,7 +628,9 @@ export default function ChatWidget() {
         className="flex items-center justify-between px-5 py-4 shadow-sm flex-shrink-0"
         style={{
           backgroundColor: '#00B46A',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.1)'
+          borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+          minHeight: '72px',
+          maxHeight: '72px',
         }}
       >
         <div className="flex items-center gap-3">
@@ -670,25 +699,26 @@ export default function ChatWidget() {
               <div
                 key={index}
                 ref={index === messages.length - 1 && message.type === 'user' ? latestUserMessageRef : null}
-                className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start items-end gap-2'} animate-slide-up-fade`}
+                className="animate-slide-up-fade"
                 style={{ animationDelay: `${index * 50}ms` }}
               >
-                {message.type === 'assistant' && (
-                  <div className="flex-shrink-0 mb-1">
-                    <img
-                      src="/ai-bot.png"
-                      alt="AI Assistant"
-                      className="w-8 h-8 object-contain"
-                    />
-                  </div>
-                )}
-                <div className={`max-w-[85%] rounded-2xl px-4 py-3 transition-all duration-300 hover:scale-[1.02] ${
-                  message.type === 'user'
-                    ? 'bg-emerald-500 text-white'
-                    : theme === 'dark'
-                      ? 'bg-gray-700 text-gray-100 shadow-sm border border-gray-600'
-                      : 'bg-white text-gray-900 shadow-sm border border-gray-100'
-                }`}>
+                <div className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start items-end gap-2'}`}>
+                  {message.type === 'assistant' && (
+                    <div className="flex-shrink-0 mb-1">
+                      <img
+                        src="/ai-bot.png"
+                        alt="AI Assistant"
+                        className="w-8 h-8 object-contain"
+                      />
+                    </div>
+                  )}
+                  <div className={`max-w-[85%] rounded-2xl px-4 py-3 transition-all duration-300 hover:scale-[1.02] ${
+                    message.type === 'user'
+                      ? 'bg-emerald-500 text-white'
+                      : theme === 'dark'
+                        ? 'bg-gray-700 text-gray-100 shadow-sm border border-gray-600'
+                        : 'bg-white text-gray-900 shadow-sm border border-gray-100'
+                  }`}>
                   {message.type === 'user' ? (
                     <p className="text-sm leading-relaxed whitespace-pre-line">{message.text}</p>
                   ) : (
@@ -740,7 +770,47 @@ export default function ChatWidget() {
                       </ReactMarkdown>
                     </div>
                   )}
+                  </div>
                 </div>
+
+                {/* Feedback buttons for assistant messages */}
+                {message.type === 'assistant' && !isLoading && (
+                  <div className="flex items-center gap-2 ml-10 mt-2">
+                    <button
+                      onClick={() => handleFeedback(index, 'positive')}
+                      disabled={messageFeedback[index] !== undefined}
+                      className={`p-1.5 rounded-lg transition-all duration-300 hover:scale-110 active:scale-95 disabled:cursor-not-allowed ${
+                        messageFeedback[index] === 'positive'
+                          ? 'bg-emerald-100 text-emerald-600'
+                          : theme === 'dark'
+                            ? 'bg-gray-700 text-gray-400 hover:bg-gray-600 hover:text-emerald-500'
+                            : 'bg-gray-100 text-gray-500 hover:bg-gray-200 hover:text-emerald-600'
+                      }`}
+                      title="Helpful response"
+                    >
+                      <ThumbsUp className="w-4 h-4" />
+                    </button>
+                    <button
+                      onClick={() => handleFeedback(index, 'negative')}
+                      disabled={messageFeedback[index] !== undefined}
+                      className={`p-1.5 rounded-lg transition-all duration-300 hover:scale-110 active:scale-95 disabled:cursor-not-allowed ${
+                        messageFeedback[index] === 'negative'
+                          ? 'bg-red-100 text-red-600'
+                          : theme === 'dark'
+                            ? 'bg-gray-700 text-gray-400 hover:bg-gray-600 hover:text-red-500'
+                            : 'bg-gray-100 text-gray-500 hover:bg-gray-200 hover:text-red-600'
+                      }`}
+                      title="Not helpful"
+                    >
+                      <ThumbsDown className="w-4 h-4" />
+                    </button>
+                    {messageFeedback[index] && (
+                      <span className={`text-xs ${theme === 'dark' ? 'text-gray-500' : 'text-gray-400'}`}>
+                        Thanks for your feedback!
+                      </span>
+                    )}
+                  </div>
+                )}
               </div>
             ))}
             {(isLoading && !isStreaming) && (
