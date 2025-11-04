@@ -89,11 +89,19 @@ export default function ChatWidget() {
   const lastChunkRef = useRef<string>(''); // Track last chunk to prevent duplicates
   const isProcessingRef = useRef<boolean>(false); // Prevent concurrent processing
   const latestUserMessageRef = useRef<HTMLDivElement>(null);
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 768);
 
   useEffect(() => {
     loadSuggestedQuestions();
     checkSessionState();
     resetSessionTimeout();
+
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth >= 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   // Show predefined questions ONLY when chat is completely empty (no messages and no dynamic suggestions)
@@ -563,18 +571,34 @@ export default function ChatWidget() {
 
   return (
     <div
-      className={`fixed inset-0 md:bottom-6 md:right-6 md:w-[450px] md:h-[700px] md:inset-auto z-50 shadow-2xl flex flex-col overflow-hidden rounded-none md:rounded-3xl ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}
+      className={`fixed z-50 shadow-2xl flex flex-col overflow-hidden transition-all duration-500 ease-in-out ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}
       style={{
+        // Mobile: full screen
+        top: '0',
+        left: '0',
+        right: '0',
+        bottom: '0',
+        width: '100%',
         height: '100%',
-        maxHeight: '100%',
-        transformOrigin: 'bottom center',
-        transition: 'all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-        animation: 'slideUpFromBottom 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+        borderRadius: '0',
+        // Desktop: positioned bottom-right with dynamic width
+        ...(isDesktop && {
+          top: 'auto',
+          left: 'auto',
+          bottom: '24px',
+          right: '24px',
+          width: isExpanded ? '800px' : '450px',
+          maxWidth: 'calc(100vw - 48px)',
+          height: 'auto',
+          maxHeight: 'calc(100vh - 120px)',
+          borderRadius: '24px',
+        }),
+        transformOrigin: 'bottom right',
       }}
     >
       {/* Fixed Header */}
       <div
-        className="flex items-center justify-between px-5 py-4 shadow-sm"
+        className="flex items-center justify-between px-5 py-4 shadow-sm flex-shrink-0"
         style={{
           backgroundColor: '#00B46A',
           borderBottom: '1px solid rgba(255, 255, 255, 0.1)'
@@ -590,20 +614,26 @@ export default function ChatWidget() {
             <span className="font-bold text-white text-base">Vinfotech AI</span>
           </div>
         </div>
-        <div className="flex items-center gap-1">
-          <button
-            onClick={() => setIsExpanded(!isExpanded)}
-            className="hidden md:flex p-2 hover:bg-white/20 rounded-lg transition-all duration-200"
-            aria-label={isExpanded ? 'Minimize' : 'Maximize'}
-          >
-            {isExpanded ? <Minimize2 className="w-5 h-5 text-white" /> : <Maximize2 className="w-5 h-5 text-white" />}
-          </button>
+        <div className="flex items-center gap-2">
+          {isDesktop && (
+            <button
+              onClick={() => setIsExpanded(!isExpanded)}
+              className="p-2 hover:bg-white/20 rounded-lg transition-all duration-300 hover:scale-110 active:scale-95"
+              aria-label={isExpanded ? 'Minimize' : 'Maximize'}
+            >
+              {isExpanded ? (
+                <Minimize2 className="w-5 h-5 text-white transition-transform duration-300" />
+              ) : (
+                <Maximize2 className="w-5 h-5 text-white transition-transform duration-300" />
+              )}
+            </button>
+          )}
           <button
             onClick={closeWidget}
-            className="p-2 hover:bg-white/20 rounded-lg transition-all duration-200"
+            className="p-2 hover:bg-white/20 rounded-lg transition-all duration-300 hover:rotate-90"
             aria-label="Close chat"
           >
-            <X className="w-6 h-6 text-white" />
+            <X className="w-5 h-5 text-white" />
           </button>
         </div>
       </div>
@@ -765,33 +795,33 @@ export default function ChatWidget() {
         )}
       </div>
 
-      <div className="px-6 py-4 bg-white border-t border-gray-200">
+      <div className={`px-6 py-4 border-t flex-shrink-0 ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'}`}>
         <form onSubmit={handleSubmit} className="relative mb-3">
           <input
             type="text"
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
             placeholder="Ask a question..."
-            className={`w-full px-4 py-3 pr-12 rounded-xl border outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all ${theme === 'dark' ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' : 'bg-gray-50 border-gray-200 text-gray-900'}`}
+            className={`w-full px-4 py-3 pr-12 rounded-xl border outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all duration-300 ${theme === 'dark' ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' : 'bg-gray-50 border-gray-200 text-gray-900'}`}
           />
           <button
             type="submit"
             disabled={!question.trim() || isLoading || isStreaming}
-            className="absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-full text-white transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-full text-white transition-all duration-300 hover:scale-110 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
             style={{ backgroundColor: '#00B46A' }}
           >
             <Send className="w-4 h-4" />
           </button>
         </form>
-        
+
         <button
           onClick={openContactForm}
-          className={`w-full flex items-center justify-center gap-2 px-4 py-2 rounded-lg border transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] mb-2 ${theme === 'dark' ? 'bg-gray-700 hover:bg-gray-600 border-gray-600' : 'bg-gray-100 hover:bg-gray-200 border-gray-200'}`}
+          className={`w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] mb-2 ${theme === 'dark' ? 'bg-gray-700 hover:bg-gray-600 border-gray-600' : 'bg-gray-100 hover:bg-gray-200 border-gray-200'}`}
         >
           <Mail className={`w-4 h-4 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`} />
           <span className={`text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>Contact Us</span>
         </button>
-        
+
         <p className={`text-xs text-center ${theme === 'dark' ? 'text-gray-500' : 'text-gray-400'}`}>
           Powered by Vinfotech AI
         </p>
