@@ -80,7 +80,7 @@ export default function WhyUs() {
     <section
       id="why-us"
       ref={sectionRef}
-      className="relative py-12 sm:py-16 md:py-20 lg:py-24 px-6 sm:px-8 lg:px-12 bg-[#f7f7f7] dark:bg-gray-900 overflow-hidden"
+      className="relative py-10 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-[#f7f7f7] dark:bg-gray-900 overflow-hidden"
     >
       <div className="absolute inset-0 bg-gradient-to-b from-gray-100 via-gray-50 to-gray-100 dark:from-gray-900 dark:via-black dark:to-gray-900"></div>
 
@@ -96,21 +96,21 @@ export default function WhyUs() {
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="text-center mb-12 sm:mb-16 lg:mb-20">
-          <div className="inline-block mb-3 sm:mb-4">
+        <div className="text-center mb-10 sm:mb-16 lg:mb-20">
+          <div className="inline-block mb-2 sm:mb-4">
             <span className="text-xs sm:text-sm font-semibold tracking-wider uppercase text-[#00B46A]">
               Why Choose Us
             </span>
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 tracking-tight px-2">
+          <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-6 tracking-tight">
             Why Choose Vinfotech
           </h2>
-          <p className="text-lg sm:text-lg md:text-xl lg:text-2xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed px-4">
+          <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed">
             We're more than just developers. We're your strategic AI partner committed to your success.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
           {features.map((feature, index) => (
             <FeatureCard
               key={index}

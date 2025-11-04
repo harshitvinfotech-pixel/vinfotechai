@@ -26,7 +26,7 @@ export default function About() {
     <section
       id="about"
       ref={sectionRef}
-      className="relative py-12 sm:py-16 md:py-20 lg:py-24 px-6 sm:px-8 lg:px-12 overflow-hidden"
+      className="relative py-10 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 overflow-hidden"
     >
       <div className="absolute inset-0 bg-gray-50 dark:bg-gray-900"></div>
 
@@ -56,9 +56,9 @@ export default function About() {
       ></div>
 
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
-          <div className={`space-y-6 sm:space-y-8 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
-            <div className="space-y-4 sm:space-y-5 text-left">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-10 lg:gap-14 items-center">
+          <div className={`space-y-5 sm:space-y-7 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
+            <div className="space-y-3 sm:space-y-4 text-center lg:text-left">
               <p className="text-sm sm:text-lg font-semibold tracking-[0.15em] uppercase" style={{ color: '#00B46A' }}>
                 WHAT WE DO
               </p>
@@ -67,7 +67,7 @@ export default function About() {
               </h2>
             </div>
 
-            <div className="space-y-5 text-gray-700 dark:text-gray-300 leading-[1.7] text-base sm:text-xl md:text-[22px] lg:text-[24px] font-normal text-left">
+            <div className="space-y-4 text-gray-700 dark:text-gray-300 leading-[1.7] text-base sm:text-xl md:text-[22px] lg:text-[24px] font-normal text-left">
               <p>
                 We are a specialized <span className="font-semibold text-gray-900 dark:text-white">AI Engineering</span> firm that turns your most ambitious business challenges into intelligent, production-ready applications.
               </p>

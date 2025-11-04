@@ -37,7 +37,7 @@ export default function CaseStudies() {
     <section
       id="case-studies"
       ref={sectionRef}
-      className="relative py-12 sm:py-16 md:py-20 lg:py-24 px-6 sm:px-8 lg:px-12 bg-gray-50 dark:bg-black overflow-hidden"
+      className="relative py-10 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-black overflow-hidden"
     >
       <div className="absolute inset-0 bg-gradient-to-b from-gray-100 via-gray-50 to-gray-100 dark:from-gray-900 dark:via-black dark:to-gray-900"></div>
 
@@ -46,23 +46,23 @@ export default function CaseStudies() {
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="mb-10 sm:mb-12 lg:mb-16">
-          <div className="mb-6 sm:mb-8 text-center">
-            <div className="mb-3 sm:mb-4">
-              <span className="text-base font-semibold tracking-wider uppercase" style={{ color: '#00B46A' }}>
+        <div className="mb-8 sm:mb-12 lg:mb-16">
+          <div className="mb-5 sm:mb-8 text-center">
+            <div className="mb-2 sm:mb-4">
+              <span className="text-xs sm:text-sm font-semibold tracking-wider uppercase" style={{ color: '#00B46A' }}>
                 Case Studies
               </span>
             </div>
-            <h2 className="text-[30px] sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 tracking-tight">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 tracking-tight">
               Real-World Impact, Proven Depth
             </h2>
-            <p className="text-lg sm:text-lg lg:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            <p className="text-base sm:text-lg lg:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
               Our portfolio demonstrates a deep capability to build and scale complex AI systems, from sophisticated RAG engines to real-time Computer Vision.
             </p>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
           {caseStudies.map((study) => (
             <CaseStudyCard
               key={study.id}
