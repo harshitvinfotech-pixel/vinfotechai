@@ -11,10 +11,10 @@ function parseOverviewText(text: string) {
     return (
       <p
         key={pIndex}
-        className={`text-lg sm:text-xl md:text-2xl leading-relaxed ${
+        className={`leading-relaxed ${
           pIndex === 0
-            ? 'text-gray-900 dark:text-white font-bold mb-8'
-            : 'text-gray-600 dark:text-gray-400 mb-6'
+            ? 'text-lg sm:text-xl md:text-4xl text-gray-900 dark:text-white font-bold mb-8'
+            : 'text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-6'
         }`}
       >
         {parts.map((part, partIndex) => {
