@@ -7,13 +7,13 @@ export default function QuoteBannerSection({ quoteText, quoteAttribution }: Quot
   if (!quoteText) return null;
 
   return (
-    <section className="py-12 sm:py-14 lg:py-16 bg-[#00B46A]">
+    <section className="py-16 sm:py-20 lg:py-24 bg-[#00B46A]">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-        <div className="flex items-start gap-6 lg:gap-8">
+        <div className="flex items-center gap-8 lg:gap-12">
           <div className="flex-shrink-0">
-            <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-white flex items-center justify-center shadow-lg">
+            <div className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 rounded-full bg-white flex items-center justify-center">
               <svg
-                className="w-10 h-10 sm:w-12 sm:h-12"
+                className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12"
                 viewBox="0 0 48 48"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -33,12 +33,12 @@ export default function QuoteBannerSection({ quoteText, quoteAttribution }: Quot
           </div>
 
           <div className="flex-1">
-            <blockquote className="text-xl sm:text-2xl lg:text-3xl font-medium text-white mb-3 sm:mb-4 leading-relaxed">
+            <blockquote className="text-2xl sm:text-3xl lg:text-4xl font-normal text-white mb-4 sm:mb-5 leading-relaxed italic">
               "{quoteText}"
             </blockquote>
 
             {quoteAttribution && (
-              <p className="text-sm sm:text-base text-white/90 font-normal">
+              <p className="text-base sm:text-lg text-white/80 font-light">
                 {quoteAttribution}
               </p>
             )}
