@@ -100,11 +100,11 @@ export default function SolutionSection({ solutionText, solutionImage }: Solutio
       <div className="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-16 items-center">
           <div ref={imageRef} className={`order-1 lg:order-2 transition-all duration-1000 ${imageVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'}`}>
-            <div className="relative rounded-xl lg:rounded-2xl overflow-hidden shadow-xl bg-gradient-to-br from-purple-600 via-purple-700 to-indigo-800 p-6 sm:p-8 flex items-center justify-center min-h-[250px] sm:min-h-[350px] lg:min-h-[400px] transition-transform duration-500 hover:scale-[1.02]">
+            <div className="relative rounded-xl lg:rounded-2xl overflow-hidden shadow-xl transition-transform duration-500 hover:scale-[1.02]">
               <img
                 src={solutionImage}
                 alt="AI Solution"
-                className="max-w-full max-h-[300px] sm:max-h-[400px] lg:max-h-[500px] object-contain transition-transform duration-500 hover:scale-105"
+                className="w-full h-[250px] sm:h-[350px] lg:h-[500px] object-cover"
                 loading="lazy"
               />
             </div>
