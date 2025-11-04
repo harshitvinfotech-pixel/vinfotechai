@@ -25,7 +25,7 @@ export default function ProductGallerySection({ images }: ProductGallerySectionP
     }
     autoScrollRef.current = setInterval(() => {
       handleNext();
-    }, 4000);
+    }, 5000);
   };
 
   useEffect(() => {
@@ -44,7 +44,7 @@ export default function ProductGallerySection({ images }: ProductGallerySectionP
     if (isTransitioning) return;
     setIsTransitioning(true);
     setCurrentIndex((prev) => (prev + 1) % sortedImages.length);
-    setTimeout(() => setIsTransitioning(false), 500);
+    setTimeout(() => setIsTransitioning(false), 600);
     resetAutoScroll();
   };
 
@@ -52,99 +52,140 @@ export default function ProductGallerySection({ images }: ProductGallerySectionP
     if (isTransitioning) return;
     setIsTransitioning(true);
     setCurrentIndex((prev) => (prev - 1 + sortedImages.length) % sortedImages.length);
-    setTimeout(() => setIsTransitioning(false), 500);
+    setTimeout(() => setIsTransitioning(false), 600);
     resetAutoScroll();
   };
 
-  const handleDotClick = (index: number) => {
+  const handleImageClick = (index: number) => {
     if (isTransitioning || index === currentIndex) return;
     setIsTransitioning(true);
     setCurrentIndex(index);
-    setTimeout(() => setIsTransitioning(false), 500);
+    setTimeout(() => setIsTransitioning(false), 600);
     resetAutoScroll();
+  };
+
+  const getPrevIndex = (current: number) => {
+    return (current - 1 + sortedImages.length) % sortedImages.length;
+  };
+
+  const getNextIndex = (current: number) => {
+    return (current + 1) % sortedImages.length;
   };
 
   if (!images || images.length === 0) {
     return null;
   }
 
+  if (sortedImages.length === 1) {
+    return (
+      <section className="py-16 sm:py-20 bg-gray-50 dark:bg-gray-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="relative overflow-hidden rounded-2xl shadow-2xl">
+            <img
+              src={sortedImages[0].image_url}
+              alt={sortedImages[0].caption || 'Gallery image'}
+              className="w-full h-auto object-cover"
+            />
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  const prevIndex = getPrevIndex(currentIndex);
+  const nextIndex = getNextIndex(currentIndex);
+
   return (
     <section className="py-16 sm:py-20 bg-gray-50 dark:bg-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-10 sm:mb-12 text-center">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white">
-            Gallery
-          </h2>
-        </div>
+        <div className="relative flex items-center justify-center gap-4 sm:gap-6">
+          <button
+            onClick={handlePrev}
+            disabled={isTransitioning}
+            className="z-20 w-10 h-10 sm:w-12 sm:h-12 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 border-2 border-gray-200 dark:border-gray-700 hover:border-[#00B46A] dark:hover:border-[#00B46A] disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0"
+            aria-label="Previous image"
+          >
+            <ChevronLeft className="text-[#00B46A]" size={24} strokeWidth={2.5} />
+          </button>
 
-        <div className="relative">
-          <div className="relative overflow-hidden rounded-3xl bg-white dark:bg-gray-800 shadow-2xl">
-            <div className="relative aspect-video sm:aspect-[16/9] lg:aspect-[21/9]">
-              {sortedImages.map((image, index) => (
-                <div
-                  key={image.id}
-                  className={`absolute inset-0 transition-all duration-500 ease-in-out ${
-                    index === currentIndex
-                      ? 'opacity-100 scale-100'
-                      : 'opacity-0 scale-95 pointer-events-none'
-                  }`}
-                >
+          <div className="relative w-full max-w-5xl">
+            <div className="flex items-center justify-center gap-4 sm:gap-6">
+              <div
+                onClick={() => handleImageClick(prevIndex)}
+                className="relative w-1/4 sm:w-1/5 cursor-pointer opacity-40 hover:opacity-60 transition-all duration-300 transform scale-90 hover:scale-95 flex-shrink-0"
+              >
+                <div className="relative overflow-hidden rounded-xl shadow-lg aspect-video">
                   <img
-                    src={image.image_url}
-                    alt={image.caption || `Gallery image ${index + 1}`}
-                    className="w-full h-full object-contain bg-gray-100 dark:bg-gray-800"
+                    src={sortedImages[prevIndex].image_url}
+                    alt={sortedImages[prevIndex].caption || `Gallery image ${prevIndex + 1}`}
+                    className="w-full h-full object-cover"
                     loading="lazy"
                   />
                 </div>
-              ))}
+              </div>
+
+              <div className="relative flex-1 max-w-2xl">
+                <div className="relative overflow-hidden rounded-2xl shadow-2xl aspect-video">
+                  {sortedImages.map((image, index) => (
+                    <div
+                      key={image.id}
+                      className={`absolute inset-0 transition-all duration-600 ease-in-out ${
+                        index === currentIndex
+                          ? 'opacity-100 scale-100 z-10'
+                          : 'opacity-0 scale-95 pointer-events-none'
+                      }`}
+                    >
+                      <img
+                        src={image.image_url}
+                        alt={image.caption || `Gallery image ${index + 1}`}
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div
+                onClick={() => handleImageClick(nextIndex)}
+                className="relative w-1/4 sm:w-1/5 cursor-pointer opacity-40 hover:opacity-60 transition-all duration-300 transform scale-90 hover:scale-95 flex-shrink-0"
+              >
+                <div className="relative overflow-hidden rounded-xl shadow-lg aspect-video">
+                  <img
+                    src={sortedImages[nextIndex].image_url}
+                    alt={sortedImages[nextIndex].caption || `Gallery image ${nextIndex + 1}`}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
             </div>
 
-            {sortedImages[currentIndex]?.caption && (
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent px-6 py-4">
-                <p className="text-white text-sm sm:text-base font-medium">
-                  {sortedImages[currentIndex].caption}
-                </p>
-              </div>
-            )}
+            <div className="flex justify-center gap-2 mt-8">
+              {sortedImages.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleImageClick(index)}
+                  disabled={isTransitioning}
+                  className={`transition-all duration-300 rounded-full disabled:cursor-not-allowed ${
+                    index === currentIndex
+                      ? 'w-10 h-2 bg-[#00B46A]'
+                      : 'w-2 h-2 bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500'
+                  }`}
+                  aria-label={`Go to image ${index + 1}`}
+                />
+              ))}
+            </div>
           </div>
 
-          {sortedImages.length > 1 && (
-            <>
-              <button
-                onClick={handlePrev}
-                disabled={isTransitioning}
-                className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 border-2 border-gray-200 dark:border-gray-700 hover:border-[#00B46A] dark:hover:border-[#00B46A] disabled:opacity-50 disabled:cursor-not-allowed"
-                aria-label="Previous image"
-              >
-                <ChevronLeft className="text-[#00B46A]" size={24} strokeWidth={2.5} />
-              </button>
-
-              <button
-                onClick={handleNext}
-                disabled={isTransitioning}
-                className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 border-2 border-gray-200 dark:border-gray-700 hover:border-[#00B46A] dark:hover:border-[#00B46A] disabled:opacity-50 disabled:cursor-not-allowed"
-                aria-label="Next image"
-              >
-                <ChevronRight className="text-[#00B46A]" size={24} strokeWidth={2.5} />
-              </button>
-
-              <div className="flex justify-center gap-2 mt-6">
-                {sortedImages.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => handleDotClick(index)}
-                    disabled={isTransitioning}
-                    className={`transition-all duration-300 rounded-full disabled:cursor-not-allowed ${
-                      index === currentIndex
-                        ? 'w-8 h-2 bg-[#00B46A]'
-                        : 'w-2 h-2 bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500'
-                    }`}
-                    aria-label={`Go to image ${index + 1}`}
-                  />
-                ))}
-              </div>
-            </>
-          )}
+          <button
+            onClick={handleNext}
+            disabled={isTransitioning}
+            className="z-20 w-10 h-10 sm:w-12 sm:h-12 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 border-2 border-gray-200 dark:border-gray-700 hover:border-[#00B46A] dark:hover:border-[#00B46A] disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0"
+            aria-label="Next image"
+          >
+            <ChevronRight className="text-[#00B46A]" size={24} strokeWidth={2.5} />
+          </button>
         </div>
       </div>
     </section>
