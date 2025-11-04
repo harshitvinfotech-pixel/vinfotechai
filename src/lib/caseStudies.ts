@@ -59,7 +59,8 @@ export async function getCaseStudyBySlug(slug: string): Promise<CaseStudyWithDet
       { data: features },
       { data: images },
       { data: aiFeatures },
-      { data: approachTimeline }
+      { data: approachTimeline },
+      { data: galleryImages }
     ] = await Promise.all([
       supabase
         .from('case_study_content_blocks')
@@ -106,10 +107,13 @@ export async function getCaseStudyBySlug(slug: string): Promise<CaseStudyWithDet
           steps:case_study_approach_steps(*)
         `)
         .eq('case_study_id', caseStudy.id)
-        .maybeSingle()
+        .maybeSingle(),
+      supabase
+        .from('case_study_gallery_images')
+        .select('*')
+        .eq('case_study_id', caseStudy.id)
+        .order('order_index', { ascending: true })
     ]);
-
-    const galleryImages = images?.filter(img => img.type === 'gallery') || [];
 
     const aiFeatureItems = aiFeatures?.items
       ? (aiFeatures.items as any[]).sort((a, b) => a.order_index - b.order_index)
@@ -127,7 +131,7 @@ export async function getCaseStudyBySlug(slug: string): Promise<CaseStudyWithDet
       timeline: timeline || [],
       features: features || [],
       images: images || [],
-      gallery_images: galleryImages,
+      gallery_images: galleryImages || [],
       ai_features: aiFeatures ? {
         title: aiFeatures.title,
         subtitle: aiFeatures.subtitle,

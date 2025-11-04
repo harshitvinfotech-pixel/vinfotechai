@@ -18,6 +18,7 @@ import QuoteBannerSection from '../components/case-study-sections/QuoteBannerSec
 import HowAIMadeItPossibleSection from '../components/case-study-sections/HowAIMadeItPossibleSection';
 import VinfotechApproachSection from '../components/case-study-sections/VinfotechApproachSection';
 import OtherCaseStudiesSection from '../components/case-study-sections/OtherCaseStudiesSection';
+import ProductGallerySection from '../components/case-study-sections/ProductGallerySection';
 
 export default function CaseStudyDetail() {
   const { slug } = useParams<{ slug: string }>();
@@ -153,6 +154,10 @@ export default function CaseStudyDetail() {
 
         {caseStudy.results && (
           <KeyTakeawaySection takeawayText={caseStudy.results} />
+        )}
+
+        {caseStudy.gallery_images && caseStudy.gallery_images.length > 0 && (
+          <ProductGallerySection images={caseStudy.gallery_images} />
         )}
 
         <OtherCaseStudiesSection currentSlug={slug || ''} />
