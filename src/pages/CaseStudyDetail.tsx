@@ -94,7 +94,7 @@ export default function CaseStudyDetail() {
       <Header onQuoteClick={() => {}} />
 
       <div className="relative">
-        <div className="absolute top-24 sm:top-28 left-4 sm:left-8 z-50">
+        <div className="absolute top-24 sm:top-28 left-4 sm:left-8 z-40">
           <button
             onClick={handleBackClick}
             className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white/10 backdrop-blur-md text-white hover:bg-white/20 transition-all duration-300 group border border-white/30 animate-[slideInLeft_0.5s_ease-out]"
