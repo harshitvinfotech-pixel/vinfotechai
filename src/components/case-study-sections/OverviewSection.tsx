@@ -13,8 +13,8 @@ function parseOverviewText(text: string) {
         key={pIndex}
         className={`leading-relaxed ${
           pIndex === 0
-            ? 'text-lg sm:text-xl md:text-4xl text-gray-900 dark:text-white font-bold mb-8'
-            : 'text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-6'
+            ? 'text-2xl sm:text-3xl lg:text-4xl text-gray-900 dark:text-white font-bold mb-4 sm:mb-6 lg:mb-8'
+            : 'text-base sm:text-lg lg:text-xl text-gray-600 dark:text-gray-400 mb-3 sm:mb-4 lg:mb-6'
         }`}
       >
         {parts.map((part, partIndex) => {
@@ -34,9 +34,9 @@ function parseOverviewText(text: string) {
 
 export default function OverviewSection({ overviewText }: OverviewSectionProps) {
   return (
-    <section className="py-16 sm:py-20 bg-white dark:bg-gray-900">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center space-y-6">
+    <section className="py-12 sm:py-16 lg:py-20 bg-white dark:bg-gray-900">
+      <div className="max-w-6xl mx-auto px-6 sm:px-6 lg:px-8">
+        <div className="text-left lg:text-center space-y-4 sm:space-y-6">
           {parseOverviewText(overviewText)}
         </div>
       </div>
