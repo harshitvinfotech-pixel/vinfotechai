@@ -14,6 +14,8 @@ export interface QuoteSubmission {
 }
 
 export async function submitQuote(data: QuoteSubmission) {
+  console.log('Submitting quote data:', data);
+
   const { data: result, error } = await supabase
     .from('quote_submissions')
     .insert([data])
@@ -21,8 +23,16 @@ export async function submitQuote(data: QuoteSubmission) {
     .maybeSingle();
 
   if (error) {
+    console.error('Supabase error:', error);
+    console.error('Error details:', {
+      message: error.message,
+      details: error.details,
+      hint: error.hint,
+      code: error.code
+    });
     throw error;
   }
 
+  console.log('Quote submitted successfully:', result);
   return result;
 }
