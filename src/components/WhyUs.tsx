@@ -192,7 +192,7 @@ function FeatureCard({ feature, index, isVisible }: FeatureCardProps) {
         </div>
 
         {isExpanded && (
-          <div className="flex-1 overflow-y-auto p-6 sm:p-8">
+          <div className="flex-1 overflow-y-auto p-6 sm:p-8 scrollbar-thin scrollbar-thumb-gray-400 dark:scrollbar-thumb-gray-600 scrollbar-track-gray-100 dark:scrollbar-track-gray-800">
             <div className="space-y-4">
               {feature.features.map((feat, featureIndex) => (
                 <div
@@ -203,7 +203,7 @@ function FeatureCard({ feature, index, isVisible }: FeatureCardProps) {
                     <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${feature.gradient}`}></div>
                   </div>
                   <span
-                    className="text-gray-700 dark:text-gray-300 text-lg sm:text-lg leading-relaxed"
+                    className="text-gray-700 dark:text-gray-300 text-base sm:text-lg leading-relaxed"
                     dangerouslySetInnerHTML={{ __html: feat }}
                   />
                 </div>

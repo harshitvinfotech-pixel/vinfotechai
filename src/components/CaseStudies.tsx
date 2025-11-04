@@ -126,17 +126,17 @@ function CaseStudyCard({ study, onClick }: CaseStudyCardProps) {
         </div>
 
         {isExpanded && (
-          <div className="flex-1 overflow-y-auto p-6 sm:p-8 pb-20">
+          <div className="flex-1 overflow-y-auto p-6 sm:p-8 pb-20 scrollbar-thin scrollbar-thumb-gray-400 dark:scrollbar-thumb-gray-600 scrollbar-track-gray-100 dark:scrollbar-track-gray-800">
             <div className="space-y-4">
               {study.overview_bullets && study.overview_bullets.length > 0 && (
-                <ul className="space-y-3">
+                <ul className="space-y-4">
                   {study.overview_bullets.map((bullet, idx) => (
                     <li key={idx} className="flex items-start gap-3">
                       <div className="relative mt-2 flex-shrink-0">
                         <div className="w-1.5 h-1.5 rounded-full bg-[#00B46A]"></div>
                       </div>
                       <span
-                        className="text-gray-700 dark:text-gray-300 text-base leading-relaxed"
+                        className="text-gray-700 dark:text-gray-300 text-base sm:text-lg leading-relaxed"
                         dangerouslySetInnerHTML={{ __html: bullet }}
                       />
                     </li>
