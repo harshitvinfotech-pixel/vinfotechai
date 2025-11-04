@@ -178,7 +178,12 @@ export async function getCaseStudyBySlug(slug: string): Promise<CaseStudyWithDet
 }
 
 export function getCaseStudyBySlugSync(slug: string): CaseStudyWithDetails | null {
-  const caseStudy = caseStudiesData.find(cs => cs.slug === slug);
+  if (caseStudyDetailsCache.has(slug)) {
+    return caseStudyDetailsCache.get(slug)!;
+  }
+
+  const caseStudy = caseStudiesCache?.find(cs => cs.slug === slug) ||
+                    caseStudiesData.find(cs => cs.slug === slug);
 
   if (!caseStudy) {
     return null;

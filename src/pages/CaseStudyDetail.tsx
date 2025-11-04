@@ -38,6 +38,11 @@ export default function CaseStudyDetail() {
     async function loadCaseStudy() {
       if (!slug) return;
 
+      const syncStudy = getCaseStudyBySlugSync(slug);
+      if (syncStudy) {
+        setCaseStudy(syncStudy);
+      }
+
       const study = await getCaseStudyBySlug(slug);
 
       if (!study) {
@@ -56,7 +61,14 @@ export default function CaseStudyDetail() {
   };
 
   if (!caseStudy) {
-    return null;
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-white dark:bg-gray-900 overflow-x-hidden">
+        <div className="text-center">
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-[#00B46A]"></div>
+          <p className="mt-4 text-gray-600 dark:text-gray-400">Loading case study...</p>
+        </div>
+      </div>
+    );
   }
 
   const aiFeatures = caseStudy.features?.map(f => ({
