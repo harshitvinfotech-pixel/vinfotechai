@@ -81,7 +81,7 @@ export default function CaseStudyDetail() {
   })) || [];
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
+    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300 overflow-x-hidden">
       <style>{`
         * {
           scroll-behavior: smooth;
@@ -89,6 +89,9 @@ export default function CaseStudyDetail() {
         img {
           image-rendering: -webkit-optimize-contrast;
           image-rendering: crisp-edges;
+        }
+        body {
+          overflow-x: hidden;
         }
       `}</style>
       <Header onQuoteClick={() => {}} />
