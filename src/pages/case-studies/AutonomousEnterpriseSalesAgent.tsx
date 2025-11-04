@@ -60,7 +60,7 @@ export default function AutonomousEnterpriseSalesAgent() {
         </div>
 
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 sm:px-6">
-          <h1 className="text-[30px] sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 sm:mb-6 max-w-5xl leading-tight px-2">
+          <h1 className="text-[36px] sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white mb-4 sm:mb-6 max-w-5xl leading-tight px-2">
             Autonomous Enterprise Sales Agent
           </h1>
           <p className="text-[18px] sm:text-lg md:text-xl lg:text-2xl text-white/90 max-w-4xl leading-relaxed px-2">
@@ -74,7 +74,7 @@ export default function AutonomousEnterpriseSalesAgent() {
         <section className="mb-0 bg-gray-50 dark:bg-black py-12 sm:py-16">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center space-y-6">
-              <p className="text-lg sm:text-2xl md:text-6xl leading-relaxed text-gray-900 dark:text-white font-bold mb-8">
+              <p className="text-base sm:text-2xl md:text-6xl leading-relaxed text-gray-900 dark:text-white font-bold mb-8">
                 Every day, potential clients visit the Vinfotech website with questions — about pricing, timelines, integrations, technologies, or specific product capabilities.
               </p>
               <p className="text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed max-w-4xl mx-auto">
