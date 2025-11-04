@@ -78,19 +78,23 @@ export default function ApproachTimeline() {
             }}
           >
             {/* Desktop layout - alternating sides */}
-            <div className="hidden md:grid grid-cols-[1fr_auto_1fr] items-center gap-6">
-              <div className={index % 2 === 0 ? 'order-1' : 'order-3'}>
-                <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700 hover:border-[#00B46A] transition-all duration-300">
-                  <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
-                    {step.title}
-                  </h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-                    {step.description}
-                  </p>
-                </div>
+            <div className="hidden md:flex items-center">
+              {/* Left content for even index, empty for odd */}
+              <div className={`flex-1 ${index % 2 === 0 ? 'pr-8' : ''}`}>
+                {index % 2 === 0 && (
+                  <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700 hover:border-[#00B46A] transition-all duration-300">
+                    <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                      {step.title}
+                    </h4>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                      {step.description}
+                    </p>
+                  </div>
+                )}
               </div>
 
-              <div className="flex items-center justify-center relative z-10 order-2">
+              {/* Center circle - absolutely positioned */}
+              <div className="relative flex-shrink-0">
                 <div
                   className={`w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg transition-all duration-500 ${
                     visibleSteps.has(index) ? 'scale-100' : 'scale-0'
@@ -101,7 +105,19 @@ export default function ApproachTimeline() {
                 </div>
               </div>
 
-              <div className={index % 2 === 0 ? 'order-3' : 'order-1'}></div>
+              {/* Right content for odd index, empty for even */}
+              <div className={`flex-1 ${index % 2 === 1 ? 'pl-8' : ''}`}>
+                {index % 2 === 1 && (
+                  <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700 hover:border-[#00B46A] transition-all duration-300">
+                    <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                      {step.title}
+                    </h4>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                      {step.description}
+                    </p>
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* Mobile layout - timeline on left */}
