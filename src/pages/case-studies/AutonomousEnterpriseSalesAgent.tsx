@@ -72,7 +72,7 @@ export default function AutonomousEnterpriseSalesAgent() {
       <main className="pb-0">
         {/* Overview Section - No title, just description */}
         <section className="mb-0 bg-gray-50 dark:bg-black py-12 sm:py-16">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center space-y-6">
               <p className="text-lg sm:text-xl md:text-4xl leading-relaxed text-gray-900 dark:text-white font-bold mb-8">
                 Every day, potential clients visit the Vinfotech website with questions — about pricing, timelines, integrations, technologies, or specific product capabilities.
