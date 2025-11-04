@@ -60,7 +60,7 @@ export default function Header({ onQuoteClick }: HeaderProps) {
             aria-label="Go to Vinfotech homepage"
           >
             <img
-              src={theme === 'dark' ? '/vinfo-white-2.png' : '/asset5.png'}
+              src={theme === 'dark' ? '/Vinfo-white2.png' : '/asset5.png'}
               alt="Vinfotech AI - Custom AI Software Development"
               className="h-10 w-auto transition-transform duration-300 hover:scale-105"
             />

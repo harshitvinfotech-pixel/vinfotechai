@@ -12,7 +12,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 md:gap-12 mb-12 sm:mb-14 md:mb-16">
           <div className="sm:col-span-2 lg:col-span-2">
             <img
-              src={theme === 'light' ? '/asset5.png' : '/vinfo-white-2.png'}
+              src={theme === 'light' ? '/asset5.png' : '/Vinfo-white2.png'}
               alt="Vinfotech Logo"
               className="h-10 sm:h-12 w-auto mb-4 sm:mb-6 transition-opacity duration-300"
             />
