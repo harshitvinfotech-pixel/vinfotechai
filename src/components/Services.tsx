@@ -123,7 +123,8 @@ export default function Services() {
                     <img
                       src={service.image}
                       alt={service.title}
-                      loading="lazy"
+                      loading={index === 0 ? "eager" : "lazy"}
+                      decoding="async"
                       className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-gradient-to-br from-black/50 via-black/40 to-black/50"></div>

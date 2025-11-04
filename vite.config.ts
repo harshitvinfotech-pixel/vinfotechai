@@ -7,6 +7,18 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ['lucide-react'],
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+          'supabase': ['@supabase/supabase-js'],
+          'markdown': ['react-markdown', 'remark-gfm', 'rehype-raw'],
+        }
+      }
+    },
+    chunkSizeWarningLimit: 1000,
+  },
   server: {
     allowedHosts: [
       '.ngrok-free.app',

@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { getCaseStudyBySlug } from '../lib/caseStudies';
+import { getCaseStudyBySlug, getCaseStudyBySlugSync } from '../lib/caseStudies';
 import type { CaseStudyWithDetails } from '../types/caseStudy';
 import HeroSection from '../components/case-study-sections/HeroSection';
 import OverviewSection from '../components/case-study-sections/OverviewSection';
@@ -23,8 +23,12 @@ import ProductGallerySection from '../components/case-study-sections/ProductGall
 export default function CaseStudyDetail() {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
-  const [caseStudy, setCaseStudy] = useState<CaseStudyWithDetails | null>(null);
-  const [loading, setLoading] = useState(true);
+
+  const initialCaseStudy = useMemo(() => {
+    return slug ? getCaseStudyBySlugSync(slug) : null;
+  }, [slug]);
+
+  const [caseStudy, setCaseStudy] = useState<CaseStudyWithDetails | null>(initialCaseStudy);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -32,12 +36,8 @@ export default function CaseStudyDetail() {
 
   useEffect(() => {
     async function loadCaseStudy() {
-      if (!slug) {
-        setLoading(false);
-        return;
-      }
+      if (!slug) return;
 
-      setLoading(true);
       const study = await getCaseStudyBySlug(slug);
 
       if (!study) {
@@ -46,7 +46,6 @@ export default function CaseStudyDetail() {
       }
 
       setCaseStudy(study);
-      setLoading(false);
     }
 
     loadCaseStudy();
@@ -56,18 +55,8 @@ export default function CaseStudyDetail() {
     navigate('/', { state: { scrollTo: 'case-studies' } });
   };
 
-  if (loading || !caseStudy) {
-    return (
-      <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
-        <Header onQuoteClick={() => {}} />
-        <div className="flex items-center justify-center h-screen">
-          <div className="text-center">
-            <div className="inline-block animate-spin rounded-full h-16 w-16 border-b-4 border-[#00B46A]"></div>
-            <p className="mt-6 text-xl text-gray-600 dark:text-gray-400">Loading case study...</p>
-          </div>
-        </div>
-      </div>
-    );
+  if (!caseStudy) {
+    return null;
   }
 
   const aiFeatures = caseStudy.features?.map(f => ({

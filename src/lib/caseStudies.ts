@@ -2,7 +2,13 @@ import type { CaseStudy, CaseStudyWithDetails } from '../types/caseStudy';
 import { caseStudiesData } from '../data/caseStudiesData';
 import { supabase } from './supabase';
 
+let caseStudiesCache: CaseStudy[] | null = null;
+let caseStudyDetailsCache: Map<string, CaseStudyWithDetails> = new Map();
+
 export async function getAllCaseStudies(): Promise<CaseStudy[]> {
+  if (caseStudiesCache) {
+    return caseStudiesCache;
+  }
   try {
     const { data, error } = await supabase
       .from('case_studies')
@@ -11,10 +17,12 @@ export async function getAllCaseStudies(): Promise<CaseStudy[]> {
 
     if (error) {
       console.error('Error fetching case studies:', error);
+      caseStudiesCache = caseStudiesData;
       return caseStudiesData;
     }
 
-    return data || caseStudiesData;
+    caseStudiesCache = data || caseStudiesData;
+    return caseStudiesCache;
   } catch (err) {
     console.error('Error fetching case studies:', err);
     return caseStudiesData;
@@ -26,6 +34,10 @@ export function getAllCaseStudiesSync(): CaseStudy[] {
 }
 
 export async function getCaseStudyBySlug(slug: string): Promise<CaseStudyWithDetails | null> {
+  if (caseStudyDetailsCache.has(slug)) {
+    return caseStudyDetailsCache.get(slug)!;
+  }
+
   try {
     const { data: caseStudy, error: caseStudyError } = await supabase
       .from('case_studies')
@@ -123,7 +135,7 @@ export async function getCaseStudyBySlug(slug: string): Promise<CaseStudyWithDet
       ? (approachTimeline.steps as any[]).sort((a, b) => a.order_index - b.order_index)
       : [];
 
-    return {
+    const fullCaseStudy = {
       ...caseStudy,
       content_blocks: contentBlocks || [],
       metrics: metrics || [],
@@ -143,6 +155,9 @@ export async function getCaseStudyBySlug(slug: string): Promise<CaseStudyWithDet
         steps: approachSteps
       } : null
     };
+
+    caseStudyDetailsCache.set(slug, fullCaseStudy);
+    return fullCaseStudy;
   } catch (err) {
     console.error('Error fetching case study:', err);
     const caseStudy = caseStudiesData.find(cs => cs.slug === slug);

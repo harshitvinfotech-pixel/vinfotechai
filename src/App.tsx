@@ -1,15 +1,16 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { ChevronUp } from 'lucide-react';
 import Header from './components/Header';
 import Home from './pages/Home';
-import Blogs from './pages/Blogs';
-import BlogDetail from './pages/BlogDetail';
-import CaseStudyDetail from './pages/CaseStudyDetail';
 import Modal from './components/Modal';
 import QuoteForm from './components/QuoteForm';
 import QuoteSuccessConfirmation from './components/QuoteSuccessConfirmation';
 import ChatWidget from './components/ChatWidget';
+
+const Blogs = lazy(() => import('./pages/Blogs'));
+const BlogDetail = lazy(() => import('./pages/BlogDetail'));
+const CaseStudyDetail = lazy(() => import('./pages/CaseStudyDetail'));
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -60,12 +61,14 @@ function AppContent() {
     <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
       {!isBlogPage && !isCaseStudyPage && <Header onQuoteClick={() => setIsQuoteModalOpen(true)} />}
 
-      <Routes>
-        <Route path="/" element={<Home onQuoteClick={() => setIsQuoteModalOpen(true)} />} />
-        <Route path="/blogs" element={<Blogs />} />
-        <Route path="/blogs/:slug" element={<BlogDetail />} />
-        <Route path="/case-studies/:slug" element={<CaseStudyDetail />} />
-      </Routes>
+      <Suspense fallback={<div className="min-h-screen" />}>
+        <Routes>
+          <Route path="/" element={<Home onQuoteClick={() => setIsQuoteModalOpen(true)} />} />
+          <Route path="/blogs" element={<Blogs />} />
+          <Route path="/blogs/:slug" element={<BlogDetail />} />
+          <Route path="/case-studies/:slug" element={<CaseStudyDetail />} />
+        </Routes>
+      </Suspense>
 
       <Modal
         isOpen={isQuoteModalOpen}
