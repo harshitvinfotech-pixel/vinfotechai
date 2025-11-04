@@ -14,7 +14,7 @@ function parseSolutionText(text: string) {
     if (currentParagraph.length > 0) {
       const paragraphText = currentParagraph.join(' ');
       elements.push(
-        <p key={key++} className="text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+        <p key={key++} className="text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
           {parseInlineFormatting(paragraphText)}
         </p>
       );
@@ -25,14 +25,18 @@ function parseSolutionText(text: string) {
   const flushList = () => {
     if (listItems.length > 0) {
       elements.push(
-        <ul key={key++} className="list-none space-y-3 mb-4 text-base sm:text-lg text-gray-700 dark:text-gray-300">
+        <div key={key++} className="bg-gray-50 dark:bg-gray-800 rounded-xl p-6 mb-6 space-y-4">
           {listItems.map((item, idx) => (
-            <li key={idx} className="flex items-start">
-              <span className="mr-3 mt-1">{idx + 1}.</span>
-              <span>{parseInlineFormatting(item)}</span>
-            </li>
+            <div key={idx} className="flex items-start group">
+              <span className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center text-sm mr-4">
+                {idx + 1}
+              </span>
+              <span className="text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed pt-1">
+                {parseInlineFormatting(item)}
+              </span>
+            </div>
           ))}
-        </ul>
+        </div>
       );
       listItems = [];
     }

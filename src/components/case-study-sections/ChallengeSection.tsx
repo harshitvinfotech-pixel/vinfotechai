@@ -14,7 +14,7 @@ function parseChallengeText(text: string) {
     if (currentParagraph.length > 0) {
       const paragraphText = currentParagraph.join(' ');
       elements.push(
-        <p key={key++} className="text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+        <p key={key++} className="text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
           {parseInlineFormatting(paragraphText)}
         </p>
       );
@@ -25,11 +25,16 @@ function parseChallengeText(text: string) {
   const flushList = () => {
     if (listItems.length > 0) {
       elements.push(
-        <ul key={key++} className="list-disc list-inside space-y-2 mb-4 text-base sm:text-lg text-gray-700 dark:text-gray-300">
+        <div key={key++} className="bg-white dark:bg-gray-900 rounded-xl border-2 border-gray-200 dark:border-gray-700 p-6 mb-6 space-y-3">
           {listItems.map((item, idx) => (
-            <li key={idx}>{item}</li>
+            <div key={idx} className="flex items-start">
+              <span className="flex-shrink-0 w-2 h-2 rounded-full bg-blue-600 mt-2.5 mr-3"></span>
+              <span className="text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+                {parseInlineFormatting(item)}
+              </span>
+            </div>
           ))}
-        </ul>
+        </div>
       );
       listItems = [];
     }
