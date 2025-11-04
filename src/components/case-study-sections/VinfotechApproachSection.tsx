@@ -49,8 +49,15 @@ export default function VinfotechApproachSection({
         </div>
 
         <div className="relative">
-          {/* Desktop center line */}
-          <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-0.5 hidden lg:block" style={{ backgroundColor: '#00B46A' }}></div>
+          {/* Desktop center line with gradient fade */}
+          <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-0.5 hidden lg:block overflow-hidden">
+            <div
+              className="absolute inset-0"
+              style={{
+                background: 'linear-gradient(180deg, rgba(0, 180, 106, 0) 0%, rgba(0, 180, 106, 1) 10%, rgba(0, 180, 106, 1) 90%, rgba(0, 180, 106, 0) 100%)'
+              }}
+            ></div>
+          </div>
 
           {/* Mobile left line */}
           <div className="absolute left-5 top-0 bottom-0 w-0.5 lg:hidden" style={{ backgroundColor: '#00B46A' }}></div>
@@ -59,40 +66,50 @@ export default function VinfotechApproachSection({
             {steps.map((step, index) => (
               <div key={index} className="relative">
                 {/* Desktop layout - alternating sides */}
-                <div className="hidden lg:grid lg:grid-cols-2 lg:gap-16">
-                  {/* Left content */}
-                  <div className={`${index % 2 === 0 ? 'block' : 'hidden'}`}>
-                    <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700 hover:border-[#00B46A] transition-all duration-300">
-                      <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
-                        {step.title}
-                      </h3>
-                      <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-                        {parseRichText(step.description)}
-                      </p>
-                    </div>
-                  </div>
+                <div className="hidden lg:grid lg:grid-cols-2 lg:gap-16 lg:items-center">
+                  {index % 2 === 0 ? (
+                    <>
+                      {/* Left card */}
+                      <div className="flex justify-end">
+                        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700 hover:border-[#00B46A] transition-all duration-300 max-w-md w-full">
+                          <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
+                            {step.title}
+                          </h3>
+                          <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                            {parseRichText(step.description)}
+                          </p>
+                        </div>
+                      </div>
+                      {/* Empty right */}
+                      <div></div>
+                    </>
+                  ) : (
+                    <>
+                      {/* Empty left */}
+                      <div></div>
+                      {/* Right card */}
+                      <div className="flex justify-start">
+                        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700 hover:border-[#00B46A] transition-all duration-300 max-w-md w-full">
+                          <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
+                            {step.title}
+                          </h3>
+                          <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                            {parseRichText(step.description)}
+                          </p>
+                        </div>
+                      </div>
+                    </>
+                  )}
 
-                  {/* Right content */}
-                  <div className={`${index % 2 === 1 ? 'block' : 'hidden'}`}>
-                    <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700 hover:border-[#00B46A] transition-all duration-300">
-                      <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
-                        {step.title}
-                      </h3>
-                      <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-                        {parseRichText(step.description)}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Center circle - absolutely positioned on the line */}
+                  {/* Center circle with checkmark - absolutely positioned on the line */}
                   <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
                     <div className="w-12 h-12 rounded-full bg-[#00B46A] flex items-center justify-center ring-8 ring-white dark:ring-gray-900">
-                      <img src="/vinfo-2.png" alt="" className="w-7 h-7 object-contain" />
+                      <CheckCircle2 className="w-7 h-7 text-white" strokeWidth={2.5} />
                     </div>
                   </div>
                 </div>
 
-                {/* Mobile layout - timeline on left */}
+                {/* Mobile layout - timeline on left (unchanged) */}
                 <div className="flex lg:hidden items-start gap-4">
                   <div className="relative flex-shrink-0">
                     <div className="w-10 h-10 rounded-full bg-[#00B46A] flex items-center justify-center ring-4 ring-white dark:ring-gray-900">
