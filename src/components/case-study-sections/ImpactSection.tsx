@@ -9,75 +9,63 @@ interface ImpactSectionProps {
 
 export default function ImpactSection({ impactMetrics }: ImpactSectionProps) {
   return (
-    <section className="py-16 sm:py-20 lg:py-28 bg-white dark:bg-gray-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-16 sm:py-20 lg:py-24 bg-gray-50 dark:bg-gray-900">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center mb-12 sm:mb-16 lg:mb-20">
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6">
+        <div className="text-center mb-12 sm:mb-14 lg:mb-16">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4">
             Impact
           </h2>
-          <p className="text-lg sm:text-xl lg:text-2xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto font-light">
-            Measurable outcomes and transformative results delivered
+          <p className="text-base sm:text-lg lg:text-xl text-gray-600 dark:text-gray-400 font-normal">
+            Key results and measurable outcomes from this project
           </p>
         </div>
 
-        {/* Metrics Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
-          {impactMetrics.map((metric, index) => (
-            <div
-              key={index}
-              className="relative bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-850 rounded-2xl sm:rounded-3xl p-8 sm:p-10 lg:p-12 shadow-md hover:shadow-2xl transition-all duration-500 border border-gray-100 dark:border-gray-700 group overflow-hidden"
-            >
-              {/* Top accent line */}
+        {/* Metrics List */}
+        <div className="bg-white dark:bg-gray-800 rounded-2xl sm:rounded-3xl shadow-lg border border-gray-200 dark:border-gray-700 p-8 sm:p-10 lg:p-12">
+          <div className="space-y-6 sm:space-y-7 lg:space-y-8">
+            {impactMetrics.map((metric, index) => (
               <div
-                className="absolute top-0 left-0 right-0 h-1.5 transition-all duration-500 group-hover:h-2"
-                style={{ backgroundColor: '#00B46A' }}
-              ></div>
-
-              {/* Decorative corner element */}
-              <div
-                className="absolute -top-8 -right-8 w-24 h-24 rounded-full opacity-5 group-hover:opacity-10 transition-opacity duration-500"
-                style={{ backgroundColor: '#00B46A' }}
-              ></div>
-
-              {/* Content */}
-              <div className="relative z-10">
-                {/* Value */}
-                <div className="mb-5 sm:mb-6">
+                key={index}
+                className="flex items-start gap-4 sm:gap-5 lg:gap-6 pb-6 sm:pb-7 lg:pb-8 border-b border-gray-200 dark:border-gray-700 last:border-b-0 last:pb-0"
+              >
+                {/* Bullet/Icon */}
+                <div className="flex-shrink-0 mt-1">
                   <div
-                    className="text-4xl sm:text-5xl lg:text-6xl font-black leading-none tracking-tight"
-                    style={{ color: '#00B46A' }}
-                  >
-                    {metric.value}
-                  </div>
+                    className="w-3 h-3 sm:w-4 sm:h-4 rounded-full"
+                    style={{ backgroundColor: '#00B46A' }}
+                  ></div>
                 </div>
 
-                {/* Divider */}
-                <div className="w-16 h-0.5 bg-gray-300 dark:bg-gray-600 mb-5 sm:mb-6 group-hover:w-24 transition-all duration-500"></div>
+                {/* Content */}
+                <div className="flex-1 min-w-0">
+                  <div className="flex flex-col sm:flex-row sm:items-baseline sm:gap-4 lg:gap-6">
+                    {/* Value */}
+                    <div
+                      className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2 sm:mb-0 flex-shrink-0"
+                      style={{ color: '#00B46A' }}
+                    >
+                      {metric.value}
+                    </div>
 
-                {/* Label */}
-                <p className="text-base sm:text-lg lg:text-xl text-gray-700 dark:text-gray-300 leading-relaxed font-normal">
-                  {metric.label}
-                </p>
+                    {/* Label */}
+                    <div className="flex-1">
+                      <p className="text-base sm:text-lg lg:text-xl text-gray-700 dark:text-gray-300 leading-relaxed">
+                        {metric.label}
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
-
-              {/* Hover gradient effect */}
-              <div
-                className="absolute inset-0 opacity-0 group-hover:opacity-5 transition-opacity duration-500 rounded-2xl sm:rounded-3xl"
-                style={{ background: 'linear-gradient(135deg, #00B46A 0%, transparent 100%)' }}
-              ></div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
 
-        {/* Bottom decorative element */}
-        <div className="mt-16 sm:mt-20 flex justify-center items-center gap-3">
-          <div className="h-px w-12 sm:w-16 bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-700 to-transparent"></div>
-          <div
-            className="w-3 h-3 rounded-full"
-            style={{ backgroundColor: '#00B46A' }}
-          ></div>
-          <div className="h-px w-12 sm:w-16 bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-700 to-transparent"></div>
+        {/* Bottom note (optional) */}
+        <div className="mt-8 sm:mt-10 text-center">
+          <p className="text-sm sm:text-base text-gray-500 dark:text-gray-500">
+            Results verified through production deployment and client feedback
+          </p>
         </div>
       </div>
     </section>
