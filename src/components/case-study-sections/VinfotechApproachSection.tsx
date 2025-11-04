@@ -109,11 +109,11 @@ export default function VinfotechApproachSection({
                   </div>
                 </div>
 
-                {/* Mobile layout - timeline on left (unchanged) */}
+                {/* Mobile layout - timeline on left with checkmark icon */}
                 <div className="flex lg:hidden items-start gap-4">
                   <div className="relative flex-shrink-0">
                     <div className="w-10 h-10 rounded-full bg-[#00B46A] flex items-center justify-center ring-4 ring-white dark:ring-gray-900">
-                      <img src="/vinfo-2.png" alt="" className="w-6 h-6 object-contain" />
+                      <CheckCircle2 className="w-6 h-6 text-white" strokeWidth={2.5} />
                     </div>
                   </div>
                   <div className="flex-1">
