@@ -21,10 +21,10 @@ export default function ImpactSection({ impactMetrics }: ImpactSectionProps) {
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8 lg:gap-12">
             {impactMetrics.map((metric, index) => (
               <div key={index} className="text-center">
-                <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-2">
+                <div className="text-lg sm:text-2xl md:text-4xl font-bold text-white mb-2">
                   {metric.value}
                 </div>
-                <div className="text-sm sm:text-base text-white/95 font-medium">
+                <div className="text-lg sm:text-lg text-white/95 font-medium">
                   {metric.label}
                 </div>
               </div>
