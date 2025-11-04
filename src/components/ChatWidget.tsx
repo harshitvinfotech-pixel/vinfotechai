@@ -362,12 +362,12 @@ export default function ChatWidget() {
     return (
       <button
         onClick={handleCollapsedClick}
-        className={`fixed bottom-6 right-6 text-white shadow-2xl transition-all duration-500 hover:scale-105 hover:shadow-3xl z-[60] group rounded-full md:rounded-3xl ${theme === 'dark' ? 'shadow-emerald-500/30' : ''}`}
+        className={`fixed bottom-6 right-6 text-white shadow-2xl transition-all duration-300 hover:scale-105 z-50 group rounded-full md:rounded-3xl ${theme === 'dark' ? 'shadow-emerald-500/20' : ''}`}
         style={{ backgroundColor: '#00B46A' }}
       >
         <div className="flex items-center gap-2 p-3 md:gap-3 md:px-5 md:py-4">
           <div className="flex items-center gap-3 hidden md:flex">
-            <Sparkles className="w-5 h-5 animate-pulse" />
+            <Sparkles className="w-5 h-5" />
             <span className="font-bold text-lg">Ask Us Anything??</span>
           </div>
           <div className="relative md:hidden">
@@ -376,7 +376,7 @@ export default function ChatWidget() {
               alt="AI Assistant"
               className="w-12 h-12 object-contain drop-shadow-xl animate-float-3d"
             />
-            <div className="absolute -top-1 -right-1 bg-white text-emerald-600 rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold shadow-lg animate-bounce">
+            <div className="absolute -top-1 -right-1 bg-white text-emerald-600 rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold shadow-lg">
               ?
             </div>
           </div>
@@ -392,8 +392,8 @@ export default function ChatWidget() {
 
   if (widgetState === 'contact') {
     return (
-      <div className="fixed bottom-6 right-6 w-[90vw] max-w-[420px] z-[60] animate-scale-in">
-        <div className={`rounded-3xl shadow-2xl overflow-hidden backdrop-blur-sm transition-all duration-500 ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
+      <div className="fixed bottom-6 right-6 w-[90vw] max-w-[420px] z-50">
+        <div className="bg-white rounded-3xl shadow-2xl overflow-hidden backdrop-blur-sm">
           <div className="px-6 py-5 rounded-t-3xl" style={{ backgroundColor: '#00B46A' }}>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
@@ -420,29 +420,29 @@ export default function ChatWidget() {
               closeContactForm();
             }}>
               <div>
-                <label className={`block text-sm font-medium mb-1 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>Name</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
                 <input
                   type="text"
                   required
-                  className={`w-full px-4 py-2 rounded-lg border outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all duration-300 ${theme === 'dark' ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' : 'border-gray-200'}`}
+                  className="w-full px-4 py-2 rounded-lg border border-gray-200 outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
                   placeholder="Your name"
                 />
               </div>
               <div>
-                <label className={`block text-sm font-medium mb-1 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>Email</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
                 <input
                   type="email"
                   required
-                  className={`w-full px-4 py-2 rounded-lg border outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all duration-300 ${theme === 'dark' ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' : 'border-gray-200'}`}
+                  className="w-full px-4 py-2 rounded-lg border border-gray-200 outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
                   placeholder="your@email.com"
                 />
               </div>
               <div>
-                <label className={`block text-sm font-medium mb-1 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>Message</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Message</label>
                 <textarea
                   required
                   rows={4}
-                  className={`w-full px-4 py-2 rounded-lg border outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 resize-none transition-all duration-300 ${theme === 'dark' ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' : 'border-gray-200'}`}
+                  className="w-full px-4 py-2 rounded-lg border border-gray-200 outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 resize-none"
                   placeholder="How can we help you?"
                 />
               </div>
@@ -461,8 +461,8 @@ export default function ChatWidget() {
 
   if (widgetState === 'preview') {
     return (
-      <div className="fixed bottom-6 right-6 w-[90vw] max-w-[420px] z-[60] animate-scale-in">
-        <div className={`rounded-3xl shadow-2xl overflow-hidden backdrop-blur-sm transition-all duration-500 ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
+      <div className="fixed bottom-6 right-6 w-[90vw] max-w-[420px] z-50">
+        <div className={`rounded-3xl shadow-2xl overflow-hidden backdrop-blur-sm ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
           <div className="px-6 py-5 rounded-t-3xl" style={{ backgroundColor: '#00B46A' }}>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
@@ -493,12 +493,12 @@ export default function ChatWidget() {
                   <button
                     key={sq.id}
                     onClick={() => handleSuggestedQuestionClick(sq)}
-                    className={`text-left px-4 py-3 rounded-xl border transition-all duration-300 group hover:scale-[1.02] hover:-translate-y-0.5 active:scale-[0.98] ${theme === 'dark' ? 'bg-gray-700 hover:bg-gray-600 border-gray-600 hover:border-emerald-500' : 'bg-gray-50 hover:bg-emerald-50 border-gray-200 hover:border-emerald-300'}`}
+                    className="text-left px-4 py-3 rounded-xl bg-gray-50 hover:bg-emerald-50 border border-gray-200 hover:border-emerald-300 transition-all duration-300 group hover:scale-[1.02] hover:-translate-y-0.5 active:scale-[0.98]"
                     style={{ animationDelay: `${index * 50}ms` }}
                   >
                     <div className="flex items-start gap-3">
                       <Sparkles className="w-4 h-4 text-emerald-500 mt-0.5 flex-shrink-0" />
-                      <span className={`text-[15px] font-medium ${theme === 'dark' ? 'text-gray-200 group-hover:text-emerald-400' : 'text-gray-700 group-hover:text-emerald-700'}`}>
+                      <span className="text-[15px] text-gray-700 group-hover:text-emerald-700 font-medium">
                         {sq.question_text}
                       </span>
                     </div>
@@ -537,7 +537,7 @@ export default function ChatWidget() {
                 value={question}
                 onChange={(e) => setQuestion(e.target.value)}
                 placeholder="Or ask your own question..."
-                className={`w-full px-4 py-3 pr-12 rounded-xl border outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all duration-300 ${theme === 'dark' ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' : 'bg-white border-gray-200 text-gray-900'}`}
+                className={`w-full px-4 py-3 pr-12 rounded-xl border outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-none ${theme === 'dark' ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' : 'bg-white border-gray-200 text-gray-900'}`}
               />
               <button
                 type="submit"
@@ -550,10 +550,10 @@ export default function ChatWidget() {
 
             <button
               onClick={openContactForm}
-              className={`w-full mt-3 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] ${theme === 'dark' ? 'bg-gray-700 hover:bg-gray-600 border-gray-600' : 'bg-gray-100 hover:bg-gray-200 border-gray-200'}`}
+              className="w-full mt-3 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gray-100 hover:bg-gray-200 border border-gray-200 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
             >
-              <Mail className={`w-4 h-4 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`} />
-              <span className={`text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>Contact Us</span>
+              <Mail className="w-4 h-4 text-gray-600" />
+              <span className="text-sm font-medium text-gray-700">Contact Us</span>
             </button>
           </div>
         </div>
@@ -563,11 +563,14 @@ export default function ChatWidget() {
 
   return (
     <div
-      className={`fixed z-[60] shadow-2xl flex flex-col overflow-hidden rounded-none transition-all duration-500 ease-out animate-scale-in ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} ${
-        isExpanded
-          ? 'inset-0 md:top-20 md:bottom-6 md:left-6 md:right-6 md:rounded-3xl'
-          : 'inset-0 md:bottom-6 md:right-6 md:w-[450px] md:h-[calc(100vh-140px)] md:max-h-[700px] md:inset-auto md:rounded-3xl'
-      }`}
+      className={`fixed inset-0 md:bottom-6 md:right-6 md:w-[450px] md:h-[700px] md:inset-auto z-50 shadow-2xl flex flex-col overflow-hidden rounded-none md:rounded-3xl ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}
+      style={{
+        height: '100%',
+        maxHeight: '100%',
+        transformOrigin: 'bottom center',
+        transition: 'all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+        animation: 'slideUpFromBottom 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+      }}
     >
       {/* Fixed Header */}
       <div
@@ -605,7 +608,7 @@ export default function ChatWidget() {
         </div>
       </div>
 
-      <div ref={chatContainerRef} className={`flex-1 overflow-y-auto px-6 py-4 space-y-4 scroll-smooth ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'}`}>
+      <div ref={chatContainerRef} className={`flex-1 overflow-y-auto px-6 py-4 space-y-4 ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'}`}>
         {messages.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full text-center px-4">
             <img
@@ -762,7 +765,7 @@ export default function ChatWidget() {
         )}
       </div>
 
-      <div className={`px-6 py-4 border-t transition-colors duration-300 ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'}`}>
+      <div className="px-6 py-4 bg-white border-t border-gray-200">
         <form onSubmit={handleSubmit} className="relative mb-3">
           <input
             type="text"

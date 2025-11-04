@@ -1,6 +1,3 @@
-import { useRef } from 'react';
-import { useScrollTrigger } from '../../hooks/useScrollTrigger';
-
 interface ChallengeSectionProps {
   challengeImage: string;
   challengeText: string;
@@ -82,18 +79,11 @@ function parseInlineFormatting(text: string): (string | JSX.Element)[] {
 }
 
 export default function ChallengeSection({ challengeImage, challengeText }: ChallengeSectionProps) {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const imageRef = useRef<HTMLDivElement>(null);
-  const textRef = useRef<HTMLDivElement>(null);
-  const isVisible = useScrollTrigger(sectionRef, { threshold: 0.2 });
-  const imageVisible = useScrollTrigger(imageRef, { threshold: 0.3 });
-  const textVisible = useScrollTrigger(textRef, { threshold: 0.3 });
-
   return (
-    <section ref={sectionRef} className="py-12 sm:py-16 lg:py-20 bg-gray-50 dark:bg-gray-800 transition-colors duration-300">
+    <section className="py-12 sm:py-16 lg:py-20 bg-gray-50 dark:bg-gray-800 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-16 items-center">
-          <div ref={imageRef} className={`order-1 lg:order-1 transition-all duration-1000 ${imageVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>
+          <div className="order-1 lg:order-1 animate-[slideInLeft_0.8s_ease-out]">
             <div className="relative rounded-xl lg:rounded-2xl overflow-hidden shadow-xl transition-transform duration-500 hover:scale-[1.02]">
               <img
                 src={challengeImage}
@@ -104,7 +94,7 @@ export default function ChallengeSection({ challengeImage, challengeText }: Chal
             </div>
           </div>
 
-          <div ref={textRef} className={`order-2 lg:order-2 transition-all duration-1000 delay-200 ${textVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'}`}>
+          <div className="order-2 lg:order-2 animate-[slideInRight_0.8s_ease-out]">
             <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-5 lg:mb-6 text-left">
               The Challenge
             </h2>
@@ -114,6 +104,28 @@ export default function ChallengeSection({ challengeImage, challengeText }: Chal
           </div>
         </div>
       </div>
+      <style>{`
+        @keyframes slideInLeft {
+          from {
+            opacity: 0;
+            transform: translateX(-50px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+        @keyframes slideInRight {
+          from {
+            opacity: 0;
+            transform: translateX(50px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+      `}</style>
     </section>
   );
 }

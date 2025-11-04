@@ -58,17 +58,10 @@ function AppContent() {
   const isCaseStudyPage = location.pathname.startsWith('/case-studies');
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300 smooth-entrance">
+    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
       {!isBlogPage && !isCaseStudyPage && <Header onQuoteClick={() => setIsQuoteModalOpen(true)} />}
 
-      <Suspense fallback={
-        <div className="min-h-screen flex items-center justify-center bg-white dark:bg-gray-900">
-          <div className="text-center">
-            <div className="inline-block animate-spin rounded-full h-16 w-16 border-b-4 border-[#00B46A] mb-4"></div>
-            <p className="text-gray-600 dark:text-gray-400 text-lg">Loading...</p>
-          </div>
-        </div>
-      }>
+      <Suspense fallback={<div className="min-h-screen" />}>
         <Routes>
           <Route path="/" element={<Home onQuoteClick={() => setIsQuoteModalOpen(true)} />} />
           <Route path="/blogs" element={<Blogs />} />
@@ -97,7 +90,7 @@ function AppContent() {
       {showScrollTop && !isBlogPage && !isCaseStudyPage && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-24 right-8 w-12 h-12 bg-[#00B46A] text-white rounded-full shadow-lg hover:shadow-xl hover:shadow-[#00B46A]/50 transition-all duration-500 transform hover:scale-110 hover:-translate-y-1 flex items-center justify-center z-40 animate-scale-in active:scale-95"
+          className="fixed bottom-8 right-8 w-12 h-12 bg-[#00B46A] text-white rounded-full shadow-lg hover:shadow-xl hover:shadow-[#00B46A]/50 transition-all duration-500 transform hover:scale-110 hover:-translate-y-1 flex items-center justify-center z-40 animate-scale-in active:scale-95"
           aria-label="Scroll to top"
         >
           <ChevronUp size={24} className="transition-transform duration-300 group-hover:-translate-y-0.5" />
