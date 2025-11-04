@@ -101,19 +101,19 @@ export default function VinfotechApproachSection({
                     </>
                   )}
 
-                  {/* Center circle with checkmark - absolutely positioned on the line */}
+                  {/* Center circle with vinfo logo - absolutely positioned on the line */}
                   <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
                     <div className="w-12 h-12 rounded-full bg-[#00B46A] flex items-center justify-center ring-8 ring-white dark:ring-gray-900">
-                      <CheckCircle2 className="w-7 h-7 text-white" strokeWidth={2.5} />
+                      <img src="/vinfo-2.png" alt="" className="w-7 h-7 object-contain" />
                     </div>
                   </div>
                 </div>
 
-                {/* Mobile layout - timeline on left with checkmark icon */}
+                {/* Mobile layout - timeline on left with vinfo logo */}
                 <div className="flex lg:hidden items-start gap-4">
                   <div className="relative flex-shrink-0">
                     <div className="w-10 h-10 rounded-full bg-[#00B46A] flex items-center justify-center ring-4 ring-white dark:ring-gray-900">
-                      <CheckCircle2 className="w-6 h-6 text-white" strokeWidth={2.5} />
+                      <img src="/vinfo-2.png" alt="" className="w-6 h-6 object-contain" />
                     </div>
                   </div>
                   <div className="flex-1">
