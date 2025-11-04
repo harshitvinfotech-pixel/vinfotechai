@@ -96,10 +96,10 @@ function CaseStudyCard({ study, onClick }: CaseStudyCardProps) {
         className={`absolute -inset-0.5 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-3xl opacity-0 group-hover:opacity-20 transition-opacity duration-500 blur-xl`}
       ></div>
 
-      <div className="relative flex flex-col bg-white dark:bg-gray-900 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-emerald-500/30 dark:hover:border-emerald-500/30 transition-all duration-500 shadow-lg hover:shadow-2xl h-[550px] overflow-hidden">
+      <div className="relative flex flex-col bg-white dark:bg-gray-900 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-emerald-500/30 dark:hover:border-emerald-500/30 transition-all duration-500 shadow-lg hover:shadow-2xl h-[550px] sm:h-[600px] overflow-hidden">
 
         <div className={`relative overflow-hidden flex-shrink-0 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 transition-all duration-500 ${
-          isExpanded ? 'h-48 sm:h-56' : 'h-full'
+          isExpanded ? 'h-40 sm:h-48' : 'h-full'
         }`}>
           <div className={`absolute inset-0 transition-all duration-1000 ${
             imageLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
@@ -126,17 +126,17 @@ function CaseStudyCard({ study, onClick }: CaseStudyCardProps) {
         </div>
 
         {isExpanded && (
-          <div className="flex-1 overflow-y-auto p-6 sm:p-8 pb-20 scrollbar-thin scrollbar-thumb-gray-400 dark:scrollbar-thumb-gray-600 scrollbar-track-gray-100 dark:scrollbar-track-gray-800">
-            <div className="space-y-4">
+          <div className="flex-1 overflow-y-auto p-6 sm:p-8 pb-24 scrollbar-thin scrollbar-thumb-gray-400 dark:scrollbar-thumb-gray-600 scrollbar-track-gray-100 dark:scrollbar-track-gray-800">
+            <div className="space-y-5 sm:space-y-6">
               {study.overview_bullets && study.overview_bullets.length > 0 && (
-                <ul className="space-y-4">
+                <ul className="space-y-5 sm:space-y-6">
                   {study.overview_bullets.map((bullet, idx) => (
-                    <li key={idx} className="flex items-start gap-3">
+                    <li key={idx} className="flex items-start gap-3 sm:gap-4">
                       <div className="relative mt-2 flex-shrink-0">
                         <div className="w-1.5 h-1.5 rounded-full bg-[#00B46A]"></div>
                       </div>
                       <span
-                        className="text-gray-700 dark:text-gray-300 text-base sm:text-lg leading-relaxed"
+                        className="text-gray-700 dark:text-gray-300 text-base sm:text-lg leading-relaxed pr-2"
                         dangerouslySetInnerHTML={{ __html: bullet }}
                       />
                     </li>
@@ -148,7 +148,7 @@ function CaseStudyCard({ study, onClick }: CaseStudyCardProps) {
         )}
 
         {isExpanded && (
-          <div className="absolute bottom-0 left-0 right-0 p-6 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
+          <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 shadow-lg">
             <button
               onClick={() => onClick()}
               className="w-full py-3 px-6 bg-[#00B46A] text-white font-semibold rounded-xl hover:bg-[#009557] transition-colors duration-300"
