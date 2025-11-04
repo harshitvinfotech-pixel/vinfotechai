@@ -402,7 +402,7 @@ export default function ChatWidget() {
         <div className="flex items-center gap-2 p-3 md:gap-3 md:px-5 md:py-4">
           <div className="flex items-center gap-3 hidden md:flex">
             <Sparkles className="w-5 h-5" />
-            <span className="font-bold text-lg">Ask Us Anything??</span>
+            <span className="font-bold text-lg">Ask Us Anything</span>
           </div>
           <div className="relative md:hidden">
             <img
@@ -506,7 +506,7 @@ export default function ChatWidget() {
                   className="w-10 h-10 object-contain"
                 />
                 <div>
-                  <h3 className="text-white font-bold text-lg">Ask Us Anything??</h3>
+                  <h3 className="text-white font-bold text-lg">Ask Us Anything</h3>
                   <p className="text-white/90 text-xs">Choose a question or ask your own</p>
                 </div>
               </div>
