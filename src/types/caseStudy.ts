@@ -126,6 +126,31 @@ export interface TwoColumnBlockData {
   image_position?: 'left' | 'right';
 }
 
+export interface AIFeatureItem {
+  icon: string;
+  title: string;
+  description: string;
+  order_index: number;
+}
+
+export interface AIFeaturesSection {
+  title: string;
+  subtitle?: string;
+  items: AIFeatureItem[];
+}
+
+export interface ApproachStep {
+  title: string;
+  description: string;
+  order_index: number;
+}
+
+export interface ApproachTimelineSection {
+  title: string;
+  subtitle?: string;
+  steps: ApproachStep[];
+}
+
 export interface CaseStudyWithDetails extends CaseStudy {
   content_blocks?: CaseStudyContentBlock[];
   metrics?: CaseStudyMetric[];
@@ -134,4 +159,6 @@ export interface CaseStudyWithDetails extends CaseStudy {
   features?: CaseStudyFeature[];
   images?: CaseStudyImage[];
   gallery_images?: CaseStudyImage[];
+  ai_features?: AIFeaturesSection | null;
+  approach_timeline?: ApproachTimelineSection | null;
 }

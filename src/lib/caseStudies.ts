@@ -45,7 +45,9 @@ export async function getCaseStudyBySlug(slug: string): Promise<CaseStudyWithDet
         timeline: [],
         features: [],
         images: [],
-        gallery_images: []
+        gallery_images: [],
+        ai_features: null,
+        approach_timeline: null
       };
     }
 
@@ -55,7 +57,9 @@ export async function getCaseStudyBySlug(slug: string): Promise<CaseStudyWithDet
       { data: technologies },
       { data: timeline },
       { data: features },
-      { data: images }
+      { data: images },
+      { data: aiFeatures },
+      { data: approachTimeline }
     ] = await Promise.all([
       supabase
         .from('case_study_content_blocks')
@@ -86,10 +90,34 @@ export async function getCaseStudyBySlug(slug: string): Promise<CaseStudyWithDet
         .from('case_study_images')
         .select('*')
         .eq('case_study_id', caseStudy.id)
-        .order('display_order', { ascending: true })
+        .order('display_order', { ascending: true }),
+      supabase
+        .from('case_study_ai_features')
+        .select(`
+          *,
+          items:case_study_ai_feature_items(*)
+        `)
+        .eq('case_study_id', caseStudy.id)
+        .maybeSingle(),
+      supabase
+        .from('case_study_approach_timelines')
+        .select(`
+          *,
+          steps:case_study_approach_steps(*)
+        `)
+        .eq('case_study_id', caseStudy.id)
+        .maybeSingle()
     ]);
 
     const galleryImages = images?.filter(img => img.type === 'gallery') || [];
+
+    const aiFeatureItems = aiFeatures?.items
+      ? (aiFeatures.items as any[]).sort((a, b) => a.order_index - b.order_index)
+      : [];
+
+    const approachSteps = approachTimeline?.steps
+      ? (approachTimeline.steps as any[]).sort((a, b) => a.order_index - b.order_index)
+      : [];
 
     return {
       ...caseStudy,
@@ -99,7 +127,17 @@ export async function getCaseStudyBySlug(slug: string): Promise<CaseStudyWithDet
       timeline: timeline || [],
       features: features || [],
       images: images || [],
-      gallery_images: galleryImages
+      gallery_images: galleryImages,
+      ai_features: aiFeatures ? {
+        title: aiFeatures.title,
+        subtitle: aiFeatures.subtitle,
+        items: aiFeatureItems
+      } : null,
+      approach_timeline: approachTimeline ? {
+        title: approachTimeline.title,
+        subtitle: approachTimeline.subtitle,
+        steps: approachSteps
+      } : null
     };
   } catch (err) {
     console.error('Error fetching case study:', err);
@@ -113,7 +151,9 @@ export async function getCaseStudyBySlug(slug: string): Promise<CaseStudyWithDet
       timeline: [],
       features: [],
       images: [],
-      gallery_images: []
+      gallery_images: [],
+      ai_features: null,
+      approach_timeline: null
     };
   }
 }
@@ -133,7 +173,9 @@ export function getCaseStudyBySlugSync(slug: string): CaseStudyWithDetails | nul
     timeline: [],
     features: [],
     images: [],
-    gallery_images: []
+    gallery_images: [],
+    ai_features: null,
+    approach_timeline: null
   };
 }
 

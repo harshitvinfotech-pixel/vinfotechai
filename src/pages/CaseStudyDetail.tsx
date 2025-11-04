@@ -16,6 +16,8 @@ import TechStackSection from '../components/case-study-sections/TechStackSection
 import KeyTakeawaySection from '../components/case-study-sections/KeyTakeawaySection';
 import QuoteBannerSection from '../components/case-study-sections/QuoteBannerSection';
 import RelatedCaseStudiesSection from '../components/case-study-sections/RelatedCaseStudiesSection';
+import HowAIMadeItPossibleSection from '../components/case-study-sections/HowAIMadeItPossibleSection';
+import VinfotechApproachSection from '../components/case-study-sections/VinfotechApproachSection';
 
 export default function CaseStudyDetail() {
   const { slug } = useParams<{ slug: string }>();
@@ -133,6 +135,22 @@ export default function CaseStudyDetail() {
           solutionText={caseStudy.solution}
           solutionImage={caseStudy.hero_image}
         />
+
+        {caseStudy.ai_features && caseStudy.ai_features.items.length > 0 && (
+          <HowAIMadeItPossibleSection
+            title={caseStudy.ai_features.title}
+            subtitle={caseStudy.ai_features.subtitle}
+            features={caseStudy.ai_features.items}
+          />
+        )}
+
+        {caseStudy.approach_timeline && caseStudy.approach_timeline.steps.length > 0 && (
+          <VinfotechApproachSection
+            title={caseStudy.approach_timeline.title}
+            subtitle={caseStudy.approach_timeline.subtitle}
+            steps={caseStudy.approach_timeline.steps}
+          />
+        )}
 
         {aiFeatures.length > 0 && (
           <AIFeaturesSection aiFeatures={aiFeatures} />
