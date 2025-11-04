@@ -42,7 +42,7 @@ export default function TechStackSection({
   if (!techStack || techStack.length === 0) return null;
 
   return (
-    <section className="py-16 sm:py-20 bg-white dark:bg-gray-900">
+    <section className="py-16 sm:py-20 bg-gray-50 dark:bg-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
@@ -60,9 +60,9 @@ export default function TechStackSection({
             return (
               <div
                 key={index}
-                className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-6 sm:p-8 flex flex-col items-center justify-center text-center transition-all duration-300 hover:shadow-lg hover:bg-gray-100 dark:hover:bg-gray-750 border border-gray-100 dark:border-gray-700"
+                className="bg-white dark:bg-gray-900 rounded-2xl p-6 sm:p-8 flex flex-col items-center justify-center text-center transition-all duration-300 hover:shadow-lg hover:shadow-gray-200 dark:hover:shadow-gray-900 border border-gray-200 dark:border-gray-700"
               >
-                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-white dark:bg-gray-900 shadow-sm border border-gray-200 dark:border-gray-700 flex items-center justify-center mb-6">
+                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-gray-50 dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700 flex items-center justify-center mb-6">
                   {tech.logo_url ? (
                     <img
                       src={tech.logo_url}

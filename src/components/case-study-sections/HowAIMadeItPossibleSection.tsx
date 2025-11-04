@@ -22,7 +22,7 @@ export default function HowAIMadeItPossibleSection({
   }
 
   return (
-    <section className="py-16 sm:py-20 bg-white dark:bg-gray-900">
+    <section className="py-16 sm:py-20 bg-gray-50 dark:bg-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
@@ -39,7 +39,7 @@ export default function HowAIMadeItPossibleSection({
           {features.map((feature, index) => (
             <div
               key={index}
-              className="bg-gray-50 dark:bg-gray-800 rounded-xl p-6 hover:shadow-lg transition-shadow duration-300"
+              className="bg-white dark:bg-gray-900 rounded-xl p-6 hover:shadow-lg transition-shadow duration-300 border border-gray-200 dark:border-gray-700"
             >
               <div className="w-14 h-14 bg-[#00B46A] rounded-lg flex items-center justify-center mb-4">
                 <Sparkles className="w-7 h-7 text-white" />
