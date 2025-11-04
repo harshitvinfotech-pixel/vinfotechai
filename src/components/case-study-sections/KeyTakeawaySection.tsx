@@ -6,9 +6,9 @@ interface KeyTakeawaySectionProps {
 
 export default function KeyTakeawaySection({ takeawayText }: KeyTakeawaySectionProps) {
   return (
-    <section className="py-12 sm:py-16 lg:py-20 bg-gray-50 dark:bg-gray-800">
+    <section className="py-12 sm:py-16 lg:py-20 bg-gray-50 dark:bg-gray-800 transition-colors duration-300">
       <div className="max-w-4xl mx-auto px-6 sm:px-6 lg:px-8">
-        <div className="bg-white dark:bg-gray-900 rounded-2xl lg:rounded-3xl p-6 sm:p-10 lg:p-16 flex flex-col items-center text-center">
+        <div className="bg-white dark:bg-gray-900 rounded-2xl lg:rounded-3xl p-6 sm:p-10 lg:p-16 flex flex-col items-center text-center animate-[fadeInUp_0.8s_ease-out] shadow-xl hover:shadow-2xl transition-shadow duration-500">
           <div className="mb-5 sm:mb-6 lg:mb-8">
             <img
               src="/vinfo-2.png"
@@ -37,6 +37,18 @@ export default function KeyTakeawaySection({ takeawayText }: KeyTakeawaySectionP
           </div>
         </div>
       </div>
+      <style>{`
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
     </section>
   );
 }

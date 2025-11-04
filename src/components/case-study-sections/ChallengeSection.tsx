@@ -80,20 +80,21 @@ function parseInlineFormatting(text: string): (string | JSX.Element)[] {
 
 export default function ChallengeSection({ challengeImage, challengeText }: ChallengeSectionProps) {
   return (
-    <section className="py-12 sm:py-16 lg:py-20 bg-gray-50 dark:bg-gray-800">
+    <section className="py-12 sm:py-16 lg:py-20 bg-gray-50 dark:bg-gray-800 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-16 items-center">
-          <div className="order-1 lg:order-1">
-            <div className="relative rounded-xl lg:rounded-2xl overflow-hidden shadow-xl">
+          <div className="order-1 lg:order-1 animate-[slideInLeft_0.8s_ease-out]">
+            <div className="relative rounded-xl lg:rounded-2xl overflow-hidden shadow-xl transition-transform duration-500 hover:scale-[1.02]">
               <img
                 src={challengeImage}
                 alt="The Challenge"
                 className="w-full h-[250px] sm:h-[350px] lg:h-[500px] object-cover"
+                loading="lazy"
               />
             </div>
           </div>
 
-          <div className="order-2 lg:order-2">
+          <div className="order-2 lg:order-2 animate-[slideInRight_0.8s_ease-out]">
             <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-5 lg:mb-6 text-left">
               The Challenge
             </h2>
@@ -103,6 +104,28 @@ export default function ChallengeSection({ challengeImage, challengeText }: Chal
           </div>
         </div>
       </div>
+      <style>{`
+        @keyframes slideInLeft {
+          from {
+            opacity: 0;
+            transform: translateX(-50px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+        @keyframes slideInRight {
+          from {
+            opacity: 0;
+            transform: translateX(50px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+      `}</style>
     </section>
   );
 }

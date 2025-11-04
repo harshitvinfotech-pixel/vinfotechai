@@ -22,9 +22,9 @@ export default function HowAIMadeItPossibleSection({
   }
 
   return (
-    <section className="py-12 sm:py-16 lg:py-20 bg-gray-50 dark:bg-gray-800">
+    <section className="py-12 sm:py-16 lg:py-20 bg-gray-50 dark:bg-gray-800 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8">
-        <div className="text-left lg:text-center mb-8 sm:mb-10 lg:mb-12">
+        <div className="text-left lg:text-center mb-8 sm:mb-10 lg:mb-12 animate-[fadeInUp_0.6s_ease-out]">
           <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4">
             {title}
           </h2>
@@ -39,7 +39,10 @@ export default function HowAIMadeItPossibleSection({
           {features.map((feature, index) => (
             <div
               key={index}
-              className="bg-white dark:bg-gray-900 rounded-xl p-5 sm:p-6 hover:shadow-lg transition-shadow duration-300 border border-gray-200 dark:border-gray-700"
+              className="bg-white dark:bg-gray-900 rounded-xl p-5 sm:p-6 hover:shadow-lg transition-all duration-300 border border-gray-200 dark:border-gray-700 hover:-translate-y-1 hover:border-[#00B46A]"
+              style={{
+                animation: `fadeInUp 0.6s ease-out ${index * 0.1}s both`
+              }}
             >
               <div className="w-12 h-12 sm:w-14 sm:h-14 bg-[#00B46A] rounded-lg flex items-center justify-center mb-3 sm:mb-4">
                 <Sparkles className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
@@ -54,6 +57,18 @@ export default function HowAIMadeItPossibleSection({
           ))}
         </div>
       </div>
+      <style>{`
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
     </section>
   );
 }

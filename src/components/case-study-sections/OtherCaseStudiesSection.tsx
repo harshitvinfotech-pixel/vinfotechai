@@ -60,9 +60,21 @@ export default function OtherCaseStudiesSection({ currentSlug }: OtherCaseStudie
   }
 
   return (
-    <section className="py-16 sm:py-20 bg-white dark:bg-gray-900">
+    <section className="py-16 sm:py-20 bg-white dark:bg-gray-900 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-10 sm:mb-12 lg:mb-16 text-center">
+        <div className="mb-10 sm:mb-12 lg:mb-16 text-center animate-[fadeInUp_0.6s_ease-out]">
+          <style>{`
+            @keyframes fadeInUp {
+              from {
+                opacity: 0;
+                transform: translateY(30px);
+              }
+              to {
+                opacity: 1;
+                transform: translateY(0);
+              }
+            }
+          `}</style>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
             Other Case Studies
           </h2>
@@ -97,7 +109,7 @@ function CaseStudyCard({ study, onClick }: CaseStudyCardProps) {
 
   return (
     <article
-      className="group relative transition-all duration-700"
+      className="group relative transition-all duration-700 animate-[fadeInUp_0.8s_ease-out]"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >

@@ -82,14 +82,35 @@ export default function CaseStudyDetail() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
+      <style>{`
+        * {
+          scroll-behavior: smooth;
+        }
+        img {
+          image-rendering: -webkit-optimize-contrast;
+          image-rendering: crisp-edges;
+        }
+      `}</style>
       <Header onQuoteClick={() => {}} />
 
       <div className="relative">
         <div className="absolute top-24 sm:top-28 left-4 sm:left-8 z-50">
           <button
             onClick={handleBackClick}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white/10 backdrop-blur-md text-white hover:bg-white/20 transition-all duration-300 group border border-white/30"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white/10 backdrop-blur-md text-white hover:bg-white/20 transition-all duration-300 group border border-white/30 animate-[slideInLeft_0.5s_ease-out]"
           >
+            <style>{`
+              @keyframes slideInLeft {
+                from {
+                  opacity: 0;
+                  transform: translateX(-20px);
+                }
+                to {
+                  opacity: 1;
+                  transform: translateX(0);
+                }
+              }
+            `}</style>
             <ArrowLeft size={20} className="transition-transform duration-300 group-hover:-translate-x-1" />
             <span className="font-semibold">Back</span>
           </button>

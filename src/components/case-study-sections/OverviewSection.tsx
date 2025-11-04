@@ -34,12 +34,24 @@ function parseOverviewText(text: string) {
 
 export default function OverviewSection({ overviewText }: OverviewSectionProps) {
   return (
-    <section className="py-12 sm:py-16 lg:py-20 bg-white dark:bg-gray-900">
+    <section className="py-12 sm:py-16 lg:py-20 bg-white dark:bg-gray-900 transition-colors duration-300">
       <div className="max-w-6xl mx-auto px-6 sm:px-6 lg:px-8">
-        <div className="text-left lg:text-center space-y-4 sm:space-y-6">
+        <div className="text-left lg:text-center space-y-4 sm:space-y-6 animate-[fadeInUp_0.8s_ease-out]">
           {parseOverviewText(overviewText)}
         </div>
       </div>
+      <style>{`
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
     </section>
   );
 }

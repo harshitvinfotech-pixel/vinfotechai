@@ -86,20 +86,21 @@ function parseInlineFormatting(text: string): (string | JSX.Element)[] {
 
 export default function SolutionSection({ solutionText, solutionImage }: SolutionSectionProps) {
   return (
-    <section className="py-12 sm:py-16 lg:py-20 bg-white dark:bg-gray-900">
+    <section className="py-12 sm:py-16 lg:py-20 bg-white dark:bg-gray-900 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-16 items-center">
-          <div className="order-1 lg:order-2">
-            <div className="relative rounded-xl lg:rounded-2xl overflow-hidden shadow-xl bg-gradient-to-br from-purple-600 via-purple-700 to-indigo-800 p-6 sm:p-8 flex items-center justify-center min-h-[250px] sm:min-h-[350px] lg:min-h-[400px]">
+          <div className="order-1 lg:order-2 animate-[slideInRight_0.8s_ease-out]">
+            <div className="relative rounded-xl lg:rounded-2xl overflow-hidden shadow-xl bg-gradient-to-br from-purple-600 via-purple-700 to-indigo-800 p-6 sm:p-8 flex items-center justify-center min-h-[250px] sm:min-h-[350px] lg:min-h-[400px] transition-transform duration-500 hover:scale-[1.02]">
               <img
                 src={solutionImage}
                 alt="AI Solution"
-                className="max-w-full max-h-[300px] sm:max-h-[400px] lg:max-h-[500px] object-contain"
+                className="max-w-full max-h-[300px] sm:max-h-[400px] lg:max-h-[500px] object-contain transition-transform duration-500 hover:scale-105"
+                loading="lazy"
               />
             </div>
           </div>
 
-          <div className="order-2 lg:order-1">
+          <div className="order-2 lg:order-1 animate-[slideInLeft_0.8s_ease-out]">
             <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-5 lg:mb-6 text-left">
               The AI Solution
             </h2>
@@ -109,6 +110,28 @@ export default function SolutionSection({ solutionText, solutionImage }: Solutio
           </div>
         </div>
       </div>
+      <style>{`
+        @keyframes slideInLeft {
+          from {
+            opacity: 0;
+            transform: translateX(-50px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+        @keyframes slideInRight {
+          from {
+            opacity: 0;
+            transform: translateX(50px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+      `}</style>
     </section>
   );
 }

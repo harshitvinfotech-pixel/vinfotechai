@@ -35,9 +35,9 @@ export default function VinfotechApproachSection({
   }
 
   return (
-    <section className="py-12 sm:py-16 lg:py-20 bg-white dark:bg-gray-900">
+    <section className="py-12 sm:py-16 lg:py-20 bg-white dark:bg-gray-900 transition-colors duration-300">
       <div className="max-w-5xl mx-auto px-6 sm:px-6 lg:px-8">
-        <div className="text-left lg:text-center mb-8 sm:mb-12 lg:mb-16">
+        <div className="text-left lg:text-center mb-8 sm:mb-12 lg:mb-16 animate-[fadeInUp_0.6s_ease-out]">
           <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4">
             {title}
           </h2>
@@ -71,7 +71,7 @@ export default function VinfotechApproachSection({
                     <>
                       {/* Left card */}
                       <div className="flex justify-end">
-                        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700 hover:border-[#00B46A] transition-all duration-300 max-w-md w-full">
+                        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700 hover:border-[#00B46A] transition-all duration-300 max-w-md w-full hover:-translate-y-1" style={{ animation: `slideInLeft 0.6s ease-out ${index * 0.15}s both` }}>
                           <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
                             {step.title}
                           </h3>
@@ -89,7 +89,7 @@ export default function VinfotechApproachSection({
                       <div></div>
                       {/* Right card */}
                       <div className="flex justify-start">
-                        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700 hover:border-[#00B46A] transition-all duration-300 max-w-md w-full">
+                        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700 hover:border-[#00B46A] transition-all duration-300 max-w-md w-full hover:-translate-y-1" style={{ animation: `slideInRight 0.6s ease-out ${index * 0.15}s both` }}>
                           <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
                             {step.title}
                           </h3>
@@ -110,7 +110,7 @@ export default function VinfotechApproachSection({
                 </div>
 
                 {/* Mobile layout - timeline on left with checkmark */}
-                <div className="flex lg:hidden items-start gap-4">
+                <div className="flex lg:hidden items-start gap-4" style={{ animation: `fadeInUp 0.6s ease-out ${index * 0.15}s both` }}>
                   <div className="relative flex-shrink-0">
                     <div className="w-10 h-10 rounded-full bg-[#00B46A] flex items-center justify-center ring-4 ring-white dark:ring-gray-900">
                       <Check className="w-6 h-6 text-white" strokeWidth={3} />
@@ -132,6 +132,38 @@ export default function VinfotechApproachSection({
           </div>
         </div>
       </div>
+      <style>{`
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        @keyframes slideInLeft {
+          from {
+            opacity: 0;
+            transform: translateX(-50px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+        @keyframes slideInRight {
+          from {
+            opacity: 0;
+            transform: translateX(50px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+      `}</style>
     </section>
   );
 }

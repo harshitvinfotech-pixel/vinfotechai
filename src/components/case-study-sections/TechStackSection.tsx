@@ -42,9 +42,9 @@ export default function TechStackSection({
   if (!techStack || techStack.length === 0) return null;
 
   return (
-    <section className="py-12 sm:py-16 lg:py-20 bg-white dark:bg-gray-900">
+    <section className="py-12 sm:py-16 lg:py-20 bg-white dark:bg-gray-900 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8">
-        <div className="text-left lg:text-center mb-8 sm:mb-12 lg:mb-16">
+        <div className="text-left lg:text-center mb-8 sm:mb-12 lg:mb-16 animate-[fadeInUp_0.6s_ease-out]">
           <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4">
             {title}
           </h2>
@@ -60,7 +60,10 @@ export default function TechStackSection({
             return (
               <div
                 key={index}
-                className="bg-white dark:bg-gray-900 rounded-xl lg:rounded-2xl p-4 sm:p-6 lg:p-8 flex flex-col items-center justify-center text-center border border-gray-200 dark:border-gray-700"
+                className="bg-white dark:bg-gray-900 rounded-xl lg:rounded-2xl p-4 sm:p-6 lg:p-8 flex flex-col items-center justify-center text-center border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-emerald-500"
+                style={{
+                  animation: `fadeInUp 0.6s ease-out ${index * 0.05}s both`
+                }}
               >
                 <div className="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 rounded-xl lg:rounded-2xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 flex items-center justify-center mb-3 sm:mb-4 lg:mb-6">
                   {tech.logo_url ? (
@@ -90,6 +93,18 @@ export default function TechStackSection({
           })}
         </div>
       </div>
+      <style>{`
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
     </section>
   );
 }

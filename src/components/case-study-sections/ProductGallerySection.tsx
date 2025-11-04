@@ -96,9 +96,9 @@ export default function ProductGallerySection({ images }: ProductGallerySectionP
   const nextIndex = getNextIndex(currentIndex);
 
   return (
-    <section className="py-12 sm:py-16 lg:py-20 bg-white dark:bg-gray-900">
+    <section className="py-12 sm:py-16 lg:py-20 bg-white dark:bg-gray-900 transition-colors duration-300">
       <div className="max-w-[1920px] mx-auto px-6 sm:px-6 lg:px-8">
-        <div className="mb-8 sm:mb-12 lg:mb-16 text-left lg:text-center">
+        <div className="mb-8 sm:mb-12 lg:mb-16 text-left lg:text-center animate-[fadeInUp_0.6s_ease-out]">
           <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold text-gray-900 dark:text-white">
             Gallery
           </h2>
@@ -129,7 +129,7 @@ export default function ProductGallerySection({ images }: ProductGallerySectionP
                 </div>
               </div>
 
-              <div className="relative flex-1 max-w-6xl">
+              <div className="relative flex-1 max-w-6xl animate-[fadeInUp_0.8s_ease-out_0.2s_both]">
                 <div className="relative overflow-hidden rounded-xl lg:rounded-3xl shadow-xl lg:shadow-2xl aspect-video h-[250px] sm:h-[400px] lg:h-[650px]">
                   {sortedImages.map((image, index) => (
                     <div
@@ -193,6 +193,18 @@ export default function ProductGallerySection({ images }: ProductGallerySectionP
           </button>
         </div>
       </div>
+      <style>{`
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
     </section>
   );
 }
