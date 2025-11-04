@@ -51,7 +51,7 @@ export default function BlogPreview() {
                 Our Blog
               </span>
             </div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 tracking-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[52px] font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 tracking-tight">
               Insights, Innovation & Expertise
             </h2>
           </div>

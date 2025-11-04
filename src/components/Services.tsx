@@ -93,7 +93,7 @@ export default function Services() {
               What We Offer
             </span>
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 tracking-tight px-2">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[52px] font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 tracking-tight px-2">
             Our AI Services
           </h2>
           <p className="text-lg sm:text-lg md:text-xl lg:text-2xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed px-4">
