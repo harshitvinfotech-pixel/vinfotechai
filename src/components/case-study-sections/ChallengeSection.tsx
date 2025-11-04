@@ -28,7 +28,7 @@ function parseChallengeText(text: string) {
         <div key={key++} className="bg-white dark:bg-gray-900 rounded-xl border-2 border-gray-200 dark:border-gray-700 p-6 mb-6 space-y-3">
           {listItems.map((item, idx) => (
             <div key={idx} className="flex items-start">
-              <span className="flex-shrink-0 w-2 h-2 rounded-full bg-blue-600 mt-2.5 mr-3"></span>
+              <span className="flex-shrink-0 w-2 h-2 rounded-full bg-[#00B46A] mt-2.5 mr-3"></span>
               <span className="text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
                 {parseInlineFormatting(item)}
               </span>

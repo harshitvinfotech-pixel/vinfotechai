@@ -28,7 +28,7 @@ function parseSolutionText(text: string) {
         <div key={key++} className="bg-gray-50 dark:bg-gray-800 rounded-xl p-6 mb-6 space-y-4">
           {listItems.map((item, idx) => (
             <div key={idx} className="flex items-start group">
-              <span className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center text-sm mr-4">
+              <span className="flex-shrink-0 w-8 h-8 rounded-full bg-[#00B46A] text-white font-bold flex items-center justify-center text-sm mr-4">
                 {idx + 1}
               </span>
               <span className="text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed pt-1">
