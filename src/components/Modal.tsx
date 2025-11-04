@@ -40,10 +40,10 @@ export default function Modal({ isOpen, onClose, children, title }: ModalProps) 
       onClick={onClose}
     >
       <div
-        className="bg-white dark:bg-gray-800 w-full h-full md:h-auto md:max-h-[90vh] flex flex-col md:rounded-2xl shadow-2xl md:max-w-2xl animate-slide-up md:animate-scale-in transition-all duration-500"
+        className="bg-white dark:bg-gray-800 w-full h-full md:h-auto md:max-h-[90vh] md:rounded-2xl shadow-2xl md:max-w-2xl animate-slide-up md:animate-scale-in transition-all duration-500 overflow-hidden flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="sticky top-0 bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700 px-6 py-4 flex items-center justify-between md:rounded-t-2xl z-10 flex-shrink-0">
+        <div className="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700 px-6 py-4 flex items-center justify-between md:rounded-t-2xl flex-shrink-0">
           {title && <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{title}</h2>}
           <button
             onClick={onClose}
@@ -53,7 +53,7 @@ export default function Modal({ isOpen, onClose, children, title }: ModalProps) 
             <X size={24} className="text-gray-600 dark:text-gray-300 transition-transform duration-300" />
           </button>
         </div>
-        <div className="flex-1 overflow-y-auto p-6">{children}</div>
+        <div className="overflow-y-auto p-6 flex-1">{children}</div>
       </div>
     </div>
   );

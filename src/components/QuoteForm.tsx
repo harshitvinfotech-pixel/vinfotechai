@@ -8,16 +8,56 @@ interface QuoteFormProps {
 }
 
 const countryCodes = [
-  { code: '+1', country: 'US', flag: '🇺🇸' },
-  { code: '+44', country: 'UK', flag: '🇬🇧' },
-  { code: '+91', country: 'IN', flag: '🇮🇳' },
-  { code: '+86', country: 'CN', flag: '🇨🇳' },
-  { code: '+81', country: 'JP', flag: '🇯🇵' },
-  { code: '+49', country: 'DE', flag: '🇩🇪' },
-  { code: '+33', country: 'FR', flag: '🇫🇷' },
-  { code: '+61', country: 'AU', flag: '🇦🇺' },
-  { code: '+971', country: 'AE', flag: '🇦🇪' },
-  { code: '+966', country: 'SA', flag: '🇸🇦' },
+  { code: '+1', country: 'US', flag: '🇺🇸', name: 'United States' },
+  { code: '+44', country: 'UK', flag: '🇬🇧', name: 'United Kingdom' },
+  { code: '+91', country: 'IN', flag: '🇮🇳', name: 'India' },
+  { code: '+86', country: 'CN', flag: '🇨🇳', name: 'China' },
+  { code: '+81', country: 'JP', flag: '🇯🇵', name: 'Japan' },
+  { code: '+49', country: 'DE', flag: '🇩🇪', name: 'Germany' },
+  { code: '+33', country: 'FR', flag: '🇫🇷', name: 'France' },
+  { code: '+61', country: 'AU', flag: '🇦🇺', name: 'Australia' },
+  { code: '+971', country: 'AE', flag: '🇦🇪', name: 'UAE' },
+  { code: '+966', country: 'SA', flag: '🇸🇦', name: 'Saudi Arabia' },
+  { code: '+7', country: 'RU', flag: '🇷🇺', name: 'Russia' },
+  { code: '+82', country: 'KR', flag: '🇰🇷', name: 'South Korea' },
+  { code: '+39', country: 'IT', flag: '🇮🇹', name: 'Italy' },
+  { code: '+34', country: 'ES', flag: '🇪🇸', name: 'Spain' },
+  { code: '+52', country: 'MX', flag: '🇲🇽', name: 'Mexico' },
+  { code: '+55', country: 'BR', flag: '🇧🇷', name: 'Brazil' },
+  { code: '+27', country: 'ZA', flag: '🇿🇦', name: 'South Africa' },
+  { code: '+20', country: 'EG', flag: '🇪🇬', name: 'Egypt' },
+  { code: '+234', country: 'NG', flag: '🇳🇬', name: 'Nigeria' },
+  { code: '+254', country: 'KE', flag: '🇰🇪', name: 'Kenya' },
+  { code: '+62', country: 'ID', flag: '🇮🇩', name: 'Indonesia' },
+  { code: '+60', country: 'MY', flag: '🇲🇾', name: 'Malaysia' },
+  { code: '+65', country: 'SG', flag: '🇸🇬', name: 'Singapore' },
+  { code: '+66', country: 'TH', flag: '🇹🇭', name: 'Thailand' },
+  { code: '+84', country: 'VN', flag: '🇻🇳', name: 'Vietnam' },
+  { code: '+63', country: 'PH', flag: '🇵🇭', name: 'Philippines' },
+  { code: '+92', country: 'PK', flag: '🇵🇰', name: 'Pakistan' },
+  { code: '+880', country: 'BD', flag: '🇧🇩', name: 'Bangladesh' },
+  { code: '+94', country: 'LK', flag: '🇱🇰', name: 'Sri Lanka' },
+  { code: '+977', country: 'NP', flag: '🇳🇵', name: 'Nepal' },
+  { code: '+90', country: 'TR', flag: '🇹🇷', name: 'Turkey' },
+  { code: '+98', country: 'IR', flag: '🇮🇷', name: 'Iran' },
+  { code: '+972', country: 'IL', flag: '🇮🇱', name: 'Israel' },
+  { code: '+31', country: 'NL', flag: '🇳🇱', name: 'Netherlands' },
+  { code: '+32', country: 'BE', flag: '🇧🇪', name: 'Belgium' },
+  { code: '+41', country: 'CH', flag: '🇨🇭', name: 'Switzerland' },
+  { code: '+43', country: 'AT', flag: '🇦🇹', name: 'Austria' },
+  { code: '+46', country: 'SE', flag: '🇸🇪', name: 'Sweden' },
+  { code: '+47', country: 'NO', flag: '🇳🇴', name: 'Norway' },
+  { code: '+45', country: 'DK', flag: '🇩🇰', name: 'Denmark' },
+  { code: '+358', country: 'FI', flag: '🇫🇮', name: 'Finland' },
+  { code: '+48', country: 'PL', flag: '🇵🇱', name: 'Poland' },
+  { code: '+351', country: 'PT', flag: '🇵🇹', name: 'Portugal' },
+  { code: '+30', country: 'GR', flag: '🇬🇷', name: 'Greece' },
+  { code: '+64', country: 'NZ', flag: '🇳🇿', name: 'New Zealand' },
+  { code: '+54', country: 'AR', flag: '🇦🇷', name: 'Argentina' },
+  { code: '+56', country: 'CL', flag: '🇨🇱', name: 'Chile' },
+  { code: '+57', country: 'CO', flag: '🇨🇴', name: 'Colombia' },
+  { code: '+51', country: 'PE', flag: '🇵🇪', name: 'Peru' },
+  { code: '+593', country: 'EC', flag: '🇪🇨', name: 'Ecuador' },
 ];
 
 export default function QuoteForm({ onShowSuccessConfirmation }: QuoteFormProps) {
@@ -113,13 +153,12 @@ export default function QuoteForm({ onShowSuccessConfirmation }: QuoteFormProps)
   };
 
   return (
-    <div className="flex flex-col h-full max-h-[calc(90vh-8rem)]">
-      <div className="flex-1 overflow-y-auto px-1">
-        <p className="text-base text-gray-600 dark:text-gray-300 mb-6">
-          We'd love to build something amazing together. Share your project details and we'll get back to you within 24 hours.
-        </p>
+    <div className="overflow-y-auto px-1">
+      <p className="text-base text-gray-600 dark:text-gray-300 mb-6">
+        We'd love to build something amazing together. Share your project details and we'll get back to you within 24 hours.
+      </p>
 
-        <form onSubmit={handleSubmit} className="space-y-4 pb-6" id="quote-form">
+      <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
             Full Name *
@@ -162,6 +201,7 @@ export default function QuoteForm({ onShowSuccessConfirmation }: QuoteFormProps)
                 value={selectedCountryCode}
                 onChange={(e) => setSelectedCountryCode(e.target.value)}
                 className="appearance-none h-full px-2.5 py-2.5 pr-7 text-sm border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent outline-none transition-all duration-200 cursor-pointer"
+                style={{ maxHeight: '42px' }}
               >
                 {countryCodes.map((country) => (
                   <option key={country.code} value={country.code}>
@@ -239,31 +279,27 @@ export default function QuoteForm({ onShowSuccessConfirmation }: QuoteFormProps)
           </div>
         </div>
 
-          {submitStatus === 'error' && (
-            <div className="flex flex-col gap-2 p-4 bg-gradient-to-r from-red-50 to-pink-50 dark:from-red-900/20 dark:to-pink-900/20 border border-red-400 dark:border-red-600 rounded-lg text-red-900 dark:text-red-200 animate-slide-down">
-              <div className="flex items-start gap-2.5">
-                <div className="flex-shrink-0 w-8 h-8 bg-red-500 dark:bg-red-600 rounded-full flex items-center justify-center">
-                  <AlertCircle size={18} className="text-white" />
-                </div>
-                <div className="flex-1">
-                  <p className="font-bold text-base">Submission Failed</p>
-                  <p className="text-sm mt-0.5 text-red-700 dark:text-red-300">{errorMessage}</p>
-                </div>
+        {submitStatus === 'error' && (
+          <div className="flex flex-col gap-2 p-4 bg-gradient-to-r from-red-50 to-pink-50 dark:from-red-900/20 dark:to-pink-900/20 border border-red-400 dark:border-red-600 rounded-lg text-red-900 dark:text-red-200 animate-slide-down">
+            <div className="flex items-start gap-2.5">
+              <div className="flex-shrink-0 w-8 h-8 bg-red-500 dark:bg-red-600 rounded-full flex items-center justify-center">
+                <AlertCircle size={18} className="text-white" />
               </div>
-              <p className="text-xs ml-10 text-red-600 dark:text-red-400">
-                Please check your internet connection and try again. If the problem persists, contact us directly.
-              </p>
+              <div className="flex-1">
+                <p className="font-bold text-base">Submission Failed</p>
+                <p className="text-sm mt-0.5 text-red-700 dark:text-red-300">{errorMessage}</p>
+              </div>
             </div>
-          )}
-        </form>
-      </div>
+            <p className="text-xs ml-10 text-red-600 dark:text-red-400">
+              Please check your internet connection and try again. If the problem persists, contact us directly.
+            </p>
+          </div>
+        )}
 
-      <div className="sticky bottom-0 left-0 right-0 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 px-1 py-3 shadow-lg z-10">
         <button
           type="submit"
-          form="quote-form"
           disabled={isSubmitting}
-          className="w-full bg-[#00B46A] text-white px-5 py-2.5 rounded-lg text-base font-semibold hover:bg-[#009955] hover:shadow-md transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+          className="w-full bg-[#00B46A] text-white px-5 py-2.5 rounded-lg text-base font-semibold hover:bg-[#009955] hover:shadow-md transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 mt-6"
         >
           {isSubmitting ? (
             <>
@@ -274,7 +310,7 @@ export default function QuoteForm({ onShowSuccessConfirmation }: QuoteFormProps)
             'Submit Request'
           )}
         </button>
-      </div>
+      </form>
     </div>
   );
 }
