@@ -13,8 +13,8 @@ export default function QuoteBannerSection({ quoteText, quoteAttribution }: Quot
           <div className="flex-shrink-0">
             <div className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 rounded-full bg-white flex items-center justify-center p-4">
               <img
-                src="/vinfo-2.png"
-                alt="Vinfotech"
+                src="/qt.png"
+                alt="Quote"
                 className="w-full h-full object-contain"
               />
             </div>
