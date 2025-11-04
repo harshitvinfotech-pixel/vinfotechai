@@ -49,34 +49,67 @@ export default function VinfotechApproachSection({
         </div>
 
         <div className="relative">
-          <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-transparent via-[#00B46A] to-transparent transform -translate-x-1/2"></div>
+          {/* Desktop center line */}
+          <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-0.5 hidden lg:block" style={{ backgroundColor: '#00B46A' }}></div>
 
-          <div className="space-y-6 sm:space-y-8 lg:space-y-12">
+          {/* Mobile left line */}
+          <div className="absolute left-5 top-0 bottom-0 w-0.5 lg:hidden" style={{ backgroundColor: '#00B46A' }}></div>
+
+          <div className="space-y-6 sm:space-y-8 lg:space-y-16">
             {steps.map((step, index) => (
-              <div
-                key={index}
-                className={`flex items-start lg:items-center gap-4 sm:gap-6 lg:gap-8 ${
-                  index % 2 === 0 ? 'flex-row lg:flex-row' : 'flex-row lg:flex-row-reverse'
-                }`}
-              >
-                <div className="relative flex-shrink-0 order-1">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#00B46A] flex items-center justify-center ring-4 ring-white dark:ring-gray-900">
-                    <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+              <div key={index} className="relative">
+                {/* Desktop layout - alternating sides */}
+                <div className="hidden lg:grid lg:grid-cols-2 lg:gap-16">
+                  {/* Left content */}
+                  <div className={`${index % 2 === 0 ? 'block' : 'hidden'}`}>
+                    <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700 hover:border-[#00B46A] transition-all duration-300">
+                      <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        {step.title}
+                      </h3>
+                      <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                        {parseRichText(step.description)}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Right content */}
+                  <div className={`${index % 2 === 1 ? 'block' : 'hidden'}`}>
+                    <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700 hover:border-[#00B46A] transition-all duration-300">
+                      <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        {step.title}
+                      </h3>
+                      <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                        {parseRichText(step.description)}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Center circle - absolutely positioned on the line */}
+                  <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
+                    <div className="w-12 h-12 rounded-full bg-[#00B46A] flex items-center justify-center ring-8 ring-white dark:ring-gray-900">
+                      <img src="/vinfo-2.png" alt="" className="w-7 h-7 object-contain" />
+                    </div>
                   </div>
                 </div>
 
-                <div className="flex-1 order-2 lg:order-none">
-                  <div className="bg-white dark:bg-gray-800 rounded-xl p-5 sm:p-6 border border-gray-200 dark:border-gray-700">
-                    <h3 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-2 sm:mb-3 text-left">
-                      {step.title}
-                    </h3>
-                    <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 leading-relaxed text-left">
-                      {parseRichText(step.description)}
-                    </p>
+                {/* Mobile layout - timeline on left */}
+                <div className="flex lg:hidden items-start gap-4">
+                  <div className="relative flex-shrink-0">
+                    <div className="w-10 h-10 rounded-full bg-[#00B46A] flex items-center justify-center ring-4 ring-white dark:ring-gray-900">
+                      <img src="/vinfo-2.png" alt="" className="w-6 h-6 object-contain" />
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <div className="bg-white dark:bg-gray-800 rounded-xl p-4 sm:p-6 shadow-lg border border-gray-200 dark:border-gray-700">
+                      <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        {step.title}
+                      </h3>
+                      <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                        {parseRichText(step.description)}
+                      </p>
+                    </div>
                   </div>
                 </div>
-
-                <div className="hidden lg:block flex-1"></div>
               </div>
             ))}
           </div>
