@@ -18,26 +18,8 @@ interface CaseStudy {
 export default function CaseStudies() {
   const initialCaseStudies = useMemo(() => getAllCaseStudiesSync(), []);
   const [caseStudies, setCaseStudies] = useState<CaseStudy[]>(initialCaseStudies);
-  const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
 
   useEffect(() => {
     async function loadCaseStudies() {
@@ -64,7 +46,7 @@ export default function CaseStudies() {
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className={`mb-10 sm:mb-12 lg:mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+        <div className="mb-10 sm:mb-12 lg:mb-16">
           <div className="mb-6 sm:mb-8 text-center">
             <div className="mb-3 sm:mb-4">
               <span className="text-base font-semibold tracking-wider uppercase" style={{ color: '#00B46A' }}>
