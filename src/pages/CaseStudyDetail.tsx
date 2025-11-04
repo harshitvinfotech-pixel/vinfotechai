@@ -3,8 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { getCaseStudyBySlug, getSuggestedCaseStudies } from '../lib/caseStudies';
-import type { CaseStudyWithDetails, CaseStudy } from '../types/caseStudy';
+import { getCaseStudyBySlug } from '../lib/caseStudies';
+import type { CaseStudyWithDetails } from '../types/caseStudy';
 import HeroSection from '../components/case-study-sections/HeroSection';
 import OverviewSection from '../components/case-study-sections/OverviewSection';
 import ChallengeSection from '../components/case-study-sections/ChallengeSection';
@@ -15,15 +15,14 @@ import ImpactSection from '../components/case-study-sections/ImpactSection';
 import TechStackSection from '../components/case-study-sections/TechStackSection';
 import KeyTakeawaySection from '../components/case-study-sections/KeyTakeawaySection';
 import QuoteBannerSection from '../components/case-study-sections/QuoteBannerSection';
-import RelatedCaseStudiesSection from '../components/case-study-sections/RelatedCaseStudiesSection';
 import HowAIMadeItPossibleSection from '../components/case-study-sections/HowAIMadeItPossibleSection';
 import VinfotechApproachSection from '../components/case-study-sections/VinfotechApproachSection';
+import OtherCaseStudiesSection from '../components/case-study-sections/OtherCaseStudiesSection';
 
 export default function CaseStudyDetail() {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const [caseStudy, setCaseStudy] = useState<CaseStudyWithDetails | null>(null);
-  const [relatedStudies, setRelatedStudies] = useState<CaseStudy[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -46,8 +45,6 @@ export default function CaseStudyDetail() {
       }
 
       setCaseStudy(study);
-      const related = getSuggestedCaseStudies(slug, study.tags, 3);
-      setRelatedStudies(related);
       setLoading(false);
     }
 
@@ -92,12 +89,6 @@ export default function CaseStudyDetail() {
     icon: t.category.toLowerCase(),
     name: t.name
   })) || [];
-
-  const relatedStudiesData = relatedStudies.map(study => ({
-    slug: study.slug,
-    image: study.hero_image,
-    title: study.title
-  }));
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
@@ -164,15 +155,13 @@ export default function CaseStudyDetail() {
           <KeyTakeawaySection takeawayText={caseStudy.results} />
         )}
 
+        <OtherCaseStudiesSection currentSlug={slug || ''} />
+
         {caseStudy.client_quote && (
           <QuoteBannerSection
             quoteText={caseStudy.client_quote}
             quoteAttribution={caseStudy.client_name || ''}
           />
-        )}
-
-        {relatedStudiesData.length > 0 && (
-          <RelatedCaseStudiesSection relatedStudies={relatedStudiesData} />
         )}
       </main>
 
