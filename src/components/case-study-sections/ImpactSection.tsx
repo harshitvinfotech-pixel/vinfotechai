@@ -10,7 +10,7 @@ interface ImpactSectionProps {
 
 export default function ImpactSection({ impactMetrics, imageUrl }: ImpactSectionProps) {
   return (
-    <section className="py-16 bg-white dark:bg-gray-950">
+    <section className="py-16 bg-gray-100 dark:bg-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-12">
@@ -27,7 +27,7 @@ export default function ImpactSection({ impactMetrics, imageUrl }: ImpactSection
           {impactMetrics.map((metric, index) => (
             <div
               key={index}
-              className="group relative bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 hover:border-emerald-500 dark:hover:border-emerald-500 transition-all duration-300 hover:shadow-lg"
+              className="group relative bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 hover:border-emerald-500 dark:hover:border-emerald-500 transition-all duration-300 hover:shadow-lg"
             >
               {/* Accent Line */}
               <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-emerald-500 to-emerald-600 rounded-l-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
