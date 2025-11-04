@@ -156,8 +156,8 @@ export default function CaseStudyDetail() {
           <ImpactSection impactMetrics={impactMetrics} />
         )}
 
-        {techStack.length > 0 && (
-          <TechStackSection techStack={techStack} />
+        {caseStudy.technologies && caseStudy.technologies.length > 0 && (
+          <TechStackSection techStack={caseStudy.technologies} />
         )}
 
         {caseStudy.results && (
