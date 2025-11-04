@@ -28,9 +28,7 @@ export default function OtherCaseStudiesSection({ currentSlug }: OtherCaseStudie
     async function loadCaseStudies() {
       setLoading(true);
       const allStudies = await getAllCaseStudies();
-      console.log('All case studies:', allStudies);
-      const filteredStudies = allStudies.filter(study => study.slug !== currentSlug);
-      console.log('Filtered case studies (excluding ' + currentSlug + '):', filteredStudies);
+      const filteredStudies = allStudies.filter(study => study.slug !== currentSlug).slice(0, 3);
       setCaseStudies(filteredStudies);
       setLoading(false);
     }
