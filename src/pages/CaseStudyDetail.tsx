@@ -136,6 +136,7 @@ export default function CaseStudyDetail() {
         <SolutionSection
           solutionText={caseStudy.solution}
           solutionImage={caseStudy.hero_image}
+          slug={slug}
         />
 
         {caseStudy.ai_features && caseStudy.ai_features.items.length > 0 && (
