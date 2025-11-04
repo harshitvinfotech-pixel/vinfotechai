@@ -97,7 +97,7 @@ function AppContent() {
       {showScrollTop && !isBlogPage && !isCaseStudyPage && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 w-12 h-12 bg-[#00B46A] text-white rounded-full shadow-lg hover:shadow-xl hover:shadow-[#00B46A]/50 transition-all duration-500 transform hover:scale-110 hover:-translate-y-1 flex items-center justify-center z-40 animate-scale-in active:scale-95"
+          className="fixed bottom-24 right-8 w-12 h-12 bg-[#00B46A] text-white rounded-full shadow-lg hover:shadow-xl hover:shadow-[#00B46A]/50 transition-all duration-500 transform hover:scale-110 hover:-translate-y-1 flex items-center justify-center z-40 animate-scale-in active:scale-95"
           aria-label="Scroll to top"
         >
           <ChevronUp size={24} className="transition-transform duration-300 group-hover:-translate-y-0.5" />

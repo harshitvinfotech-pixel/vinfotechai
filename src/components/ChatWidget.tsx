@@ -362,7 +362,7 @@ export default function ChatWidget() {
     return (
       <button
         onClick={handleCollapsedClick}
-        className={`fixed bottom-6 right-6 text-white shadow-2xl transition-all duration-500 hover:scale-105 hover:shadow-3xl z-50 group rounded-full md:rounded-3xl ${theme === 'dark' ? 'shadow-emerald-500/30' : ''}`}
+        className={`fixed bottom-6 right-6 text-white shadow-2xl transition-all duration-500 hover:scale-105 hover:shadow-3xl z-[60] group rounded-full md:rounded-3xl ${theme === 'dark' ? 'shadow-emerald-500/30' : ''}`}
         style={{ backgroundColor: '#00B46A' }}
       >
         <div className="flex items-center gap-2 p-3 md:gap-3 md:px-5 md:py-4">
@@ -392,7 +392,7 @@ export default function ChatWidget() {
 
   if (widgetState === 'contact') {
     return (
-      <div className="fixed bottom-6 right-6 w-[90vw] max-w-[420px] z-50 animate-scale-in">
+      <div className="fixed bottom-6 right-6 w-[90vw] max-w-[420px] z-[60] animate-scale-in">
         <div className={`rounded-3xl shadow-2xl overflow-hidden backdrop-blur-sm transition-all duration-500 ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
           <div className="px-6 py-5 rounded-t-3xl" style={{ backgroundColor: '#00B46A' }}>
             <div className="flex items-center justify-between">
@@ -461,7 +461,7 @@ export default function ChatWidget() {
 
   if (widgetState === 'preview') {
     return (
-      <div className="fixed bottom-6 right-6 w-[90vw] max-w-[420px] z-50 animate-scale-in">
+      <div className="fixed bottom-6 right-6 w-[90vw] max-w-[420px] z-[60] animate-scale-in">
         <div className={`rounded-3xl shadow-2xl overflow-hidden backdrop-blur-sm transition-all duration-500 ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
           <div className="px-6 py-5 rounded-t-3xl" style={{ backgroundColor: '#00B46A' }}>
             <div className="flex items-center justify-between">
@@ -563,7 +563,7 @@ export default function ChatWidget() {
 
   return (
     <div
-      className={`fixed z-50 shadow-2xl flex flex-col overflow-hidden rounded-none transition-all duration-500 ease-out animate-scale-in ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} ${
+      className={`fixed z-[60] shadow-2xl flex flex-col overflow-hidden rounded-none transition-all duration-500 ease-out animate-scale-in ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} ${
         isExpanded
           ? 'inset-0 md:top-20 md:bottom-6 md:left-6 md:right-6 md:rounded-3xl'
           : 'inset-0 md:bottom-6 md:right-6 md:w-[450px] md:h-[calc(100vh-140px)] md:max-h-[700px] md:inset-auto md:rounded-3xl'
