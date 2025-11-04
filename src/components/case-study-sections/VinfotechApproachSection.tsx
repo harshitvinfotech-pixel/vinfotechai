@@ -60,7 +60,7 @@ export default function VinfotechApproachSection({
                 }`}
               >
                 <div className={`flex-1 ${index % 2 === 0 ? 'text-right' : 'text-left'}`}>
-                  <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-shadow duration-300">
+                  <div className="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
                     <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 text-left">
                       {step.title}
                     </h3>
@@ -71,7 +71,7 @@ export default function VinfotechApproachSection({
                 </div>
 
                 <div className="relative flex-shrink-0">
-                  <div className="w-12 h-12 rounded-full bg-[#00B46A] flex items-center justify-center shadow-lg ring-4 ring-white dark:ring-gray-900">
+                  <div className="w-12 h-12 rounded-full bg-[#00B46A] flex items-center justify-center ring-4 ring-white dark:ring-gray-900">
                     <CheckCircle2 className="w-6 h-6 text-white" />
                   </div>
                 </div>

@@ -11,7 +11,7 @@ export default function QuoteBannerSection({ quoteText, quoteAttribution }: Quot
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="flex items-start gap-6 lg:gap-8">
           <div className="flex-shrink-0">
-            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white dark:bg-gray-900 flex items-center justify-center shadow-md">
+            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white dark:bg-gray-900 flex items-center justify-center">
               <svg
                 className="w-8 h-8 sm:w-10 sm:h-10"
                 viewBox="0 0 24 24"
