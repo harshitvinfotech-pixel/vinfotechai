@@ -63,6 +63,8 @@ export default function Header({ onQuoteClick }: HeaderProps) {
               src={theme === 'dark' ? '/Vinfo-white2.png' : '/asset5.png'}
               alt="Vinfotech AI - Custom AI Software Development"
               className="h-10 w-auto transition-transform duration-300 hover:scale-105"
+              fetchPriority="high"
+              decoding="async"
             />
           </button>
 

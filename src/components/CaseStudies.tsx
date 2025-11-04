@@ -112,6 +112,7 @@ function CaseStudyCard({ study, onClick }: CaseStudyCardProps) {
               }`}
               onLoad={() => setImageLoaded(true)}
               loading="lazy"
+              decoding="async"
             />
 
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>

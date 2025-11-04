@@ -18,6 +18,12 @@ export default defineConfig({
       }
     },
     chunkSizeWarningLimit: 1000,
+    // Enable CSS code splitting
+    cssCodeSplit: true,
+    // Minify for production with esbuild (faster than terser)
+    minify: 'esbuild',
+    // Target modern browsers for smaller bundles
+    target: 'es2020',
   },
   server: {
     allowedHosts: [
