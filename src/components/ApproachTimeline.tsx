@@ -91,18 +91,13 @@ export default function ApproachTimeline() {
               </div>
 
               <div className="flex flex-shrink-0 items-center justify-center relative z-10">
-                <div className="relative">
-                  <div
-                    className={`w-12 h-12 rounded-full flex items-center justify-center text-white font-bold shadow-lg transition-all duration-500 ${
-                      visibleSteps.has(index) ? 'scale-100' : 'scale-0'
-                    }`}
-                    style={{ backgroundColor: '#00B46A' }}
-                  >
-                    <CheckCircle2 size={20} />
-                  </div>
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-white font-bold text-sm">{index + 1}</span>
-                  </div>
+                <div
+                  className={`w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg transition-all duration-500 ${
+                    visibleSteps.has(index) ? 'scale-100' : 'scale-0'
+                  }`}
+                  style={{ backgroundColor: '#00B46A' }}
+                >
+                  {index + 1}
                 </div>
               </div>
 
