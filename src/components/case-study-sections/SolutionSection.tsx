@@ -3,6 +3,83 @@ interface SolutionSectionProps {
   solutionImage: string;
 }
 
+function parseSolutionText(text: string) {
+  const lines = text.split('\n');
+  const elements: JSX.Element[] = [];
+  let currentParagraph: string[] = [];
+  let listItems: string[] = [];
+  let key = 0;
+
+  const flushParagraph = () => {
+    if (currentParagraph.length > 0) {
+      const paragraphText = currentParagraph.join(' ');
+      elements.push(
+        <p key={key++} className="text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+          {parseInlineFormatting(paragraphText)}
+        </p>
+      );
+      currentParagraph = [];
+    }
+  };
+
+  const flushList = () => {
+    if (listItems.length > 0) {
+      elements.push(
+        <ul key={key++} className="list-none space-y-3 mb-4 text-base sm:text-lg text-gray-700 dark:text-gray-300">
+          {listItems.map((item, idx) => (
+            <li key={idx} className="flex items-start">
+              <span className="mr-3 mt-1">{idx + 1}.</span>
+              <span>{parseInlineFormatting(item)}</span>
+            </li>
+          ))}
+        </ul>
+      );
+      listItems = [];
+    }
+  };
+
+  lines.forEach((line) => {
+    const trimmed = line.trim();
+
+    if (!trimmed) {
+      flushParagraph();
+      flushList();
+      return;
+    }
+
+    const numberedMatch = trimmed.match(/^(\d+)\.\s*(.+)$/);
+    if (numberedMatch) {
+      flushParagraph();
+      listItems.push(numberedMatch[2]);
+    } else if (trimmed.startsWith('- ')) {
+      flushParagraph();
+      listItems.push(trimmed.substring(2));
+    } else {
+      flushList();
+      currentParagraph.push(trimmed);
+    }
+  });
+
+  flushParagraph();
+  flushList();
+
+  return elements;
+}
+
+function parseInlineFormatting(text: string): (string | JSX.Element)[] {
+  const parts = text.split(/(\*\*.*?\*\*|<b>.*?<\/b>)/g);
+
+  return parts.map((part, index) => {
+    if (part.startsWith('**') && part.endsWith('**')) {
+      return <strong key={index} className="font-bold text-gray-900 dark:text-white">{part.slice(2, -2)}</strong>;
+    }
+    if (part.startsWith('<b>') && part.endsWith('</b>')) {
+      return <strong key={index} className="font-bold text-gray-900 dark:text-white">{part.slice(3, -4)}</strong>;
+    }
+    return part;
+  });
+}
+
 export default function SolutionSection({ solutionText, solutionImage }: SolutionSectionProps) {
   return (
     <section className="py-16 sm:py-20 bg-white dark:bg-gray-900">
@@ -13,7 +90,7 @@ export default function SolutionSection({ solutionText, solutionImage }: Solutio
               The AI Solution
             </h2>
             <div className="space-y-4 text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-              <p>{solutionText}</p>
+              {parseSolutionText(solutionText)}
             </div>
           </div>
 
