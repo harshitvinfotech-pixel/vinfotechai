@@ -8,16 +8,16 @@ export default function Hero({ onQuoteClick }: HeroProps) {
   return (
     <section className="flex flex-col justify-center items-center px-5 sm:px-6 md:px-8 lg:px-12 py-12 sm:py-16 md:py-20" style={{ minHeight: '80vh' }}>
         <div className="max-w-6xl mx-auto w-full">
-          <div className="flex flex-col items-start md:items-center justify-center gap-5 sm:gap-5 md:gap-6 lg:gap-7">
-            <h1 className="text-left md:text-center text-3xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-snug sm:leading-tight px-0 sm:px-6 max-w-7xl w-full">
+          <div className="flex flex-col items-center justify-center gap-5 sm:gap-5 md:gap-6 lg:gap-7">
+            <h1 className="text-center text-3xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-snug sm:leading-tight px-0 sm:px-6 max-w-7xl w-full">
               <span className="text-gray-900 dark:text-white animate-fade-in-up" style={{ animationDelay: '0.2s', animationFillMode: 'both' }}>Need a Production Ready AI Team, Not Another SaaS Subscription?</span>
             </h1>
 
-            <p className="text-left md:text-center text-lg sm:text-2xl md:text-2xl lg:text-3xl font-normal text-gray-700 dark:text-white/90 animate-fade-in-up px-0 sm:px-6 leading-relaxed max-w-4xl md:mx-auto" style={{ animationDelay: '0.6s', animationFillMode: 'both' }}>
+            <p className="text-center text-lg sm:text-2xl md:text-2xl lg:text-3xl font-normal text-gray-700 dark:text-white/90 animate-fade-in-up px-0 sm:px-6 leading-relaxed max-w-4xl mx-auto" style={{ animationDelay: '0.6s', animationFillMode: 'both' }}>
              Get a working, enterprise ready custom-built pilot in weeks, built on your data, inside your environment.
             </p>
 
-            <div className="flex justify-start md:justify-center animate-fade-in-up mt-2 md:hidden w-full" style={{ animationDelay: '0.8s', animationFillMode: 'both' }}>
+            <div className="flex justify-center animate-fade-in-up mt-2 md:hidden w-full" style={{ animationDelay: '0.8s', animationFillMode: 'both' }}>
               <button
                 onClick={onQuoteClick}
                 className="group bg-[#00B46A] text-white px-7 sm:px-9 py-3 sm:py-3.5 rounded-lg font-semibold text-base sm:text-xl hover:shadow-lg hover:shadow-[#00B46A]/50 transition-all duration-500 transform hover:scale-110 hover:-translate-y-1 flex items-center justify-center gap-2 shadow-xl hover:shadow-2xl active:scale-105 w-full sm:w-auto max-w-[280px]"
