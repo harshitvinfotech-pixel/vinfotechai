@@ -47,7 +47,7 @@ export default function VinfotechApproachSection({
     return (
       <section className="py-12 sm:py-16 lg:py-20 bg-white dark:bg-gray-900 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8">
-          <div className="text-left lg:text-center mb-8 sm:mb-12 lg:mb-20 animate-[fadeInUp_0.6s_ease-out]">
+          <div className="text-center mb-8 sm:mb-12 lg:mb-20 animate-[fadeInUp_0.6s_ease-out]">
             <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4">
               {title}
             </h2>
