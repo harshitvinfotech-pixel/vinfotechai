@@ -123,7 +123,7 @@ export default function CaseStudyDetail() {
       <Header onQuoteClick={() => setIsQuoteModalOpen(true)} />
 
       <div className="relative">
-        <div className="absolute top-24 sm:top-28 left-4 sm:left-8 z-40">
+        <div className="absolute top-24 sm:top-28 left-4 sm:left-6 lg:left-1 z-40 max-w-7xl w-full">
           <button
             onClick={handleBackClick}
             className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white/10 backdrop-blur-md text-white hover:bg-white/20 transition-all duration-300 group border border-white/30 animate-[slideInLeft_0.5s_ease-out]"
