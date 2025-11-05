@@ -123,26 +123,28 @@ export default function CaseStudyDetail() {
       <Header onQuoteClick={() => setIsQuoteModalOpen(true)} />
 
       <div className="relative">
-        <div className="absolute top-24 left-6 sm:left-8 lg:left-12 z-40">
-          <button
-            onClick={handleBackClick}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white/10 backdrop-blur-md text-white hover:bg-white/20 transition-all duration-300 group border border-white/30 animate-[slideInLeft_0.5s_ease-out]"
-          >
-            <style>{`
-              @keyframes slideInLeft {
-                from {
-                  opacity: 0;
-                  transform: translateX(-20px);
+        <div className="absolute top-24 left-0 right-0 z-40">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-1">
+            <button
+              onClick={handleBackClick}
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white/10 backdrop-blur-md text-white hover:bg-white/20 transition-all duration-300 group border border-white/30 animate-[slideInLeft_0.5s_ease-out]"
+            >
+              <style>{`
+                @keyframes slideInLeft {
+                  from {
+                    opacity: 0;
+                    transform: translateX(-20px);
+                  }
+                  to {
+                    opacity: 1;
+                    transform: translateX(0);
+                  }
                 }
-                to {
-                  opacity: 1;
-                  transform: translateX(0);
-                }
-              }
-            `}</style>
-            <ArrowLeft size={20} className="transition-transform duration-300 group-hover:-translate-x-1" />
-            <span className="font-semibold">Back</span>
-          </button>
+              `}</style>
+              <ArrowLeft size={20} className="transition-transform duration-300 group-hover:-translate-x-1" />
+              <span className="font-semibold">Back</span>
+            </button>
+          </div>
         </div>
 
         <HeroSection
