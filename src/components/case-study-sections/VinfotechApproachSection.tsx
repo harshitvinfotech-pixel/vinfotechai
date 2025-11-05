@@ -34,11 +34,123 @@ export default function VinfotechApproachSection({
     return null;
   }
 
-  const rows: ApproachStep[][] = [];
-  for (let i = 0; i < steps.length; i += 3) {
-    rows.push(steps.slice(i, i + 3));
+  // For the specific 5-step flow: Knowledge → RAG → LLM → Frontend → Governance
+  const isDefaultFlow = steps.length === 5;
+
+  if (!isDefaultFlow) {
+    // Fallback: generic grid layout for other cases
+    const rows: ApproachStep[][] = [];
+    for (let i = 0; i < steps.length; i += 3) {
+      rows.push(steps.slice(i, i + 3));
+    }
+
+    return (
+      <section className="py-12 sm:py-16 lg:py-20 bg-white dark:bg-gray-900 transition-colors duration-300">
+        <div className="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8">
+          <div className="text-left lg:text-center mb-8 sm:mb-12 lg:mb-20 animate-[fadeInUp_0.6s_ease-out]">
+            <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4">
+              {title}
+            </h2>
+            {subtitle && (
+              <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400">
+                {subtitle}
+              </p>
+            )}
+          </div>
+
+          <div className="hidden lg:block space-y-32">
+            {rows.map((row, rowIndex) => (
+              <div key={rowIndex} className="relative">
+                <div className="absolute top-1/2 left-0 right-0 h-1 -translate-y-1/2" style={{
+                  background: 'linear-gradient(90deg, transparent 0%, #00B46A 10%, #00B46A 90%, transparent 100%)',
+                  zIndex: 0
+                }}></div>
+
+                <div className="grid grid-cols-3 gap-16 items-center relative z-10">
+                  {row.map((step, colIndex) => {
+                    const stepIndex = rowIndex * 3 + colIndex;
+                    return (
+                      <div key={colIndex} className="relative flex flex-col items-center">
+                        {colIndex < row.length - 1 && (
+                          <div className="absolute left-full top-1/2 -translate-y-1/2 translate-x-8 z-30">
+                            <div className="w-12 h-12 rounded-full bg-[#00B46A] flex items-center justify-center ring-8 ring-white dark:ring-gray-900 shadow-lg">
+                              <Check className="w-7 h-7 text-white" strokeWidth={3} />
+                            </div>
+                          </div>
+                        )}
+
+                        <div
+                          className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-xl border-2 border-gray-200 dark:border-gray-700 hover:border-[#00B46A] transition-all duration-300 hover:-translate-y-2 w-full relative z-20"
+                          style={{ animation: `fadeInUp 0.6s ease-out ${stepIndex * 0.15}s both` }}
+                        >
+                          <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3">
+                            {step.title}
+                          </h3>
+                          <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                            {parseRichText(step.description)}
+                          </p>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {rowIndex < rows.length - 1 && (
+                  <div className="absolute left-1/2 top-full -translate-x-1/2 flex flex-col items-center z-10" style={{ height: '128px' }}>
+                    <div className="w-1 h-16 bg-[#00B46A]"></div>
+                    <div className="w-12 h-12 rounded-full bg-[#00B46A] flex items-center justify-center ring-8 ring-white dark:ring-gray-900 shadow-lg my-2">
+                      <Check className="w-7 h-7 text-white" strokeWidth={3} />
+                    </div>
+                    <div className="w-1 flex-1 bg-[#00B46A]"></div>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          <div className="lg:hidden relative">
+            <div className="absolute left-5 top-0 bottom-0 w-0.5" style={{ backgroundColor: '#00B46A' }}></div>
+
+            <div className="space-y-6 sm:space-y-8">
+              {steps.map((step, index) => (
+                <div key={index} className="flex items-start gap-4" style={{ animation: `fadeInUp 0.6s ease-out ${index * 0.15}s both` }}>
+                  <div className="relative flex-shrink-0">
+                    <div className="w-10 h-10 rounded-full bg-[#00B46A] flex items-center justify-center ring-4 ring-white dark:ring-gray-900">
+                      <Check className="w-6 h-6 text-white" strokeWidth={3} />
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <div className="bg-white dark:bg-gray-800 rounded-xl p-4 sm:p-6 shadow-lg border border-gray-200 dark:border-gray-700">
+                      <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        {step.title}
+                      </h3>
+                      <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                        {parseRichText(step.description)}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+        <style>{`
+          @keyframes fadeInUp {
+            from {
+              opacity: 0;
+              transform: translateY(30px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+        `}</style>
+      </section>
+    );
   }
 
+  // Custom layout for 5-step flow: Knowledge → RAG → LLM (top), then down to Frontend → Governance (bottom)
   return (
     <section className="py-12 sm:py-16 lg:py-20 bg-white dark:bg-gray-900 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8">
@@ -53,62 +165,116 @@ export default function VinfotechApproachSection({
           )}
         </div>
 
-        {/* Desktop Horizontal Layout */}
-        <div className="hidden lg:block space-y-32">
-          {rows.map((row, rowIndex) => (
-            <div key={rowIndex} className="relative">
-              {/* Horizontal connecting line for the entire row */}
-              <div className="absolute top-1/2 left-0 right-0 h-1 -translate-y-1/2" style={{
-                background: 'linear-gradient(90deg, transparent 0%, #00B46A 10%, #00B46A 90%, transparent 100%)',
-                zIndex: 0
+        {/* Desktop Custom Flow Layout */}
+        <div className="hidden lg:block">
+          <div className="relative" style={{ minHeight: '600px' }}>
+            {/* Top Row: Knowledge → RAG → LLM */}
+            <div className="grid grid-cols-3 gap-16 mb-32 relative">
+              {/* Horizontal line connecting top row */}
+              <div className="absolute top-1/2 left-0 right-0 h-1 -translate-y-1/2 z-0" style={{
+                background: 'linear-gradient(90deg, transparent 0%, #00B46A 10%, #00B46A 90%, transparent 100%)'
               }}></div>
 
-              <div className="grid grid-cols-3 gap-16 items-center relative z-10">
-                {row.map((step, colIndex) => {
-                  const stepIndex = rowIndex * 3 + colIndex;
-                  return (
-                    <div key={colIndex} className="relative flex flex-col items-center">
-                      {/* Connecting circle between cards */}
-                      {colIndex < row.length - 1 && (
-                        <div className="absolute left-full top-1/2 -translate-y-1/2 translate-x-8 z-30">
-                          <div className="w-12 h-12 rounded-full bg-[#00B46A] flex items-center justify-center ring-8 ring-white dark:ring-gray-900 shadow-lg">
-                            <Check className="w-7 h-7 text-white" strokeWidth={3} />
-                          </div>
-                        </div>
-                      )}
-
-                      {/* Card */}
-                      <div
-                        className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-xl border-2 border-gray-200 dark:border-gray-700 hover:border-[#00B46A] transition-all duration-300 hover:-translate-y-2 w-full relative z-20"
-                        style={{ animation: `fadeInUp 0.6s ease-out ${stepIndex * 0.15}s both` }}
-                      >
-                        <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3">
-                          {step.title}
-                        </h3>
-                        <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-                          {parseRichText(step.description)}
-                        </p>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-
-              {/* Vertical connecting line to next row - worm style */}
-              {rowIndex < rows.length - 1 && (
-                <div className="absolute left-1/2 top-full -translate-x-1/2 flex flex-col items-center z-10" style={{ height: '128px' }}>
-                  {/* Top half - going down from last row */}
-                  <div className="w-1 h-16 bg-[#00B46A]"></div>
-                  {/* Circle at the bend */}
-                  <div className="w-12 h-12 rounded-full bg-[#00B46A] flex items-center justify-center ring-8 ring-white dark:ring-gray-900 shadow-lg my-2">
+              {/* Knowledge Integration */}
+              <div className="relative z-20" style={{ animation: `fadeInUp 0.6s ease-out 0s both` }}>
+                <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-xl border-2 border-gray-200 dark:border-gray-700 hover:border-[#00B46A] transition-all duration-300 hover:-translate-y-2">
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3">
+                    {steps[0].title}
+                  </h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                    {parseRichText(steps[0].description)}
+                  </p>
+                </div>
+                {/* Circle between Knowledge and RAG */}
+                <div className="absolute left-full top-1/2 -translate-y-1/2 translate-x-8 z-30">
+                  <div className="w-12 h-12 rounded-full bg-[#00B46A] flex items-center justify-center ring-8 ring-white dark:ring-gray-900 shadow-lg">
                     <Check className="w-7 h-7 text-white" strokeWidth={3} />
                   </div>
-                  {/* Bottom half - going to next row */}
-                  <div className="w-1 flex-1 bg-[#00B46A]"></div>
                 </div>
-              )}
+              </div>
+
+              {/* RAG Architecture */}
+              <div className="relative z-20" style={{ animation: `fadeInUp 0.6s ease-out 0.15s both` }}>
+                <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-xl border-2 border-gray-200 dark:border-gray-700 hover:border-[#00B46A] transition-all duration-300 hover:-translate-y-2">
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3">
+                    {steps[1].title}
+                  </h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                    {parseRichText(steps[1].description)}
+                  </p>
+                </div>
+                {/* Circle between RAG and LLM */}
+                <div className="absolute left-full top-1/2 -translate-y-1/2 translate-x-8 z-30">
+                  <div className="w-12 h-12 rounded-full bg-[#00B46A] flex items-center justify-center ring-8 ring-white dark:ring-gray-900 shadow-lg">
+                    <Check className="w-7 h-7 text-white" strokeWidth={3} />
+                  </div>
+                </div>
+              </div>
+
+              {/* LLM Layer */}
+              <div className="relative z-20" style={{ animation: `fadeInUp 0.6s ease-out 0.3s both` }}>
+                <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-xl border-2 border-gray-200 dark:border-gray-700 hover:border-[#00B46A] transition-all duration-300 hover:-translate-y-2">
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3">
+                    {steps[2].title}
+                  </h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                    {parseRichText(steps[2].description)}
+                  </p>
+                </div>
+              </div>
             </div>
-          ))}
+
+            {/* Vertical line from LLM down to Frontend */}
+            <div className="absolute top-[calc(50%-16px)] right-[16.666%] w-1 h-32 bg-[#00B46A] z-10"></div>
+
+            {/* Circle at the bend */}
+            <div className="absolute top-[calc(50%+112px)] right-[16.666%] -translate-x-1/2 z-30">
+              <div className="w-12 h-12 rounded-full bg-[#00B46A] flex items-center justify-center ring-8 ring-white dark:ring-gray-900 shadow-lg">
+                <Check className="w-7 h-7 text-white" strokeWidth={3} />
+              </div>
+            </div>
+
+            {/* Bottom Row: Frontend → Governance */}
+            <div className="grid grid-cols-3 gap-16 relative">
+              {/* Horizontal line connecting bottom row (only first 2 columns) */}
+              <div className="absolute top-1/2 left-0 right-[33.333%] h-1 -translate-y-1/2 z-0" style={{
+                background: 'linear-gradient(90deg, transparent 0%, #00B46A 15%, #00B46A 85%, #00B46A 100%)'
+              }}></div>
+
+              {/* Frontend */}
+              <div className="relative z-20" style={{ animation: `fadeInUp 0.6s ease-out 0.45s both` }}>
+                <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-xl border-2 border-gray-200 dark:border-gray-700 hover:border-[#00B46A] transition-all duration-300 hover:-translate-y-2">
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3">
+                    {steps[3].title}
+                  </h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                    {parseRichText(steps[3].description)}
+                  </p>
+                </div>
+                {/* Circle between Frontend and Governance */}
+                <div className="absolute left-full top-1/2 -translate-y-1/2 translate-x-8 z-30">
+                  <div className="w-12 h-12 rounded-full bg-[#00B46A] flex items-center justify-center ring-8 ring-white dark:ring-gray-900 shadow-lg">
+                    <Check className="w-7 h-7 text-white" strokeWidth={3} />
+                  </div>
+                </div>
+              </div>
+
+              {/* Governance */}
+              <div className="relative z-20" style={{ animation: `fadeInUp 0.6s ease-out 0.6s both` }}>
+                <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-xl border-2 border-gray-200 dark:border-gray-700 hover:border-[#00B46A] transition-all duration-300 hover:-translate-y-2">
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3">
+                    {steps[4].title}
+                  </h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                    {parseRichText(steps[4].description)}
+                  </p>
+                </div>
+              </div>
+
+              {/* Empty third column */}
+              <div></div>
+            </div>
+          </div>
         </div>
 
         {/* Mobile Layout - timeline on left with checkmark */}
