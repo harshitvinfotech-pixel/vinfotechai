@@ -201,8 +201,8 @@ export default function VinfotechApproachSection({
                     <div
                       className="absolute left-1/2 -translate-x-1/2 w-1 bg-[#00B46A]"
                       style={{
-                        height: isAbove ? '105px' : '105px',
-                        top: isAbove ? '-130px' : '24px',
+                        height: isAbove ? '85px' : '105px',
+                        top: isAbove ? '-110px' : '24px',
                         zIndex: 5
                       }}
                     ></div>
