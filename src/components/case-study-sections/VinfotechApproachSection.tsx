@@ -42,7 +42,7 @@ export default function VinfotechApproachSection({
   return (
     <section className="py-12 sm:py-16 lg:py-20 bg-white dark:bg-gray-900 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8">
-        <div className="text-left lg:text-center mb-8 sm:mb-12 lg:mb-16 animate-[fadeInUp_0.6s_ease-out]">
+        <div className="text-left lg:text-center mb-8 sm:mb-12 lg:mb-20 animate-[fadeInUp_0.6s_ease-out]">
           <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4">
             {title}
           </h2>
@@ -54,60 +54,59 @@ export default function VinfotechApproachSection({
         </div>
 
         {/* Desktop Horizontal Layout */}
-        <div className="hidden lg:block space-y-24">
+        <div className="hidden lg:block space-y-32">
           {rows.map((row, rowIndex) => (
             <div key={rowIndex} className="relative">
-              <div className="grid grid-cols-3 gap-8 items-start">
+              {/* Horizontal connecting line for the entire row */}
+              <div className="absolute top-1/2 left-0 right-0 h-1 -translate-y-1/2" style={{
+                background: 'linear-gradient(90deg, transparent 0%, #00B46A 10%, #00B46A 90%, transparent 100%)',
+                zIndex: 0
+              }}></div>
+
+              <div className="grid grid-cols-3 gap-16 items-center relative z-10">
                 {row.map((step, colIndex) => {
                   const stepIndex = rowIndex * 3 + colIndex;
                   return (
-                    <div key={colIndex} className="relative">
+                    <div key={colIndex} className="relative flex flex-col items-center">
+                      {/* Connecting circle between cards */}
+                      {colIndex < row.length - 1 && (
+                        <div className="absolute left-full top-1/2 -translate-y-1/2 translate-x-8 z-30">
+                          <div className="w-12 h-12 rounded-full bg-[#00B46A] flex items-center justify-center ring-8 ring-white dark:ring-gray-900 shadow-lg">
+                            <Check className="w-7 h-7 text-white" strokeWidth={3} />
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Card */}
                       <div
-                        className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700 hover:border-[#00B46A] transition-all duration-300 hover:-translate-y-1 h-full"
+                        className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-xl border-2 border-gray-200 dark:border-gray-700 hover:border-[#00B46A] transition-all duration-300 hover:-translate-y-2 w-full relative z-20"
                         style={{ animation: `fadeInUp 0.6s ease-out ${stepIndex * 0.15}s both` }}
                       >
-                        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
+                        <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3">
                           {step.title}
                         </h3>
                         <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
                           {parseRichText(step.description)}
                         </p>
                       </div>
-
-                      {/* Horizontal connecting line and circle (except for last card in row) */}
-                      {colIndex < row.length - 1 && (
-                        <div className="absolute left-full top-1/2 -translate-y-1/2 w-8 flex items-center justify-center z-20">
-                          {/* Horizontal line */}
-                          <div className="absolute w-full h-0.5 bg-[#00B46A]"></div>
-                          {/* Circle with checkmark */}
-                          <div className="relative w-10 h-10 rounded-full bg-[#00B46A] flex items-center justify-center ring-4 ring-white dark:ring-gray-900 shadow-lg">
-                            <Check className="w-6 h-6 text-white" strokeWidth={3} />
-                          </div>
-                        </div>
-                      )}
-
-                      {/* Connecting line from last card of row to first card of next row */}
-                      {colIndex === row.length - 1 && rowIndex < rows.length - 1 && (
-                        <div className="absolute left-1/2 top-full h-24 flex items-center justify-center z-10">
-                          {/* Vertical line down */}
-                          <div className="absolute w-0.5 h-12 bg-[#00B46A] top-0"></div>
-                          {/* Circle with checkmark at bottom */}
-                          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-[#00B46A] flex items-center justify-center ring-4 ring-white dark:ring-gray-900 shadow-lg">
-                            <Check className="w-6 h-6 text-white" strokeWidth={3} />
-                          </div>
-                        </div>
-                      )}
-
-                      {/* Connecting line from bottom circle to first card of next row */}
-                      {rowIndex > 0 && colIndex === 0 && (
-                        <div className="absolute left-1/2 bottom-full h-12 flex items-center justify-center z-10">
-                          <div className="absolute w-0.5 h-full bg-[#00B46A] bottom-0"></div>
-                        </div>
-                      )}
                     </div>
                   );
                 })}
               </div>
+
+              {/* Vertical connecting line to next row - worm style */}
+              {rowIndex < rows.length - 1 && (
+                <div className="absolute left-1/2 top-full -translate-x-1/2 flex flex-col items-center z-10" style={{ height: '128px' }}>
+                  {/* Top half - going down from last row */}
+                  <div className="w-1 h-16 bg-[#00B46A]"></div>
+                  {/* Circle at the bend */}
+                  <div className="w-12 h-12 rounded-full bg-[#00B46A] flex items-center justify-center ring-8 ring-white dark:ring-gray-900 shadow-lg my-2">
+                    <Check className="w-7 h-7 text-white" strokeWidth={3} />
+                  </div>
+                  {/* Bottom half - going to next row */}
+                  <div className="w-1 flex-1 bg-[#00B46A]"></div>
+                </div>
+              )}
             </div>
           ))}
         </div>
