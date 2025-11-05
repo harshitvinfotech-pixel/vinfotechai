@@ -178,6 +178,10 @@ export default function CaseStudyDetail() {
           />
         )}
 
+        {caseStudy.gallery_images && caseStudy.gallery_images.length > 0 && (
+          <ProductGallerySection images={caseStudy.gallery_images} />
+        )}
+
         {caseStudy.approach_timeline && caseStudy.approach_timeline.steps.length > 0 && (
           <VinfotechApproachSection
             title={caseStudy.approach_timeline.title}
@@ -196,10 +200,6 @@ export default function CaseStudyDetail() {
 
         {caseStudy.results && (
           <KeyTakeawaySection takeawayText={caseStudy.results} />
-        )}
-
-        {caseStudy.gallery_images && caseStudy.gallery_images.length > 0 && (
-          <ProductGallerySection images={caseStudy.gallery_images} />
         )}
 
         <OtherCaseStudiesSection currentSlug={slug || ''} />

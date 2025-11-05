@@ -17,6 +17,8 @@ export default function ProductGallerySection({ images }: ProductGallerySectionP
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const autoScrollRef = useRef<NodeJS.Timeout | null>(null);
+  const touchStartX = useRef<number>(0);
+  const touchEndX = useRef<number>(0);
 
   const sortedImages = [...images].sort((a, b) => a.order_index - b.order_index);
 
@@ -71,6 +73,23 @@ export default function ProductGallerySection({ images }: ProductGallerySectionP
 
   const getNextIndex = (current: number) => {
     return (current + 1) % sortedImages.length;
+  };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (touchStartX.current - touchEndX.current > 50) {
+      handleNext();
+    }
+    if (touchStartX.current - touchEndX.current < -50) {
+      handlePrev();
+    }
   };
 
   if (!images || images.length === 0) {
@@ -138,7 +157,12 @@ export default function ProductGallerySection({ images }: ProductGallerySectionP
               </div>
 
               <div ref={galleryRef} className={`relative flex-1 max-w-6xl transition-all duration-1000 ${galleryVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
-                <div className="relative overflow-hidden rounded-xl lg:rounded-3xl shadow-xl lg:shadow-2xl aspect-video h-[250px] sm:h-[400px] lg:h-[650px]">
+                <div
+                  className="relative overflow-hidden rounded-xl lg:rounded-3xl shadow-xl lg:shadow-2xl aspect-video h-[250px] sm:h-[400px] lg:h-[650px] touch-pan-x"
+                  onTouchStart={handleTouchStart}
+                  onTouchMove={handleTouchMove}
+                  onTouchEnd={handleTouchEnd}
+                >
                   {sortedImages.map((image, index) => (
                     <div
                       key={image.id}
