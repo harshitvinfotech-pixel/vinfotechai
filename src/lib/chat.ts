@@ -1,5 +1,3 @@
-import { supabase } from './supabase';
-
 export interface SuggestedQuestion {
   id: string;
   question_text: string;
@@ -14,47 +12,20 @@ export interface ChatMessage {
   text: string;
 }
 
-export async function getSuggestedQuestions(): Promise<SuggestedQuestion[]> {
-  const { data, error } = await supabase
-    .from('suggested_questions')
-    .select('*')
-    .eq('is_active', true)
-    .order('display_order', { ascending: true });
+const parsedHistoryTtl = Number(import.meta.env.VITE_CHAT_HISTORY_TTL_MINUTES ?? '60');
+const DEFAULT_CHAT_HISTORY_TTL_MINUTES = 60;
+export const chatHistoryTtlMinutes =
+  Number.isFinite(parsedHistoryTtl) && parsedHistoryTtl > 0
+    ? parsedHistoryTtl
+    : DEFAULT_CHAT_HISTORY_TTL_MINUTES;
+export const chatHistoryTtlMs = chatHistoryTtlMinutes * 60 * 1000;
+const CHAT_HISTORY_PREFIX = 'chat_history_';
 
-  if (error) {
-    console.error('Error fetching suggested questions:', error);
-    return [];
-  }
-
-  return data || [];
-}
-
-export async function incrementQuestionClick(questionId: string): Promise<void> {
-  const { error } = await supabase.rpc('increment_question_clicks', { question_id: questionId });
-
-  if (error) {
-    console.error('Error incrementing click count:', error);
-  }
-}
-
-export async function saveChatConversation(
-  sessionId: string,
-  userQuestion: string,
-  assistantResponse: string,
-  responseSource: 'streaming_api' | 'knowledge_base' | 'fallback'
-): Promise<void> {
-  const { error } = await supabase
-    .from('chat_conversations')
-    .insert([{
-      session_id: sessionId,
-      user_question: userQuestion,
-      assistant_response: assistantResponse,
-      response_source: responseSource
-    }]);
-
-  if (error) {
-    console.error('Error saving conversation:', error);
-  }
+interface StoredChatHistory {
+  messages: ChatMessage[];
+  suggestions: string[];
+  feedback: Record<number, 'positive' | 'negative'>;
+  expiresAt: number;
 }
 
 export function getSessionId(): string {
@@ -66,4 +37,105 @@ export function getSessionId(): string {
   }
 
   return sessionId;
+}
+
+function getHistoryKey(sessionId: string): string {
+  return `${CHAT_HISTORY_PREFIX}${sessionId}`;
+}
+
+const EMPTY_CACHED_STATE = {
+  messages: [] as ChatMessage[],
+  suggestions: [] as string[],
+  feedback: {} as Record<number, 'positive' | 'negative'>
+};
+
+function normalizeCachedState(rawState: Partial<StoredChatHistory> | null): typeof EMPTY_CACHED_STATE {
+  if (!rawState) {
+    return { ...EMPTY_CACHED_STATE };
+  }
+
+  const rawMessages = Array.isArray(rawState.messages) ? (rawState.messages as ChatMessage[]) : [];
+  const rawSuggestions = Array.isArray(rawState.suggestions) ? (rawState.suggestions as string[]) : [];
+  const rawFeedback = rawState.feedback && typeof rawState.feedback === 'object' ? rawState.feedback : {};
+
+  return {
+    messages: [...rawMessages],
+    suggestions: [...rawSuggestions],
+    feedback: { ...rawFeedback }
+  };
+}
+
+export interface CachedChatState {
+  messages: ChatMessage[];
+  suggestions: string[];
+  feedback: Record<number, 'positive' | 'negative'>;
+}
+
+export function loadChatHistory(sessionId: string): CachedChatState {
+  if (typeof window === 'undefined') {
+    return { ...EMPTY_CACHED_STATE };
+  }
+  if (!sessionId) {
+    return { ...EMPTY_CACHED_STATE };
+  }
+  try {
+    const storedValue = localStorage.getItem(getHistoryKey(sessionId));
+    if (!storedValue) {
+      return { ...EMPTY_CACHED_STATE };
+    }
+
+    const parsed = JSON.parse(storedValue) as Partial<StoredChatHistory>;
+    if (!parsed || typeof parsed.expiresAt !== 'number') {
+      localStorage.removeItem(getHistoryKey(sessionId));
+      return { ...EMPTY_CACHED_STATE };
+    }
+
+    if (Date.now() > parsed.expiresAt) {
+      localStorage.removeItem(getHistoryKey(sessionId));
+      return { ...EMPTY_CACHED_STATE };
+    }
+
+    return normalizeCachedState(parsed);
+  } catch (error) {
+    console.error('Failed to load chat history from cache:', error);
+    return { ...EMPTY_CACHED_STATE };
+  }
+}
+
+export function cacheChatHistory(sessionId: string, state: CachedChatState): void {
+  if (typeof window === 'undefined') {
+    return;
+  }
+  if (!sessionId) {
+    return;
+  }
+  const storageKey = getHistoryKey(sessionId);
+
+  if (!state.messages.length && !state.suggestions.length) {
+    localStorage.removeItem(storageKey);
+    return;
+  }
+
+  const payload: StoredChatHistory = {
+    messages: [...state.messages],
+    suggestions: [...state.suggestions],
+    feedback: { ...state.feedback },
+    expiresAt: Date.now() + chatHistoryTtlMs
+  };
+
+  try {
+    localStorage.setItem(storageKey, JSON.stringify(payload));
+  } catch (error) {
+    console.error('Failed to cache chat history:', error);
+  }
+}
+
+export function clearChatHistory(sessionId: string): void {
+  if (typeof window === 'undefined') {
+    return;
+  }
+  if (!sessionId) {
+    return;
+  }
+  localStorage.removeItem(getHistoryKey(sessionId));
 }

@@ -4,13 +4,26 @@ import { Send, X, Maximize2, Minimize2, Sparkles, Mail, ThumbsUp, ThumbsDown } f
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import {
-  getSuggestedQuestions,
-  saveChatConversation,
   getSessionId,
+  loadChatHistory,
+  cacheChatHistory,
+  clearChatHistory,
+  chatHistoryTtlMs,
   type SuggestedQuestion,
   type ChatMessage
 } from '../lib/chat';
-import { streamQuery, type SourceDocument, type ResponseMetadata } from '../lib/streamingChat';
+import {
+  streamQuery,
+  submitChatFeedback,
+  submitContactForm,
+  getDefaultUserId,
+  getDefaultTeamId,
+  type SourceDocument,
+  type ResponseMetadata,
+  type ContactFormPayload,
+  type ContactFormField,
+  type ContactFormSubmissionPayload
+} from '../lib/streamingChat';
 import { useTheme } from '../contexts/ThemeContext';
 
 type WidgetState = 'collapsed' | 'preview' | 'full' | 'contact';
@@ -67,21 +80,71 @@ const FALLBACK_QUESTIONS: SuggestedQuestion[] = [
   }
 ];
 
+const DEFAULT_CONTACT_FORM: ContactFormPayload = {
+  message: "We'd love to connect you with our team. Share a few details and we'll reach out shortly.",
+  original_query: '',
+  fields: [
+    {
+      field_name: 'name',
+      field_label: 'Full Name',
+      field_type: 'text',
+      required: true,
+      placeholder: 'Your name',
+      order: 1
+    },
+    {
+      field_name: 'email',
+      field_label: 'Email Address',
+      field_type: 'email',
+      required: true,
+      placeholder: 'you@example.com',
+      order: 2
+    },
+    {
+      field_name: 'phone',
+      field_label: 'Phone Number',
+      field_type: 'tel',
+      required: false,
+      placeholder: '+1234567890',
+      order: 3
+    },
+    {
+      field_name: 'message',
+      field_label: 'How can we help?',
+      field_type: 'textarea',
+      required: false,
+      placeholder: 'Share any additional context...',
+      order: 4
+    }
+  ]
+};
+
 export default function ChatWidget() {
   const { theme } = useTheme();
+  const sessionIdRef = useRef<string>(getSessionId());
+  const cachedStateRef = useRef(loadChatHistory(sessionIdRef.current));
   const [widgetState, setWidgetState] = useState<WidgetState>('collapsed');
   const [isExpanded, setIsExpanded] = useState(false);
   const [question, setQuestion] = useState('');
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [messages, setMessages] = useState<ChatMessage[]>(cachedStateRef.current.messages);
   const [isLoading, setIsLoading] = useState(false);
   const [isStreaming, setIsStreaming] = useState(false);
-  const [suggestedQuestions, setSuggestedQuestions] = useState<SuggestedQuestion[]>([]);
-  const [dynamicSuggestions, setDynamicSuggestions] = useState<string[]>([]);
+  const suggestedQuestions = FALLBACK_QUESTIONS;
+  const [dynamicSuggestions, setDynamicSuggestions] = useState<string[]>(cachedStateRef.current.suggestions);
   const [clickedSuggestions, setClickedSuggestions] = useState<Set<string>>(new Set());
-  const [showPredefinedQuestions, setShowPredefinedQuestions] = useState(true);
+  const [showPredefinedQuestions, setShowPredefinedQuestions] = useState(
+    cachedStateRef.current.messages.length === 0 && cachedStateRef.current.suggestions.length === 0
+  );
   const [_sources, setSources] = useState<SourceDocument[]>([]);
   const [_metadata, setMetadata] = useState<ResponseMetadata | null>(null);
   const [completeResponse, setCompleteResponse] = useState('');
+  const [contactFormData, setContactFormData] = useState<ContactFormPayload | null>(null);
+  const [contactFormValues, setContactFormValues] = useState<Record<string, string>>({});
+  const [contactFormErrors, setContactFormErrors] = useState<Record<string, string>>({});
+  const [contactOriginalQuery, setContactOriginalQuery] = useState('');
+  const [isContactSubmitting, setIsContactSubmitting] = useState(false);
+  const [contactSubmissionResult, setContactSubmissionResult] =
+    useState<{ type: 'success' | 'error'; message: string } | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const abortControllerRef = useRef<AbortController | null>(null);
@@ -89,11 +152,12 @@ export default function ChatWidget() {
   const lastChunkRef = useRef<string>(''); // Track last chunk to prevent duplicates
   const isProcessingRef = useRef<boolean>(false); // Prevent concurrent processing
   const latestUserMessageRef = useRef<HTMLDivElement>(null);
+  const lastUserQuestionRef = useRef<string>('');
+  const contactAutoCloseTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 768);
-  const [messageFeedback, setMessageFeedback] = useState<Record<number, 'positive' | 'negative'>>({});
+  const [messageFeedback, setMessageFeedback] = useState<Record<number, 'positive' | 'negative'>>(cachedStateRef.current.feedback);
 
   useEffect(() => {
-    loadSuggestedQuestions();
     checkSessionState();
     resetSessionTimeout();
 
@@ -115,12 +179,33 @@ export default function ChatWidget() {
   }, [messages.length, dynamicSuggestions.length]);
 
   useEffect(() => {
+    const sessionId = sessionIdRef.current;
+    if (!sessionId) {
+      return;
+    }
+
+    if (messages.length === 0 && dynamicSuggestions.length === 0) {
+      clearChatHistory(sessionId);
+      return;
+    }
+
+    cacheChatHistory(sessionId, {
+      messages,
+      suggestions: dynamicSuggestions,
+      feedback: messageFeedback
+    });
+  }, [messages, dynamicSuggestions, messageFeedback]);
+
+  useEffect(() => {
     return () => {
       if (abortControllerRef.current) {
         abortControllerRef.current.abort();
       }
       if (sessionTimeoutRef.current) {
         clearTimeout(sessionTimeoutRef.current);
+      }
+      if (contactAutoCloseTimeoutRef.current) {
+        clearTimeout(contactAutoCloseTimeoutRef.current);
       }
     };
   }, []);
@@ -149,28 +234,143 @@ export default function ChatWidget() {
     if (sessionTimeoutRef.current) {
       clearTimeout(sessionTimeoutRef.current);
     }
-    // Clear session after 2 hours of inactivity
+    // Clear session after configured inactivity window
     sessionTimeoutRef.current = setTimeout(() => {
+      const currentSessionId = sessionIdRef.current;
+      if (currentSessionId) {
+        clearChatHistory(currentSessionId);
+      }
       sessionStorage.removeItem('chat_session_id');
+      sessionIdRef.current = '';
       setMessages([]);
       setDynamicSuggestions([]);
       setClickedSuggestions(new Set());
+      setMessageFeedback({});
       setShowPredefinedQuestions(true);
-    }, 2 * 60 * 60 * 1000); // 2 hours
+    }, chatHistoryTtlMs);
   };
 
-
-  const loadSuggestedQuestions = async () => {
-    const questions = await getSuggestedQuestions();
-    
-    // If no questions from database, use fallback hardcoded questions
-    if (questions.length === 0) {
-      console.log('No questions from database, using fallback questions');
-      setSuggestedQuestions(FALLBACK_QUESTIONS);
-    } else {
-      setSuggestedQuestions(questions.slice(0, 6));
+  const clearContactAutoClose = () => {
+    if (contactAutoCloseTimeoutRef.current) {
+      clearTimeout(contactAutoCloseTimeoutRef.current);
+      contactAutoCloseTimeoutRef.current = null;
     }
   };
+
+  const buildInitialContactValues = (fields: ContactFormField[]) => {
+    const values: Record<string, string> = {};
+    fields.forEach(field => {
+      values[field.field_name] = '';
+    });
+    return values;
+  };
+
+  const initializeContactForm = (payload: ContactFormPayload, fallbackQuery?: string) => {
+    const sortedFields = [...payload.fields].sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+    clearContactAutoClose();
+    setContactFormData({
+      ...payload,
+      fields: sortedFields
+    });
+    setContactFormValues(buildInitialContactValues(sortedFields));
+    setContactFormErrors({});
+    setContactSubmissionResult(null);
+    setContactOriginalQuery(payload.original_query || fallbackQuery || lastUserQuestionRef.current || '');
+    setWidgetState('contact');
+  };
+
+  const updateContactFormValue = (fieldName: string, value: string) => {
+    setContactFormValues(prev => ({
+      ...prev,
+      [fieldName]: value
+    }));
+    if (contactFormErrors[fieldName]) {
+      setContactFormErrors(prev => {
+        const next = { ...prev };
+        delete next[fieldName];
+        return next;
+      });
+    }
+  };
+
+  const validateContactForm = (fields: ContactFormField[]) => {
+    const errors: Record<string, string> = {};
+    fields.forEach(field => {
+      const rawValue = contactFormValues[field.field_name] ?? '';
+      const value = field.field_type === 'textarea' ? rawValue.trim() : rawValue.trim();
+      if (field.required && !value) {
+        errors[field.field_name] = `${field.field_label} is required`;
+      }
+    });
+    setContactFormErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+  const handleContactSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const activeFields = contactFormData
+      ? contactFormData.fields
+      : [...DEFAULT_CONTACT_FORM.fields].sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+
+    if (!validateContactForm(activeFields)) {
+      return;
+    }
+
+    const normalizedContactData = activeFields.reduce<Record<string, string>>((acc, field) => {
+      const value = contactFormValues[field.field_name] ?? '';
+      acc[field.field_name] = value.trim();
+      return acc;
+    }, {});
+
+    setIsContactSubmitting(true);
+    setContactSubmissionResult(null);
+    clearContactAutoClose();
+
+    try {
+      const sessionId = sessionIdRef.current || getSessionId();
+      sessionIdRef.current = sessionId;
+      const formConfig = contactFormData ?? DEFAULT_CONTACT_FORM;
+      const payload: ContactFormSubmissionPayload = {
+        user_id: getDefaultUserId(),
+        team_id: getDefaultTeamId(),
+        session_id: sessionId,
+        user_query: contactOriginalQuery || formConfig.original_query || lastUserQuestionRef.current || '',
+        contact_data: normalizedContactData
+      };
+
+      const result = await submitContactForm(payload);
+
+      if (result.success) {
+        // Show success message in the chat
+        const successMessage = result.data?.message || 'Thank you! We will contact you soon.';
+        setMessages(prev => [
+          ...prev,
+          { type: 'assistant', text: successMessage }
+        ]);
+        
+        // Clear form and redirect immediately to chat interface
+        setContactFormValues(buildInitialContactValues(activeFields));
+        setContactFormErrors({});
+        setContactFormData(null);
+        setIsContactSubmitting(false);
+        closeContactForm();
+      } else {
+        setContactSubmissionResult({
+          type: 'error',
+          message: result.error || 'Unable to submit your details. Please try again.'
+        });
+      }
+    } catch (error) {
+      console.error('Error submitting contact form:', error);
+      setContactSubmissionResult({
+        type: 'error',
+        message: 'Network error. Please try again.'
+      });
+    } finally {
+      setIsContactSubmitting(false);
+    }
+  };
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -188,13 +388,18 @@ export default function ChatWidget() {
 
     isProcessingRef.current = true;
     lastChunkRef.current = ''; // Reset chunk tracking
+    const sessionId = sessionIdRef.current || getSessionId();
+    sessionIdRef.current = sessionId;
 
     // Switch to full mode first if needed
-    if (widgetState === 'preview') {
+    if (widgetState === 'preview' || widgetState === 'contact') {
       setWidgetState('full');
       // Wait for widget to expand
       await new Promise(resolve => setTimeout(resolve, 300));
     }
+
+    clearContactAutoClose();
+    lastUserQuestionRef.current = questionText;
 
     setQuestion('');
     setMessages(prev => [...prev, { type: 'user', text: questionText }]);
@@ -204,6 +409,10 @@ export default function ChatWidget() {
     setDynamicSuggestions([]);
     setSources([]);
     setMetadata(null);
+    setContactFormData(null);
+    setContactFormValues({});
+    setContactFormErrors({});
+    setContactSubmissionResult(null);
 
     // Hide predefined questions once user starts chatting
     setShowPredefinedQuestions(false);
@@ -234,7 +443,7 @@ export default function ChatWidget() {
     try {
       let firstChunk = true;
       await streamQuery(
-        getSessionId(),
+        sessionId,
         questionText,
         {
           onResponseChunk: (content: string) => {
@@ -280,23 +489,26 @@ export default function ChatWidget() {
           onMetadata: (meta: ResponseMetadata) => {
             setMetadata(meta);
           },
+          onContactForm: (contactPayload: ContactFormPayload) => {
+            console.log('📮 Contact form requested');
+            setIsLoading(false);
+            setIsStreaming(false);
+            isProcessingRef.current = false;
+            setDynamicSuggestions([]);
+            setSources([]);
+            setMetadata(null);
+            setCompleteResponse('');
+            setMessages(prev => [
+              ...prev,
+              { type: 'assistant', text: contactPayload.message }
+            ]);
+            initializeContactForm(contactPayload, lastUserQuestionRef.current);
+          },
           onDone: async () => {
             setIsLoading(false);
             setIsStreaming(false);
             isProcessingRef.current = false; // Reset processing flag
-
-            // Use the complete response if available, otherwise use the streamed text
-            const lastMessageText = messages[messages.length - 1]?.text || '';
-            const finalResponse = completeResponse || lastMessageText;
-            
-            if (finalResponse) {
-              await saveChatConversation(
-                getSessionId(),
-                questionText,
-                finalResponse,
-                'streaming_api'
-              );
-            }
+            setCompleteResponse('');
           },
           onError: (error: string) => {
             console.error('Streaming error:', error);
@@ -355,15 +567,25 @@ export default function ChatWidget() {
     if (abortControllerRef.current) {
       abortControllerRef.current.abort();
     }
+    clearContactAutoClose();
     setWidgetState('collapsed');
     setIsExpanded(false);
   };
 
   const openContactForm = () => {
-    setWidgetState('contact');
+    const manualPayload: ContactFormPayload = {
+      ...DEFAULT_CONTACT_FORM,
+      original_query: lastUserQuestionRef.current || ''
+    };
+    manualPayload.fields = DEFAULT_CONTACT_FORM.fields.map(field => ({ ...field }));
+    initializeContactForm(manualPayload, lastUserQuestionRef.current || question);
   };
 
   const closeContactForm = () => {
+    clearContactAutoClose();
+    setIsContactSubmitting(false);
+    setContactSubmissionResult(null);
+    setContactFormErrors({});
     setWidgetState('full');
   };
 
@@ -372,23 +594,30 @@ export default function ChatWidget() {
       const message = messages[messageIndex];
       if (!message || message.type !== 'assistant') return;
 
-      // Update local state
+      // If clicking the same button, don't do anything
+      if (messageFeedback[messageIndex] === feedbackType) return;
+
+      // Immediately update UI for better UX (optimistic update)
       setMessageFeedback(prev => ({
         ...prev,
         [messageIndex]: feedbackType
       }));
 
-      // Submit to database
-      const { supabase } = await import('../lib/supabase');
-      await supabase.from('chat_feedback').insert({
-        session_id: getSessionId(),
-        message_index: messageIndex,
-        message_text: message.text,
-        feedback_type: feedbackType,
-        user_agent: navigator.userAgent
-      });
+      // Try to submit to backend, but keep UI state regardless of result
+      try {
+        const sessionId = sessionIdRef.current || getSessionId();
+        sessionIdRef.current = sessionId;
+
+        await submitChatFeedback(
+          sessionId,
+          feedbackType === 'positive' ? 1 : 0
+        );
+      } catch (submitError) {
+        // Log error but don't revert UI - user feedback is still valid
+        console.error('Error submitting feedback to backend:', submitError);
+      }
     } catch (error) {
-      console.error('Error submitting feedback:', error);
+      console.error('Critical error in handleFeedback:', error);
     }
   };
 
@@ -425,9 +654,19 @@ export default function ChatWidget() {
   }
 
   if (widgetState === 'contact') {
+    const formConfig = contactFormData ?? {
+      ...DEFAULT_CONTACT_FORM,
+      fields: [...DEFAULT_CONTACT_FORM.fields].sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
+    };
+    const activeFields = contactFormData ? contactFormData.fields : formConfig.fields;
+
     return (
       <div className="fixed bottom-6 right-6 w-[90vw] max-w-[420px] z-50">
-        <div className="bg-white rounded-3xl shadow-2xl overflow-hidden backdrop-blur-sm">
+        <div
+          className={`rounded-3xl shadow-2xl overflow-hidden backdrop-blur-sm ${
+            theme === 'dark' ? 'bg-gray-900 border border-gray-800' : 'bg-white'
+          }`}
+        >
           <div className="px-6 py-5 rounded-t-3xl" style={{ backgroundColor: '#00B46A' }}>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
@@ -447,44 +686,91 @@ export default function ChatWidget() {
             </div>
           </div>
 
-          <div className="p-6">
-            <form className="space-y-4" onSubmit={(e) => {
-              e.preventDefault();
-              alert('Form submission will be implemented with your backend');
-              closeContactForm();
-            }}>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
-                <input
-                  type="text"
-                  required
-                  className="w-full px-4 py-2 rounded-lg border border-gray-200 outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
-                  placeholder="Your name"
-                />
+          <div className="p-6 space-y-4">
+            <div
+              className={`rounded-2xl px-4 py-3 text-sm border ${
+                theme === 'dark'
+                  ? 'bg-emerald-500/10 text-emerald-200 border-emerald-500/20'
+                  : 'bg-emerald-50 text-emerald-700 border-emerald-100'
+              }`}
+            >
+              {formConfig.message}
+            </div>
+
+            {contactSubmissionResult && (
+              <div
+                className={`rounded-2xl px-4 py-3 text-sm border ${
+                  contactSubmissionResult.type === 'success'
+                    ? theme === 'dark'
+                      ? 'bg-emerald-500/10 text-emerald-200 border-emerald-500/20'
+                      : 'bg-emerald-50 text-emerald-700 border-emerald-100'
+                    : theme === 'dark'
+                      ? 'bg-red-500/10 text-red-300 border-red-500/30'
+                      : 'bg-red-50 text-red-600 border-red-100'
+                }`}
+              >
+                {contactSubmissionResult.message}
               </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                <input
-                  type="email"
-                  required
-                  className="w-full px-4 py-2 rounded-lg border border-gray-200 outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
-                  placeholder="your@email.com"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Message</label>
-                <textarea
-                  required
-                  rows={4}
-                  className="w-full px-4 py-2 rounded-lg border border-gray-200 outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 resize-none"
-                  placeholder="How can we help you?"
-                />
-              </div>
+            )}
+
+            <form className="space-y-4" onSubmit={handleContactSubmit}>
+              {activeFields.map(field => {
+                const value = contactFormValues[field.field_name] ?? '';
+                const error = contactFormErrors[field.field_name];
+                const baseInputClasses =
+                  'w-full px-4 py-2 rounded-lg outline-none transition-all duration-200 focus:ring-2';
+                const themeInputClasses = theme === 'dark'
+                  ? 'bg-gray-800 border border-gray-600 text-white placeholder-gray-400 focus:border-emerald-400 focus:ring-emerald-400/20'
+                  : 'bg-white border border-gray-200 text-gray-900 placeholder-gray-400 focus:border-emerald-500 focus:ring-emerald-500/20';
+                const inputClasses = `${baseInputClasses} ${themeInputClasses} ${
+                  error
+                    ? 'border-red-400 focus:border-red-500 focus:ring-red-200 text-red-900 placeholder-red-400'
+                    : ''
+                }`;
+                const labelClasses = `block text-sm font-medium mb-1 ${
+                  theme === 'dark' ? 'text-gray-200' : 'text-gray-700'
+                }`;
+
+                return (
+                  <div key={field.field_name}>
+                    <label className={labelClasses}>
+                      {field.field_label}
+                      {field.required && <span className="text-red-500 ml-1">*</span>}
+                    </label>
+                    {field.field_type === 'textarea' ? (
+                      <textarea
+                        rows={4}
+                        required={field.required}
+                        value={value}
+                        onChange={(e) => updateContactFormValue(field.field_name, e.target.value)}
+                        className={`${inputClasses} resize-none`}
+                        placeholder={field.placeholder || ''}
+                      />
+                    ) : (
+                      <input
+                        type={field.field_type}
+                        required={field.required}
+                        value={value}
+                        onChange={(e) => updateContactFormValue(field.field_name, e.target.value)}
+                        className={inputClasses}
+                        placeholder={field.placeholder || ''}
+                      />
+                    )}
+                    {error && (
+                      <p className="mt-1 text-xs text-red-500">
+                        {error}
+                      </p>
+                    )}
+                  </div>
+                );
+              })}
+
               <button
                 type="submit"
-                className="w-full py-3 bg-emerald-500 text-white font-medium rounded-lg hover:bg-emerald-600 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
+                disabled={isContactSubmitting}
+                className="w-full py-3 bg-emerald-500 text-white font-medium rounded-lg hover:bg-emerald-600 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                Send Message
+                {isContactSubmitting ? 'Sending...' : 'Send Message'}
               </button>
             </form>
           </div>
@@ -581,14 +867,6 @@ export default function ChatWidget() {
                 <Send className="w-4 h-4" />
               </button>
             </form>
-
-            <button
-              onClick={openContactForm}
-              className="w-full mt-3 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gray-100 hover:bg-gray-200 border border-gray-200 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
-            >
-              <Mail className="w-4 h-4 text-gray-600" />
-              <span className="text-sm font-medium text-gray-700">Contact Us</span>
-            </button>
           </div>
         </div>
       </div>
@@ -775,34 +1053,32 @@ export default function ChatWidget() {
 
                 {/* Feedback buttons for assistant messages */}
                 {message.type === 'assistant' && !isLoading && (
-                  <div className="flex items-center gap-2 ml-10 mt-2">
+                  <div className="flex items-center gap-3 ml-10 mt-2">
                     <button
                       onClick={() => handleFeedback(index, 'positive')}
-                      disabled={messageFeedback[index] !== undefined}
-                      className={`p-1.5 rounded-lg transition-all duration-300 hover:scale-110 active:scale-95 disabled:cursor-not-allowed ${
-                        messageFeedback[index] === 'positive'
-                          ? 'bg-emerald-100 text-emerald-600'
-                          : theme === 'dark'
-                            ? 'bg-gray-700 text-gray-400 hover:bg-gray-600 hover:text-emerald-500'
-                            : 'bg-gray-100 text-gray-500 hover:bg-gray-200 hover:text-emerald-600'
-                      }`}
+                      className="p-1 transition-all duration-300 hover:scale-110 active:scale-95"
                       title="Helpful response"
                     >
-                      <ThumbsUp className="w-4 h-4" />
+                      <ThumbsUp className={`w-4 h-4 transition-colors duration-300 ${
+                        messageFeedback[index] === 'positive'
+                          ? 'text-emerald-500 stroke-2'
+                          : theme === 'dark'
+                            ? 'text-gray-400 hover:text-emerald-500'
+                            : 'text-gray-400 hover:text-emerald-500'
+                      }`} />
                     </button>
                     <button
                       onClick={() => handleFeedback(index, 'negative')}
-                      disabled={messageFeedback[index] !== undefined}
-                      className={`p-1.5 rounded-lg transition-all duration-300 hover:scale-110 active:scale-95 disabled:cursor-not-allowed ${
-                        messageFeedback[index] === 'negative'
-                          ? 'bg-red-100 text-red-600'
-                          : theme === 'dark'
-                            ? 'bg-gray-700 text-gray-400 hover:bg-gray-600 hover:text-red-500'
-                            : 'bg-gray-100 text-gray-500 hover:bg-gray-200 hover:text-red-600'
-                      }`}
+                      className="p-1 transition-all duration-300 hover:scale-110 active:scale-95"
                       title="Not helpful"
                     >
-                      <ThumbsDown className="w-4 h-4" />
+                      <ThumbsDown className={`w-4 h-4 transition-colors duration-300 ${
+                        messageFeedback[index] === 'negative'
+                          ? 'text-red-500 stroke-2'
+                          : theme === 'dark'
+                            ? 'text-gray-400 hover:text-red-500'
+                            : 'text-gray-400 hover:text-red-500'
+                      }`} />
                     </button>
                     {messageFeedback[index] && (
                       <span className={`text-xs ${theme === 'dark' ? 'text-gray-500' : 'text-gray-400'}`}>
@@ -884,15 +1160,7 @@ export default function ChatWidget() {
           </button>
         </form>
 
-        <button
-          onClick={openContactForm}
-          className={`w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] mb-2 ${theme === 'dark' ? 'bg-gray-700 hover:bg-gray-600 border-gray-600' : 'bg-gray-100 hover:bg-gray-200 border-gray-200'}`}
-        >
-          <Mail className={`w-4 h-4 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`} />
-          <span className={`text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>Contact Us</span>
-        </button>
-
-        <p className={`text-xs text-center ${theme === 'dark' ? 'text-gray-500' : 'text-gray-400'}`}>
+        <p className={`text-xs text-center mt-3 ${theme === 'dark' ? 'text-gray-500' : 'text-gray-400'}`}>
           Powered by Vinfotech AI
         </p>
       </div>

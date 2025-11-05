@@ -1,6 +1,7 @@
-const chatApiUrl = import.meta.env.VITE_CHAT_API_URL || 'https://api.example.com';
+const chatApiUrl = import.meta.env.VITE_CHAT_API_URL || 'http://localhost:8001/api';
 const defaultUserId = import.meta.env.VITE_CHAT_DEFAULT_USER_ID || 'default_user';
 const defaultTeamId = import.meta.env.VITE_CHAT_DEFAULT_TEAM_ID || 'default_team';
+const normalizedChatApiUrl = chatApiUrl.replace(/\/$/, '');
 
 export interface StreamEventHandlers {
   onResponseChunk?: (content: string) => void;
@@ -10,6 +11,7 @@ export interface StreamEventHandlers {
   onMetadata?: (metadata: ResponseMetadata) => void;
   onDone?: () => void;
   onError?: (error: string) => void;
+  onContactForm?: (contactForm: ContactFormPayload) => void;
 }
 
 export interface SourceDocument {
@@ -33,8 +35,128 @@ export interface StreamQueryRequest {
 }
 
 export interface StreamEventData {
-  type: 'response_chunk' | 'complete_response' | 'suggested_questions' | 'sources' | 'metadata' | 'done' | 'error';
+  type: 'response_chunk' | 'complete_response' | 'suggested_questions' | 'sources' | 'metadata' | 'contact_form' | 'done' | 'error';
   content?: any;
+}
+
+export interface ContactFormField {
+  field_name: string;
+  field_label: string;
+  field_type: 'text' | 'email' | 'tel' | 'textarea';
+  required: boolean;
+  placeholder?: string;
+  order?: number;
+}
+
+export interface ContactFormPayload {
+  message: string;
+  original_query: string;
+  fields: ContactFormField[];
+}
+
+interface ChatApiSuccess<T> {
+  status: 'success';
+  data: T;
+}
+
+interface ChatApiError {
+  status: 'error';
+  message: string;
+  error_code?: string;
+}
+
+type ChatApiResponse<T> = ChatApiSuccess<T> | ChatApiError;
+
+interface FeedbackApiData {
+  saved: boolean;
+  feedback: number;
+  message?: string;
+}
+
+interface ContactSubmissionData {
+  submitted: boolean;
+  submission_id?: string;
+  message?: string;
+}
+
+async function postToChatApi<T>(path: string, body: unknown): Promise<ChatApiResponse<T>> {
+  try {
+    const response = await fetch(`${normalizedChatApiUrl}${path}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    });
+
+    const result = await response.json();
+    return result as ChatApiResponse<T>;
+  } catch (error) {
+    console.error(`Error calling ${path}:`, error);
+    throw error;
+  }
+}
+
+export async function submitChatFeedback(sessionId: string, feedback: 0 | 1) {
+  const result = await postToChatApi<FeedbackApiData>('/chat/feedback', {
+    session_id: sessionId,
+    feedback
+  });
+
+  if (result.status === 'success') {
+    return {
+      success: true,
+      data: result.data
+    };
+  }
+
+  return {
+    success: false,
+    error: result.message,
+    errorCode: result.error_code
+  };
+}
+
+export interface ContactFormSubmissionPayload {
+  user_id: string;
+  team_id: string;
+  session_id: string;
+  user_query: string;
+  contact_data: Record<string, string>;
+}
+
+export async function submitContactForm(payload: ContactFormSubmissionPayload) {
+  try {
+    const response = await fetch(`${normalizedChatApiUrl}/chat/contact-submission`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    });
+
+    const result = await response.json();
+
+    // Check for success in the direct response format (not wrapped in status)
+    if (result.success === true || result.status === 'success') {
+      return {
+        success: true,
+        data: result.data || result
+      };
+    }
+
+    return {
+      success: false,
+      error: result.message || result.error || 'Submission failed',
+      errorCode: result.error_code
+    };
+  } catch (error) {
+    console.error('Error submitting contact form:', error);
+    return {
+      success: false,
+      error: 'Network error occurred'
+    };
+  }
 }
 
 export async function streamQuery(
@@ -53,7 +175,7 @@ export async function streamQuery(
     question: question
   };
 
-  const response = await fetch(`${chatApiUrl}/api/chat/query/stream`, {
+  const response = await fetch(`${normalizedChatApiUrl}/chat/query/stream`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -131,6 +253,13 @@ export async function streamQuery(
                   handlers.onMetadata(data.content);
                 }
                 break;
+
+              case 'contact_form':
+                if (handlers.onContactForm && typeof data.content === 'object') {
+                  handlers.onContactForm(data.content as ContactFormPayload);
+                }
+                await reader.cancel();
+                return;
 
               case 'done':
                 if (handlers.onDone) {
