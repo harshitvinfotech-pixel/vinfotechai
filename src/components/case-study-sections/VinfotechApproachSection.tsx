@@ -190,22 +190,22 @@ export default function VinfotechApproachSection({
                       animation: `fadeInUp 0.6s ease-out ${index * 0.15}s both`
                     }}
                   >
-                    {/* Vertical connector line from center to card */}
-                    <div
-                      className="absolute left-1/2 -translate-x-1/2 w-1 bg-[#00B46A]"
-                      style={{
-                        height: '80px',
-                        top: isAbove ? '-80px' : '24px',
-                        zIndex: 5
-                      }}
-                    ></div>
-
                     {/* Checkmark circle at center line */}
                     <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" style={{ zIndex: 30 }}>
                       <div className="w-12 h-12 rounded-full bg-[#00B46A] flex items-center justify-center ring-8 ring-white dark:ring-gray-900 shadow-lg">
                         <Check className="w-7 h-7 text-white" strokeWidth={3} />
                       </div>
                     </div>
+
+                    {/* Vertical connector line from center circle to card edge */}
+                    <div
+                      className="absolute left-1/2 -translate-x-1/2 w-1 bg-[#00B46A]"
+                      style={{
+                        height: isAbove ? '74px' : '74px',
+                        top: isAbove ? '-98px' : '24px',
+                        zIndex: 5
+                      }}
+                    ></div>
 
                     {/* Card */}
                     <div
