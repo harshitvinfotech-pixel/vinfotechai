@@ -141,7 +141,10 @@ export async function submitContactForm(payload: ContactFormSubmissionPayload) {
     if (result.success === true || result.status === 'success') {
       return {
         success: true,
-        data: result.data || result
+        data: {
+          ...result.data,
+          message: result.data?.message || result.message || '✅ Thank you for reaching out! Your details have been submitted successfully. Our team will contact you shortly at the email/phone you provided. Is there anything else I can help you with?'
+        }
       };
     }
 

@@ -26,7 +26,7 @@ import {
 } from '../lib/streamingChat';
 import { useTheme } from '../contexts/ThemeContext';
 
-type WidgetState = 'collapsed' | 'preview' | 'full' | 'contact';
+type WidgetState = 'collapsed' | 'preview' | 'full';
 
 // Hardcoded fallback questions
 const FALLBACK_QUESTIONS: SuggestedQuestion[] = [
@@ -276,7 +276,14 @@ export default function ChatWidget() {
     setContactFormErrors({});
     setContactSubmissionResult(null);
     setContactOriginalQuery(payload.original_query || fallbackQuery || lastUserQuestionRef.current || '');
-    setWidgetState('contact');
+    // Keep in full mode to show inline form
+    if (widgetState !== 'full') {
+      setWidgetState('full');
+    }
+    // Scroll to show the form
+    setTimeout(() => {
+      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
   };
 
   const updateContactFormValue = (fieldName: string, value: string) => {
@@ -342,18 +349,23 @@ export default function ChatWidget() {
 
       if (result.success) {
         // Show success message in the chat
-        const successMessage = result.data?.message || 'Thank you! We will contact you soon.';
+        const successMessage = result.data?.message || '✅ Thank you for reaching out! Your details have been submitted successfully. Our team will contact you shortly. Feel free to ask any other questions!';
         setMessages(prev => [
           ...prev,
           { type: 'assistant', text: successMessage }
         ]);
         
-        // Clear form and redirect immediately to chat interface
+        // Clear form and return to chat interface
         setContactFormValues(buildInitialContactValues(activeFields));
         setContactFormErrors({});
         setContactFormData(null);
         setIsContactSubmitting(false);
-        closeContactForm();
+        setWidgetState('full');
+        
+        // Scroll to the success message
+        setTimeout(() => {
+          messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
       } else {
         setContactSubmissionResult({
           type: 'error',
@@ -392,7 +404,7 @@ export default function ChatWidget() {
     sessionIdRef.current = sessionId;
 
     // Switch to full mode first if needed
-    if (widgetState === 'preview' || widgetState === 'contact') {
+    if (widgetState === 'preview') {
       setWidgetState('full');
       // Wait for widget to expand
       await new Promise(resolve => setTimeout(resolve, 300));
@@ -498,10 +510,12 @@ export default function ChatWidget() {
             setSources([]);
             setMetadata(null);
             setCompleteResponse('');
+            // Add assistant message explaining the form
             setMessages(prev => [
               ...prev,
               { type: 'assistant', text: contactPayload.message }
             ]);
+            // Show inline contact form
             initializeContactForm(contactPayload, lastUserQuestionRef.current);
           },
           onDone: async () => {
@@ -586,7 +600,11 @@ export default function ChatWidget() {
     setIsContactSubmitting(false);
     setContactSubmissionResult(null);
     setContactFormErrors({});
-    setWidgetState('full');
+    setContactFormData(null);
+    // Stay in full mode
+    if (widgetState !== 'full') {
+      setWidgetState('full');
+    }
   };
 
   const handleFeedback = async (messageIndex: number, feedbackType: 'positive' | 'negative') => {
@@ -650,132 +668,6 @@ export default function ChatWidget() {
           />
         </div>
       </button>
-    );
-  }
-
-  if (widgetState === 'contact') {
-    const formConfig = contactFormData ?? {
-      ...DEFAULT_CONTACT_FORM,
-      fields: [...DEFAULT_CONTACT_FORM.fields].sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
-    };
-    const activeFields = contactFormData ? contactFormData.fields : formConfig.fields;
-
-    return (
-      <div className="fixed bottom-6 right-6 w-[90vw] max-w-[420px] z-50">
-        <div
-          className={`rounded-3xl shadow-2xl overflow-hidden backdrop-blur-sm ${
-            theme === 'dark' ? 'bg-gray-900 border border-gray-800' : 'bg-white'
-          }`}
-        >
-          <div className="px-6 py-5 rounded-t-3xl" style={{ backgroundColor: '#00B46A' }}>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <Mail className="w-6 h-6 text-white" />
-                <div>
-                  <h3 className="text-white font-bold text-lg">Contact Us</h3>
-                  <p className="text-white/90 text-xs">We'll get back to you soon</p>
-                </div>
-              </div>
-              <button
-                onClick={closeContactForm}
-                className="p-2 hover:bg-white/20 rounded-xl transition-all duration-200 hover:rotate-90"
-                aria-label="Close contact form"
-              >
-                <X className="w-5 h-5 text-white" />
-              </button>
-            </div>
-          </div>
-
-          <div className="p-6 space-y-4">
-            <div
-              className={`rounded-2xl px-4 py-3 text-sm border ${
-                theme === 'dark'
-                  ? 'bg-emerald-500/10 text-emerald-200 border-emerald-500/20'
-                  : 'bg-emerald-50 text-emerald-700 border-emerald-100'
-              }`}
-            >
-              {formConfig.message}
-            </div>
-
-            {contactSubmissionResult && (
-              <div
-                className={`rounded-2xl px-4 py-3 text-sm border ${
-                  contactSubmissionResult.type === 'success'
-                    ? theme === 'dark'
-                      ? 'bg-emerald-500/10 text-emerald-200 border-emerald-500/20'
-                      : 'bg-emerald-50 text-emerald-700 border-emerald-100'
-                    : theme === 'dark'
-                      ? 'bg-red-500/10 text-red-300 border-red-500/30'
-                      : 'bg-red-50 text-red-600 border-red-100'
-                }`}
-              >
-                {contactSubmissionResult.message}
-              </div>
-            )}
-
-            <form className="space-y-4" onSubmit={handleContactSubmit}>
-              {activeFields.map(field => {
-                const value = contactFormValues[field.field_name] ?? '';
-                const error = contactFormErrors[field.field_name];
-                const baseInputClasses =
-                  'w-full px-4 py-2 rounded-lg outline-none transition-all duration-200 focus:ring-2';
-                const themeInputClasses = theme === 'dark'
-                  ? 'bg-gray-800 border border-gray-600 text-white placeholder-gray-400 focus:border-emerald-400 focus:ring-emerald-400/20'
-                  : 'bg-white border border-gray-200 text-gray-900 placeholder-gray-400 focus:border-emerald-500 focus:ring-emerald-500/20';
-                const inputClasses = `${baseInputClasses} ${themeInputClasses} ${
-                  error
-                    ? 'border-red-400 focus:border-red-500 focus:ring-red-200 text-red-900 placeholder-red-400'
-                    : ''
-                }`;
-                const labelClasses = `block text-sm font-medium mb-1 ${
-                  theme === 'dark' ? 'text-gray-200' : 'text-gray-700'
-                }`;
-
-                return (
-                  <div key={field.field_name}>
-                    <label className={labelClasses}>
-                      {field.field_label}
-                      {field.required && <span className="text-red-500 ml-1">*</span>}
-                    </label>
-                    {field.field_type === 'textarea' ? (
-                      <textarea
-                        rows={4}
-                        required={field.required}
-                        value={value}
-                        onChange={(e) => updateContactFormValue(field.field_name, e.target.value)}
-                        className={`${inputClasses} resize-none`}
-                        placeholder={field.placeholder || ''}
-                      />
-                    ) : (
-                      <input
-                        type={field.field_type}
-                        required={field.required}
-                        value={value}
-                        onChange={(e) => updateContactFormValue(field.field_name, e.target.value)}
-                        className={inputClasses}
-                        placeholder={field.placeholder || ''}
-                      />
-                    )}
-                    {error && (
-                      <p className="mt-1 text-xs text-red-500">
-                        {error}
-                      </p>
-                    )}
-                  </div>
-                );
-              })}
-
-              <button
-                type="submit"
-                disabled={isContactSubmitting}
-                className="w-full py-3 bg-emerald-500 text-white font-medium rounded-lg hover:bg-emerald-600 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed"
-              >
-                {isContactSubmitting ? 'Sending...' : 'Send Message'}
-              </button>
-            </form>
-          </div>
-        </div>
-      </div>
     );
   }
 
@@ -1133,6 +1025,123 @@ export default function ChatWidget() {
                         </div>
                       </button>
                     ))}
+                </div>
+              </div>
+            )}
+            {contactFormData && widgetState === 'full' && (
+              <div className="flex justify-start animate-slide-up-fade pl-10">
+                <div className={`max-w-[85%] w-full rounded-2xl shadow-lg border p-6 ${
+                  theme === 'dark' 
+                    ? 'bg-gray-800 border-gray-700' 
+                    : 'bg-white border-gray-200'
+                }`}>
+                  <div className="flex items-center gap-2 mb-4">
+                    <Mail className="w-5 h-5 text-emerald-500" />
+                    <h3 className={`font-bold text-lg ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+                      Share Your Details
+                    </h3>
+                  </div>
+
+                  {contactSubmissionResult && (
+                    <div
+                      className={`rounded-xl px-4 py-3 text-sm mb-4 border ${
+                        contactSubmissionResult.type === 'success'
+                          ? theme === 'dark'
+                            ? 'bg-emerald-500/10 text-emerald-200 border-emerald-500/20'
+                            : 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                          : theme === 'dark'
+                            ? 'bg-red-500/10 text-red-300 border-red-500/30'
+                            : 'bg-red-50 text-red-600 border-red-200'
+                      }`}
+                    >
+                      {contactSubmissionResult.message}
+                    </div>
+                  )}
+
+                  <form className="space-y-4" onSubmit={handleContactSubmit}>
+                    {contactFormData.fields.map(field => {
+                      const value = contactFormValues[field.field_name] ?? '';
+                      const error = contactFormErrors[field.field_name];
+                      const baseInputClasses =
+                        'w-full px-4 py-2.5 rounded-lg outline-none transition-all duration-200 focus:ring-2';
+                      const themeInputClasses = theme === 'dark'
+                        ? 'bg-gray-700 border border-gray-600 text-white placeholder-gray-400 focus:border-emerald-400 focus:ring-emerald-400/20'
+                        : 'bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-400 focus:border-emerald-500 focus:ring-emerald-500/20';
+                      const inputClasses = `${baseInputClasses} ${themeInputClasses} ${
+                        error
+                          ? 'border-red-400 focus:border-red-500 focus:ring-red-200'
+                          : ''
+                      }`;
+                      const labelClasses = `block text-sm font-medium mb-1.5 ${
+                        theme === 'dark' ? 'text-gray-200' : 'text-gray-700'
+                      }`;
+
+                      return (
+                        <div key={field.field_name}>
+                          <label className={labelClasses}>
+                            {field.field_label}
+                            {field.required && <span className="text-red-500 ml-1">*</span>}
+                          </label>
+                          {field.field_type === 'textarea' ? (
+                            <textarea
+                              rows={3}
+                              required={field.required}
+                              value={value}
+                              onChange={(e) => updateContactFormValue(field.field_name, e.target.value)}
+                              className={`${inputClasses} resize-none`}
+                              placeholder={field.placeholder || ''}
+                            />
+                          ) : (
+                            <input
+                              type={field.field_type}
+                              required={field.required}
+                              value={value}
+                              onChange={(e) => updateContactFormValue(field.field_name, e.target.value)}
+                              className={inputClasses}
+                              placeholder={field.placeholder || ''}
+                            />
+                          )}
+                          {error && (
+                            <p className="mt-1 text-xs text-red-500">
+                              {error}
+                            </p>
+                          )}
+                        </div>
+                      );
+                    })}
+
+                    <div className="flex gap-3 pt-2">
+                      <button
+                        type="submit"
+                        disabled={isContactSubmitting}
+                        className="flex-1 py-3 bg-emerald-500 text-white font-medium rounded-lg hover:bg-emerald-600 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                      >
+                        {isContactSubmitting ? (
+                          <>
+                            <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                            Sending...
+                          </>
+                        ) : (
+                          <>
+                            <Send className="w-4 h-4" />
+                            Submit
+                          </>
+                        )}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={closeContactForm}
+                        disabled={isContactSubmitting}
+                        className={`px-4 py-3 font-medium rounded-lg transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed ${
+                          theme === 'dark'
+                            ? 'bg-gray-700 text-gray-200 hover:bg-gray-600'
+                            : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                        }`}
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </form>
                 </div>
               </div>
             )}
