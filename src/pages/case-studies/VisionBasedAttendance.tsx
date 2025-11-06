@@ -180,8 +180,255 @@ export default function VisionBasedAttendance() {
           </div>
         </section>
 
-        {/* How AI Made It Possible Section */}
+        {/* Desktop Mockup Section */}
         <section className="mb-0 bg-white dark:bg-gray-900 py-12 sm:py-16">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-10 sm:mb-12">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 tracking-tight px-2">
+                The Solution in Action
+              </h2>
+              <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed px-4">
+                A comprehensive dashboard that transforms raw camera feeds into actionable workplace insights
+              </p>
+            </div>
+
+            {/* Desktop Mockup */}
+            <div className="relative max-w-6xl mx-auto">
+              {/* Background glow effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-[#00B46A]/20 via-transparent to-[#00B46A]/20 blur-3xl"></div>
+
+              {/* Desktop frame */}
+              <div className="relative bg-gray-900 rounded-t-2xl p-2 shadow-2xl">
+                {/* Monitor bezel */}
+                <div className="bg-gray-800 rounded-t-xl p-1">
+                  {/* Screen */}
+                  <div className="bg-white rounded-lg overflow-hidden shadow-inner">
+                    {/* Dashboard Content */}
+                    <div className="relative aspect-[16/10]">
+                      {/* Header */}
+                      <div className="absolute top-0 left-0 right-0 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 rounded bg-[#00B46A] flex items-center justify-center">
+                            <span className="text-white font-bold text-sm">V</span>
+                          </div>
+                          <span className="font-bold text-gray-900 text-lg">VINFOTECH</span>
+                        </div>
+                        <div className="flex items-center gap-2 text-xs text-gray-500">
+                          <span>Last Synced:</span>
+                          <span className="font-semibold text-gray-900">11:00 AM</span>
+                          <div className="w-2 h-2 rounded-full bg-[#00B46A] animate-pulse"></div>
+                        </div>
+                      </div>
+
+                      {/* Main Content */}
+                      <div className="absolute inset-0 top-16 overflow-hidden bg-gray-50">
+                        <div className="h-full overflow-y-auto p-6">
+                          <div className="max-w-7xl mx-auto">
+                            {/* Date Selector */}
+                            <div className="mb-6 flex items-center justify-between">
+                              <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
+                              <div className="flex gap-2">
+                                <button className="px-4 py-2 rounded-lg bg-[#6B46E5] text-white text-sm font-medium">
+                                  Today<br/>22 Aug
+                                </button>
+                                <button className="px-4 py-2 rounded-lg bg-gray-200 text-gray-700 text-sm">
+                                  Thursday<br/>21 Aug
+                                </button>
+                                <button className="px-4 py-2 rounded-lg bg-gray-200 text-gray-700 text-sm">
+                                  Wednesday<br/>20 Aug
+                                </button>
+                              </div>
+                            </div>
+
+                            {/* Main Grid */}
+                            <div className="grid grid-cols-12 gap-4">
+                              {/* Left Column - Attendance Stats */}
+                              <div className="col-span-7 space-y-4">
+                                {/* Attendance Card */}
+                                <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                  <div className="flex items-center justify-between mb-4">
+                                    <h3 className="font-bold text-gray-900">Attendance</h3>
+                                    <div className="flex gap-4 text-xs">
+                                      <span className="flex items-center gap-1">
+                                        <div className="w-2 h-2 rounded-full bg-[#6B46E5]"></div>
+                                        Present
+                                      </span>
+                                      <span className="flex items-center gap-1">
+                                        <div className="w-2 h-2 rounded-full bg-gray-300"></div>
+                                        On Break
+                                      </span>
+                                      <span className="flex items-center gap-1">
+                                        <div className="w-2 h-2 rounded-full bg-gray-200"></div>
+                                        Absent
+                                      </span>
+                                    </div>
+                                  </div>
+
+                                  <div className="flex items-center gap-8">
+                                    {/* Progress Circle */}
+                                    <div className="relative w-32 h-32">
+                                      <svg className="transform -rotate-90 w-32 h-32">
+                                        <circle cx="64" cy="64" r="56" stroke="#E5E7EB" strokeWidth="12" fill="none" />
+                                        <circle cx="64" cy="64" r="56" stroke="#6B46E5" strokeWidth="12" fill="none"
+                                          strokeDasharray="352" strokeDashoffset="70" strokeLinecap="round" />
+                                      </svg>
+                                      <div className="absolute inset-0 flex flex-col items-center justify-center">
+                                        <span className="text-3xl font-bold text-gray-900">830</span>
+                                        <span className="text-xs text-gray-500">Present at 11:15 AM</span>
+                                      </div>
+                                    </div>
+
+                                    <div className="flex-1 space-y-3">
+                                      <div className="flex items-center justify-between">
+                                        <span className="text-sm text-gray-600">Currently on Break</span>
+                                        <span className="text-lg font-bold text-gray-900">5</span>
+                                      </div>
+                                      <div className="flex items-center justify-between">
+                                        <span className="text-sm text-gray-600">Absent Today</span>
+                                        <span className="text-lg font-bold text-gray-900">8</span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                {/* Time-wise Snapshots */}
+                                <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                  <h3 className="font-bold text-gray-900 mb-4">Time-wise Snapshots</h3>
+                                  <div className="flex gap-4">
+                                    {[
+                                      { time: '9:00 AM', count: 186, total: 802 },
+                                      { time: '9:30 AM', count: 580, total: 408 },
+                                      { time: '10:00 AM', count: 730, total: 255 }
+                                    ].map((snap, idx) => (
+                                      <div key={idx} className="flex-1">
+                                        <div className="relative w-24 h-24 mx-auto">
+                                          <svg className="transform -rotate-90 w-24 h-24">
+                                            <circle cx="48" cy="48" r="40" stroke="#E5E7EB" strokeWidth="8" fill="none" />
+                                            <circle cx="48" cy="48" r="40" stroke="#6B46E5" strokeWidth="8" fill="none"
+                                              strokeDasharray={`${(snap.count / 1000) * 251} 251`} strokeLinecap="round" />
+                                          </svg>
+                                          <div className="absolute inset-0 flex items-center justify-center">
+                                            <span className="text-xl font-bold text-gray-900">{snap.count}</span>
+                                          </div>
+                                        </div>
+                                        <div className="text-center mt-2">
+                                          <div className="text-xs font-medium text-gray-900">Present at {snap.time}</div>
+                                          <div className="text-xs text-gray-500">{snap.total} • 8</div>
+                                        </div>
+                                      </div>
+                                    ))}
+                                  </div>
+                                </div>
+
+                                {/* System Alerts & Analytics */}
+                                <div className="grid grid-cols-2 gap-4">
+                                  <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-200">
+                                    <div className="flex items-center gap-3 mb-2">
+                                      <div className="w-8 h-8 rounded bg-yellow-100 flex items-center justify-center">
+                                        <span className="text-yellow-600 text-lg">⚠️</span>
+                                      </div>
+                                      <div>
+                                        <div className="text-2xl font-bold text-gray-900">3</div>
+                                        <div className="text-xs text-gray-500">Alerts in 24 hrs</div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div className="bg-[#6B46E5] rounded-xl p-4 shadow-sm flex items-center justify-between cursor-pointer hover:bg-[#5B36D5] transition-colors">
+                                    <div>
+                                      <div className="text-sm font-bold text-white">Analytics & Reports</div>
+                                    </div>
+                                    <span className="text-white text-xl">→</span>
+                                  </div>
+                                </div>
+                              </div>
+
+                              {/* Right Column - Recent Activity */}
+                              <div className="col-span-5">
+                                <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-200 h-full">
+                                  <div className="flex items-center justify-between mb-4">
+                                    <h3 className="font-bold text-gray-900">Recent Activity</h3>
+                                    <button className="text-xs text-[#6B46E5] font-medium">VIEW ALL →</button>
+                                  </div>
+
+                                  {/* Activity Grid */}
+                                  <div className="grid grid-cols-2 gap-2 overflow-y-auto max-h-96">
+                                    {[
+                                      { name: 'Wilfredo H.', location: 'First Floor', time: '10:40 AM', status: 'present' },
+                                      { name: 'Unknown', location: 'Ground Floor', time: '10:58 AM', status: 'alert' },
+                                      { name: 'Wade Warren', location: 'First Floor', time: '10:44 AM', status: 'present' },
+                                      { name: 'Willow Moon', location: 'First Floor', time: '10:38 AM', status: 'present' },
+                                      { name: 'Floyd Miles', location: 'Ground Floor', time: '10:48 AM', status: 'present' },
+                                      { name: 'Stella Lambert', location: 'Ground Floor', time: '10:19 AM', status: 'present' },
+                                      { name: 'Bessie Cooper', location: 'First Floor', time: '10:46 AM', status: 'present' },
+                                      { name: 'Unknown', location: 'Ground Floor', time: '10:08 AM', status: 'alert' }
+                                    ].map((person, idx) => (
+                                      <div key={idx} className="relative bg-gray-100 rounded-lg overflow-hidden group hover:shadow-md transition-shadow">
+                                        <div className="aspect-square bg-gradient-to-br from-gray-300 to-gray-400 relative">
+                                          {/* Simulated face detection overlay */}
+                                          <div className="absolute inset-0 flex items-center justify-center">
+                                            <div className="w-16 h-20 border-2 border-white/60 rounded"></div>
+                                          </div>
+                                          {person.status === 'alert' && (
+                                            <div className="absolute top-1 right-1 w-6 h-6 bg-red-500 rounded flex items-center justify-center">
+                                              <span className="text-white text-xs font-bold">!</span>
+                                            </div>
+                                          )}
+                                        </div>
+                                        <div className="p-2 bg-white">
+                                          <div className="text-xs font-bold text-gray-900 truncate">{person.name}</div>
+                                          <div className="text-xs text-gray-500">{person.location}</div>
+                                          <div className="text-xs text-gray-400 mt-1">{person.time}</div>
+                                        </div>
+                                      </div>
+                                    ))}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Monitor stand */}
+              <div className="relative h-16 flex items-end justify-center">
+                <div className="w-32 h-12 bg-gray-800 rounded-t-lg"></div>
+                <div className="absolute bottom-0 w-48 h-3 bg-gray-900 rounded-full"></div>
+              </div>
+            </div>
+
+            {/* Feature highlights below mockup */}
+            <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+              <div className="text-center">
+                <div className="w-12 h-12 rounded-full bg-[#00B46A]/10 flex items-center justify-center mx-auto mb-3">
+                  <span className="text-2xl">👁️</span>
+                </div>
+                <h4 className="font-bold text-gray-900 dark:text-white mb-2">Real-time Detection</h4>
+                <p className="text-sm text-gray-600 dark:text-gray-400">Instant facial recognition as employees enter or move through zones</p>
+              </div>
+              <div className="text-center">
+                <div className="w-12 h-12 rounded-full bg-[#00B46A]/10 flex items-center justify-center mx-auto mb-3">
+                  <span className="text-2xl">📊</span>
+                </div>
+                <h4 className="font-bold text-gray-900 dark:text-white mb-2">Live Analytics</h4>
+                <p className="text-sm text-gray-600 dark:text-gray-400">Comprehensive dashboard with occupancy metrics and time-wise snapshots</p>
+              </div>
+              <div className="text-center">
+                <div className="w-12 h-12 rounded-full bg-[#00B46A]/10 flex items-center justify-center mx-auto mb-3">
+                  <span className="text-2xl">🔔</span>
+                </div>
+                <h4 className="font-bold text-gray-900 dark:text-white mb-2">Smart Alerts</h4>
+                <p className="text-sm text-gray-600 dark:text-gray-400">Automated notifications for unknown individuals and unusual patterns</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* How AI Made It Possible Section */}
+        <section className="mb-0 bg-gray-50 dark:bg-black py-12 sm:py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-10 sm:mb-12">
               <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 tracking-tight px-2">
