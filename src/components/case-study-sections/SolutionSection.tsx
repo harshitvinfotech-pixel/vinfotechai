@@ -99,208 +99,27 @@ function AttendanceDashboardMockup() {
       <div className="relative bg-gray-900 rounded-t-2xl p-2 shadow-2xl">
         <div className="bg-gray-800 rounded-t-xl p-1">
           <div className="bg-white rounded-lg overflow-hidden shadow-inner">
-            {/* Dashboard with Scrollable Container */}
+            {/* Dashboard Screenshot with Scrollable Container */}
             <div className="relative aspect-[16/10] overflow-hidden">
               {/* Scrollable content area */}
-              <div className="absolute inset-0 overflow-y-auto custom-scrollbar bg-gray-50">
-                {/* Header */}
-                <div className="sticky top-0 z-10 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#00B46A] to-[#00956A] flex items-center justify-center">
-                      <span className="text-white font-bold text-lg">V</span>
-                    </div>
-                    <span className="font-bold text-gray-900 text-xl">VINFOTECH</span>
-                  </div>
-                  <div className="flex items-center gap-3 text-sm text-gray-600">
-                    <span>Last Synced:</span>
-                    <span className="font-semibold text-gray-900">11:00 AM</span>
-                    <div className="w-2.5 h-2.5 rounded-full bg-[#00B46A] animate-pulse"></div>
-                  </div>
-                </div>
-
-                {/* Dashboard Content */}
-                <div className="p-6">
-                  {/* Date Selector */}
-                  <div className="mb-6 flex items-center justify-between">
-                    <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
-                    <div className="flex gap-3">
-                      <button className="px-5 py-3 rounded-xl bg-[#6B46E5] text-white font-medium shadow-lg hover:shadow-xl transition-shadow">
-                        <div className="text-sm">Today</div>
-                        <div className="text-xs opacity-90">22 Aug</div>
-                      </button>
-                      <button className="px-5 py-3 rounded-xl bg-gray-200 text-gray-700 font-medium">
-                        <div className="text-sm">Thu</div>
-                        <div className="text-xs">21 Aug</div>
-                      </button>
-                      <button className="px-5 py-3 rounded-xl bg-gray-200 text-gray-700 font-medium">
-                        <div className="text-sm">Wed</div>
-                        <div className="text-xs">20 Aug</div>
-                      </button>
-                      <button className="p-3 rounded-xl bg-gray-200 text-gray-700">
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <rect x="3" y="4" width="18" height="18" rx="2" ry="2" strokeWidth="2"/>
-                          <line x1="16" y1="2" x2="16" y2="6" strokeWidth="2"/>
-                          <line x1="8" y1="2" x2="8" y2="6" strokeWidth="2"/>
-                          <line x1="3" y1="10" x2="21" y2="10" strokeWidth="2"/>
-                        </svg>
-                      </button>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-3 gap-6">
-                    {/* Left Column - Attendance */}
-                    <div className="col-span-2 space-y-6">
-                      {/* Attendance Card */}
-                      <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-200">
-                        <div className="flex items-center justify-between mb-6">
-                          <h3 className="font-bold text-gray-900 text-xl">Attendance</h3>
-                          <div className="flex gap-4 text-sm">
-                            <span className="flex items-center gap-2">
-                              <div className="w-3 h-3 rounded-full bg-[#6B46E5]"></div>Present
-                            </span>
-                            <span className="flex items-center gap-2">
-                              <div className="w-3 h-3 rounded-full bg-yellow-400"></div>On Break
-                            </span>
-                            <span className="flex items-center gap-2">
-                              <div className="w-3 h-3 rounded-full bg-gray-300"></div>Absent
-                            </span>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-8">
-                          <div className="relative w-40 h-40">
-                            <svg className="transform -rotate-90 w-40 h-40">
-                              <circle cx="80" cy="80" r="70" stroke="#E5E7EB" strokeWidth="12" fill="none" />
-                              <circle cx="80" cy="80" r="70" stroke="#6B46E5" strokeWidth="12" fill="none"
-                                strokeDasharray="440" strokeDashoffset="88" strokeLinecap="round" />
-                            </svg>
-                            <div className="absolute inset-0 flex flex-col items-center justify-center">
-                              <span className="text-4xl font-bold text-gray-900">830</span>
-                              <span className="text-sm text-gray-500">Present at 11:15 AM</span>
-                            </div>
-                          </div>
-                          <div className="flex-1 space-y-4">
-                            <div className="flex justify-between items-center">
-                              <span className="text-gray-600">Currently on Break</span>
-                              <span className="text-3xl font-bold text-gray-900">5</span>
-                            </div>
-                            <div className="flex justify-between items-center">
-                              <span className="text-gray-600">Absent Today</span>
-                              <span className="text-3xl font-bold text-gray-900">8</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Time Snapshots */}
-                      <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-200">
-                        <h3 className="font-bold text-gray-900 text-xl mb-6">Time-wise Snapshots</h3>
-                        <div className="flex gap-6 justify-between">
-                          {[
-                            { count: 186, time: '9:00 AM', total: 802, absent: 8 },
-                            { count: 580, time: '9:30 AM', total: 408, absent: 8 },
-                            { count: 730, time: '10:00 AM', total: 258, absent: 8 }
-                          ].map((item, idx) => (
-                            <div key={idx} className="flex-1 text-center">
-                              <div className="relative w-28 h-28 mx-auto mb-4">
-                                <svg className="transform -rotate-90 w-28 h-28">
-                                  <circle cx="56" cy="56" r="50" stroke="#E5E7EB" strokeWidth="8" fill="none" />
-                                  <circle cx="56" cy="56" r="50" stroke="#6B46E5" strokeWidth="8" fill="none"
-                                    strokeDasharray={`${(item.count / 1000) * 314} 314`} strokeLinecap="round" />
-                                </svg>
-                                <div className="absolute inset-0 flex items-center justify-center">
-                                  <span className="text-2xl font-bold text-gray-900">{item.count}</span>
-                                </div>
-                              </div>
-                              <div className="text-sm font-semibold text-gray-900 mb-2">Present at {item.time}</div>
-                              <div className="flex items-center justify-center gap-4 text-xs text-gray-600">
-                                <span>↓ {item.total}</span>
-                                <span>⚠ {item.absent}</span>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Bottom Row */}
-                      <div className="grid grid-cols-2 gap-6">
-                        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-200 flex items-center gap-4">
-                          <div className="w-16 h-16 rounded-2xl bg-yellow-100 flex items-center justify-center">
-                            <span className="text-3xl">⚠️</span>
-                          </div>
-                          <div>
-                            <div className="text-3xl font-bold text-gray-900">3</div>
-                            <div className="text-sm text-gray-600">System Alerts</div>
-                            <div className="text-xs text-gray-500 mt-1">Alerts in 24 hrs</div>
-                          </div>
-                        </div>
-                        <div className="bg-gradient-to-br from-[#6B46E5] to-[#5B36D5] rounded-2xl p-6 flex items-center justify-between text-white shadow-lg">
-                          <div>
-                            <div className="text-lg font-bold mb-1">Analytics & Reports</div>
-                            <div className="text-sm opacity-90">View detailed insights</div>
-                          </div>
-                          <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                          </svg>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Right Column - Activity Feed */}
-                    <div className="col-span-1">
-                      <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-200 sticky top-24">
-                        <div className="flex justify-between items-center mb-5">
-                          <h3 className="font-bold text-gray-900 text-lg">Recent Activity</h3>
-                          <button className="text-sm text-[#6B46E5] font-semibold">VIEW ALL</button>
-                        </div>
-                        <div className="grid grid-cols-2 gap-3">
-                          {[
-                            { name: 'Wilfredo H.', floor: 'First Floor', time: '10:46 AM', alert: false },
-                            { name: 'Unknown', floor: 'Ground Floor', time: '10:46 AM', alert: true },
-                            { name: 'Wade Warren', floor: 'First Floor', time: '10:46 AM', alert: false },
-                            { name: 'Willow Moon', floor: 'First Floor', time: '10:58 AM', alert: false },
-                            { name: 'Floyd Miles', floor: 'Ground Floor', time: '10:46 AM', alert: false },
-                            { name: 'Stella Lambert', floor: 'Ground Floor', time: '10:46 AM', alert: false },
-                            { name: 'Bessie Cooper', floor: 'First Floor', time: '10:46 AM', alert: false },
-                            { name: 'Unknown', floor: 'Ground Floor', time: '10:58 AM', alert: true },
-                            { name: 'Ronda Gibbs', floor: 'First Floor', time: '10:46 AM', alert: false },
-                            { name: 'Carlos Pitts', floor: 'Ground Floor', time: '10:58 AM', alert: false },
-                            { name: 'Sydney Norton', floor: 'First Floor', time: '10:46 AM', alert: false },
-                            { name: 'Jeremy Key', floor: 'First Floor', time: '10:58 AM', alert: false }
-                          ].map((person, idx) => (
-                            <div key={idx} className="bg-gray-50 rounded-lg overflow-hidden">
-                              <div className="aspect-square bg-gradient-to-br from-gray-300 to-gray-400 relative">
-                                <div className="absolute inset-0 flex items-center justify-center">
-                                  <div className="w-12 h-16 border-2 border-white/60 rounded"></div>
-                                </div>
-                                <div className="absolute top-2 left-2 bg-gray-800 text-white text-[10px] px-2 py-0.5 rounded">
-                                  {person.time}
-                                </div>
-                                {person.alert && (
-                                  <div className="absolute top-2 right-2 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center">
-                                    <span className="text-white text-xs font-bold">!</span>
-                                  </div>
-                                )}
-                              </div>
-                              <div className="p-2 bg-white">
-                                <div className="text-xs font-bold text-gray-900 truncate">{person.name}</div>
-                                <div className="text-[10px] text-gray-500">{person.floor}</div>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              <div className="absolute inset-0 overflow-y-auto custom-scrollbar bg-white">
+                <img
+                  src="/vision-ai-solution.jpg"
+                  alt="Vision-Based Attendance Dashboard"
+                  className="w-full h-auto"
+                  loading="lazy"
+                />
               </div>
 
-              {/* Scroll indicator */}
-              <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white via-white/80 to-transparent pointer-events-none flex items-end justify-center pb-3">
-                <div className="flex flex-col items-center gap-1 animate-bounce">
-                  <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              {/* Scroll indicator overlay */}
+              <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white/95 via-white/70 to-transparent pointer-events-none flex items-end justify-center pb-4">
+                <div className="flex flex-col items-center gap-1.5 animate-bounce">
+                  <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
                   </svg>
-                  <span className="text-xs text-gray-600 font-medium">Scroll to explore</span>
+                  <span className="text-sm text-gray-700 font-semibold bg-white/90 px-3 py-1 rounded-full shadow-sm">
+                    Scroll to explore
+                  </span>
                 </div>
               </div>
             </div>
