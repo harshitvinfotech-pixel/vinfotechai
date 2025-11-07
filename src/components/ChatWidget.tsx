@@ -156,6 +156,15 @@ export default function ChatWidget() {
   const contactAutoCloseTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 768);
   const [messageFeedback, setMessageFeedback] = useState<Record<number, 'positive' | 'negative'>>(cachedStateRef.current.feedback);
+  const [loadingMessageIndex, setLoadingMessageIndex] = useState(0);
+
+  const loadingMessages = [
+    'Thinking...',
+    'Processing...',
+    'Gathering information...',
+    'Fetching you latest updates...',
+    'Just a Sec..'
+  ];
 
   useEffect(() => {
     checkSessionState();
@@ -168,6 +177,18 @@ export default function ChatWidget() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  // Cycle through loading messages
+  useEffect(() => {
+    if (isLoading && !isStreaming) {
+      const interval = setInterval(() => {
+        setLoadingMessageIndex(prev => (prev + 1) % loadingMessages.length);
+      }, 2000);
+      return () => clearInterval(interval);
+    } else {
+      setLoadingMessageIndex(0);
+    }
+  }, [isLoading, isStreaming]);
 
   // Show predefined questions ONLY when chat is completely empty (no messages and no dynamic suggestions)
   useEffect(() => {
@@ -983,20 +1004,26 @@ export default function ChatWidget() {
             ))}
             {(isLoading && !isStreaming) && (
               <div className="flex justify-start items-start gap-3 animate-slide-up-fade">
-                <div className="flex-shrink-0 mt-1">
+                <div className="flex-shrink-0 mt-1 relative">
+                  <div className="absolute inset-0 rounded-full animate-ping" style={{ backgroundColor: '#00B46A', opacity: 0.3 }}></div>
+                  <div className="absolute inset-0 rounded-full animate-spin" style={{
+                    border: '2px solid transparent',
+                    borderTopColor: '#00B46A',
+                    borderRightColor: '#00B46A'
+                  }}></div>
                   <img
                     src="/ai-bot.png"
                     alt="AI Assistant"
-                    className="w-8 h-8 object-contain animate-pulse"
+                    className="w-8 h-8 object-contain relative z-10"
                   />
                 </div>
                 <div className={`rounded-2xl px-5 py-3 shadow-sm border ${theme === 'dark' ? 'bg-gray-700 border-gray-600' : 'bg-white border-gray-100'}`}>
                   <div className="flex items-center gap-2">
-                    <span className={`text-base font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>Thinking</span>
+                    <span className={`text-base font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>{loadingMessages[loadingMessageIndex]}</span>
                     <div className="flex gap-1">
-                      <div className="w-2 h-2 bg-emerald-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                      <div className="w-2 h-2 bg-emerald-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                      <div className="w-2 h-2 bg-emerald-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                      <div className="w-2 h-2 rounded-full animate-bounce" style={{ backgroundColor: '#00B46A', animationDelay: '0ms' }}></div>
+                      <div className="w-2 h-2 rounded-full animate-bounce" style={{ backgroundColor: '#00B46A', animationDelay: '150ms' }}></div>
+                      <div className="w-2 h-2 rounded-full animate-bounce" style={{ backgroundColor: '#00B46A', animationDelay: '300ms' }}></div>
                     </div>
                   </div>
                 </div>
