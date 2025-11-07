@@ -166,10 +166,10 @@ export default function VinfotechApproachSection({
         </div>
 
         {/* Desktop Horizontal Alternating Timeline */}
-        <div className="hidden lg:block">
-          <div className="relative" style={{ minHeight: '500px' }}>
+        <div className="hidden lg:block overflow-x-auto">
+          <div className="relative px-8 min-w-[1000px]" style={{ minHeight: '500px' }}>
             {/* Horizontal center line */}
-            <div className="absolute left-0 right-0 top-1/2 h-1 bg-[#00B46A]" style={{ zIndex: 1 }}></div>
+            <div className="absolute left-8 right-8 top-1/2 h-1 bg-[#00B46A]" style={{ zIndex: 1 }}></div>
 
             {/* Timeline nodes positioned along horizontal line */}
             <div className="relative" style={{ height: '500px' }}>
@@ -209,16 +209,16 @@ export default function VinfotechApproachSection({
 
                     {/* Card */}
                     <div
-                      className="absolute left-1/2 -translate-x-1/2 w-64"
+                      className="absolute left-1/2 -translate-x-1/2 w-52"
                       style={{
                         top: isAbove ? '-235px' : '130px'
                       }}
                     >
-                      <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-xl border-2 border-gray-200 dark:border-gray-700 hover:border-[#00B46A] transition-all duration-300 hover:-translate-y-2">
-                        <h3 className="text-base font-bold text-gray-900 dark:text-white mb-2">
+                      <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-xl border-2 border-gray-200 dark:border-gray-700 hover:border-[#00B46A] transition-all duration-300 hover:-translate-y-2">
+                        <h3 className="text-sm font-bold text-gray-900 dark:text-white mb-2 break-words leading-tight">
                           {step.title}
                         </h3>
-                        <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                        <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed break-words">
                           {parseRichText(step.description)}
                         </p>
                       </div>
