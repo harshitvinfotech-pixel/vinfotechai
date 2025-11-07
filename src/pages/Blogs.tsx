@@ -90,32 +90,6 @@ export default function Blogs() {
       </div>
 
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-12">
-        <div className="flex flex-wrap gap-3 mb-12 justify-start">
-          <button
-            onClick={() => handleCategoryChange('all')}
-            className={`px-6 py-2.5 rounded-full font-semibold transition-all duration-300 ${
-              selectedCategory === 'all'
-                ? 'bg-[#00B46A] text-white shadow-lg shadow-[#00B46A]/30'
-                : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
-            }`}
-          >
-            All Posts
-          </button>
-          {categories.map((category) => (
-            <button
-              key={category.id}
-              onClick={() => handleCategoryChange(category.slug)}
-              className={`px-6 py-2.5 rounded-full font-semibold transition-all duration-300 ${
-                selectedCategory === category.slug
-                  ? 'bg-[#00B46A] text-white shadow-lg shadow-[#00B46A]/30'
-                  : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
-              }`}
-            >
-              {category.name}
-            </button>
-          ))}
-        </div>
-
         {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[1, 2, 3, 4, 5, 6].map((i) => (
