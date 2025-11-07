@@ -209,7 +209,7 @@ export default function VinfotechApproachSection({
 
                     {/* Card */}
                     <div
-                      className="absolute left-1/2 -translate-x-1/2 w-48"
+                      className="absolute left-1/2 -translate-x-1/2 w-44"
                       style={{
                         top: isAbove ? '-155px' : '70px'
                       }}
