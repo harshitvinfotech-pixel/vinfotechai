@@ -166,13 +166,13 @@ export default function VinfotechApproachSection({
         </div>
 
         {/* Desktop Horizontal Alternating Timeline */}
-        <div className="hidden lg:block overflow-x-auto">
-          <div className="relative px-8 min-w-[1000px]" style={{ minHeight: '500px' }}>
+        <div className="hidden lg:block">
+          <div className="relative px-4" style={{ minHeight: '420px' }}>
             {/* Horizontal center line */}
-            <div className="absolute left-8 right-8 top-1/2 h-1 bg-[#00B46A]" style={{ zIndex: 1 }}></div>
+            <div className="absolute left-4 right-4 top-1/2 h-1 bg-[#00B46A]" style={{ zIndex: 1 }}></div>
 
             {/* Timeline nodes positioned along horizontal line */}
-            <div className="relative" style={{ height: '500px' }}>
+            <div className="relative" style={{ height: '420px' }}>
               {steps.map((step, index) => {
                 // Calculate horizontal position for each step
                 const leftPosition = `${(index * 100) / (steps.length - 1)}%`;
@@ -201,8 +201,8 @@ export default function VinfotechApproachSection({
                     <div
                       className="absolute left-1/2 -translate-x-1/2 w-1 bg-[#00B46A]"
                       style={{
-                        height: isAbove ? '65px' : '105px',
-                        top: isAbove ? '-68px' : '24px',
+                        height: isAbove ? '45px' : '65px',
+                        top: isAbove ? '-48px' : '24px',
                         zIndex: 5
                       }}
                     ></div>
@@ -211,7 +211,7 @@ export default function VinfotechApproachSection({
                     <div
                       className="absolute left-1/2 -translate-x-1/2 w-52"
                       style={{
-                        top: isAbove ? '-235px' : '130px'
+                        top: isAbove ? '-185px' : '90px'
                       }}
                     >
                       <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-xl border-2 border-gray-200 dark:border-gray-700 hover:border-[#00B46A] transition-all duration-300 hover:-translate-y-2">
