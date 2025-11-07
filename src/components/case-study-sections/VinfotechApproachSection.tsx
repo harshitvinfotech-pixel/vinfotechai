@@ -167,9 +167,9 @@ export default function VinfotechApproachSection({
 
         {/* Desktop Horizontal Alternating Timeline */}
         <div className="hidden lg:block">
-          <div className="relative px-4" style={{ minHeight: '420px' }}>
+          <div className="relative px-20" style={{ minHeight: '420px' }}>
             {/* Horizontal center line */}
-            <div className="absolute left-4 right-4 top-1/2 h-1 bg-[#00B46A]" style={{ zIndex: 1 }}></div>
+            <div className="absolute left-20 right-20 top-1/2 h-1 bg-[#00B46A]" style={{ zIndex: 1 }}></div>
 
             {/* Timeline nodes positioned along horizontal line */}
             <div className="relative" style={{ height: '420px' }}>
