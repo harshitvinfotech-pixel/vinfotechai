@@ -60,7 +60,7 @@ export default function Blogs() {
     <div className="min-h-screen bg-white dark:bg-gray-900">
       <Header onQuoteClick={() => {}} />
 
-      <div className="relative bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 py-20 sm:py-24 md:py-32 px-6 sm:px-8 lg:px-12 overflow-hidden">
+      <div className="relative bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 py-12 sm:py-14 md:py-16 px-6 sm:px-8 lg:px-12 overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px]"></div>
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,180,106,0.05),transparent_70%)]"></div>
