@@ -202,14 +202,14 @@ export default function CaseStudyDetail() {
           <KeyTakeawaySection takeawayText={caseStudy.results} />
         )}
 
-        <OtherCaseStudiesSection currentSlug={slug || ''} />
-
         {caseStudy.client_quote && (
           <QuoteBannerSection
             quoteText={caseStudy.client_quote}
             quoteAttribution={caseStudy.client_name || ''}
           />
         )}
+
+        <OtherCaseStudiesSection currentSlug={slug || ''} />
       </main>
 
       <Footer />
