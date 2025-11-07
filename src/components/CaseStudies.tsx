@@ -117,7 +117,7 @@ function CaseStudyCard({ study, onClick }: CaseStudyCardProps) {
               loading="lazy"
             />
 
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+            <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black via-black/90 to-transparent"></div>
           </div>
 
           <div className={`absolute left-0 right-0 z-10 px-6 transition-all duration-500 ${
