@@ -896,7 +896,7 @@ export default function ChatWidget() {
                   {message.type === 'assistant' && (
                     <div className="flex-shrink-0 mt-1">
                       <img
-                        src="/ai-bot.png"
+                        src="/downloadfile-5(1).gif"
                         alt="AI Assistant"
                         className="w-8 h-8 object-contain"
                       />
@@ -1013,7 +1013,7 @@ export default function ChatWidget() {
                     borderRightColor: '#00B46A'
                   }}></div>
                   <img
-                    src="/ai-bot.png"
+                    src="/downloadfile-5(1).gif"
                     alt="AI Assistant"
                     className="w-8 h-8 object-contain relative z-10"
                   />
