@@ -1007,7 +1007,6 @@ export default function ChatWidget() {
             {(isLoading && !isStreaming) && (
               <div className="flex justify-start items-start gap-3 animate-slide-up-fade">
                 <div className="flex-shrink-0 mt-1 relative">
-                  <div className="absolute inset-0 rounded-full animate-ping" style={{ backgroundColor: '#00B46A', opacity: 0.3 }}></div>
                   <div className="absolute inset-0 rounded-full animate-spin" style={{
                     border: '2px solid transparent',
                     borderTopColor: '#00B46A',
