@@ -120,17 +120,6 @@ export default function Blogs() {
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500"></div>
-
-                    {blog.category && (
-                      <div className="absolute top-4 left-4">
-                        <span
-                          className="inline-block px-3 py-1 rounded-full text-xs font-semibold text-white backdrop-blur-sm"
-                          style={{ backgroundColor: `${blog.category.color}CC` }}
-                        >
-                          {blog.category.name}
-                        </span>
-                      </div>
-                    )}
                   </div>
 
                   <div className="p-6">
