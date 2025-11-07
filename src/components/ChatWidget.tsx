@@ -846,7 +846,7 @@ export default function ChatWidget() {
               className="w-24 h-24 object-contain mb-6 animate-float-3d"
             />
             <h3 className={`text-lg font-bold mb-1 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>How can I help you today?</h3>
-            <p className={`text-sm mb-6 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-400'}`}>Ask me anything about our services</p>
+            <p className={`text-base mb-6 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-400'}`}>Ask me anything about our services</p>
 
             {showPredefinedQuestions && (
               <div className="grid grid-cols-1 gap-3 w-full max-w-sm">
@@ -854,7 +854,7 @@ export default function ChatWidget() {
                   <button
                     key={sq.id}
                     onClick={() => handleSuggestedQuestionClick(sq)}
-                    className={`text-left px-4 py-3 rounded-lg border transition-all duration-300 text-sm hover:scale-[1.02] hover:-translate-y-0.5 active:scale-[0.98] ${theme === 'dark' ? 'bg-gray-700 hover:bg-gray-600 border-gray-600 hover:border-emerald-500 text-gray-200' : 'bg-white hover:bg-gray-50 border-gray-200 hover:border-gray-300 text-gray-700'}`}
+                    className={`text-left px-4 py-3 rounded-lg border transition-all duration-300 text-base hover:scale-[1.02] hover:-translate-y-0.5 active:scale-[0.98] ${theme === 'dark' ? 'bg-gray-700 hover:bg-gray-600 border-gray-600 hover:border-emerald-500 text-gray-200' : 'bg-white hover:bg-gray-50 border-gray-200 hover:border-gray-300 text-gray-700'}`}
                     style={{ animationDelay: `${index * 50}ms` }}
                   >
                     {sq.question_text}
@@ -872,9 +872,9 @@ export default function ChatWidget() {
                 className="animate-slide-up-fade"
                 style={{ animationDelay: `${index * 50}ms` }}
               >
-                <div className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start items-end gap-2'}`}>
+                <div className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start items-start gap-2'}`}>
                   {message.type === 'assistant' && (
-                    <div className="flex-shrink-0 mb-1">
+                    <div className="flex-shrink-0 mt-1">
                       <img
                         src="/ai-bot.png"
                         alt="AI Assistant"
@@ -890,9 +890,9 @@ export default function ChatWidget() {
                         : 'bg-white text-gray-900 shadow-sm border border-gray-100'
                   }`}>
                   {message.type === 'user' ? (
-                    <p className="text-[15px] leading-relaxed whitespace-pre-line font-normal">{message.text}</p>
+                    <p className="text-base leading-relaxed whitespace-pre-line font-normal">{message.text}</p>
                   ) : (
-                    <div className="text-[15px] leading-relaxed prose prose-sm max-w-none prose-headings:font-bold prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-emerald-600 prose-a:no-underline hover:prose-a:underline prose-strong:text-gray-900 prose-ul:list-disc prose-ol:list-decimal prose-li:text-gray-700">
+                    <div className="text-base leading-relaxed prose prose-sm max-w-none prose-headings:font-bold prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-emerald-600 prose-a:no-underline hover:prose-a:underline prose-strong:text-gray-900 prose-ul:list-disc prose-ol:list-decimal prose-li:text-gray-700">
                       <ReactMarkdown
                         remarkPlugins={[remarkGfm]}
                         components={{
@@ -982,8 +982,8 @@ export default function ChatWidget() {
               </div>
             ))}
             {(isLoading && !isStreaming) && (
-              <div className="flex justify-start items-end gap-3 animate-slide-up-fade">
-                <div className="flex-shrink-0 mb-1">
+              <div className="flex justify-start items-start gap-3 animate-slide-up-fade">
+                <div className="flex-shrink-0 mt-1">
                   <img
                     src="/ai-bot.png"
                     alt="AI Assistant"
@@ -992,7 +992,7 @@ export default function ChatWidget() {
                 </div>
                 <div className={`rounded-2xl px-5 py-3 shadow-sm border ${theme === 'dark' ? 'bg-gray-700 border-gray-600' : 'bg-white border-gray-100'}`}>
                   <div className="flex items-center gap-2">
-                    <span className={`text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>Thinking</span>
+                    <span className={`text-base font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>Thinking</span>
                     <div className="flex gap-1">
                       <div className="w-2 h-2 bg-emerald-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
                       <div className="w-2 h-2 bg-emerald-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
@@ -1007,7 +1007,7 @@ export default function ChatWidget() {
                 <div className="flex flex-col gap-3 w-full max-w-[85%]">
                   <div className="flex items-center gap-2">
                     <Sparkles className="w-4 h-4 text-emerald-500" />
-                    <p className={`text-sm font-semibold ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>You can also ask:</p>
+                    <p className={`text-base font-semibold ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>You can also ask:</p>
                   </div>
                   {dynamicSuggestions
                     .filter(suggestion => !clickedSuggestions.has(suggestion))
@@ -1019,7 +1019,7 @@ export default function ChatWidget() {
                       >
                         <div className="flex items-start gap-2">
                           <Sparkles className="w-4 h-4 mt-0.5 text-emerald-500 flex-shrink-0 group-hover:scale-110 transition-transform" />
-                          <span className={`text-sm font-normal leading-relaxed ${theme === 'dark' ? 'text-gray-100 group-hover:text-emerald-300' : 'text-gray-800 group-hover:text-emerald-700'}`}>
+                          <span className={`text-base font-normal leading-relaxed ${theme === 'dark' ? 'text-gray-100 group-hover:text-emerald-300' : 'text-gray-800 group-hover:text-emerald-700'}`}>
                             {suggestion}
                           </span>
                         </div>
