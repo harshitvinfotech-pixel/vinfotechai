@@ -159,11 +159,10 @@ export default function ChatWidget() {
   const [loadingMessageIndex, setLoadingMessageIndex] = useState(0);
 
   const loadingMessages = [
-    'Thinking...',
-    'Processing...',
+    'Thinking',
+    'Processing',
     'Gathering information...',
-    'Fetching you latest updates...',
-    'Just a Sec..'
+    'Just a sec..'
   ];
 
   useEffect(() => {
