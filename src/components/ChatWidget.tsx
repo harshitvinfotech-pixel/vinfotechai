@@ -915,7 +915,7 @@ export default function ChatWidget() {
                   {message.type === 'user' ? (
                     <p className="text-base leading-relaxed whitespace-pre-line font-normal">{message.text}</p>
                   ) : (
-                    <div className="text-base leading-relaxed prose prose-sm max-w-none prose-headings:font-bold prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-emerald-600 prose-a:no-underline hover:prose-a:underline prose-strong:text-gray-900 prose-ul:list-disc prose-ol:list-decimal prose-li:text-gray-700">
+                    <div className="prose prose-sm max-w-none prose-headings:font-bold prose-headings:text-gray-900 prose-p:text-gray-700 prose-p:my-0 prose-p:leading-relaxed prose-a:text-emerald-600 prose-a:no-underline hover:prose-a:underline prose-strong:text-gray-900 prose-ul:list-disc prose-ul:my-0 prose-ol:list-decimal prose-ol:my-0 prose-li:text-gray-700" style={{ fontSize: '16px', lineHeight: '1.6' }}>
                       <ReactMarkdown
                         remarkPlugins={[remarkGfm]}
                         components={{
