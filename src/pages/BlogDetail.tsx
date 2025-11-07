@@ -71,7 +71,7 @@ export default function BlogDetail() {
     <div className="min-h-screen bg-white dark:bg-gray-900">
       <Header onQuoteClick={() => {}} />
 
-      <article className="relative">
+      <article className="relative pt-20">
         <div className="relative h-[60vh] min-h-[400px] max-h-[600px] overflow-hidden">
           <img
             src={blog.featured_image_url}
@@ -80,52 +80,49 @@ export default function BlogDetail() {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
 
-          <div className="absolute inset-0 flex items-end">
-            <div className="max-w-4xl mx-auto w-full px-6 sm:px-8 lg:px-12 pb-12">
-              <Link
-                to="/blogs"
-                className="inline-flex items-center gap-2 text-white mb-6 hover:text-[#00FFB2] transition-colors duration-300 group"
-              >
-                <ArrowLeft size={20} className="transition-transform duration-300 group-hover:-translate-x-1" />
-                <span className="font-semibold">Back to All Blogs</span>
-              </Link>
-
-
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-                {blog.title}
-              </h1>
-
-              <div className="flex flex-wrap items-center gap-6 text-white/90">
-                <div className="flex items-center gap-3">
-                  {blog.author_avatar_url ? (
-                    <img
-                      src={blog.author_avatar_url}
-                      alt={blog.author_name}
-                      className="w-12 h-12 rounded-full object-cover border-2 border-white/30"
-                    />
-                  ) : (
-                    <div className="w-12 h-12 rounded-full bg-[#00B46A] flex items-center justify-center border-2 border-white/30">
-                      <User size={20} className="text-white" />
-                    </div>
-                  )}
-                  <span className="font-semibold text-xl">{blog.author_name}</span>
-                </div>
-
-                <div className="flex items-center gap-2">
-                  <Calendar size={18} />
-                  <span className="text-lg">{formatPublishedDate(blog.published_at)}</span>
-                </div>
-
-                <div className="flex items-center gap-2">
-                  <Clock size={18} />
-                  <span className="text-lg">{formatReadingTime(blog.reading_time_minutes)}</span>
-                </div>
-              </div>
-            </div>
+          <div className="absolute top-6 left-6 sm:left-8 lg:left-12">
+            <Link
+              to="/blogs"
+              className="inline-flex items-center gap-2 text-white hover:text-[#00FFB2] transition-colors duration-300 group"
+            >
+              <ArrowLeft size={20} className="transition-transform duration-300 group-hover:-translate-x-1" />
+              <span className="font-semibold">Back to All Blogs</span>
+            </Link>
           </div>
         </div>
 
         <div className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-12 py-12 sm:py-16 md:py-20">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
+            {blog.title}
+          </h1>
+
+          <div className="flex flex-wrap items-center gap-6 text-gray-700 dark:text-gray-300 mb-12">
+            <div className="flex items-center gap-3">
+              {blog.author_avatar_url ? (
+                <img
+                  src={blog.author_avatar_url}
+                  alt={blog.author_name}
+                  className="w-12 h-12 rounded-full object-cover border-2 border-gray-300 dark:border-gray-700"
+                />
+              ) : (
+                <div className="w-12 h-12 rounded-full bg-[#00B46A] flex items-center justify-center border-2 border-gray-300 dark:border-gray-700">
+                  <User size={20} className="text-white" />
+                </div>
+              )}
+              <span className="font-semibold text-xl">{blog.author_name}</span>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <Calendar size={18} />
+              <span className="text-lg">{formatPublishedDate(blog.published_at)}</span>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <Clock size={18} />
+              <span className="text-lg">{formatReadingTime(blog.reading_time_minutes)}</span>
+            </div>
+          </div>
+
           <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-xl p-8 sm:p-12 md:p-16 mb-16">
             <div className="blog-content">
               <ReactMarkdown
