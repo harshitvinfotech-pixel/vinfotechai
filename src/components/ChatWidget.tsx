@@ -902,13 +902,16 @@ export default function ChatWidget() {
                       />
                     </div>
                   )}
-                  <div className={`max-w-[85%] rounded-2xl px-4 py-3 transition-all duration-300 hover:scale-[1.02] ${
+                  <div className={`relative max-w-[85%] rounded-2xl px-4 py-3 transition-all duration-300 hover:scale-[1.02] ${
                     message.type === 'user'
                       ? 'bg-emerald-500 text-white'
                       : theme === 'dark'
                         ? 'bg-gray-700 text-gray-100 shadow-sm border border-gray-600'
                         : 'bg-white text-gray-900 shadow-sm border border-gray-100'
                   }`}>
+                  {message.type === 'user' && (
+                    <div className="absolute -top-2 right-3 w-0 h-0 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-b-[10px] border-b-emerald-500"></div>
+                  )}
                   {message.type === 'user' ? (
                     <p className="text-base leading-relaxed whitespace-pre-line font-normal">{message.text}</p>
                   ) : (
