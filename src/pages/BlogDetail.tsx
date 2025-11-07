@@ -90,16 +90,6 @@ export default function BlogDetail() {
                 <span className="font-semibold">Back to All Blogs</span>
               </Link>
 
-              {blog.category && (
-                <div className="mb-4">
-                  <span
-                    className="inline-block px-4 py-2 rounded-full text-sm font-semibold text-white backdrop-blur-sm"
-                    style={{ backgroundColor: `${blog.category.color}CC` }}
-                  >
-                    {blog.category.name}
-                  </span>
-                </div>
-              )}
 
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
                 {blog.title}
