@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Calendar, Clock, User } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { getBlogBySlug, getRelatedBlogs, formatPublishedDate, formatReadingTime } from '../lib/blogs';
@@ -134,10 +137,13 @@ export default function BlogDetail() {
 
         <div className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-12 py-12 sm:py-16 md:py-20">
           <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-xl p-8 sm:p-12 md:p-16 mb-16">
-            <div
+            <ReactMarkdown
               className="blog-content"
-              dangerouslySetInnerHTML={{ __html: blog.content }}
-            />
+              remarkPlugins={[remarkGfm]}
+              rehypePlugins={[rehypeRaw]}
+            >
+              {blog.content}
+            </ReactMarkdown>
           </div>
 
           {blog.tags && blog.tags.length > 0 && (
