@@ -167,15 +167,15 @@ export default function VinfotechApproachSection({
 
         {/* Desktop Horizontal Alternating Timeline */}
         <div className="hidden lg:block">
-          <div className="relative px-8" style={{ minHeight: '360px' }}>
+          <div className="relative px-2 xl:px-8" style={{ minHeight: '300px' }}>
             {/* Horizontal center line */}
-            <div className="absolute left-8 right-8 top-1/2 h-1 bg-[#00B46A]" style={{ zIndex: 1 }}></div>
+            <div className="absolute left-2 right-2 xl:left-8 xl:right-8 top-1/2 h-1 bg-[#00B46A]" style={{ zIndex: 1 }}></div>
 
             {/* Timeline nodes positioned along horizontal line */}
-            <div className="relative" style={{ height: '360px' }}>
+            <div className="relative" style={{ height: '300px' }}>
               {steps.map((step, index) => {
-                // Calculate horizontal position for each step
-                const leftPosition = `${(index * 100) / (steps.length - 1)}%`;
+                // Calculate horizontal position for each step - bring them closer
+                const leftPosition = `${10 + (index * 80) / (steps.length - 1)}%`;
                 const isAbove = index % 2 === 0; // Alternate above and below
 
                 return (
@@ -192,33 +192,33 @@ export default function VinfotechApproachSection({
                   >
                     {/* Checkmark circle at center line */}
                     <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" style={{ zIndex: 30 }}>
-                      <div className="w-12 h-12 rounded-full bg-[#00B46A] flex items-center justify-center ring-8 ring-white dark:ring-gray-900 shadow-lg">
-                        <Check className="w-7 h-7 text-white" strokeWidth={3} />
+                      <div className="w-10 h-10 xl:w-12 xl:h-12 rounded-full bg-[#00B46A] flex items-center justify-center ring-4 xl:ring-8 ring-white dark:ring-gray-900 shadow-lg">
+                        <Check className="w-5 h-5 xl:w-7 xl:h-7 text-white" strokeWidth={3} />
                       </div>
                     </div>
 
-                    {/* Vertical connector line from center circle to card edge only */}
+                    {/* Vertical connector line from center circle to card edge - much shorter */}
                     <div
                       className="absolute left-1/2 -translate-x-1/2 w-1 bg-[#00B46A]"
                       style={{
-                        height: isAbove ? '30px' : '45px',
-                        top: isAbove ? '-33px' : '24px',
+                        height: isAbove ? '15px' : '20px',
+                        top: isAbove ? '-17px' : '20px',
                         zIndex: 5
                       }}
                     ></div>
 
-                    {/* Card */}
+                    {/* Card - responsive width */}
                     <div
-                      className="absolute left-1/2 -translate-x-1/2 w-44"
+                      className="absolute left-1/2 -translate-x-1/2 w-36 xl:w-44"
                       style={{
-                        top: isAbove ? '-155px' : '70px'
+                        top: isAbove ? '-120px' : '40px'
                       }}
                     >
-                      <div className="bg-white dark:bg-gray-800 rounded-xl p-3 shadow-xl border-2 border-gray-200 dark:border-gray-700 hover:border-[#00B46A] transition-all duration-300 hover:-translate-y-2">
-                        <h3 className="text-sm font-bold text-gray-900 dark:text-white mb-2 break-words leading-tight">
+                      <div className="bg-white dark:bg-gray-800 rounded-xl p-2.5 xl:p-3 shadow-xl border-2 border-gray-200 dark:border-gray-700 hover:border-[#00B46A] transition-all duration-300 hover:-translate-y-2">
+                        <h3 className="text-xs xl:text-sm font-bold text-gray-900 dark:text-white mb-1.5 xl:mb-2 break-words leading-tight">
                           {step.title}
                         </h3>
-                        <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed break-words">
+                        <p className="text-[10px] xl:text-xs text-gray-600 dark:text-gray-400 leading-relaxed break-words">
                           {parseRichText(step.description)}
                         </p>
                       </div>
