@@ -91,7 +91,7 @@ export default function AutonomousEnterpriseSalesAgent() {
               <div className="order-1 lg:order-1">
                 <div className="relative rounded-3xl overflow-hidden shadow-2xl border-2 border-gray-200 dark:border-gray-700 h-[400px]">
                   <img
-                    src="/Screenshot 2025-10-31 at 4.09.40PM.jpg"
+                    src="/downloadfile-5(1).gif"
                     alt="The Challenge - Data Complexity"
                     className="w-full h-full object-cover"
                   />
