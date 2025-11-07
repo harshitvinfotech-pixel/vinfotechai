@@ -137,13 +137,14 @@ export default function BlogDetail() {
 
         <div className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-12 py-12 sm:py-16 md:py-20">
           <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-xl p-8 sm:p-12 md:p-16 mb-16">
-            <ReactMarkdown
-              className="blog-content"
-              remarkPlugins={[remarkGfm]}
-              rehypePlugins={[rehypeRaw]}
-            >
-              {blog.content}
-            </ReactMarkdown>
+            <div className="blog-content">
+              <ReactMarkdown
+                remarkPlugins={[remarkGfm]}
+                rehypePlugins={[rehypeRaw]}
+              >
+                {blog.content}
+              </ReactMarkdown>
+            </div>
           </div>
 
           {blog.tags && blog.tags.length > 0 && (
