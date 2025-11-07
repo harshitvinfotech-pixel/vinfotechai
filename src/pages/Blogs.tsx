@@ -142,7 +142,7 @@ export default function Blogs() {
                       {blog.excerpt}
                     </p>
 
-                    <div className="flex items-center gap-4 text-base text-gray-500 dark:text-gray-500 mb-4">
+                    <div className="flex items-center gap-4 text-base text-gray-500 dark:text-gray-500">
                       <div className="flex items-center gap-1">
                         <Calendar size={14} />
                         <span>{formatPublishedDate(blog.published_at)}</span>
@@ -151,23 +151,6 @@ export default function Blogs() {
                         <Clock size={14} />
                         <span>{formatReadingTime(blog.reading_time_minutes)}</span>
                       </div>
-                    </div>
-
-                    <div className="flex items-center gap-2 pt-4 border-t border-gray-200 dark:border-gray-700">
-                      {blog.author_avatar_url ? (
-                        <img
-                          src={blog.author_avatar_url}
-                          alt={blog.author_name}
-                          className="w-8 h-8 rounded-full object-cover"
-                        />
-                      ) : (
-                        <div className="w-8 h-8 rounded-full bg-[#00B46A] flex items-center justify-center">
-                          <User size={16} className="text-white" />
-                        </div>
-                      )}
-                      <span className="text-base font-medium text-gray-700 dark:text-gray-300">
-                        {blog.author_name}
-                      </span>
                     </div>
                   </div>
                 </Link>
