@@ -166,13 +166,13 @@ export default function VinfotechApproachSection({
         </div>
 
         {/* Desktop Horizontal Alternating Timeline */}
-        <div className="hidden lg:block">
-          <div className="relative px-8" style={{ minHeight: '360px' }}>
+        <div className="hidden lg:block overflow-x-auto">
+          <div className="relative px-8 min-w-[1000px]" style={{ minHeight: '500px' }}>
             {/* Horizontal center line */}
             <div className="absolute left-8 right-8 top-1/2 h-1 bg-[#00B46A]" style={{ zIndex: 1 }}></div>
 
             {/* Timeline nodes positioned along horizontal line */}
-            <div className="relative" style={{ height: '360px' }}>
+            <div className="relative" style={{ height: '500px' }}>
               {steps.map((step, index) => {
                 // Calculate horizontal position for each step
                 const leftPosition = `${(index * 100) / (steps.length - 1)}%`;
@@ -201,20 +201,20 @@ export default function VinfotechApproachSection({
                     <div
                       className="absolute left-1/2 -translate-x-1/2 w-1 bg-[#00B46A]"
                       style={{
-                        height: isAbove ? '30px' : '45px',
-                        top: isAbove ? '-33px' : '24px',
+                        height: isAbove ? '65px' : '105px',
+                        top: isAbove ? '-68px' : '24px',
                         zIndex: 5
                       }}
                     ></div>
 
                     {/* Card */}
                     <div
-                      className="absolute left-1/2 -translate-x-1/2 w-44"
+                      className="absolute left-1/2 -translate-x-1/2 w-52"
                       style={{
-                        top: isAbove ? '-155px' : '70px'
+                        top: isAbove ? '-235px' : '130px'
                       }}
                     >
-                      <div className="bg-white dark:bg-gray-800 rounded-xl p-3 shadow-xl border-2 border-gray-200 dark:border-gray-700 hover:border-[#00B46A] transition-all duration-300 hover:-translate-y-2">
+                      <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-xl border-2 border-gray-200 dark:border-gray-700 hover:border-[#00B46A] transition-all duration-300 hover:-translate-y-2">
                         <h3 className="text-sm font-bold text-gray-900 dark:text-white mb-2 break-words leading-tight">
                           {step.title}
                         </h3>
