@@ -769,13 +769,13 @@ export default function ChatWidget() {
     <div
       className={`fixed z-50 shadow-2xl flex flex-col overflow-hidden transition-all duration-500 ease-in-out ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}
       style={{
-        // Mobile: full screen
-        top: '0',
+        // Mobile: full screen with top margin to avoid header
+        top: isDesktop ? '0' : '80px',
         left: '0',
         right: '0',
         bottom: '0',
         width: '100%',
-        height: '100%',
+        height: isDesktop ? '100%' : 'calc(100vh - 80px)',
         borderRadius: '0',
         // Desktop: positioned bottom-right with dynamic width
         ...(isDesktop && {
@@ -786,8 +786,8 @@ export default function ChatWidget() {
           width: isExpanded ? '800px' : '450px',
           maxWidth: 'calc(100vw - 48px)',
           height: '700px',
-          minHeight: '600px',
-          maxHeight: 'calc(100vh - 100px)',
+          minHeight: '500px',
+          maxHeight: 'calc(100vh - 120px)',
           borderRadius: '24px',
         }),
         transformOrigin: 'bottom right',
@@ -890,9 +890,9 @@ export default function ChatWidget() {
                         : 'bg-white text-gray-900 shadow-sm border border-gray-100'
                   }`}>
                   {message.type === 'user' ? (
-                    <p className="text-sm leading-relaxed whitespace-pre-line">{message.text}</p>
+                    <p className="text-[15px] leading-relaxed whitespace-pre-line font-normal">{message.text}</p>
                   ) : (
-                    <div className="text-sm leading-relaxed prose prose-sm max-w-none prose-headings:font-bold prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-emerald-600 prose-a:no-underline hover:prose-a:underline prose-strong:text-gray-900 prose-ul:list-disc prose-ol:list-decimal prose-li:text-gray-700">
+                    <div className="text-[15px] leading-relaxed prose prose-sm max-w-none prose-headings:font-bold prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-emerald-600 prose-a:no-underline hover:prose-a:underline prose-strong:text-gray-900 prose-ul:list-disc prose-ol:list-decimal prose-li:text-gray-700">
                       <ReactMarkdown
                         remarkPlugins={[remarkGfm]}
                         components={{
@@ -1004,10 +1004,10 @@ export default function ChatWidget() {
             )}
             {dynamicSuggestions.length > 0 && !isLoading && (
               <div className="flex justify-start animate-slide-up-fade pl-10">
-                <div className="flex flex-col gap-3 max-w-[85%]">
+                <div className="flex flex-col gap-3 w-full max-w-[85%]">
                   <div className="flex items-center gap-2">
                     <Sparkles className="w-4 h-4 text-emerald-500" />
-                    <p className={`text-base font-bold ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>You can also ask:</p>
+                    <p className={`text-sm font-semibold ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>You can also ask:</p>
                   </div>
                   {dynamicSuggestions
                     .filter(suggestion => !clickedSuggestions.has(suggestion))
@@ -1015,11 +1015,11 @@ export default function ChatWidget() {
                       <button
                         key={index}
                         onClick={() => handleDynamicSuggestionClick(suggestion)}
-                        className={`text-left px-4 py-2.5 rounded-xl border transition-all duration-300 hover:scale-[1.02] hover:-translate-y-0.5 active:scale-[0.98] group shadow-sm ${theme === 'dark' ? 'bg-gradient-to-r from-gray-700 to-gray-600 hover:from-gray-600 hover:to-gray-500 border-emerald-500/30 hover:border-emerald-400' : 'bg-gradient-to-r from-emerald-50 to-teal-50 hover:from-emerald-100 hover:to-teal-100 border-emerald-200 hover:border-emerald-300'}`}
+                        className={`text-left px-4 py-2.5 rounded-xl border transition-all duration-300 hover:scale-[1.02] hover:-translate-y-0.5 active:scale-[0.98] group shadow-sm w-full ${theme === 'dark' ? 'bg-gradient-to-r from-gray-700 to-gray-600 hover:from-gray-600 hover:to-gray-500 border-emerald-500/30 hover:border-emerald-400' : 'bg-gradient-to-r from-emerald-50 to-teal-50 hover:from-emerald-100 hover:to-teal-100 border-emerald-200 hover:border-emerald-300'}`}
                       >
                         <div className="flex items-start gap-2">
                           <Sparkles className="w-4 h-4 mt-0.5 text-emerald-500 flex-shrink-0 group-hover:scale-110 transition-transform" />
-                          <span className={`text-sm font-medium leading-relaxed ${theme === 'dark' ? 'text-gray-100 group-hover:text-emerald-300' : 'text-gray-800 group-hover:text-emerald-700'}`}>
+                          <span className={`text-sm font-normal leading-relaxed ${theme === 'dark' ? 'text-gray-100 group-hover:text-emerald-300' : 'text-gray-800 group-hover:text-emerald-700'}`}>
                             {suggestion}
                           </span>
                         </div>
