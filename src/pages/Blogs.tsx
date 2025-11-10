@@ -165,34 +165,34 @@ export default function Blogs() {
                       className="group block relative"
                       style={{ animationDelay: `${index * 100}ms` }}
                     >
-                      <div className="relative overflow-hidden rounded-3xl bg-white dark:bg-gray-800 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 h-full">
+                      <div className="relative overflow-hidden rounded-3xl bg-white dark:bg-gray-800 shadow-xl group-hover:shadow-2xl transition-all duration-500 group-hover:-translate-y-2 group-hover:scale-[1.02] h-full flex flex-col">
                         <div className="absolute inset-0 bg-gradient-to-br from-[#00B46A]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
                         <div className="relative h-56 overflow-hidden">
                           <img
                             src={blog.featured_image_url}
                             alt={blog.title}
-                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:rotate-2"
+                            className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-110"
                           />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent group-hover:from-[#00B46A]/20 transition-all duration-500"></div>
                         </div>
 
-                        <div className="p-6 flex flex-col h-full">
+                        <div className="p-6 flex flex-col flex-grow">
                           <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 leading-tight group-hover:text-[#00B46A] transition-colors duration-300 line-clamp-2">
                             {blog.title}
                           </h3>
 
-                          <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3 leading-relaxed flex-grow">
+                          <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3 leading-relaxed flex-grow group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors duration-300">
                             {blog.excerpt}
                           </p>
 
-                          <div className="flex items-center gap-4 text-gray-500 dark:text-gray-500 text-sm pt-4 border-t border-gray-200 dark:border-gray-700">
-                            <div className="flex items-center gap-1.5">
-                              <Calendar size={14} />
+                          <div className="flex items-center gap-6 text-gray-500 dark:text-gray-400 text-sm pt-4 mt-auto border-t border-gray-200 dark:border-gray-700 group-hover:border-[#00B46A]/30 transition-colors duration-300">
+                            <div className="flex items-center gap-2 group-hover:text-[#00B46A] transition-colors duration-300">
+                              <Calendar size={16} className="flex-shrink-0" />
                               <span className="font-medium">{formatPublishedDate(blog.published_at)}</span>
                             </div>
-                            <div className="flex items-center gap-1.5">
-                              <Clock size={14} />
+                            <div className="flex items-center gap-2 group-hover:text-[#00B46A] transition-colors duration-300">
+                              <Clock size={16} className="flex-shrink-0" />
                               <span className="font-medium">{formatReadingTime(blog.reading_time_minutes)}</span>
                             </div>
                           </div>
