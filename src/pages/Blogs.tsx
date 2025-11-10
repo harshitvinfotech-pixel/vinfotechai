@@ -63,26 +63,26 @@ export default function Blogs() {
     <div className="min-h-screen bg-white dark:bg-gray-900">
       <Header onQuoteClick={() => {}} />
 
-      <div className="relative bg-gradient-to-br from-[#00B46A]/5 via-white to-gray-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 pt-24 pb-16 overflow-hidden">
+      <div className="relative bg-gradient-to-br from-[#00B46A]/5 via-white to-gray-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 pt-24 pb-12 overflow-hidden">
         <div className="absolute inset-0 opacity-[0.15]">
           <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#00B46A]/20 rounded-full blur-3xl animate-pulse"></div>
           <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
         </div>
 
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative">
-          <div className="flex items-center gap-3 mb-6 justify-center">
-            <Sparkles className="text-[#00B46A]" size={28} />
-            <span className="text-[#00B46A] font-bold text-lg tracking-wider uppercase">Latest Insights</span>
+          <div className="flex items-center gap-3 mb-4 justify-center">
+            <Sparkles className="text-[#00B46A]" size={24} />
+            <span className="text-[#00B46A] font-bold text-sm tracking-wider uppercase">Latest Insights</span>
           </div>
 
-          <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold text-gray-900 dark:text-white mb-6 text-center leading-tight">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-4 text-center leading-tight">
             Discover Our
             <span className="block mt-2 bg-gradient-to-r from-[#00B46A] to-[#00D47F] bg-clip-text text-transparent">
               Latest Stories
             </span>
           </h1>
 
-          <p className="text-xl sm:text-2xl text-gray-600 dark:text-gray-400 mb-10 text-center max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-400 mb-8 text-center max-w-3xl mx-auto leading-relaxed">
             Deep dives into AI innovation, technical breakthroughs, and the future of technology
           </p>
 
@@ -96,39 +96,11 @@ export default function Blogs() {
                   placeholder="Search articles, topics, or keywords..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-14 pr-6 py-5 rounded-2xl border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:border-[#00B46A] focus:ring-4 focus:ring-[#00B46A]/10 transition-all shadow-lg shadow-gray-200/50 dark:shadow-gray-900/50 text-lg"
+                  className="w-full pl-14 pr-6 py-4 rounded-2xl border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:border-[#00B46A] focus:ring-4 focus:ring-[#00B46A]/10 transition-all shadow-lg shadow-gray-200/50 dark:shadow-gray-900/50"
                 />
               </div>
             </div>
           </form>
-
-          {categories.length > 0 && (
-            <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-              <button
-                onClick={() => handleCategoryChange('all')}
-                className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
-                  selectedCategory === 'all'
-                    ? 'bg-gradient-to-r from-[#00B46A] to-[#00D47F] text-white shadow-lg shadow-[#00B46A]/30 scale-105'
-                    : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-2 border-gray-200 dark:border-gray-700 hover:border-[#00B46A] hover:text-[#00B46A]'
-                }`}
-              >
-                All Posts
-              </button>
-              {categories.map((category) => (
-                <button
-                  key={category.id}
-                  onClick={() => handleCategoryChange(category.slug)}
-                  className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
-                    selectedCategory === category.slug
-                      ? 'bg-gradient-to-r from-[#00B46A] to-[#00D47F] text-white shadow-lg shadow-[#00B46A]/30 scale-105'
-                      : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-2 border-gray-200 dark:border-gray-700 hover:border-[#00B46A] hover:text-[#00B46A]'
-                  }`}
-                >
-                  {category.name}
-                </button>
-              ))}
-            </div>
-          )}
         </div>
       </div>
 
