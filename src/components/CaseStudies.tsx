@@ -121,9 +121,9 @@ function CaseStudyCard({ study, onClick }: CaseStudyCardProps) {
           </div>
 
           <div className={`absolute left-0 right-0 z-10 px-6 sm:px-8 transition-all duration-500 ${
-            isExpanded ? 'bottom-4' : 'bottom-8'
+            isExpanded ? 'bottom-4' : 'bottom-16 sm:bottom-20'
           }`}>
-            <h3 className="font-bold text-white leading-tight text-left w-full text-[26px] sm:text-[30px]" aria-label={`Case study: ${study.title}`}>
+            <h3 className="font-bold text-white leading-tight text-left w-full pr-16 text-[26px] sm:text-[30px]" aria-label={`Case study: ${study.title}`}>
               {study.title}
             </h3>
           </div>
@@ -163,21 +163,23 @@ function CaseStudyCard({ study, onClick }: CaseStudyCardProps) {
           </div>
         )}
 
-        <div className="absolute bottom-6 right-6 z-20">
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              setIsExpanded(!isExpanded);
-            }}
-            className="w-12 h-12 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 border-2 border-gray-200 dark:border-gray-700 hover:border-[#00B46A] dark:hover:border-[#00B46A]"
-            aria-label={isExpanded ? 'Collapse details' : 'Expand details'}
-          >
-            {isExpanded ? (
-              <X className="text-[#00B46A]" size={20} strokeWidth={2.5} />
-            ) : (
-              <Plus className="text-[#00B46A]" size={20} strokeWidth={2.5} />
-            )}
-          </button>
+        <div className="absolute bottom-6 right-6 z-20 pointer-events-auto">
+          <div className="relative">
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsExpanded(!isExpanded);
+              }}
+              className="w-12 h-12 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 border-2 border-gray-200 dark:border-gray-700 hover:border-[#00B46A] dark:hover:border-[#00B46A]"
+              aria-label={isExpanded ? 'Collapse details' : 'Expand details'}
+            >
+              {isExpanded ? (
+                <X className="text-[#00B46A]" size={20} strokeWidth={2.5} />
+              ) : (
+                <Plus className="text-[#00B46A]" size={20} strokeWidth={2.5} />
+              )}
+            </button>
+          </div>
         </div>
       </div>
     </article>
