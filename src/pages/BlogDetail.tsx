@@ -72,49 +72,51 @@ export default function BlogDetail() {
       <Header onQuoteClick={() => {}} />
 
       <article className="relative pt-20">
-        <div className="relative h-[450px] sm:h-[550px] md:h-[650px] overflow-hidden">
-          <img
-            src={blog.featured_image_url}
-            alt={blog.title}
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+        <div className="max-w-7xl mx-auto">
+          <div className="relative h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden rounded-none lg:rounded-3xl">
+            <img
+              src={blog.featured_image_url}
+              alt={blog.title}
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
 
-          <div className="absolute top-6 left-6 sm:left-8 lg:left-12 z-10">
-            <Link
-              to="/blogs"
-              className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md rounded-full text-white hover:bg-[#00B46A] transition-all duration-300 group"
-            >
-              <ArrowLeft size={18} className="transition-transform duration-300 group-hover:-translate-x-1" />
-              <span className="font-semibold text-sm">Back to Blogs</span>
-            </Link>
+            <div className="absolute top-4 left-4 sm:top-6 sm:left-6 z-10">
+              <Link
+                to="/blogs"
+                className="inline-flex items-center gap-2 px-3 py-2 sm:px-4 sm:py-2 bg-white/10 backdrop-blur-md rounded-full text-white hover:bg-[#00B46A] transition-all duration-300 group"
+              >
+                <ArrowLeft size={16} className="sm:w-[18px] sm:h-[18px] transition-transform duration-300 group-hover:-translate-x-1" />
+                <span className="font-semibold text-xs sm:text-sm">Back to Blogs</span>
+              </Link>
+            </div>
           </div>
         </div>
 
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 -mt-20 relative z-10">
-          <div className="bg-white dark:bg-gray-900 rounded-3xl shadow-2xl p-8 sm:p-12 mb-12">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 -mt-12 sm:-mt-16 md:-mt-20 relative z-10">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl sm:rounded-3xl shadow-2xl p-4 sm:p-8 lg:p-12 mb-8 sm:mb-12">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 leading-tight">
               {blog.title}
             </h1>
 
-            <div className="flex items-center gap-6 text-gray-600 dark:text-gray-400">
-              <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 sm:gap-6 text-gray-600 dark:text-gray-400">
+              <div className="flex items-center gap-2 sm:gap-3">
                 {blog.author_avatar_url ? (
                   <img
                     src={blog.author_avatar_url}
                     alt={blog.author_name}
-                    className="w-12 h-12 rounded-full object-cover ring-2 ring-[#00B46A]/30"
+                    className="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover ring-2 ring-[#00B46A]/30"
                   />
                 ) : (
-                  <div className="w-12 h-12 rounded-full bg-[#00B46A] flex items-center justify-center ring-2 ring-[#00B46A]/30">
-                    <User size={20} className="text-white" />
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#00B46A] flex items-center justify-center ring-2 ring-[#00B46A]/30">
+                    <User size={18} className="sm:w-5 sm:h-5 text-white" />
                   </div>
                 )}
                 <div>
-                  <p className="font-semibold text-base text-gray-900 dark:text-white">Vinfotech Team</p>
-                  <div className="flex items-center gap-3 text-sm">
+                  <p className="font-semibold text-sm sm:text-base text-gray-900 dark:text-white">Vinfotech Team</p>
+                  <div className="flex items-center gap-2 sm:gap-3 text-xs sm:text-sm">
                     <div className="flex items-center gap-1">
-                      <Calendar size={14} />
+                      <Calendar size={12} className="sm:w-[14px] sm:h-[14px]" />
                       <span>{formatPublishedDate(blog.published_at)}</span>
                     </div>
                   </div>
@@ -123,25 +125,25 @@ export default function BlogDetail() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 pb-12 sm:pb-16 md:pb-20">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 pb-12 sm:pb-16 md:pb-20">
             <div className="lg:col-span-8">
-              <div className="prose prose-lg dark:prose-invert max-w-none">
-                <div className="bg-gradient-to-br from-gray-50 to-white dark:from-gray-800/50 dark:to-gray-900/50 rounded-2xl p-8 sm:p-12 shadow-lg">
+              <div className="prose prose-base sm:prose-lg dark:prose-invert max-w-none">
+                <div className="bg-gradient-to-br from-gray-50 to-white dark:from-gray-800/50 dark:to-gray-800 rounded-xl sm:rounded-2xl p-4 sm:p-8 lg:p-12 shadow-lg">
                   <ReactMarkdown
                     remarkPlugins={[remarkGfm]}
                     rehypePlugins={[rehypeRaw]}
                     components={{
-                      h1: ({node, ...props}) => <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-6 mt-8" {...props} />,
-                      h2: ({node, ...props}) => <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-5 mt-8" {...props} />,
-                      h3: ({node, ...props}) => <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 mt-6" {...props} />,
-                      p: ({node, ...props}) => <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6" {...props} />,
-                      ul: ({node, ...props}) => <ul className="list-disc list-inside text-lg text-gray-700 dark:text-gray-300 space-y-2 mb-6 ml-4" {...props} />,
-                      ol: ({node, ...props}) => <ol className="list-decimal list-inside text-lg text-gray-700 dark:text-gray-300 space-y-2 mb-6 ml-4" {...props} />,
+                      h1: ({node, ...props}) => <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 mt-6 sm:mt-8" {...props} />,
+                      h2: ({node, ...props}) => <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-5 mt-6 sm:mt-8" {...props} />,
+                      h3: ({node, ...props}) => <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 mt-4 sm:mt-6" {...props} />,
+                      p: ({node, ...props}) => <p className="text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-4 sm:mb-6" {...props} />,
+                      ul: ({node, ...props}) => <ul className="list-disc list-inside text-base sm:text-lg text-gray-700 dark:text-gray-300 space-y-2 mb-4 sm:mb-6 ml-2 sm:ml-4" {...props} />,
+                      ol: ({node, ...props}) => <ol className="list-decimal list-inside text-base sm:text-lg text-gray-700 dark:text-gray-300 space-y-2 mb-4 sm:mb-6 ml-2 sm:ml-4" {...props} />,
                       blockquote: ({node, ...props}) => (
-                        <blockquote className="border-l-4 border-[#00B46A] bg-gray-100 dark:bg-gray-800 pl-6 py-4 my-6 italic text-gray-700 dark:text-gray-300" {...props} />
+                        <blockquote className="border-l-4 border-[#00B46A] bg-gray-100 dark:bg-gray-700 pl-4 sm:pl-6 py-3 sm:py-4 my-4 sm:my-6 italic text-gray-700 dark:text-gray-300" {...props} />
                       ),
                       img: ({node, ...props}) => (
-                        <div className="my-8 rounded-xl overflow-hidden shadow-xl">
+                        <div className="my-4 sm:my-8 rounded-lg sm:rounded-xl overflow-hidden shadow-xl">
                           <img className="w-full h-auto" {...props} />
                         </div>
                       ),
@@ -159,16 +161,16 @@ export default function BlogDetail() {
                 </div>
 
                 {blog.tags && blog.tags.length > 0 && (
-                  <div className="mt-12 bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg">
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                      <span className="w-1 h-6 bg-[#00B46A] rounded-full"></span>
+                  <div className="mt-8 sm:mt-12 bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl p-4 sm:p-8 shadow-lg">
+                    <h3 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 flex items-center gap-2">
+                      <span className="w-1 h-5 sm:h-6 bg-[#00B46A] rounded-full"></span>
                       Tags
                     </h3>
-                    <div className="flex flex-wrap gap-3">
+                    <div className="flex flex-wrap gap-2 sm:gap-3">
                       {blog.tags.map((tag, index) => (
                         <span
                           key={index}
-                          className="px-4 py-2 bg-gradient-to-r from-[#00B46A]/10 to-[#00B46A]/5 border border-[#00B46A]/20 text-[#00B46A] dark:text-[#00FFB2] rounded-full text-sm font-semibold hover:from-[#00B46A] hover:to-[#00B46A] hover:text-white transition-all duration-300 cursor-pointer"
+                          className="px-3 py-1.5 sm:px-4 sm:py-2 bg-gradient-to-r from-[#00B46A]/10 to-[#00B46A]/5 border border-[#00B46A]/20 text-[#00B46A] dark:text-[#00FFB2] rounded-full text-xs sm:text-sm font-semibold hover:from-[#00B46A] hover:to-[#00B46A] hover:text-white transition-all duration-300 cursor-pointer"
                         >
                           #{tag}
                         </span>
@@ -177,31 +179,31 @@ export default function BlogDetail() {
                   </div>
                 )}
 
-                <div className="mt-8 bg-gradient-to-br from-[#00B46A]/5 to-transparent border border-[#00B46A]/20 dark:border-[#00B46A]/30 rounded-2xl p-8">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4">
+                <div className="mt-6 sm:mt-8 bg-gradient-to-br from-[#00B46A]/5 to-transparent dark:from-[#00B46A]/10 dark:to-transparent border border-[#00B46A]/20 dark:border-[#00B46A]/30 rounded-xl sm:rounded-2xl p-4 sm:p-8">
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                    <div className="flex items-center gap-3 sm:gap-4">
                       {blog.author_avatar_url ? (
                         <img
                           src={blog.author_avatar_url}
                           alt={blog.author_name}
-                          className="w-16 h-16 rounded-full object-cover ring-2 ring-[#00B46A]/30"
+                          className="w-12 h-12 sm:w-16 sm:h-16 rounded-full object-cover ring-2 ring-[#00B46A]/30"
                         />
                       ) : (
-                        <div className="w-16 h-16 rounded-full bg-[#00B46A] flex items-center justify-center ring-2 ring-[#00B46A]/30">
-                          <User size={24} className="text-white" />
+                        <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-[#00B46A] flex items-center justify-center ring-2 ring-[#00B46A]/30">
+                          <User size={20} className="sm:w-6 sm:h-6 text-white" />
                         </div>
                       )}
                       <div>
-                        <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Written by</p>
-                        <p className="font-bold text-xl text-gray-900 dark:text-white">Vinfotech Team</p>
+                        <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mb-1">Written by</p>
+                        <p className="font-bold text-base sm:text-xl text-gray-900 dark:text-white">Vinfotech Team</p>
                       </div>
                     </div>
-                    <div className="flex gap-3">
-                      <button className="p-3 bg-white dark:bg-gray-800 rounded-full shadow-md hover:shadow-lg hover:bg-[#00B46A] hover:text-white transition-all duration-300 group">
-                        <Share2 size={20} className="text-gray-700 dark:text-gray-300 group-hover:text-white" />
+                    <div className="flex gap-2 sm:gap-3">
+                      <button className="p-2 sm:p-3 bg-white dark:bg-gray-700 rounded-full shadow-md hover:shadow-lg hover:bg-[#00B46A] hover:text-white transition-all duration-300 group">
+                        <Share2 size={18} className="sm:w-5 sm:h-5 text-gray-700 dark:text-gray-300 group-hover:text-white" />
                       </button>
-                      <button className="p-3 bg-white dark:bg-gray-800 rounded-full shadow-md hover:shadow-lg hover:bg-[#00B46A] hover:text-white transition-all duration-300 group">
-                        <BookmarkPlus size={20} className="text-gray-700 dark:text-gray-300 group-hover:text-white" />
+                      <button className="p-2 sm:p-3 bg-white dark:bg-gray-700 rounded-full shadow-md hover:shadow-lg hover:bg-[#00B46A] hover:text-white transition-all duration-300 group">
+                        <BookmarkPlus size={18} className="sm:w-5 sm:h-5 text-gray-700 dark:text-gray-300 group-hover:text-white" />
                       </button>
                     </div>
                   </div>
@@ -211,36 +213,36 @@ export default function BlogDetail() {
 
             {relatedBlogs.length > 0 && (
               <aside className="lg:col-span-4">
-                <div className="sticky top-24">
-                  <div className="bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
-                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
-                      <span className="w-1 h-8 bg-[#00B46A] rounded-full"></span>
+                <div className="lg:sticky lg:top-24">
+                  <div className="bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg border border-gray-100 dark:border-gray-700">
+                    <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 flex items-center gap-2">
+                      <span className="w-1 h-6 sm:h-8 bg-[#00B46A] rounded-full"></span>
                       More to Read
                     </h2>
-                    <div className="space-y-6">
+                    <div className="space-y-4 sm:space-y-6">
                       {relatedBlogs.map((relatedBlog) => (
                         <Link
                           key={relatedBlog.id}
                           to={`/blogs/${relatedBlog.slug}`}
-                          className="group block bg-white dark:bg-gray-800/50 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
+                          className="group block bg-white dark:bg-gray-700/50 rounded-lg sm:rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
                         >
-                          <div className="relative h-40 overflow-hidden">
+                          <div className="relative h-32 sm:h-40 overflow-hidden">
                             <img
                               src={relatedBlog.featured_image_url}
                               alt={relatedBlog.title}
                               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                             />
                           </div>
-                          <div className="p-4">
-                            <h3 className="text-base font-bold text-gray-900 dark:text-white line-clamp-2 mb-2 group-hover:text-[#00B46A] transition-colors duration-300">
+                          <div className="p-3 sm:p-4">
+                            <h3 className="text-sm sm:text-base font-bold text-gray-900 dark:text-white line-clamp-2 mb-2 group-hover:text-[#00B46A] dark:group-hover:text-[#00FFB2] transition-colors duration-300">
                               {relatedBlog.title}
                             </h3>
-                            <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-3">
+                            <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-2 sm:mb-3">
                               {relatedBlog.excerpt}
                             </p>
-                            <div className="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-500">
+                            <div className="flex items-center gap-2 sm:gap-3 text-xs text-gray-500 dark:text-gray-400">
                               <div className="flex items-center gap-1">
-                                <Calendar size={12} />
+                                <Calendar size={10} className="sm:w-3 sm:h-3" />
                                 <span>{formatPublishedDate(relatedBlog.published_at)}</span>
                               </div>
                             </div>
@@ -250,7 +252,7 @@ export default function BlogDetail() {
                     </div>
                     <Link
                       to="/blogs"
-                      className="mt-6 block w-full py-3 bg-gradient-to-r from-[#00B46A] to-[#00B46A]/80 text-white text-center font-semibold rounded-xl hover:shadow-lg hover:shadow-[#00B46A]/30 transition-all duration-300"
+                      className="mt-4 sm:mt-6 block w-full py-2.5 sm:py-3 bg-gradient-to-r from-[#00B46A] to-[#00B46A]/80 text-white text-center font-semibold text-sm sm:text-base rounded-lg sm:rounded-xl hover:shadow-lg hover:shadow-[#00B46A]/30 transition-all duration-300"
                     >
                       View All Blogs
                     </Link>
