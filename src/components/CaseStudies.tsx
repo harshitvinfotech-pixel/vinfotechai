@@ -100,9 +100,14 @@ function CaseStudyCard({ study, onClick }: CaseStudyCardProps) {
         onClick={onClick}
         className="relative flex flex-col bg-white dark:bg-gray-900 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-emerald-500/30 dark:hover:border-emerald-500/30 transition-all duration-500 shadow-lg hover:shadow-2xl h-[550px] sm:h-[600px] overflow-hidden cursor-pointer"
       >
+        <div className="flex-shrink-0 px-6 sm:px-8 pt-6 sm:pt-8 pb-4 sm:pb-6 border-b border-gray-200 dark:border-gray-800">
+          <h3 className="font-bold text-gray-900 dark:text-white leading-tight text-left w-full text-[26px] sm:text-[30px]" aria-label={`Case study: ${study.title}`}>
+            {study.title}
+          </h3>
+        </div>
 
         <div className={`relative overflow-hidden flex-shrink-0 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 transition-all duration-500 ${
-          isExpanded ? 'h-40 sm:h-48' : 'h-full'
+          isExpanded ? 'h-40 sm:h-48' : 'flex-1'
         }`}>
           <div className={`absolute inset-0 transition-all duration-1000 ${
             imageLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
@@ -116,18 +121,7 @@ function CaseStudyCard({ study, onClick }: CaseStudyCardProps) {
               onLoad={() => setImageLoaded(true)}
               loading="lazy"
             />
-
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/65 to-transparent" style={{ height: '230px' }}></div>
           </div>
-
-          <div className={`absolute left-0 right-0 z-10 px-6 sm:px-8 transition-all duration-500 ${
-            isExpanded ? 'bottom-4' : 'bottom-8'
-          }`}>
-            <h3 className="font-bold text-white leading-tight text-left w-full text-[26px] sm:text-[30px]" aria-label={`Case study: ${study.title}`}>
-              {study.title}
-            </h3>
-          </div>
-
         </div>
 
         {isExpanded && (
