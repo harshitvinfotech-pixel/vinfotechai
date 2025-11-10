@@ -72,8 +72,7 @@ export default function BlogDetail() {
       <Header onQuoteClick={() => {}} />
 
       <article className="relative pt-20">
-        <div className="max-w-7xl mx-auto">
-          <div className="relative h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden rounded-none lg:rounded-3xl">
+        <div className="relative h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden">
             <img
               src={blog.featured_image_url}
               alt={blog.title}
@@ -81,7 +80,7 @@ export default function BlogDetail() {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
 
-            <div className="absolute top-4 left-4 sm:top-6 sm:left-6 z-10">
+            <div className="absolute top-4 left-4 sm:top-6 sm:left-6 lg:left-12 z-10">
               <Link
                 to="/blogs"
                 className="inline-flex items-center gap-2 px-3 py-2 sm:px-4 sm:py-2 bg-white/10 backdrop-blur-md rounded-full text-white hover:bg-[#00B46A] transition-all duration-300 group"
@@ -91,9 +90,8 @@ export default function BlogDetail() {
               </Link>
             </div>
           </div>
-        </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 -mt-12 sm:-mt-16 md:-mt-20 relative z-10">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 -mt-12 sm:-mt-16 md:-mt-20 relative z-10">
           <div className="bg-white dark:bg-gray-800 rounded-2xl sm:rounded-3xl shadow-2xl p-4 sm:p-8 lg:p-12 mb-8 sm:mb-12">
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 leading-tight">
               {blog.title}
