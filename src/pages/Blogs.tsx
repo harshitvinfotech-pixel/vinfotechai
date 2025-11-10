@@ -229,7 +229,6 @@ export default function Blogs() {
                       style={{ animationDelay: `${index * 100}ms` }}
                     >
                       <div className="relative overflow-hidden rounded-3xl bg-white dark:bg-gray-800 shadow-xl group-hover:shadow-2xl transition-all duration-500 group-hover:-translate-y-2 group-hover:scale-[1.02] h-full flex flex-col">
-                        <div className="absolute inset-0 bg-[#00B46A]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
                         <div className="relative h-56 overflow-hidden">
                           <img
