@@ -30,7 +30,7 @@ export default function RelatedCaseStudiesSection({ relatedStudies }: RelatedCas
               to={`/case-studies/${study.slug}`}
               className="group relative rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
             >
-              <div className="relative h-[550px] sm:h-[600px]">
+              <div className="relative h-[400px]">
                 <img
                   src={study.image}
                   alt={study.title}
