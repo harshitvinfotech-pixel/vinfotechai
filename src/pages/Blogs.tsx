@@ -1,28 +1,18 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Calendar, Clock, Search, ChevronLeft, ChevronRight, TrendingUp, Sparkles, ArrowRight, Tag } from 'lucide-react';
+import { Calendar, Clock, Search, ChevronLeft, ChevronRight, Sparkles, ArrowRight } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { getPublishedBlogs, getBlogCategories, formatPublishedDate, formatReadingTime } from '../lib/blogs';
-import type { BlogWithCategory, BlogCategory } from '../types/blog';
+import { getPublishedBlogs, formatPublishedDate, formatReadingTime } from '../lib/blogs';
+import type { BlogWithCategory } from '../types/blog';
 
 export default function Blogs() {
   const [blogs, setBlogs] = useState<BlogWithCategory[]>([]);
-  const [categories, setCategories] = useState<BlogCategory[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const pageSize = 9;
-
-  useEffect(() => {
-    async function loadCategories() {
-      const data = await getBlogCategories();
-      setCategories(data);
-    }
-    loadCategories();
-  }, []);
 
   useEffect(() => {
     async function loadBlogs() {
@@ -31,7 +21,6 @@ export default function Blogs() {
         const response = await getPublishedBlogs({
           page: currentPage,
           pageSize,
-          categorySlug: selectedCategory === 'all' ? undefined : selectedCategory,
           searchQuery: searchQuery || undefined,
         });
         setBlogs(response.blogs);
@@ -44,12 +33,7 @@ export default function Blogs() {
     }
 
     loadBlogs();
-  }, [currentPage, selectedCategory, searchQuery]);
-
-  const handleCategoryChange = (categorySlug: string) => {
-    setSelectedCategory(categorySlug);
-    setCurrentPage(1);
-  };
+  }, [currentPage, searchQuery]);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -142,13 +126,6 @@ export default function Blogs() {
                     </div>
 
                     <div className="flex flex-col justify-center">
-                      {featuredBlog.category && (
-                        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#00B46A]/10 border border-[#00B46A]/20 mb-4 w-fit">
-                          <Tag size={14} className="text-[#00B46A]" />
-                          <span className="text-[#00B46A] font-semibold text-xs uppercase tracking-wide">{featuredBlog.category.name}</span>
-                        </div>
-                      )}
-
                       <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 leading-tight group-hover:text-[#00B46A] transition-colors duration-300">
                         {featuredBlog.title}
                       </h2>
@@ -198,12 +175,6 @@ export default function Blogs() {
                             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:rotate-2"
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
-
-                          {blog.category && (
-                            <div className="absolute top-4 left-4 px-3 py-1.5 rounded-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm">
-                              <span className="text-[#00B46A] font-bold text-xs uppercase tracking-wide">{blog.category.name}</span>
-                            </div>
-                          )}
 
                           <div className="absolute bottom-4 left-4 right-4 flex items-center gap-4 text-white text-sm">
                             <div className="flex items-center gap-1.5">
