@@ -202,20 +202,20 @@ export default function VisionBasedAttendance() {
                 {/* Monitor bezel */}
                 <div className="bg-gray-800 rounded-t-xl p-1">
                   {/* Screen */}
-                  <div className="bg-white rounded-lg overflow-hidden shadow-inner">
+                  <div className="bg-white dark:bg-[rgb(30,35,45)] rounded-lg overflow-hidden shadow-inner">
                     {/* Dashboard Content */}
                     <div className="relative aspect-[16/10]">
                       {/* Header */}
-                      <div className="absolute top-0 left-0 right-0 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
+                      <div className="absolute top-0 left-0 right-0 bg-white dark:bg-[rgb(30,35,45)] border-b border-gray-200 dark:border-gray-700 px-6 py-4 flex items-center justify-between">
                         <div className="flex items-center gap-3">
                           <div className="w-8 h-8 rounded bg-[#00B46A] flex items-center justify-center">
                             <span className="text-white font-bold text-sm">V</span>
                           </div>
                           <span className="font-bold text-gray-900 text-lg">VINFOTECH</span>
                         </div>
-                        <div className="flex items-center gap-2 text-xs text-gray-500">
+                        <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
                           <span>Last Synced:</span>
-                          <span className="font-semibold text-gray-900">11:00 AM</span>
+                          <span className="font-semibold text-gray-900 dark:text-white">11:00 AM</span>
                           <div className="w-2 h-2 rounded-full bg-[#00B46A] animate-pulse"></div>
                         </div>
                       </div>
@@ -226,7 +226,7 @@ export default function VisionBasedAttendance() {
                           <div className="max-w-7xl mx-auto">
                             {/* Date Selector */}
                             <div className="mb-6 flex items-center justify-between">
-                              <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
+                              <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Dashboard</h1>
                               <div className="flex gap-2">
                                 <button className="px-4 py-2 rounded-lg bg-[#6B46E5] text-white text-sm font-medium">
                                   Today<br/>22 Aug
@@ -245,9 +245,9 @@ export default function VisionBasedAttendance() {
                               {/* Left Column - Attendance Stats */}
                               <div className="col-span-7 space-y-4">
                                 {/* Attendance Card */}
-                                <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div className="bg-white dark:bg-[rgb(30,35,45)] rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
                                   <div className="flex items-center justify-between mb-4">
-                                    <h3 className="font-bold text-gray-900">Attendance</h3>
+                                    <h3 className="font-bold text-gray-900 dark:text-white">Attendance</h3>
                                     <div className="flex gap-4 text-xs">
                                       <span className="flex items-center gap-1">
                                         <div className="w-2 h-2 rounded-full bg-[#6B46E5]"></div>
@@ -273,26 +273,26 @@ export default function VisionBasedAttendance() {
                                           strokeDasharray="352" strokeDashoffset="70" strokeLinecap="round" />
                                       </svg>
                                       <div className="absolute inset-0 flex flex-col items-center justify-center">
-                                        <span className="text-3xl font-bold text-gray-900">830</span>
-                                        <span className="text-xs text-gray-500">Present at 11:15 AM</span>
+                                        <span className="text-3xl font-bold text-gray-900 dark:text-white">830</span>
+                                        <span className="text-xs text-gray-500 dark:text-gray-400">Present at 11:15 AM</span>
                                       </div>
                                     </div>
 
                                     <div className="flex-1 space-y-3">
                                       <div className="flex items-center justify-between">
-                                        <span className="text-sm text-gray-600">Currently on Break</span>
-                                        <span className="text-lg font-bold text-gray-900">5</span>
+                                        <span className="text-sm text-gray-600 dark:text-gray-400">Currently on Break</span>
+                                        <span className="text-lg font-bold text-gray-900 dark:text-white">5</span>
                                       </div>
                                       <div className="flex items-center justify-between">
-                                        <span className="text-sm text-gray-600">Absent Today</span>
-                                        <span className="text-lg font-bold text-gray-900">8</span>
+                                        <span className="text-sm text-gray-600 dark:text-gray-400">Absent Today</span>
+                                        <span className="text-lg font-bold text-gray-900 dark:text-white">8</span>
                                       </div>
                                     </div>
                                   </div>
                                 </div>
 
                                 {/* Time-wise Snapshots */}
-                                <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div className="bg-white dark:bg-[rgb(30,35,45)] rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
                                   <h3 className="font-bold text-gray-900 mb-4">Time-wise Snapshots</h3>
                                   <div className="flex gap-4">
                                     {[
@@ -308,12 +308,12 @@ export default function VisionBasedAttendance() {
                                               strokeDasharray={`${(snap.count / 1000) * 251} 251`} strokeLinecap="round" />
                                           </svg>
                                           <div className="absolute inset-0 flex items-center justify-center">
-                                            <span className="text-xl font-bold text-gray-900">{snap.count}</span>
+                                            <span className="text-xl font-bold text-gray-900 dark:text-white">{snap.count}</span>
                                           </div>
                                         </div>
                                         <div className="text-center mt-2">
-                                          <div className="text-xs font-medium text-gray-900">Present at {snap.time}</div>
-                                          <div className="text-xs text-gray-500">{snap.total} • 8</div>
+                                          <div className="text-xs font-medium text-gray-900 dark:text-white">Present at {snap.time}</div>
+                                          <div className="text-xs text-gray-500 dark:text-gray-400">{snap.total} • 8</div>
                                         </div>
                                       </div>
                                     ))}
@@ -322,14 +322,14 @@ export default function VisionBasedAttendance() {
 
                                 {/* System Alerts & Analytics */}
                                 <div className="grid grid-cols-2 gap-4">
-                                  <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-200">
+                                  <div className="bg-white dark:bg-[rgb(30,35,45)] rounded-xl p-4 shadow-sm border border-gray-200 dark:border-gray-700">
                                     <div className="flex items-center gap-3 mb-2">
                                       <div className="w-8 h-8 rounded bg-yellow-100 flex items-center justify-center">
                                         <span className="text-yellow-600 text-lg">⚠️</span>
                                       </div>
                                       <div>
-                                        <div className="text-2xl font-bold text-gray-900">3</div>
-                                        <div className="text-xs text-gray-500">Alerts in 24 hrs</div>
+                                        <div className="text-2xl font-bold text-gray-900 dark:text-white">3</div>
+                                        <div className="text-xs text-gray-500 dark:text-gray-400">Alerts in 24 hrs</div>
                                       </div>
                                     </div>
                                   </div>
@@ -346,7 +346,7 @@ export default function VisionBasedAttendance() {
                               <div className="col-span-5">
                                 <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-200 h-full">
                                   <div className="flex items-center justify-between mb-4">
-                                    <h3 className="font-bold text-gray-900">Recent Activity</h3>
+                                    <h3 className="font-bold text-gray-900 dark:text-white">Recent Activity</h3>
                                     <button className="text-xs text-[#6B46E5] font-medium">VIEW ALL →</button>
                                   </div>
 
@@ -376,7 +376,7 @@ export default function VisionBasedAttendance() {
                                         </div>
                                         <div className="p-2 bg-white">
                                           <div className="text-xs font-bold text-gray-900 truncate">{person.name}</div>
-                                          <div className="text-xs text-gray-500">{person.location}</div>
+                                          <div className="text-xs text-gray-500 dark:text-gray-400">{person.location}</div>
                                           <div className="text-xs text-gray-400 mt-1">{person.time}</div>
                                         </div>
                                       </div>
