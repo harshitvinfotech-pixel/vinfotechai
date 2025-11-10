@@ -55,11 +55,11 @@ export default function Blogs() {
     <div className="min-h-screen bg-white dark:bg-gray-900">
       <Header onQuoteClick={() => {}} />
 
-      <div className="relative bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 pt-24 pb-12 overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.07] dark:opacity-[0.15]">
-          <div className="absolute top-10 left-[10%] w-[500px] h-[500px] bg-[#00B46A]/30 rounded-full blur-[120px] animate-pulse"></div>
-          <div className="absolute top-20 right-[15%] w-[400px] h-[400px] bg-blue-400/20 rounded-full blur-[100px] animate-pulse" style={{animationDelay: '1s'}}></div>
-          <div className="absolute bottom-10 left-[60%] w-[350px] h-[350px] bg-emerald-400/20 rounded-full blur-[90px] animate-pulse" style={{animationDelay: '2s'}}></div>
+      <div className="relative bg-gray-50 dark:bg-gray-900 pt-24 pb-12 overflow-hidden">
+        <div className="absolute inset-0 opacity-[0.05] dark:opacity-[0.1]">
+          <div className="absolute top-10 left-[10%] w-[500px] h-[500px] bg-[#00B46A] rounded-full blur-[120px] animate-pulse"></div>
+          <div className="absolute top-20 right-[15%] w-[400px] h-[400px] bg-[#00B46A] rounded-full blur-[100px] animate-pulse" style={{animationDelay: '1s'}}></div>
+          <div className="absolute bottom-10 left-[60%] w-[350px] h-[350px] bg-[#00B46A] rounded-full blur-[90px] animate-pulse" style={{animationDelay: '2s'}}></div>
 
           <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
             <defs>
@@ -73,16 +73,16 @@ export default function Blogs() {
 
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative">
           <div className="flex items-center gap-3 mb-6 justify-center">
-            <div className="h-px w-12 bg-gradient-to-r from-transparent to-[#00B46A]"></div>
+            <div className="h-px w-12 bg-[#00B46A]"></div>
             <Sparkles className="text-[#00B46A]" size={22} />
             <span className="text-[#00B46A] font-bold text-sm tracking-[0.2em] uppercase">Latest Insights</span>
             <Sparkles className="text-[#00B46A]" size={22} />
-            <div className="h-px w-12 bg-gradient-to-l from-transparent to-[#00B46A]"></div>
+            <div className="h-px w-12 bg-[#00B46A]"></div>
           </div>
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6 text-center leading-[1.1]">
             Discover Our{' '}
-            <span className="bg-gradient-to-r from-[#00B46A] via-[#00C87A] to-[#00D47F] bg-clip-text text-transparent">
+            <span className="text-[#00B46A]">
               Latest Stories
             </span>
           </h1>
@@ -93,7 +93,7 @@ export default function Blogs() {
 
           <form onSubmit={handleSearch} className="max-w-2xl mx-auto">
             <div className="relative group">
-              <div className="absolute inset-0 bg-gradient-to-r from-[#00B46A] to-[#00D47F] rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500"></div>
+              <div className="absolute inset-0 bg-[#00B46A] rounded-2xl opacity-0 group-hover:opacity-10 blur-xl transition-opacity duration-500"></div>
               <div className="relative">
                 <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 group-hover:text-[#00B46A] transition-colors" size={22} />
                 <input
@@ -121,7 +121,7 @@ export default function Blogs() {
           </div>
         ) : blogs.length === 0 ? (
           <div className="text-center py-32">
-            <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-gradient-to-br from-[#00B46A]/20 to-[#00D47F]/20 mb-6">
+            <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-[#00B46A]/20 mb-6">
               <Search size={48} className="text-[#00B46A]" />
             </div>
             <h3 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">No blogs found</h3>
@@ -171,7 +171,7 @@ export default function Blogs() {
                                 alt={blog.title}
                                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                               />
-                              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+                              <div className="absolute inset-0 bg-black/20"></div>
                             </div>
 
                             <div className="flex flex-col justify-center lg:pl-4">
@@ -217,7 +217,7 @@ export default function Blogs() {
               <div className="mb-16">
                 <div className="flex items-center justify-between mb-8">
                   <h2 className="text-3xl font-bold text-gray-900 dark:text-white">All Blogs</h2>
-                  <div className="h-1 flex-1 ml-8 bg-gradient-to-r from-[#00B46A]/30 to-transparent rounded-full"></div>
+                  <div className="h-1 flex-1 ml-8 bg-[#00B46A]/30 rounded-full"></div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -229,7 +229,7 @@ export default function Blogs() {
                       style={{ animationDelay: `${index * 100}ms` }}
                     >
                       <div className="relative overflow-hidden rounded-3xl bg-white dark:bg-gray-800 shadow-xl group-hover:shadow-2xl transition-all duration-500 group-hover:-translate-y-2 group-hover:scale-[1.02] h-full flex flex-col">
-                        <div className="absolute inset-0 bg-gradient-to-br from-[#00B46A]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div className="absolute inset-0 bg-[#00B46A]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
                         <div className="relative h-56 overflow-hidden">
                           <img
@@ -237,7 +237,7 @@ export default function Blogs() {
                             alt={blog.title}
                             className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-110"
                           />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent group-hover:from-[#00B46A]/20 transition-all duration-500"></div>
+                          <div className="absolute inset-0 bg-black/30 group-hover:bg-[#00B46A]/10 transition-all duration-500"></div>
                         </div>
 
                         <div className="p-6 flex flex-col flex-grow">
@@ -302,7 +302,7 @@ export default function Blogs() {
                         onClick={() => setCurrentPage(page)}
                         className={`min-w-12 h-12 px-4 rounded-xl font-bold transition-all duration-300 ${
                           currentPage === page
-                            ? 'bg-gradient-to-r from-[#00B46A] to-[#00D47F] text-white shadow-lg shadow-[#00B46A]/30 scale-110'
+                            ? 'bg-[#00B46A] text-white shadow-lg shadow-[#00B46A]/30 scale-110'
                             : 'bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:border-[#00B46A] hover:text-[#00B46A] hover:scale-105'
                         }`}
                       >
