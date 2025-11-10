@@ -78,9 +78,9 @@ export default function BlogDetail() {
               alt={blog.title}
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+            <div className="absolute inset-0 bg-black/40"></div>
 
-            <div className="absolute top-4 left-4 sm:top-6 sm:left-6 lg:left-12 z-10">
+            <div className="absolute bottom-6 left-6 lg:left-12 z-10">
               <Link
                 to="/blogs"
                 className="inline-flex items-center gap-2 px-3 py-2 sm:px-4 sm:py-2 bg-white/10 backdrop-blur-md rounded-full text-white hover:bg-[#00B46A] transition-all duration-300 group"
@@ -91,7 +91,7 @@ export default function BlogDetail() {
             </div>
           </div>
 
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 -mt-12 sm:-mt-16 md:-mt-20 relative z-10">
+        <div className="max-w-7xl mx-auto -mt-12 sm:-mt-16 md:-mt-20 relative z-10">
           <div className="bg-white dark:bg-gray-800 rounded-2xl sm:rounded-3xl shadow-2xl p-4 sm:p-8 lg:p-12 mb-8 sm:mb-12">
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 leading-tight">
               {blog.title}
