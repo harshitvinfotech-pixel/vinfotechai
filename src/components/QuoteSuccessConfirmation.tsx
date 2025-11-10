@@ -20,7 +20,7 @@ export default function QuoteSuccessConfirmation({ onClose }: QuoteSuccessConfir
         <div className="flex justify-center">
           <div className="relative">
             <div className="w-32 h-32 rounded-full bg-gradient-to-br from-[#00B46A] to-[#00D67F] flex items-center justify-center shadow-2xl shadow-[#00B46A]/30 animate-scale-in">
-              <div className="w-28 h-28 rounded-full bg-white dark:bg-[rgb(30,35,45)] flex items-center justify-center">
+              <div className="w-28 h-28 rounded-full bg-white dark:bg-gray-800 flex items-center justify-center">
                 <CheckCircle size={64} className="text-[#00B46A]" strokeWidth={2.5} />
               </div>
             </div>

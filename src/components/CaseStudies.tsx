@@ -37,9 +37,9 @@ export default function CaseStudies() {
     <section
       id="case-studies"
       ref={sectionRef}
-      className="relative py-12 sm:py-16 md:py-20 lg:py-24 px-6 sm:px-8 lg:px-12 bg-gray-50 dark:bg-dark-bg overflow-hidden"
+      className="relative py-12 sm:py-16 md:py-20 lg:py-24 px-6 sm:px-8 lg:px-12 bg-gray-50 dark:bg-black overflow-hidden"
     >
-      <div className="absolute inset-0 bg-gradient-to-b from-gray-100 via-gray-50 to-gray-100 dark:from-[rgb(49,54,64)] dark:via-dark-bg dark:to-[rgb(49,54,64)]"></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-gray-100 via-gray-50 to-gray-100 dark:from-gray-900 dark:via-black dark:to-gray-900"></div>
 
       <div className="absolute inset-0 opacity-30">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:64px_64px]"></div>
@@ -98,10 +98,10 @@ function CaseStudyCard({ study, onClick }: CaseStudyCardProps) {
 
       <div
         onClick={onClick}
-        className="relative flex flex-col bg-white dark:bg-[rgb(30,35,45)] rounded-3xl border border-gray-200 dark:border-gray-700 hover:border-emerald-500/30 dark:hover:border-emerald-500/30 transition-all duration-500 shadow-lg hover:shadow-2xl h-[550px] sm:h-[600px] overflow-hidden cursor-pointer"
+        className="relative flex flex-col bg-white dark:bg-gray-900 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-emerald-500/30 dark:hover:border-emerald-500/30 transition-all duration-500 shadow-lg hover:shadow-2xl h-[550px] sm:h-[600px] overflow-hidden cursor-pointer"
       >
 
-        <div className={`relative overflow-hidden flex-shrink-0 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-[rgb(49,54,64)] transition-all duration-500 ${
+        <div className={`relative overflow-hidden flex-shrink-0 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 transition-all duration-500 ${
           isExpanded ? 'h-40 sm:h-48' : 'h-full'
         }`}>
           <div className={`absolute inset-0 transition-all duration-1000 ${
@@ -153,7 +153,7 @@ function CaseStudyCard({ study, onClick }: CaseStudyCardProps) {
         )}
 
         {isExpanded && (
-          <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 bg-white dark:bg-[rgb(30,35,45)] border-t border-gray-200 dark:border-gray-700 shadow-lg">
+          <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 shadow-lg">
             <button
               onClick={() => onClick()}
               className="w-full py-3 px-6 bg-[#00B46A] text-white font-semibold rounded-xl hover:bg-[#009557] transition-colors duration-300"
@@ -169,7 +169,7 @@ function CaseStudyCard({ study, onClick }: CaseStudyCardProps) {
               e.stopPropagation();
               setIsExpanded(!isExpanded);
             }}
-            className="w-12 h-12 bg-white dark:bg-[rgb(30,35,45)] rounded-full flex items-center justify-center shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 border-2 border-gray-200 dark:border-gray-700 hover:border-[#00B46A] dark:hover:border-[#00B46A]"
+            className="w-12 h-12 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 border-2 border-gray-200 dark:border-gray-700 hover:border-[#00B46A] dark:hover:border-[#00B46A]"
             aria-label={isExpanded ? 'Collapse details' : 'Expand details'}
           >
             {isExpanded ? (

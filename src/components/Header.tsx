@@ -48,8 +48,8 @@ export default function Header({ onQuoteClick }: HeaderProps) {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-white/95 dark:bg-dark-bg/95 backdrop-blur-md shadow-lg'
-          : 'bg-white/90 dark:bg-dark-bg/90 backdrop-blur-md shadow-sm'
+          ? 'bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-lg'
+          : 'bg-white/90 dark:bg-gray-900/90 backdrop-blur-md shadow-sm'
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
@@ -131,7 +131,7 @@ export default function Header({ onQuoteClick }: HeaderProps) {
       </div>
 
       {isMobileMenuOpen && (
-        <div className="md:hidden backdrop-blur-md border-t animate-slide-down bg-white/95 dark:bg-dark-bg/95 border-gray-200 dark:border-gray-800">
+        <div className="md:hidden backdrop-blur-md border-t animate-slide-down bg-white/95 dark:bg-gray-900/95 border-gray-200 dark:border-gray-800">
           <nav className="px-6 py-4 space-y-2">
             <button
               onClick={() => {

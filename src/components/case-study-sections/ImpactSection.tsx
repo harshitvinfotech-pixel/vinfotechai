@@ -18,7 +18,7 @@ export default function ImpactSection({ impactMetrics, imageUrl }: ImpactSection
   const headerVisible = useScrollTrigger(headerRef, { threshold: 0.5 });
 
   return (
-    <section ref={sectionRef} className="py-16 dark:bg-dark-bg transition-colors duration-300" style={{ backgroundColor: '#f9fafb' }}>
+    <section ref={sectionRef} className="py-16 dark:bg-gray-900 transition-colors duration-300" style={{ backgroundColor: '#f9fafb' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div ref={headerRef} className={`text-center mb-12 transition-all duration-1000 ${headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
@@ -40,7 +40,7 @@ export default function ImpactSection({ impactMetrics, imageUrl }: ImpactSection
               <div
                 key={index}
                 ref={cardRef}
-                className={`group relative bg-white dark:bg-[rgb(30,35,45)] rounded-xl p-6 border border-gray-200 dark:border-gray-700 hover:border-emerald-500 dark:hover:border-emerald-500 transition-all duration-700 hover:shadow-lg hover:-translate-y-1 ${cardVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
+                className={`group relative bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 hover:border-emerald-500 dark:hover:border-emerald-500 transition-all duration-700 hover:shadow-lg hover:-translate-y-1 ${cardVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
                 style={{
                   transitionDelay: `${index * 150}ms`
                 }}

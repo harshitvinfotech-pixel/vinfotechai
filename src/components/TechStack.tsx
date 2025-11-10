@@ -43,7 +43,7 @@ export default function TechStack({ technologies }: TechStackProps = { technolog
           return (
             <div
               key={tech.id}
-              className={`bg-white dark:bg-[rgb(30,35,45)] rounded-xl p-6 border border-gray-200 dark:border-gray-700 hover:border-[#00B46A] dark:hover:border-[#00B46A] transition-all duration-300 hover:shadow-lg group ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+              className={`bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 hover:border-[#00B46A] dark:hover:border-[#00B46A] transition-all duration-300 hover:shadow-lg group ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
               style={{ transitionDelay: `${index * 100}ms` }}
             >
               <div className="flex flex-col items-center text-center">
@@ -88,8 +88,8 @@ export default function TechStack({ technologies }: TechStackProps = { technolog
   ];
 
   return (
-    <section ref={sectionRef} className="relative py-12 sm:py-16 md:py-20 lg:py-24 px-6 sm:px-8 lg:px-12 bg-gray-50 dark:bg-dark-bg overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-gray-100 via-gray-50 to-gray-100 dark:from-[rgb(49,54,64)] dark:via-dark-bg dark:to-[rgb(49,54,64)] opacity-90"></div>
+    <section ref={sectionRef} className="relative py-12 sm:py-16 md:py-20 lg:py-24 px-6 sm:px-8 lg:px-12 bg-gray-50 dark:bg-gray-900 overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-b from-gray-100 via-gray-50 to-gray-100 dark:from-black dark:via-gray-900 dark:to-black opacity-90"></div>
 
       <div className="absolute inset-0 opacity-20 dark:opacity-20">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:64px_64px]"></div>
@@ -111,7 +111,7 @@ export default function TechStack({ technologies }: TechStackProps = { technolog
             return (
               <div
                 key={index}
-                className={`group relative bg-gradient-to-br from-white/80 to-gray-50/80 dark:from-gray-800/40 dark:to-[rgb(49,54,64)]/40 backdrop-blur-sm p-5 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl border border-gray-300/50 dark:border-gray-700/50 hover:border-[#00B46A]/50 dark:hover:border-[#00B46A]/60 transition-all duration-700 shadow-lg dark:shadow-none hover:scale-[1.03] hover:-translate-y-2 ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-12 scale-95'}`}
+                className={`group relative bg-gradient-to-br from-white/80 to-gray-50/80 dark:from-gray-800/40 dark:to-gray-900/40 backdrop-blur-sm p-5 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl border border-gray-300/50 dark:border-gray-700/50 hover:border-[#00B46A]/50 dark:hover:border-[#00B46A]/60 transition-all duration-700 shadow-lg dark:shadow-none hover:scale-[1.03] hover:-translate-y-2 ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-12 scale-95'}`}
                 style={{
                   transitionDelay: isVisible ? `${index * 150}ms` : '0ms',
                   transitionTimingFunction: 'cubic-bezier(0.34, 1.56, 0.64, 1)'

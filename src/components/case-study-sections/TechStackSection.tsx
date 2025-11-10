@@ -49,7 +49,7 @@ export default function TechStackSection({
   if (!techStack || techStack.length === 0) return null;
 
   return (
-    <section ref={sectionRef} className="py-12 sm:py-16 lg:py-20 bg-white dark:bg-dark-bg transition-colors duration-300">
+    <section ref={sectionRef} className="py-12 sm:py-16 lg:py-20 bg-white dark:bg-gray-900 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8">
         <div ref={headerRef} className={`text-left lg:text-center mb-8 sm:mb-12 lg:mb-16 transition-all duration-1000 ${headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4">
@@ -70,12 +70,12 @@ export default function TechStackSection({
               <div
                 key={index}
                 ref={cardRef}
-                className={`bg-white dark:bg-dark-bg rounded-xl lg:rounded-2xl p-4 sm:p-6 lg:p-8 flex flex-col items-center justify-center text-center border border-gray-200 dark:border-gray-700 transition-all duration-700 hover:-translate-y-2 hover:shadow-xl hover:border-emerald-500 ${cardVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
+                className={`bg-white dark:bg-gray-900 rounded-xl lg:rounded-2xl p-4 sm:p-6 lg:p-8 flex flex-col items-center justify-center text-center border border-gray-200 dark:border-gray-700 transition-all duration-700 hover:-translate-y-2 hover:shadow-xl hover:border-emerald-500 ${cardVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
                 style={{
                   transitionDelay: `${index * 50}ms`
                 }}
               >
-                <div className="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 rounded-xl lg:rounded-2xl bg-white dark:bg-[rgb(30,35,45)] border border-gray-200 dark:border-gray-700 flex items-center justify-center mb-3 sm:mb-4 lg:mb-6">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 rounded-xl lg:rounded-2xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 flex items-center justify-center mb-3 sm:mb-4 lg:mb-6">
                   {tech.logo_url ? (
                     <img
                       src={tech.logo_url}

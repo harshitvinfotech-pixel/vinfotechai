@@ -36,7 +36,7 @@ export default function ChallengeDiagram() {
   ];
 
   return (
-    <div className="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-[rgb(49,54,64)] rounded-2xl p-8 lg:p-10">
+    <div className="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 rounded-2xl p-8 lg:p-10">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-10">
           <h4 className="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white mb-3">
@@ -47,7 +47,7 @@ export default function ChallengeDiagram() {
           </p>
         </div>
 
-        <div className="bg-white dark:bg-[rgb(30,35,45)] rounded-xl p-6 lg:p-8 shadow-md border border-gray-200 dark:border-gray-700 mb-8">
+        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 lg:p-8 shadow-md border border-gray-200 dark:border-gray-700 mb-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
             {dataSources.map((source, index) => (
               <div
@@ -78,7 +78,7 @@ export default function ChallengeDiagram() {
           {problems.map((problem, index) => (
             <div
               key={index}
-              className="bg-white dark:bg-[rgb(30,35,45)] rounded-lg p-5 border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
+              className="bg-white dark:bg-gray-800 rounded-lg p-5 border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
             >
               <div className="flex items-start gap-3">
                 <div

@@ -24,7 +24,7 @@ export default function IntroSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative py-12 sm:py-16 md:py-20 px-6 sm:px-8 lg:px-12 bg-gradient-to-br from-[#00B46A]/20 via-[#00B46A]/10 to-gray-50 dark:from-[#00B46A]/15 dark:via-gray-800 dark:to-[rgb(49,54,64)] overflow-hidden"
+      className="relative py-12 sm:py-16 md:py-20 px-6 sm:px-8 lg:px-12 bg-gradient-to-br from-[#00B46A]/20 via-[#00B46A]/10 to-gray-50 dark:from-[#00B46A]/15 dark:via-gray-800 dark:to-gray-900 overflow-hidden"
     >
       <div className="absolute inset-0 opacity-40">
         <div

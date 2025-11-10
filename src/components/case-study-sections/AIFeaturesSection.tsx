@@ -21,7 +21,7 @@ const iconMap: Record<string, React.ElementType> = {
 
 export default function AIFeaturesSection({ aiFeatures }: AIFeaturesSectionProps) {
   return (
-    <section className="py-16 sm:py-20 bg-gray-50 dark:bg-[rgb(30,35,45)]">
+    <section className="py-16 sm:py-20 bg-gray-50 dark:bg-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
@@ -38,7 +38,7 @@ export default function AIFeaturesSection({ aiFeatures }: AIFeaturesSectionProps
             return (
               <div
                 key={index}
-                className="bg-white dark:bg-dark-bg rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300"
+                className="bg-white dark:bg-gray-900 rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300"
               >
                 <div
                   className="w-14 h-14 rounded-lg flex items-center justify-center mb-4"

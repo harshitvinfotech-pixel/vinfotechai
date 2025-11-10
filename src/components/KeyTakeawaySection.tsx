@@ -42,7 +42,7 @@ export default function KeyTakeawaySection({
 
       {quote && (
         <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 z-10 w-full max-w-3xl px-3 sm:px-4">
-          <div className="bg-white dark:bg-[rgb(30,35,45)] rounded-2xl shadow-2xl border-2 border-gray-200 dark:border-gray-700 p-4 sm:p-6">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border-2 border-gray-200 dark:border-gray-700 p-4 sm:p-6">
             <div className="flex items-start gap-3 sm:gap-4">
               <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#00B46A] flex items-center justify-center">
                 <Quote className="text-white" size={20} />

@@ -28,7 +28,7 @@ export default function About() {
       ref={sectionRef}
       className="relative py-12 sm:py-16 md:py-20 lg:py-24 px-6 sm:px-8 lg:px-12 overflow-hidden"
     >
-      <div className="absolute inset-0 bg-gray-50 dark:bg-dark-bg"></div>
+      <div className="absolute inset-0 bg-gray-50 dark:bg-gray-900"></div>
 
       <div className="absolute inset-0 opacity-20">
         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_30%_50%,rgba(255,255,255,0.05),transparent_50%)]"></div>
@@ -78,7 +78,7 @@ export default function About() {
           </div>
 
           <div className={`relative transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
-            <div className="bg-gray-100 dark:bg-[rgb(30,35,45)]/60 rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 lg:p-12 space-y-6">
+            <div className="bg-gray-100 dark:bg-gray-800/60 rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 lg:p-12 space-y-6">
               <FeatureCard
                 icon={<Target size={24} />}
                 title="Tailored AI, Built for You"
@@ -104,7 +104,7 @@ export default function About() {
         </div>
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-gray-50 dark:from-dark-bg to-transparent pointer-events-none"></div>
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-gray-50 dark:from-gray-900 to-transparent pointer-events-none"></div>
     </section>
   );
 }
@@ -119,7 +119,7 @@ interface FeatureCardProps {
 function FeatureCard({ icon, title, delay, isVisible }: FeatureCardProps) {
   return (
     <div
-      className={`group relative bg-gray-50 dark:bg-[rgb(30,35,45)]/40 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-gray-200/60 dark:border-gray-700/40 transition-all duration-700 hover:-translate-y-2 hover:scale-[1.02] ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-8 scale-95'}`}
+      className={`group relative bg-gray-50 dark:bg-gray-800/40 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-gray-200/60 dark:border-gray-700/40 transition-all duration-700 hover:-translate-y-2 hover:scale-[1.02] ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-8 scale-95'}`}
       style={{
         transitionDelay: isVisible ? delay : '0ms',
         transitionTimingFunction: 'cubic-bezier(0.34, 1.56, 0.64, 1)'

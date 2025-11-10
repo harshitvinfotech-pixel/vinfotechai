@@ -71,9 +71,9 @@ export default function Services() {
   return (
     <section
       id="services"
-      className="relative py-12 sm:py-16 md:py-20 lg:py-24 bg-gray-50 dark:bg-dark-bg overflow-hidden"
+      className="relative py-12 sm:py-16 md:py-20 lg:py-24 bg-gray-50 dark:bg-black overflow-hidden"
     >
-      <div className="absolute inset-0 bg-gradient-to-b from-gray-100 via-gray-50 to-gray-100 dark:from-[rgb(49,54,64)] dark:via-dark-bg dark:to-[rgb(49,54,64)]"></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-gray-100 via-gray-50 to-gray-100 dark:from-gray-900 dark:via-black dark:to-gray-900"></div>
 
       <div className="absolute inset-0 opacity-30">
         <div
@@ -96,7 +96,7 @@ export default function Services() {
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[52px] font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 tracking-tight px-2">
             Our AI Services
           </h2>
-          <p className="text-lg sm:text-lg md:text-xl lg:text-2xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed px-4">
+          <p className="text-lg sm:text-lg md:text-xl lg:text-2xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed px-4">
             Comprehensive AI solutions tailored to your business needs, from intelligent data processing to automated decision-making
           </p>
         </div>
@@ -110,7 +110,7 @@ export default function Services() {
                 ref={el => sectionRefs.current[index] = el}
                 className="max-w-7xl mx-auto"
               >
-                <div className={`grid grid-cols-1 lg:grid-cols-2 gap-0 rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-700 bg-white dark:bg-[rgb(30,35,45)] ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
+                <div className={`grid grid-cols-1 lg:grid-cols-2 gap-0 rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-700 bg-white dark:bg-gray-900 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
                   style={{
                     transitionDelay: isVisible ? '100ms' : '0ms',
                   }}
@@ -141,9 +141,9 @@ export default function Services() {
                     </div>
                   </div>
 
-                  <div className="bg-gray-50 dark:bg-dark-bg p-6 sm:p-8 lg:p-10 flex items-start min-h-[520px] sm:min-h-[580px] lg:min-h-[580px]">
+                  <div className="bg-gray-50 dark:bg-black p-6 sm:p-8 lg:p-10 flex items-start min-h-[520px] sm:min-h-[580px] lg:min-h-[580px]">
                     <div className="space-y-6 sm:space-y-7 lg:space-y-8 w-full py-2">
-                      <p className={`text-lg sm:text-lg lg:text-xl text-gray-600 dark:text-gray-300 leading-relaxed mb-4 sm:mb-6 lg:mb-8 pt-2 sm:pt-8 transition-all duration-700 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'}`}
+                      <p className={`text-lg sm:text-lg lg:text-xl text-gray-600 dark:text-gray-400 leading-relaxed mb-4 sm:mb-6 lg:mb-8 pt-2 sm:pt-8 transition-all duration-700 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'}`}
                         style={{
                           transitionDelay: isVisible ? '300ms' : '0ms',
                         }}
@@ -162,7 +162,7 @@ export default function Services() {
                             <Check size={14} strokeWidth={3} className="text-white transition-transform duration-300 group-hover/highlight:scale-110" />
                           </div>
                           <p
-                            className="text-xl sm:text-lg lg:text-xl text-gray-700 dark:text-gray-200 leading-relaxed transition-all duration-300 group-hover/highlight:text-[#00B46A] dark:group-hover/highlight:text-[#00D68A] group-hover/highlight:translate-x-1"
+                            className="text-xl sm:text-lg lg:text-xl text-gray-700 dark:text-gray-300 leading-relaxed transition-all duration-300 group-hover/highlight:text-[#00B46A] group-hover/highlight:translate-x-1"
                             dangerouslySetInnerHTML={{ __html: highlight }}
                           ></p>
                         </div>

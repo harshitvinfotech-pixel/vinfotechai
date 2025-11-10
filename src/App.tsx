@@ -58,11 +58,11 @@ function AppContent() {
   const isCaseStudyPage = location.pathname.startsWith('/case-studies');
 
   return (
-    <div className="min-h-screen bg-white dark:bg-dark-bg transition-colors duration-300 overflow-x-hidden">
+    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300 overflow-x-hidden">
       {!isBlogPage && !isCaseStudyPage && <Header onQuoteClick={() => setIsQuoteModalOpen(true)} />}
 
       <Suspense fallback={
-        <div className="min-h-screen flex items-center justify-center bg-white dark:bg-dark-bg">
+        <div className="min-h-screen flex items-center justify-center bg-white dark:bg-gray-900">
           <div className="text-center">
             <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-[#00B46A]"></div>
             <p className="mt-4 text-gray-600 dark:text-gray-400">Loading...</p>

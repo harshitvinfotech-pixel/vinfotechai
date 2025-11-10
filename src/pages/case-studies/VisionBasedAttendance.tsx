@@ -16,7 +16,7 @@ export default function VisionBasedAttendance() {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-dark-bg transition-colors duration-300">
+    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
       <Header onQuoteClick={() => {}} />
 
       {/* Hero Section */}
@@ -52,7 +52,7 @@ export default function VisionBasedAttendance() {
 
       <main className="pb-0">
         {/* Overview Section */}
-        <section className="mb-0 bg-gray-50 dark:bg-dark-bg py-12 sm:py-16">
+        <section className="mb-0 bg-gray-50 dark:bg-black py-12 sm:py-16">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center space-y-6">
               <p className="text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
@@ -66,7 +66,7 @@ export default function VisionBasedAttendance() {
         </section>
 
         {/* The Challenge Section */}
-        <section className="mb-0 bg-white dark:bg-dark-bg py-12 sm:py-16">
+        <section className="mb-0 bg-white dark:bg-gray-900 py-12 sm:py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-12 lg:gap-16 items-center">
               <div className="order-1 lg:order-1">
@@ -122,7 +122,7 @@ export default function VisionBasedAttendance() {
         </section>
 
         {/* The AI Solution Section */}
-        <section className="mb-0 bg-gray-50 dark:bg-dark-bg py-12 sm:py-16">
+        <section className="mb-0 bg-gray-50 dark:bg-black py-12 sm:py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-12 lg:gap-16 items-center">
               <div className="order-2 lg:order-1">
@@ -181,7 +181,7 @@ export default function VisionBasedAttendance() {
         </section>
 
         {/* Desktop Mockup Section */}
-        <section className="mb-0 bg-white dark:bg-dark-bg py-12 sm:py-16">
+        <section className="mb-0 bg-white dark:bg-gray-900 py-12 sm:py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-10 sm:mb-12">
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 tracking-tight px-2">
@@ -202,20 +202,20 @@ export default function VisionBasedAttendance() {
                 {/* Monitor bezel */}
                 <div className="bg-gray-800 rounded-t-xl p-1">
                   {/* Screen */}
-                  <div className="bg-white dark:bg-[rgb(30,35,45)] rounded-lg overflow-hidden shadow-inner">
+                  <div className="bg-white rounded-lg overflow-hidden shadow-inner">
                     {/* Dashboard Content */}
                     <div className="relative aspect-[16/10]">
                       {/* Header */}
-                      <div className="absolute top-0 left-0 right-0 bg-white dark:bg-[rgb(30,35,45)] border-b border-gray-200 dark:border-gray-700 px-6 py-4 flex items-center justify-between">
+                      <div className="absolute top-0 left-0 right-0 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
                         <div className="flex items-center gap-3">
                           <div className="w-8 h-8 rounded bg-[#00B46A] flex items-center justify-center">
                             <span className="text-white font-bold text-sm">V</span>
                           </div>
                           <span className="font-bold text-gray-900 text-lg">VINFOTECH</span>
                         </div>
-                        <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+                        <div className="flex items-center gap-2 text-xs text-gray-500">
                           <span>Last Synced:</span>
-                          <span className="font-semibold text-gray-900 dark:text-white">11:00 AM</span>
+                          <span className="font-semibold text-gray-900">11:00 AM</span>
                           <div className="w-2 h-2 rounded-full bg-[#00B46A] animate-pulse"></div>
                         </div>
                       </div>
@@ -226,7 +226,7 @@ export default function VisionBasedAttendance() {
                           <div className="max-w-7xl mx-auto">
                             {/* Date Selector */}
                             <div className="mb-6 flex items-center justify-between">
-                              <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Dashboard</h1>
+                              <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
                               <div className="flex gap-2">
                                 <button className="px-4 py-2 rounded-lg bg-[#6B46E5] text-white text-sm font-medium">
                                   Today<br/>22 Aug
@@ -245,9 +245,9 @@ export default function VisionBasedAttendance() {
                               {/* Left Column - Attendance Stats */}
                               <div className="col-span-7 space-y-4">
                                 {/* Attendance Card */}
-                                <div className="bg-white dark:bg-[rgb(30,35,45)] rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+                                <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
                                   <div className="flex items-center justify-between mb-4">
-                                    <h3 className="font-bold text-gray-900 dark:text-white">Attendance</h3>
+                                    <h3 className="font-bold text-gray-900">Attendance</h3>
                                     <div className="flex gap-4 text-xs">
                                       <span className="flex items-center gap-1">
                                         <div className="w-2 h-2 rounded-full bg-[#6B46E5]"></div>
@@ -273,26 +273,26 @@ export default function VisionBasedAttendance() {
                                           strokeDasharray="352" strokeDashoffset="70" strokeLinecap="round" />
                                       </svg>
                                       <div className="absolute inset-0 flex flex-col items-center justify-center">
-                                        <span className="text-3xl font-bold text-gray-900 dark:text-white">830</span>
-                                        <span className="text-xs text-gray-500 dark:text-gray-400">Present at 11:15 AM</span>
+                                        <span className="text-3xl font-bold text-gray-900">830</span>
+                                        <span className="text-xs text-gray-500">Present at 11:15 AM</span>
                                       </div>
                                     </div>
 
                                     <div className="flex-1 space-y-3">
                                       <div className="flex items-center justify-between">
-                                        <span className="text-sm text-gray-600 dark:text-gray-400">Currently on Break</span>
-                                        <span className="text-lg font-bold text-gray-900 dark:text-white">5</span>
+                                        <span className="text-sm text-gray-600">Currently on Break</span>
+                                        <span className="text-lg font-bold text-gray-900">5</span>
                                       </div>
                                       <div className="flex items-center justify-between">
-                                        <span className="text-sm text-gray-600 dark:text-gray-400">Absent Today</span>
-                                        <span className="text-lg font-bold text-gray-900 dark:text-white">8</span>
+                                        <span className="text-sm text-gray-600">Absent Today</span>
+                                        <span className="text-lg font-bold text-gray-900">8</span>
                                       </div>
                                     </div>
                                   </div>
                                 </div>
 
                                 {/* Time-wise Snapshots */}
-                                <div className="bg-white dark:bg-[rgb(30,35,45)] rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+                                <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
                                   <h3 className="font-bold text-gray-900 mb-4">Time-wise Snapshots</h3>
                                   <div className="flex gap-4">
                                     {[
@@ -308,12 +308,12 @@ export default function VisionBasedAttendance() {
                                               strokeDasharray={`${(snap.count / 1000) * 251} 251`} strokeLinecap="round" />
                                           </svg>
                                           <div className="absolute inset-0 flex items-center justify-center">
-                                            <span className="text-xl font-bold text-gray-900 dark:text-white">{snap.count}</span>
+                                            <span className="text-xl font-bold text-gray-900">{snap.count}</span>
                                           </div>
                                         </div>
                                         <div className="text-center mt-2">
-                                          <div className="text-xs font-medium text-gray-900 dark:text-white">Present at {snap.time}</div>
-                                          <div className="text-xs text-gray-500 dark:text-gray-400">{snap.total} • 8</div>
+                                          <div className="text-xs font-medium text-gray-900">Present at {snap.time}</div>
+                                          <div className="text-xs text-gray-500">{snap.total} • 8</div>
                                         </div>
                                       </div>
                                     ))}
@@ -322,14 +322,14 @@ export default function VisionBasedAttendance() {
 
                                 {/* System Alerts & Analytics */}
                                 <div className="grid grid-cols-2 gap-4">
-                                  <div className="bg-white dark:bg-[rgb(30,35,45)] rounded-xl p-4 shadow-sm border border-gray-200 dark:border-gray-700">
+                                  <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-200">
                                     <div className="flex items-center gap-3 mb-2">
                                       <div className="w-8 h-8 rounded bg-yellow-100 flex items-center justify-center">
                                         <span className="text-yellow-600 text-lg">⚠️</span>
                                       </div>
                                       <div>
-                                        <div className="text-2xl font-bold text-gray-900 dark:text-white">3</div>
-                                        <div className="text-xs text-gray-500 dark:text-gray-400">Alerts in 24 hrs</div>
+                                        <div className="text-2xl font-bold text-gray-900">3</div>
+                                        <div className="text-xs text-gray-500">Alerts in 24 hrs</div>
                                       </div>
                                     </div>
                                   </div>
@@ -346,7 +346,7 @@ export default function VisionBasedAttendance() {
                               <div className="col-span-5">
                                 <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-200 h-full">
                                   <div className="flex items-center justify-between mb-4">
-                                    <h3 className="font-bold text-gray-900 dark:text-white">Recent Activity</h3>
+                                    <h3 className="font-bold text-gray-900">Recent Activity</h3>
                                     <button className="text-xs text-[#6B46E5] font-medium">VIEW ALL →</button>
                                   </div>
 
@@ -376,7 +376,7 @@ export default function VisionBasedAttendance() {
                                         </div>
                                         <div className="p-2 bg-white">
                                           <div className="text-xs font-bold text-gray-900 truncate">{person.name}</div>
-                                          <div className="text-xs text-gray-500 dark:text-gray-400">{person.location}</div>
+                                          <div className="text-xs text-gray-500">{person.location}</div>
                                           <div className="text-xs text-gray-400 mt-1">{person.time}</div>
                                         </div>
                                       </div>
@@ -428,7 +428,7 @@ export default function VisionBasedAttendance() {
         </section>
 
         {/* How AI Made It Possible Section */}
-        <section className="mb-0 bg-gray-50 dark:bg-dark-bg py-12 sm:py-16">
+        <section className="mb-0 bg-gray-50 dark:bg-black py-12 sm:py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-10 sm:mb-12">
               <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 tracking-tight px-2">
@@ -447,7 +447,7 @@ export default function VisionBasedAttendance() {
                 { title: 'Automated Reporting', description: 'AI generates attendance and productivity reports without manual data entry.' },
                 { title: 'Instant Alerts', description: 'Anomaly detection triggers immediate notifications for security or compliance issues.' }
               ].map((item, idx) => (
-                <div key={idx} className="bg-gray-50 dark:bg-[rgb(30,35,45)] rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300">
+                <div key={idx} className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300">
                   <div className="w-12 h-12 rounded-xl mb-4" style={{ backgroundColor: '#00B46A20' }}>
                     <div className="w-full h-full flex items-center justify-center">
                       <CheckCircle2 style={{ color: '#00B46A' }} size={24} />
@@ -462,7 +462,7 @@ export default function VisionBasedAttendance() {
         </section>
 
         {/* Vinfotech's Approach Section */}
-        <section className="mb-0 bg-gray-50 dark:bg-dark-bg py-12 sm:py-16">
+        <section className="mb-0 bg-gray-50 dark:bg-black py-12 sm:py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-10 sm:mb-12">
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 leading-tight">
@@ -496,7 +496,7 @@ export default function VisionBasedAttendance() {
                   <div className={`absolute top-0 ${idx % 2 === 0 ? 'right-0' : 'left-0'} w-8 h-8 rounded-full flex items-center justify-center transform ${idx % 2 === 0 ? 'translate-x-1/2' : '-translate-x-1/2'}`} style={{ backgroundColor: '#00B46A' }}>
                     <span className="text-white font-bold text-sm">{idx + 1}</span>
                   </div>
-                  <div className="bg-white dark:bg-[rgb(30,35,45)] rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow duration-300">
+                  <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow duration-300">
                     <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">{item.title}</h3>
                     <p className="text-sm text-gray-600 dark:text-gray-400">{item.description}</p>
                   </div>
@@ -507,7 +507,7 @@ export default function VisionBasedAttendance() {
         </section>
 
         {/* Impact Section */}
-        <section className="mb-0 bg-white dark:bg-dark-bg py-12 sm:py-16">
+        <section className="mb-0 bg-white dark:bg-gray-900 py-12 sm:py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-8 text-center">Impact</h2>
             <div className="relative">
@@ -568,7 +568,7 @@ export default function VisionBasedAttendance() {
         </section>
 
         {/* Technology Stack Section */}
-        <section className="mb-0 bg-gray-50 dark:bg-dark-bg py-12 sm:py-16">
+        <section className="mb-0 bg-gray-50 dark:bg-black py-12 sm:py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-10 sm:mb-12">
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 leading-tight">
@@ -591,7 +591,7 @@ export default function VisionBasedAttendance() {
                 { name: 'Kubernetes', icon: '☸️' },
                 { name: 'AWS EC2', icon: '☁️' }
               ].map((tech, idx) => (
-                <div key={idx} className="bg-white dark:bg-[rgb(30,35,45)] rounded-xl p-6 hover:shadow-lg transition-all duration-300 text-center group">
+                <div key={idx} className="bg-white dark:bg-gray-800 rounded-xl p-6 hover:shadow-lg transition-all duration-300 text-center group">
                   <div className="text-4xl mb-3">{tech.icon}</div>
                   <h4 className="text-base font-bold text-gray-900 dark:text-white">{tech.name}</h4>
                 </div>
@@ -601,13 +601,13 @@ export default function VisionBasedAttendance() {
         </section>
 
         {/* Key Takeaway Section */}
-        <section className="mb-0 bg-white dark:bg-dark-bg py-12 sm:py-16">
+        <section className="mb-0 bg-white dark:bg-gray-900 py-12 sm:py-16">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center space-y-6">
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
                 Key Takeaway
               </h2>
-              <div className="bg-gray-50 dark:bg-[rgb(30,35,45)] rounded-2xl p-8 border border-gray-200 dark:border-gray-700">
+              <div className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 border border-gray-200 dark:border-gray-700">
                 <div className="flex items-start gap-4 mb-6">
                   <CheckCircle2 style={{ color: '#00B46A' }} size={24} className="flex-shrink-0 mt-1" />
                   <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed text-left">

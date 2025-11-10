@@ -5,7 +5,7 @@ export default function ArchitectureDiagram() {
   const [activeNode, setActiveNode] = useState<string | null>(null);
 
   return (
-    <div className="relative bg-gradient-to-br from-gray-50 to-gray-100 dark:from-[rgb(49,54,64)] dark:to-gray-800 rounded-2xl p-8 sm:p-12 overflow-hidden border-2 border-gray-200 dark:border-gray-700">
+    <div className="relative bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 rounded-2xl p-8 sm:p-12 overflow-hidden border-2 border-gray-200 dark:border-gray-700">
       <div className="absolute inset-0 opacity-10">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
       </div>
@@ -127,7 +127,7 @@ interface DiagramNodeProps {
 function DiagramNode({ icon: Icon, label, description, color, isActive }: DiagramNodeProps) {
   return (
     <div
-      className={`relative bg-white dark:bg-[rgb(30,35,45)] rounded-xl p-6 shadow-lg border-2 transition-all duration-300 ${
+      className={`relative bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border-2 transition-all duration-300 ${
         isActive
           ? 'border-emerald-500 dark:border-emerald-400 shadow-2xl shadow-emerald-500/20'
           : 'border-gray-200 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-emerald-600'

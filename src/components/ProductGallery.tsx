@@ -69,7 +69,7 @@ export default function ProductGallery({ images, title = 'Product Gallery' }: Pr
         </p>
       </div>
 
-      <div className="relative bg-white dark:bg-dark-bg rounded-2xl p-6 sm:p-8 shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+      <div className="relative bg-white dark:bg-gray-900 rounded-2xl p-6 sm:p-8 shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
         <div
           ref={scrollContainerRef}
           className="flex gap-4 overflow-x-auto scrollbar-hide snap-x snap-mandatory"
@@ -80,7 +80,7 @@ export default function ProductGallery({ images, title = 'Product Gallery' }: Pr
               key={image.id}
               className="flex-shrink-0 w-full sm:w-1/2 lg:w-1/3 snap-center"
             >
-              <div className="relative aspect-video rounded-xl overflow-hidden bg-gray-100 dark:bg-[rgb(30,35,45)] group">
+              <div className="relative aspect-video rounded-xl overflow-hidden bg-gray-100 dark:bg-gray-800 group">
                 <img
                   src={image.image_url}
                   alt={image.alt_text || `Gallery image ${idx + 1}`}
@@ -100,7 +100,7 @@ export default function ProductGallery({ images, title = 'Product Gallery' }: Pr
           <>
             <button
               onClick={handlePrevious}
-              className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 bg-white dark:bg-[rgb(30,35,45)] rounded-full flex items-center justify-center shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 border-2 border-gray-200 dark:border-gray-700 z-10"
+              className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 border-2 border-gray-200 dark:border-gray-700 z-10"
               aria-label="Previous image"
             >
               <ChevronLeft style={{ color: '#00B46A' }} size={24} />
@@ -108,7 +108,7 @@ export default function ProductGallery({ images, title = 'Product Gallery' }: Pr
 
             <button
               onClick={handleNext}
-              className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 bg-white dark:bg-[rgb(30,35,45)] rounded-full flex items-center justify-center shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 border-2 border-gray-200 dark:border-gray-700 z-10"
+              className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 border-2 border-gray-200 dark:border-gray-700 z-10"
               aria-label="Next image"
             >
               <ChevronRight style={{ color: '#00B46A' }} size={24} />

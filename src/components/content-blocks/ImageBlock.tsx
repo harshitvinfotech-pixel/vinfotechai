@@ -20,7 +20,7 @@ export default function ImageBlock({ data }: ImageBlockProps) {
     <div className={`${sizeClasses} px-6`}>
       <div className="relative overflow-hidden rounded-2xl shadow-2xl">
         {!isLoaded && (
-          <div className="absolute inset-0 bg-gray-200 dark:bg-[rgb(30,35,45)] animate-pulse"></div>
+          <div className="absolute inset-0 bg-gray-200 dark:bg-gray-800 animate-pulse"></div>
         )}
         <img
           src={image_url}
