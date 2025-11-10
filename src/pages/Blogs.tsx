@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Calendar, Clock, Search, ChevronLeft, ChevronRight, Sparkles, ArrowRight } from 'lucide-react';
+import { Calendar, Clock, Search, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { getPublishedBlogs, formatPublishedDate, formatReadingTime } from '../lib/blogs';
@@ -175,8 +175,18 @@ export default function Blogs() {
                             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:rotate-2"
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
+                        </div>
 
-                          <div className="absolute bottom-4 left-4 right-4 flex items-center gap-4 text-white text-sm">
+                        <div className="p-6 flex flex-col h-full">
+                          <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 leading-tight group-hover:text-[#00B46A] transition-colors duration-300 line-clamp-2">
+                            {blog.title}
+                          </h3>
+
+                          <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3 leading-relaxed flex-grow">
+                            {blog.excerpt}
+                          </p>
+
+                          <div className="flex items-center gap-4 text-gray-500 dark:text-gray-500 text-sm pt-4 border-t border-gray-200 dark:border-gray-700">
                             <div className="flex items-center gap-1.5">
                               <Calendar size={14} />
                               <span className="font-medium">{formatPublishedDate(blog.published_at)}</span>
@@ -185,21 +195,6 @@ export default function Blogs() {
                               <Clock size={14} />
                               <span className="font-medium">{formatReadingTime(blog.reading_time_minutes)}</span>
                             </div>
-                          </div>
-                        </div>
-
-                        <div className="p-6">
-                          <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 leading-tight group-hover:text-[#00B46A] transition-colors duration-300 line-clamp-2">
-                            {blog.title}
-                          </h3>
-
-                          <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3 leading-relaxed">
-                            {blog.excerpt}
-                          </p>
-
-                          <div className="flex items-center gap-2 text-[#00B46A] font-semibold text-sm group-hover:gap-3 transition-all duration-300">
-                            <span>Continue Reading</span>
-                            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                           </div>
                         </div>
                       </div>
