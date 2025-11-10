@@ -408,10 +408,10 @@ export default function ChatWidget() {
     e.preventDefault();
     if (!question.trim() || isLoading) return;
 
-    await askQuestion(question);
+    await askQuestion(question, 1); // 1 = typed (manual) query
   };
 
-  const askQuestion = async (questionText: string) => {
+  const askQuestion = async (questionText: string, queryType?: number) => {
     // Prevent duplicate calls
     if (isLoading || isStreaming || isProcessingRef.current) {
       console.log('⚠️ Prevented duplicate call');
@@ -558,7 +558,10 @@ export default function ChatWidget() {
             setIsLoading(false);
             setIsStreaming(false);
           }
-        }
+        },
+        getDefaultUserId(),
+        getDefaultTeamId(),
+        queryType // Pass the query_type parameter: 0 = suggested (clicked), 1 = typed (manual)
       );
     } catch (error) {
       console.error('Error getting response:', error);
@@ -584,12 +587,12 @@ export default function ChatWidget() {
       setClickedSuggestions(prev => new Set([...prev, sq]));
     }
     
-    await askQuestion(questionText);
+    await askQuestion(questionText, 0); // 0 = suggested (clicked) query
   };
 
   const handleDynamicSuggestionClick = async (suggestion: string) => {
     setClickedSuggestions(prev => new Set([...prev, suggestion]));
-    await askQuestion(suggestion);
+    await askQuestion(suggestion, 0); // 0 = suggested (clicked) query
   };
 
   const handleCollapsedClick = () => {

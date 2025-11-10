@@ -31,6 +31,7 @@ export interface StreamQueryRequest {
   team_id: string;
   session_id: string;
   question: string;
+  query_type?: number; // 0 = suggested (clicked), 1 = typed (manual)
   top_k?: number;
 }
 
@@ -167,7 +168,8 @@ export async function streamQuery(
   question: string,
   handlers: StreamEventHandlers,
   userId: string = defaultUserId,
-  teamId: string = defaultTeamId
+  teamId: string = defaultTeamId,
+  queryType?: number // 0 = suggested (clicked), 1 = typed (manual)
 ): Promise<void> {
   console.log('🚀 streamQuery called for question:', question.substring(0, 50));
   
@@ -175,7 +177,8 @@ export async function streamQuery(
     user_id: userId,
     team_id: teamId,
     session_id: sessionId,
-    question: question
+    question: question,
+    ...(queryType !== undefined && { query_type: queryType })
   };
 
   const response = await fetch(`${normalizedChatApiUrl}/chat/query/stream`, {
