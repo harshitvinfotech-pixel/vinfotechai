@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Calendar, Clock, Search, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
+import { Calendar, Clock, Search, ChevronLeft, ChevronRight, Sparkles, ArrowRight } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { getPublishedBlogs, formatPublishedDate, formatReadingTime } from '../lib/blogs';
@@ -47,27 +47,43 @@ export default function Blogs() {
     <div className="min-h-screen bg-white dark:bg-gray-900">
       <Header onQuoteClick={() => {}} />
 
-      <div className="relative bg-gradient-to-br from-[#00B46A]/5 via-white to-gray-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 pt-24 pb-12 overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.15]">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#00B46A]/20 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+      <div className="relative bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 pt-24 pb-12 overflow-hidden">
+        <div className="absolute inset-0 opacity-[0.07] dark:opacity-[0.15]">
+          <div className="absolute top-10 left-[10%] w-[500px] h-[500px] bg-[#00B46A]/30 rounded-full blur-[120px] animate-pulse"></div>
+          <div className="absolute top-20 right-[15%] w-[400px] h-[400px] bg-blue-400/20 rounded-full blur-[100px] animate-pulse" style={{animationDelay: '1s'}}></div>
+          <div className="absolute bottom-10 left-[60%] w-[350px] h-[350px] bg-emerald-400/20 rounded-full blur-[90px] animate-pulse" style={{animationDelay: '2s'}}></div>
+
+          <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" strokeWidth="0.5" className="text-gray-200 dark:text-gray-800" opacity="0.3"/>
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid)" />
+          </svg>
         </div>
 
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative">
-          <div className="flex items-center gap-3 mb-4 justify-center">
-            <Sparkles className="text-[#00B46A]" size={24} />
-            <span className="text-[#00B46A] font-bold text-sm tracking-wider uppercase">Latest Insights</span>
+          <div className="flex items-center gap-3 mb-6 justify-center">
+            <div className="h-px w-12 bg-gradient-to-r from-transparent to-[#00B46A]"></div>
+            <Sparkles className="text-[#00B46A]" size={22} />
+            <span className="text-[#00B46A] font-bold text-sm tracking-[0.2em] uppercase">Latest Insights</span>
+            <Sparkles className="text-[#00B46A]" size={22} />
+            <div className="h-px w-12 bg-gradient-to-l from-transparent to-[#00B46A]"></div>
           </div>
 
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-4 text-center leading-tight">
-            Discover Our
-            <span className="block mt-2 bg-gradient-to-r from-[#00B46A] to-[#00D47F] bg-clip-text text-transparent">
-              Latest Stories
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6 text-center leading-[1.1]">
+            Discover Our{' '}
+            <span className="relative inline-block">
+              <span className="relative z-10 bg-gradient-to-r from-[#00B46A] via-[#00C87A] to-[#00D47F] bg-clip-text text-transparent">
+                Latest Stories
+              </span>
+              <div className="absolute -inset-2 bg-gradient-to-r from-[#00B46A]/10 to-[#00D47F]/10 blur-xl rounded-lg"></div>
             </span>
           </h1>
 
-          <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-400 mb-8 text-center max-w-3xl mx-auto leading-relaxed">
-            Deep dives into AI innovation, technical breakthroughs, and the future of technology
+          <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-400 mb-10 text-center max-w-3xl mx-auto leading-relaxed font-light">
+            Explore cutting-edge insights on AI innovation, technical breakthroughs, and transformative technology shaping tomorrow
           </p>
 
           <form onSubmit={handleSearch} className="max-w-2xl mx-auto">
@@ -182,18 +198,25 @@ export default function Blogs() {
                             {blog.title}
                           </h3>
 
-                          <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3 leading-relaxed flex-grow group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors duration-300">
+                          <p className="text-gray-600 dark:text-gray-400 mb-6 line-clamp-3 leading-relaxed flex-grow group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors duration-300">
                             {blog.excerpt}
                           </p>
 
-                          <div className="flex items-center gap-6 text-gray-500 dark:text-gray-400 text-sm pt-4 mt-auto border-t border-gray-200 dark:border-gray-700 group-hover:border-[#00B46A]/30 transition-colors duration-300">
-                            <div className="flex items-center gap-2 group-hover:text-[#00B46A] transition-colors duration-300">
-                              <Calendar size={16} className="flex-shrink-0" />
-                              <span className="font-medium">{formatPublishedDate(blog.published_at)}</span>
+                          <div className="mt-auto space-y-4">
+                            <div className="flex items-center gap-2 text-[#00B46A] font-semibold text-sm group-hover:gap-3 transition-all duration-300">
+                              <span>Read More</span>
+                              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-300" />
                             </div>
-                            <div className="flex items-center gap-2 group-hover:text-[#00B46A] transition-colors duration-300">
-                              <Clock size={16} className="flex-shrink-0" />
-                              <span className="font-medium">{formatReadingTime(blog.reading_time_minutes)}</span>
+
+                            <div className="flex items-center gap-6 text-gray-500 dark:text-gray-400 text-sm pt-4 border-t border-gray-200 dark:border-gray-700 group-hover:border-[#00B46A]/30 transition-colors duration-300">
+                              <div className="flex items-center gap-2 group-hover:text-[#00B46A] transition-colors duration-300">
+                                <Calendar size={16} className="flex-shrink-0" />
+                                <span className="font-medium">{formatPublishedDate(blog.published_at)}</span>
+                              </div>
+                              <div className="flex items-center gap-2 group-hover:text-[#00B46A] transition-colors duration-300">
+                                <Clock size={16} className="flex-shrink-0" />
+                                <span className="font-medium">{formatReadingTime(blog.reading_time_minutes)}</span>
+                              </div>
                             </div>
                           </div>
                         </div>
