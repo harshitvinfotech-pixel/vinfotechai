@@ -78,7 +78,7 @@ export default function BlogDetail() {
             alt={blog.title}
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
 
           <div className="absolute top-6 left-6 sm:left-8 lg:left-12 z-10">
             <Link
@@ -89,41 +89,31 @@ export default function BlogDetail() {
               <span className="font-semibold text-sm">Back to Blogs</span>
             </Link>
           </div>
+        </div>
 
-          <div className="absolute bottom-0 left-0 right-0 px-6 sm:px-8 lg:px-12 pb-12">
-            <div className="max-w-4xl">
-              <div className="flex items-center gap-3 mb-4">
-                {blog.category && (
-                  <span
-                    className="inline-block px-4 py-2 rounded-full text-sm font-bold text-white backdrop-blur-sm"
-                    style={{ backgroundColor: blog.category.color }}
-                  >
-                    {blog.category.name}
-                  </span>
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 -mt-20 relative z-10">
+          <div className="bg-white dark:bg-gray-900 rounded-3xl shadow-2xl p-8 sm:p-12 mb-12">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
+              {blog.title}
+            </h1>
+
+            <div className="flex items-center gap-6 text-gray-600 dark:text-gray-400">
+              <div className="flex items-center gap-3">
+                {blog.author_avatar_url ? (
+                  <img
+                    src={blog.author_avatar_url}
+                    alt={blog.author_name}
+                    className="w-12 h-12 rounded-full object-cover ring-2 ring-[#00B46A]/30"
+                  />
+                ) : (
+                  <div className="w-12 h-12 rounded-full bg-[#00B46A] flex items-center justify-center ring-2 ring-[#00B46A]/30">
+                    <User size={20} className="text-white" />
+                  </div>
                 )}
-                <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm font-semibold text-white">
-                  {formatReadingTime(blog.reading_time_minutes)}
-                </span>
-              </div>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight drop-shadow-2xl">
-                {blog.title}
-              </h1>
-              <div className="flex items-center gap-4 text-white/90">
-                <div className="flex items-center gap-3">
-                  {blog.author_avatar_url ? (
-                    <img
-                      src={blog.author_avatar_url}
-                      alt={blog.author_name}
-                      className="w-12 h-12 rounded-full object-cover ring-2 ring-white/30"
-                    />
-                  ) : (
-                    <div className="w-12 h-12 rounded-full bg-[#00B46A] flex items-center justify-center ring-2 ring-white/30">
-                      <User size={20} className="text-white" />
-                    </div>
-                  )}
-                  <div>
-                    <p className="font-semibold text-base">{blog.author_name}</p>
-                    <div className="flex items-center gap-2 text-sm text-white/80">
+                <div>
+                  <p className="font-semibold text-base text-gray-900 dark:text-white">Vinfotech Team</p>
+                  <div className="flex items-center gap-3 text-sm">
+                    <div className="flex items-center gap-1">
                       <Calendar size={14} />
                       <span>{formatPublishedDate(blog.published_at)}</span>
                     </div>
@@ -132,10 +122,8 @@ export default function BlogDetail() {
               </div>
             </div>
           </div>
-        </div>
 
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-12 sm:py-16 md:py-20">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 pb-12 sm:pb-16 md:pb-20">
             <div className="lg:col-span-8">
               <div className="prose prose-lg dark:prose-invert max-w-none">
                 <div className="bg-gradient-to-br from-gray-50 to-white dark:from-gray-800/50 dark:to-gray-900/50 rounded-2xl p-8 sm:p-12 shadow-lg">
@@ -205,7 +193,7 @@ export default function BlogDetail() {
                       )}
                       <div>
                         <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Written by</p>
-                        <p className="font-bold text-xl text-gray-900 dark:text-white">{blog.author_name}</p>
+                        <p className="font-bold text-xl text-gray-900 dark:text-white">Vinfotech Team</p>
                       </div>
                     </div>
                     <div className="flex gap-3">
@@ -234,30 +222,27 @@ export default function BlogDetail() {
                         <Link
                           key={relatedBlog.id}
                           to={`/blogs/${relatedBlog.slug}`}
-                          className="group block"
+                          className="group block bg-white dark:bg-gray-800/50 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
                         >
-                          <div className="relative h-48 overflow-hidden rounded-xl mb-3">
+                          <div className="relative h-40 overflow-hidden">
                             <img
                               src={relatedBlog.featured_image_url}
                               alt={relatedBlog.title}
                               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
-                            <div className="absolute bottom-3 left-3 right-3">
-                              <h3 className="text-lg font-bold text-white line-clamp-2 group-hover:text-[#00FFB2] transition-colors duration-300">
-                                {relatedBlog.title}
-                              </h3>
-                            </div>
                           </div>
-                          <div className="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400">
-                            <div className="flex items-center gap-1">
-                              <Calendar size={12} />
-                              <span>{formatPublishedDate(relatedBlog.published_at)}</span>
-                            </div>
-                            <span>•</span>
-                            <div className="flex items-center gap-1">
-                              <Clock size={12} />
-                              <span>{formatReadingTime(relatedBlog.reading_time_minutes)}</span>
+                          <div className="p-4">
+                            <h3 className="text-base font-bold text-gray-900 dark:text-white line-clamp-2 mb-2 group-hover:text-[#00B46A] transition-colors duration-300">
+                              {relatedBlog.title}
+                            </h3>
+                            <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-3">
+                              {relatedBlog.excerpt}
+                            </p>
+                            <div className="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-500">
+                              <div className="flex items-center gap-1">
+                                <Calendar size={12} />
+                                <span>{formatPublishedDate(relatedBlog.published_at)}</span>
+                              </div>
                             </div>
                           </div>
                         </Link>
