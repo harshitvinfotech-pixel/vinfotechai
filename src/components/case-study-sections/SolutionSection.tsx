@@ -110,18 +110,6 @@ function AttendanceDashboardMockup() {
                   loading="lazy"
                 />
               </div>
-
-              {/* Scroll indicator overlay */}
-              <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white/95 via-white/70 to-transparent dark:from-gray-900/95 dark:via-gray-900/70 pointer-events-none flex items-end justify-center pb-4">
-                <div className="flex flex-col items-center gap-1.5 animate-bounce">
-                  <svg className="w-6 h-6 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
-                  </svg>
-                  <span className="text-sm text-gray-700 dark:text-gray-200 font-semibold bg-white/90 dark:bg-gray-700/90 px-3 py-1 rounded-full shadow-sm">
-                    Scroll to explore
-                  </span>
-                </div>
-              </div>
             </div>
 
             {/* Custom scrollbar styles */}
