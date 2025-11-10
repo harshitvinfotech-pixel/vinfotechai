@@ -123,7 +123,7 @@ function CaseStudyCard({ study, onClick }: CaseStudyCardProps) {
           <div className={`absolute left-0 right-0 z-10 px-6 transition-all duration-500 ${
             isExpanded ? 'bottom-4' : 'bottom-20'
           }`}>
-            <h3 className="font-bold text-white leading-tight text-left w-full" style={{ fontSize: '30px' }} aria-label={`Case study: ${study.title}`}>
+            <h3 className="font-bold text-white leading-tight text-left w-full text-[26px] sm:text-[30px]" aria-label={`Case study: ${study.title}`}>
               {study.title}
             </h3>
           </div>
