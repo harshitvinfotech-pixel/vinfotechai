@@ -96,28 +96,28 @@ function AttendanceDashboardMockup() {
       <div className="absolute inset-0 bg-gradient-to-r from-[#00B46A]/20 via-transparent to-[#00B46A]/20 blur-3xl"></div>
 
       {/* Desktop Monitor */}
-      <div className="relative bg-gray-900 rounded-t-2xl p-2 shadow-2xl">
-        <div className="bg-gray-800 rounded-t-xl p-1">
-          <div className="bg-white rounded-lg overflow-hidden shadow-inner">
+      <div className="relative bg-gray-900 dark:bg-gray-950 rounded-t-2xl p-2 shadow-2xl">
+        <div className="bg-gray-800 dark:bg-gray-900 rounded-t-xl p-1">
+          <div className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-inner ring-1 ring-gray-200 dark:ring-gray-700">
             {/* Dashboard Screenshot with Scrollable Container */}
             <div className="relative aspect-[16/10] overflow-hidden">
               {/* Scrollable content area */}
-              <div className="absolute inset-0 overflow-y-auto custom-scrollbar bg-white">
+              <div className="absolute inset-0 overflow-y-auto custom-scrollbar bg-white dark:bg-gray-800">
                 <img
                   src="/vision-ai-solution.jpg"
                   alt="Vision-Based Attendance Dashboard"
-                  className="w-full h-auto"
+                  className="w-full h-auto mix-blend-normal dark:opacity-90"
                   loading="lazy"
                 />
               </div>
 
               {/* Scroll indicator overlay */}
-              <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white/95 via-white/70 to-transparent pointer-events-none flex items-end justify-center pb-4">
+              <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white/95 via-white/70 to-transparent dark:from-gray-800/95 dark:via-gray-800/70 pointer-events-none flex items-end justify-center pb-4">
                 <div className="flex flex-col items-center gap-1.5 animate-bounce">
-                  <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-6 h-6 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
                   </svg>
-                  <span className="text-sm text-gray-700 font-semibold bg-white/90 px-3 py-1 rounded-full shadow-sm">
+                  <span className="text-sm text-gray-700 dark:text-gray-200 font-semibold bg-white/90 dark:bg-gray-700/90 px-3 py-1 rounded-full shadow-sm">
                     Scroll to explore
                   </span>
                 </div>
@@ -132,12 +132,21 @@ function AttendanceDashboardMockup() {
               .custom-scrollbar::-webkit-scrollbar-track {
                 background: #f1f1f1;
               }
+              .dark .custom-scrollbar::-webkit-scrollbar-track {
+                background: #374151;
+              }
               .custom-scrollbar::-webkit-scrollbar-thumb {
                 background: #888;
                 border-radius: 5px;
               }
               .custom-scrollbar::-webkit-scrollbar-thumb:hover {
                 background: #555;
+              }
+              .dark .custom-scrollbar::-webkit-scrollbar-thumb {
+                background: #6b7280;
+              }
+              .dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+                background: #9ca3af;
               }
             `}</style>
           </div>
@@ -146,8 +155,8 @@ function AttendanceDashboardMockup() {
 
       {/* Monitor Stand */}
       <div className="relative h-16 flex items-end justify-center">
-        <div className="w-32 h-12 bg-gray-800 rounded-t-lg shadow-inner"></div>
-        <div className="absolute bottom-0 w-48 h-3 bg-gray-900 rounded-full shadow-lg"></div>
+        <div className="w-32 h-12 bg-gray-800 dark:bg-gray-900 rounded-t-lg shadow-inner"></div>
+        <div className="absolute bottom-0 w-48 h-3 bg-gray-900 dark:bg-gray-950 rounded-full shadow-lg"></div>
       </div>
     </div>
   );
@@ -157,15 +166,15 @@ function ChatPhoneMockup() {
   return (
     <div className="relative mx-auto w-[280px] sm:w-[320px] h-[500px] sm:h-[600px]">
       {/* Phone Frame */}
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 rounded-[40px] shadow-2xl p-3">
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 dark:from-gray-900 dark:to-gray-950 rounded-[40px] shadow-2xl p-3">
         {/* Notch */}
-        <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black rounded-b-2xl z-10"></div>
+        <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black dark:bg-gray-950 rounded-b-2xl z-10"></div>
 
         {/* Screen */}
-        <div className="relative h-full bg-white rounded-[32px] overflow-hidden">
+        <div className="relative h-full bg-white dark:bg-gray-800 rounded-[32px] overflow-hidden ring-1 ring-gray-200 dark:ring-gray-700">
           {/* Chat Header */}
           <div className="bg-gradient-to-r from-[#00B46A] to-[#00956A] px-4 py-4 flex items-center gap-3">
-            <img src="/vinfo-2.png" alt="Vinfotech AI" className="w-10 h-10 rounded-full bg-white p-1" />
+            <img src="/vinfo-2.png" alt="Vinfotech AI" className="w-10 h-10 rounded-full bg-white dark:bg-gray-100 p-1" />
             <div className="flex-1">
               <h3 className="text-white font-semibold text-sm">Vinfotech AI Assistant</h3>
               <p className="text-white/80 text-xs">Online</p>
@@ -174,7 +183,7 @@ function ChatPhoneMockup() {
           </div>
 
           {/* Chat Messages */}
-          <div className="p-4 space-y-3 bg-gray-50 h-[calc(100%-120px)] overflow-y-auto">
+          <div className="p-4 space-y-3 bg-gray-50 dark:bg-gray-900 h-[calc(100%-120px)] overflow-y-auto">
             {/* User Message */}
             <div className="flex justify-end">
               <div className="bg-[#00B46A] text-white rounded-2xl rounded-tr-sm px-4 py-2 max-w-[80%] shadow-sm">
@@ -184,7 +193,7 @@ function ChatPhoneMockup() {
 
             {/* AI Response */}
             <div className="flex justify-start">
-              <div className="bg-white text-gray-800 rounded-2xl rounded-tl-sm px-4 py-3 max-w-[85%] shadow-md">
+              <div className="bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-2xl rounded-tl-sm px-4 py-3 max-w-[85%] shadow-md ring-1 ring-gray-200 dark:ring-gray-700">
                 <p className="text-xs sm:text-sm leading-relaxed">
                   Based on your requirements, I recommend our Enterprise AI Suite which includes:
                   <br/><br/>
@@ -206,12 +215,12 @@ function ChatPhoneMockup() {
           </div>
 
           {/* Input Area */}
-          <div className="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-3 py-2">
-            <div className="flex items-center gap-2 bg-gray-100 rounded-full px-3 py-2">
+          <div className="absolute bottom-0 left-0 right-0 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 px-3 py-2">
+            <div className="flex items-center gap-2 bg-gray-100 dark:bg-gray-700 rounded-full px-3 py-2">
               <input
                 type="text"
                 placeholder="Type a message..."
-                className="flex-1 bg-transparent text-xs outline-none text-gray-700"
+                className="flex-1 bg-transparent text-xs outline-none text-gray-700 dark:text-gray-300 placeholder:text-gray-500 dark:placeholder:text-gray-400"
                 disabled
               />
               <Send className="w-4 h-4 text-[#00B46A]" />
