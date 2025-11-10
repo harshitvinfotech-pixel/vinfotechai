@@ -119,7 +119,7 @@ export default function Blogs() {
             <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-gradient-to-br from-[#00B46A]/20 to-[#00D47F]/20 mb-6">
               <Search size={48} className="text-[#00B46A]" />
             </div>
-            <h3 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">No articles found</h3>
+            <h3 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">No blogs found</h3>
             <p className="text-xl text-gray-600 dark:text-gray-400 max-w-md mx-auto">
               We couldn't find any posts matching your criteria. Try different filters or keywords.
             </p>
@@ -127,57 +127,44 @@ export default function Blogs() {
         ) : (
           <>
             {featuredBlog && (
-              <div className="mb-16 group">
-                <div className="flex items-center gap-2 mb-4">
-                  <TrendingUp className="text-[#00B46A]" size={24} />
-                  <span className="text-[#00B46A] font-bold text-sm tracking-wider uppercase">Featured Article</span>
-                </div>
-
+              <div className="mb-16">
                 <Link
                   to={`/blogs/${featuredBlog.slug}`}
-                  className="block relative overflow-hidden rounded-3xl bg-gradient-to-br from-gray-900 to-gray-800 dark:from-gray-800 dark:to-gray-900 shadow-2xl hover:shadow-[#00B46A]/20 transition-all duration-700 hover:scale-[1.02]"
+                  className="group block"
                 >
-                  <div className="grid lg:grid-cols-2 gap-8 items-center">
-                    <div className="relative h-[400px] lg:h-[500px] overflow-hidden">
+                  <div className="grid lg:grid-cols-[1fr_1.2fr] gap-8 items-start">
+                    <div className="relative overflow-hidden rounded-2xl aspect-[4/3] lg:aspect-[3/2]">
                       <img
                         src={featuredBlog.featured_image_url}
                         alt={featuredBlog.title}
-                        className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-transparent"></div>
                     </div>
 
-                    <div className="p-8 lg:p-12 relative">
+                    <div className="flex flex-col justify-center">
                       {featuredBlog.category && (
-                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#00B46A]/10 border border-[#00B46A]/30 mb-4">
-                          <Tag size={16} className="text-[#00B46A]" />
-                          <span className="text-[#00B46A] font-semibold text-sm">{featuredBlog.category.name}</span>
+                        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#00B46A]/10 border border-[#00B46A]/20 mb-4 w-fit">
+                          <Tag size={14} className="text-[#00B46A]" />
+                          <span className="text-[#00B46A] font-semibold text-xs uppercase tracking-wide">{featuredBlog.category.name}</span>
                         </div>
                       )}
 
-                      <h2 className="text-3xl lg:text-5xl font-bold text-white mb-6 leading-tight group-hover:text-[#00B46A] transition-colors duration-300">
+                      <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 leading-tight group-hover:text-[#00B46A] transition-colors duration-300">
                         {featuredBlog.title}
                       </h2>
 
-                      <p className="text-lg lg:text-xl text-gray-300 mb-8 leading-relaxed line-clamp-3">
+                      <p className="text-lg text-gray-600 dark:text-gray-400 mb-6 leading-relaxed line-clamp-2">
                         {featuredBlog.excerpt}
                       </p>
 
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-6 text-gray-400">
-                          <div className="flex items-center gap-2">
-                            <Calendar size={18} />
-                            <span className="text-sm font-medium">{formatPublishedDate(featuredBlog.published_at)}</span>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <Clock size={18} />
-                            <span className="text-sm font-medium">{formatReadingTime(featuredBlog.reading_time_minutes)}</span>
-                          </div>
+                      <div className="flex items-center gap-6 text-sm text-gray-500 dark:text-gray-500">
+                        <div className="flex items-center gap-2">
+                          <Calendar size={16} />
+                          <span>{formatPublishedDate(featuredBlog.published_at)}</span>
                         </div>
-
-                        <div className="inline-flex items-center gap-2 text-[#00B46A] font-bold group-hover:gap-4 transition-all duration-300">
-                          <span>Read More</span>
-                          <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                        <div className="flex items-center gap-2">
+                          <Clock size={16} />
+                          <span>{formatReadingTime(featuredBlog.reading_time_minutes)}</span>
                         </div>
                       </div>
                     </div>
@@ -189,7 +176,7 @@ export default function Blogs() {
             {regularBlogs.length > 0 && (
               <div className="mb-16">
                 <div className="flex items-center justify-between mb-8">
-                  <h2 className="text-3xl font-bold text-gray-900 dark:text-white">All Articles</h2>
+                  <h2 className="text-3xl font-bold text-gray-900 dark:text-white">All Blogs</h2>
                   <div className="h-1 flex-1 ml-8 bg-gradient-to-r from-[#00B46A]/30 to-transparent rounded-full"></div>
                 </div>
 
