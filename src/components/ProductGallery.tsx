@@ -69,7 +69,7 @@ export default function ProductGallery({ images, title = 'Product Gallery' }: Pr
         </p>
       </div>
 
-      <div className="relative bg-white dark:bg-gray-900 rounded-2xl p-6 sm:p-8 shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+      <div className="relative bg-white dark:bg-dark-bg rounded-2xl p-6 sm:p-8 shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
         <div
           ref={scrollContainerRef}
           className="flex gap-4 overflow-x-auto scrollbar-hide snap-x snap-mandatory"

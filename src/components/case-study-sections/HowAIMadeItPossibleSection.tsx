@@ -51,7 +51,7 @@ export default function HowAIMadeItPossibleSection({
               <div
                 key={index}
                 ref={cardRef}
-                className={`bg-white dark:bg-gray-900 rounded-xl p-5 sm:p-6 hover:shadow-lg transition-all duration-700 border border-gray-200 dark:border-gray-700 hover:-translate-y-1 hover:border-[#00B46A] ${cardVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
+                className={`bg-white dark:bg-dark-bg rounded-xl p-5 sm:p-6 hover:shadow-lg transition-all duration-700 border border-gray-200 dark:border-gray-700 hover:-translate-y-1 hover:border-[#00B46A] ${cardVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
                 style={{
                   transitionDelay: `${index * 100}ms`
                 }}

@@ -66,7 +66,7 @@ function RelatedCaseStudyCard({ study, onClick }: RelatedCaseStudyCardProps) {
       onMouseLeave={() => setIsHovered(false)}
       onClick={onClick}
     >
-      <div className="relative w-full h-48 md:h-64 md:flex-shrink-0 overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900">
+      <div className="relative w-full h-48 md:h-64 md:flex-shrink-0 overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-[rgb(49,54,64)]">
         {imageUrl ? (
           <div className={`absolute inset-0 transition-all duration-1000 ${
             imageLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
@@ -100,7 +100,7 @@ function RelatedCaseStudyCard({ study, onClick }: RelatedCaseStudyCardProps) {
         )}
       </div>
 
-      <div className="p-5 md:p-6 lg:p-8 bg-white dark:bg-gray-900 md:flex-1 md:flex md:flex-col md:justify-between">
+      <div className="p-5 md:p-6 lg:p-8 bg-white dark:bg-dark-bg md:flex-1 md:flex md:flex-col md:justify-between">
         <div>
           <h4 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 dark:text-white mb-2 leading-tight line-clamp-2">
             {study.title}

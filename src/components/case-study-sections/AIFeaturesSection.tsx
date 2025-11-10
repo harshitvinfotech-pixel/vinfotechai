@@ -38,7 +38,7 @@ export default function AIFeaturesSection({ aiFeatures }: AIFeaturesSectionProps
             return (
               <div
                 key={index}
-                className="bg-white dark:bg-gray-900 rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300"
+                className="bg-white dark:bg-dark-bg rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300"
               >
                 <div
                   className="w-14 h-14 rounded-lg flex items-center justify-center mb-4"

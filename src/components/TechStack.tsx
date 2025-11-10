@@ -88,7 +88,7 @@ export default function TechStack({ technologies }: TechStackProps = { technolog
   ];
 
   return (
-    <section ref={sectionRef} className="relative py-12 sm:py-16 md:py-20 lg:py-24 px-6 sm:px-8 lg:px-12 bg-gray-50 dark:bg-gray-900 overflow-hidden">
+    <section ref={sectionRef} className="relative py-12 sm:py-16 md:py-20 lg:py-24 px-6 sm:px-8 lg:px-12 bg-gray-50 dark:bg-dark-bg overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-gray-100 via-gray-50 to-gray-100 dark:from-black dark:via-gray-900 dark:to-black opacity-90"></div>
 
       <div className="absolute inset-0 opacity-20 dark:opacity-20">
@@ -111,7 +111,7 @@ export default function TechStack({ technologies }: TechStackProps = { technolog
             return (
               <div
                 key={index}
-                className={`group relative bg-gradient-to-br from-white/80 to-gray-50/80 dark:from-gray-800/40 dark:to-gray-900/40 backdrop-blur-sm p-5 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl border border-gray-300/50 dark:border-gray-700/50 hover:border-[#00B46A]/50 dark:hover:border-[#00B46A]/60 transition-all duration-700 shadow-lg dark:shadow-none hover:scale-[1.03] hover:-translate-y-2 ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-12 scale-95'}`}
+                className={`group relative bg-gradient-to-br from-white/80 to-gray-50/80 dark:from-gray-800/40 dark:to-[rgb(49,54,64)]/40 backdrop-blur-sm p-5 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl border border-gray-300/50 dark:border-gray-700/50 hover:border-[#00B46A]/50 dark:hover:border-[#00B46A]/60 transition-all duration-700 shadow-lg dark:shadow-none hover:scale-[1.03] hover:-translate-y-2 ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-12 scale-95'}`}
                 style={{
                   transitionDelay: isVisible ? `${index * 150}ms` : '0ms',
                   transitionTimingFunction: 'cubic-bezier(0.34, 1.56, 0.64, 1)'

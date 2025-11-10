@@ -80,9 +80,9 @@ export default function WhyUs() {
     <section
       id="why-us"
       ref={sectionRef}
-      className="relative py-12 sm:py-16 md:py-20 lg:py-24 px-6 sm:px-8 lg:px-12 bg-[#f7f7f7] dark:bg-gray-900 overflow-hidden"
+      className="relative py-12 sm:py-16 md:py-20 lg:py-24 px-6 sm:px-8 lg:px-12 bg-[#f7f7f7] dark:bg-dark-bg overflow-hidden"
     >
-      <div className="absolute inset-0 bg-gradient-to-b from-gray-100 via-gray-50 to-gray-100 dark:from-gray-900 dark:via-black dark:to-gray-900"></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-gray-100 via-gray-50 to-gray-100 dark:from-[rgb(49,54,64)] dark:via-dark-bg dark:to-[rgb(49,54,64)]"></div>
 
       <div className="absolute inset-0 opacity-30">
         <div
@@ -162,8 +162,8 @@ function FeatureCard({ feature, index, isVisible }: FeatureCardProps) {
         className={`absolute -inset-0.5 bg-gradient-to-r ${feature.gradient} rounded-3xl opacity-0 group-hover:opacity-20 transition-opacity duration-500 blur-xl`}
       ></div>
 
-      <div className={`relative flex flex-col bg-white dark:bg-gray-900 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-[#00B46A]/30 dark:hover:border-[#00B46A]/30 transition-all duration-500 shadow-lg hover:shadow-2xl h-[550px] sm:h-[600px] overflow-hidden`}>
-        <div className={`relative overflow-hidden flex-shrink-0 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 transition-all duration-500 ${
+      <div className={`relative flex flex-col bg-white dark:bg-dark-bg rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-[#00B46A]/30 dark:hover:border-[#00B46A]/30 transition-all duration-500 shadow-lg hover:shadow-2xl h-[550px] sm:h-[600px] overflow-hidden`}>
+        <div className={`relative overflow-hidden flex-shrink-0 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-[rgb(49,54,64)] transition-all duration-500 ${
           isExpanded ? 'h-40 sm:h-48' : 'h-full'
         }`}>
           <div className={`absolute inset-0 transition-all duration-1000 ${

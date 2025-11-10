@@ -68,7 +68,7 @@ export default function TwoColumnSection({
 
   return (
     <section className={`mb-12 sm:mb-16 ${className}`}>
-      <div className="bg-white dark:bg-gray-900 rounded-xl sm:rounded-2xl p-6 sm:p-8 md:p-12 shadow-xl border border-gray-200 dark:border-gray-700">
+      <div className="bg-white dark:bg-dark-bg rounded-xl sm:rounded-2xl p-6 sm:p-8 md:p-12 shadow-xl border border-gray-200 dark:border-gray-700">
         <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center">
           {imagePosition === 'left' ? (
             <>

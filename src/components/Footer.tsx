@@ -7,7 +7,7 @@ export default function Footer() {
   const { theme } = useTheme();
 
   return (
-    <footer className="bg-black dark:bg-black text-white py-12 sm:py-16 md:py-20 px-6 sm:px-8 lg:px-12 border-t border-gray-800">
+    <footer className="bg-dark-bg dark:bg-dark-bg text-white py-12 sm:py-16 md:py-20 px-6 sm:px-8 lg:px-12 border-t border-gray-800">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 md:gap-12 mb-12 sm:mb-14 md:mb-16">
           <div className="sm:col-span-2 lg:col-span-2">

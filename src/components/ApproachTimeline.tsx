@@ -118,7 +118,7 @@ export default function ApproachTimeline() {
             {/* Mobile layout - timeline on left */}
             <div className="flex lg:hidden items-start gap-4">
               <div className="relative flex-shrink-0">
-                <div className="w-10 h-10 rounded-full bg-white dark:bg-gray-900 flex items-center justify-center ring-4 ring-white dark:ring-gray-900">
+                <div className="w-10 h-10 rounded-full bg-white dark:bg-dark-bg flex items-center justify-center ring-4 ring-white dark:ring-gray-900">
                   <img src="/vinfo-2.png" alt="" className="w-6 h-6 object-contain" />
                 </div>
               </div>

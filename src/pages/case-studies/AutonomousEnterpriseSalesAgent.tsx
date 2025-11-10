@@ -35,7 +35,7 @@ export default function AutonomousEnterpriseSalesAgent() {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
+    <div className="min-h-screen bg-white dark:bg-dark-bg transition-colors duration-300">
       <Header onQuoteClick={() => {}} />
 
       {/* Hero Section */}
@@ -71,7 +71,7 @@ export default function AutonomousEnterpriseSalesAgent() {
 
       <main className="pb-0">
         {/* Overview Section - No title, just description */}
-        <section className="mb-0 bg-gray-50 dark:bg-black py-12 sm:py-16">
+        <section className="mb-0 bg-gray-50 dark:bg-dark-bg py-12 sm:py-16">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center space-y-6">
               <p className="text-base sm:text-2xl md:text-6xl leading-relaxed text-gray-900 dark:text-white font-bold mb-8">
@@ -85,7 +85,7 @@ export default function AutonomousEnterpriseSalesAgent() {
         </section>
 
         {/* The Challenge Section - Using new image */}
-        <section className="mb-0 bg-white dark:bg-gray-900 py-12 sm:py-16">
+        <section className="mb-0 bg-white dark:bg-dark-bg py-12 sm:py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-12 lg:gap-16 items-center">
               <div className="order-1 lg:order-1">
@@ -141,7 +141,7 @@ export default function AutonomousEnterpriseSalesAgent() {
         </section>
 
         {/* The AI Solution Section - Updated text and formatting */}
-        <section className="mb-0 bg-gray-50 dark:bg-black py-12 sm:py-16">
+        <section className="mb-0 bg-gray-50 dark:bg-dark-bg py-12 sm:py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-12 lg:gap-16 items-center">
               <div className="order-2 lg:order-1">
@@ -204,7 +204,7 @@ export default function AutonomousEnterpriseSalesAgent() {
         </section>
 
         {/* How AI Made It Possible Section - Removed borders */}
-        <section className="mb-0 bg-white dark:bg-gray-900 py-12 sm:py-16">
+        <section className="mb-0 bg-white dark:bg-dark-bg py-12 sm:py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-10 sm:mb-12">
               <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 tracking-tight px-2">
@@ -238,7 +238,7 @@ export default function AutonomousEnterpriseSalesAgent() {
         </section>
 
         {/* Vinfotech's Approach Section - Centered title, no image, blurred timeline edges */}
-        <section ref={timelineRef} className="mb-0 bg-gray-50 dark:bg-black py-12 sm:py-16">
+        <section ref={timelineRef} className="mb-0 bg-gray-50 dark:bg-dark-bg py-12 sm:py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-10 sm:mb-12">
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 leading-tight">
@@ -283,7 +283,7 @@ export default function AutonomousEnterpriseSalesAgent() {
         </section>
 
         {/* Impact Section - Centered title, no tabs */}
-        <section className="mb-0 bg-white dark:bg-gray-900 py-12 sm:py-16">
+        <section className="mb-0 bg-white dark:bg-dark-bg py-12 sm:py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-8 text-center">Impact</h2>
             <div className="relative">
@@ -344,7 +344,7 @@ export default function AutonomousEnterpriseSalesAgent() {
         </section>
 
         {/* Technology Stack Section - Using actual logos */}
-        <section className="mb-0 bg-gray-50 dark:bg-black py-12 sm:py-16">
+        <section className="mb-0 bg-gray-50 dark:bg-dark-bg py-12 sm:py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-10 sm:mb-12">
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 leading-tight">
@@ -377,7 +377,7 @@ export default function AutonomousEnterpriseSalesAgent() {
         </section>
 
         {/* Key Takeaway Section */}
-        <section className="mb-0 bg-white dark:bg-gray-900 py-12 sm:py-16">
+        <section className="mb-0 bg-white dark:bg-dark-bg py-12 sm:py-16">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center space-y-6">
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">

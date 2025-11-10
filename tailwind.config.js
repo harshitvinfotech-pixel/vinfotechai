@@ -12,6 +12,7 @@ export default {
           cyan: '#00B46A',
           'cyan-dark': '#00964F',
         },
+        'dark-bg': 'rgb(39, 44, 54)',
       },
       fontFamily: {
         sans: ['Helvetica', 'Arial', 'sans-serif'],

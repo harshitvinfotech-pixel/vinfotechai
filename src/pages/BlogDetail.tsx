@@ -48,7 +48,7 @@ export default function BlogDetail() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-white dark:bg-gray-900">
+      <div className="min-h-screen bg-white dark:bg-dark-bg">
         <Header onQuoteClick={() => {}} />
         <div className="max-w-4xl mx-auto px-6 py-20">
           <div className="h-96 bg-gray-200 dark:bg-gray-800 rounded-3xl animate-pulse mb-8"></div>
@@ -68,7 +68,7 @@ export default function BlogDetail() {
   }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900">
+    <div className="min-h-screen bg-white dark:bg-dark-bg">
       <Header onQuoteClick={() => {}} />
 
       <article className="relative pt-20">

@@ -30,7 +30,7 @@ export default function MetricsBlock({ metrics }: MetricsBlockProps) {
           return (
             <div
               key={metric.id}
-              className="relative bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl p-6 lg:p-8 shadow-lg border-2 border-gray-200 dark:border-gray-700 hover:shadow-2xl hover:border-emerald-500 dark:hover:border-emerald-400 transition-all duration-300 hover:-translate-y-2 group"
+              className="relative bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-[rgb(49,54,64)] rounded-2xl p-6 lg:p-8 shadow-lg border-2 border-gray-200 dark:border-gray-700 hover:shadow-2xl hover:border-emerald-500 dark:hover:border-emerald-400 transition-all duration-300 hover:-translate-y-2 group"
               style={{
                 animationDelay: `${index * 100}ms`
               }}

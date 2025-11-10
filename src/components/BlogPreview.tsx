@@ -35,9 +35,9 @@ export default function BlogPreview() {
   return (
     <section
       ref={sectionRef}
-      className="relative py-12 sm:py-16 md:py-20 lg:pt-24 lg:pb-24 px-6 sm:px-8 lg:px-12 bg-gray-50 dark:bg-black overflow-hidden"
+      className="relative py-12 sm:py-16 md:py-20 lg:pt-24 lg:pb-24 px-6 sm:px-8 lg:px-12 bg-gray-50 dark:bg-dark-bg overflow-hidden"
     >
-      <div className="absolute inset-0 bg-gradient-to-b from-gray-100 via-gray-50 to-gray-100 dark:from-gray-900 dark:via-black dark:to-gray-900"></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-gray-100 via-gray-50 to-gray-100 dark:from-[rgb(49,54,64)] dark:via-dark-bg dark:to-[rgb(49,54,64)]"></div>
 
       <div className="absolute inset-0 opacity-30">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:64px_64px]"></div>
@@ -115,10 +115,10 @@ function BlogCard({ blog, onClick }: BlogCardProps) {
         }
       }}
     >
-      <div className="relative bg-white dark:bg-gray-900 overflow-hidden rounded-xl sm:rounded-2xl border-2 border-gray-200 dark:border-gray-800 hover:border-emerald-500 dark:hover:border-emerald-500 transition-all duration-500 h-[400px] sm:h-[420px] shadow-lg hover:shadow-2xl hover:shadow-emerald-500/10 flex flex-col">
+      <div className="relative bg-white dark:bg-dark-bg overflow-hidden rounded-xl sm:rounded-2xl border-2 border-gray-200 dark:border-gray-800 hover:border-emerald-500 dark:hover:border-emerald-500 transition-all duration-500 h-[400px] sm:h-[420px] shadow-lg hover:shadow-2xl hover:shadow-emerald-500/10 flex flex-col">
 
         <div className="relative h-48 sm:h-52 overflow-hidden flex-shrink-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-[rgb(49,54,64)]"></div>
 
           <img
             src={blog.featured_image_url}

@@ -42,7 +42,7 @@ export default function OtherCaseStudiesSection({ currentSlug }: OtherCaseStudie
 
   if (loading) {
     return (
-      <section className="py-16 sm:py-20 bg-white dark:bg-gray-900">
+      <section className="py-16 sm:py-20 bg-white dark:bg-dark-bg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-center py-20">
             <div className="text-center">
@@ -60,7 +60,7 @@ export default function OtherCaseStudiesSection({ currentSlug }: OtherCaseStudie
   }
 
   return (
-    <section className="py-16 sm:py-20 bg-white dark:bg-gray-900 transition-colors duration-300">
+    <section className="py-16 sm:py-20 bg-white dark:bg-dark-bg transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-10 sm:mb-12 lg:mb-16 text-center animate-[fadeInUp_0.6s_ease-out]">
           <style>{`
@@ -119,10 +119,10 @@ function CaseStudyCard({ study, onClick }: CaseStudyCardProps) {
 
       <div
         onClick={() => onClick()}
-        className="relative flex flex-col bg-white dark:bg-gray-900 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-emerald-500/30 dark:hover:border-emerald-500/30 transition-all duration-500 shadow-lg hover:shadow-2xl h-[550px] overflow-hidden cursor-pointer"
+        className="relative flex flex-col bg-white dark:bg-dark-bg rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-emerald-500/30 dark:hover:border-emerald-500/30 transition-all duration-500 shadow-lg hover:shadow-2xl h-[550px] overflow-hidden cursor-pointer"
       >
 
-        <div className={`relative overflow-hidden flex-shrink-0 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 transition-all duration-500 ${
+        <div className={`relative overflow-hidden flex-shrink-0 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-[rgb(49,54,64)] transition-all duration-500 ${
           isExpanded ? 'h-48 sm:h-56' : 'h-full'
         }`}>
           <div className={`absolute inset-0 transition-all duration-1000 ${
@@ -172,7 +172,7 @@ function CaseStudyCard({ study, onClick }: CaseStudyCardProps) {
         )}
 
         {isExpanded && (
-          <div className="absolute bottom-0 left-0 right-0 p-6 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
+          <div className="absolute bottom-0 left-0 right-0 p-6 bg-white dark:bg-dark-bg border-t border-gray-200 dark:border-gray-800">
             <button
               onClick={() => onClick()}
               className="w-full py-3 px-6 bg-[#00B46A] text-white font-semibold rounded-xl hover:bg-[#009557] transition-colors duration-300"

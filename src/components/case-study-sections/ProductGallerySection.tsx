@@ -98,7 +98,7 @@ export default function ProductGallerySection({ images }: ProductGallerySectionP
 
   if (sortedImages.length === 1) {
     return (
-      <section className="py-12 sm:py-16 lg:py-20 bg-white dark:bg-gray-900">
+      <section className="py-12 sm:py-16 lg:py-20 bg-white dark:bg-dark-bg">
         <div className="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8">
           <div className="relative overflow-hidden rounded-xl lg:rounded-2xl shadow-xl">
             <img
@@ -123,7 +123,7 @@ export default function ProductGallerySection({ images }: ProductGallerySectionP
   const galleryVisible = useScrollTrigger(galleryRef, { threshold: 0.3 });
 
   return (
-    <section ref={sectionRef} className="py-12 sm:py-16 lg:py-20 bg-white dark:bg-gray-900 transition-colors duration-300">
+    <section ref={sectionRef} className="py-12 sm:py-16 lg:py-20 bg-white dark:bg-dark-bg transition-colors duration-300">
       <div className="max-w-[1920px] mx-auto px-6 sm:px-6 lg:px-8">
         <div ref={headerRef} className={`mb-8 sm:mb-12 lg:mb-16 text-left lg:text-center transition-all duration-1000 ${headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold text-gray-900 dark:text-white">

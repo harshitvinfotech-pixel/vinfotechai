@@ -8,7 +8,7 @@ interface CTAProps {
 export default function CTA({ onQuoteClick }: CTAProps) {
   const sectionRef = useRef<HTMLElement>(null);
   return (
-    <section ref={sectionRef} className="py-16 sm:py-20 md:py-24 lg:py-32 px-6 sm:px-8 lg:px-12 bg-gray-200 dark:bg-gray-900 relative overflow-hidden">
+    <section ref={sectionRef} className="py-16 sm:py-20 md:py-24 lg:py-32 px-6 sm:px-8 lg:px-12 bg-gray-200 dark:bg-dark-bg relative overflow-hidden">
       <div className="absolute inset-0 opacity-20">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px]"></div>
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,180,106,0.08),transparent_70%)]"></div>

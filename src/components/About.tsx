@@ -28,7 +28,7 @@ export default function About() {
       ref={sectionRef}
       className="relative py-12 sm:py-16 md:py-20 lg:py-24 px-6 sm:px-8 lg:px-12 overflow-hidden"
     >
-      <div className="absolute inset-0 bg-gray-50 dark:bg-gray-900"></div>
+      <div className="absolute inset-0 bg-gray-50 dark:bg-dark-bg"></div>
 
       <div className="absolute inset-0 opacity-20">
         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_30%_50%,rgba(255,255,255,0.05),transparent_50%)]"></div>
@@ -104,7 +104,7 @@ export default function About() {
         </div>
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-gray-50 dark:from-gray-900 to-transparent pointer-events-none"></div>
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-gray-50 dark:from-dark-bg to-transparent pointer-events-none"></div>
     </section>
   );
 }

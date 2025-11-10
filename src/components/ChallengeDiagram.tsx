@@ -36,7 +36,7 @@ export default function ChallengeDiagram() {
   ];
 
   return (
-    <div className="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 rounded-2xl p-8 lg:p-10">
+    <div className="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-[rgb(49,54,64)] rounded-2xl p-8 lg:p-10">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-10">
           <h4 className="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white mb-3">
