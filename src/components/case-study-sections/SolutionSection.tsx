@@ -30,7 +30,7 @@ function parseSolutionText(text: string) {
   const flushList = () => {
     if (listItems.length > 0) {
       elements.push(
-        <div key={key++} className="bg-gray-50 dark:bg-gray-800 rounded-xl p-6 mb-6 space-y-4">
+        <div key={key++} className="bg-gray-50 dark:bg-[rgb(30,35,45)] rounded-xl p-6 mb-6 space-y-4">
           {listItems.map((item, idx) => (
             <div key={idx} className="flex items-start group">
               <span className="flex-shrink-0 w-8 h-8 rounded-full bg-[#00B46A] text-white font-bold flex items-center justify-center text-sm mr-4">

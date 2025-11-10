@@ -16,7 +16,7 @@ export default function CTA({ onQuoteClick }: CTAProps) {
 
       <div className="max-w-5xl mx-auto relative">
         <div className="relative">
-          <div className="relative bg-white dark:bg-gray-800 rounded-2xl sm:rounded-3xl border border-gray-300 dark:border-gray-700 overflow-hidden shadow-lg">
+          <div className="relative bg-white dark:bg-[rgb(30,35,45)] rounded-2xl sm:rounded-3xl border border-gray-300 dark:border-gray-700 overflow-hidden shadow-lg">
             <div className="absolute inset-0 opacity-[0.15]">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,_rgba(200,200,200,0.4)_0%,_transparent_50%),radial-gradient(circle_at_70%_80%,_rgba(180,180,180,0.4)_0%,_transparent_50%)]"></div>
               <div className="absolute inset-0 bg-[linear-gradient(135deg,transparent_0%,transparent_45%,rgba(220,220,220,0.3)_48%,rgba(220,220,220,0.3)_52%,transparent_55%,transparent_100%)] bg-[length:60px_60px]"></div>

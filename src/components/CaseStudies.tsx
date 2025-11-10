@@ -169,7 +169,7 @@ function CaseStudyCard({ study, onClick }: CaseStudyCardProps) {
               e.stopPropagation();
               setIsExpanded(!isExpanded);
             }}
-            className="w-12 h-12 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 border-2 border-gray-200 dark:border-gray-700 hover:border-[#00B46A] dark:hover:border-[#00B46A]"
+            className="w-12 h-12 bg-white dark:bg-[rgb(30,35,45)] rounded-full flex items-center justify-center shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 border-2 border-gray-200 dark:border-gray-700 hover:border-[#00B46A] dark:hover:border-[#00B46A]"
             aria-label={isExpanded ? 'Collapse details' : 'Expand details'}
           >
             {isExpanded ? (

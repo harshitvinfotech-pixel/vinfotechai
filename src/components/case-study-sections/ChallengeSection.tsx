@@ -90,7 +90,7 @@ export default function ChallengeSection({ challengeImage, challengeText }: Chal
   const textVisible = useScrollTrigger(textRef, { threshold: 0.3 });
 
   return (
-    <section ref={sectionRef} className="py-12 sm:py-16 lg:py-20 bg-gray-50 dark:bg-gray-800 transition-colors duration-300 overflow-hidden">
+    <section ref={sectionRef} className="py-12 sm:py-16 lg:py-20 bg-gray-50 dark:bg-[rgb(30,35,45)] transition-colors duration-300 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-16 items-center">
           <div ref={imageRef} className={`order-1 lg:order-1 transition-all duration-1000 ${imageVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>

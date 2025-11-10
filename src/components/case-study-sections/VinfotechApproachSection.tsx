@@ -80,7 +80,7 @@ export default function VinfotechApproachSection({
                         )}
 
                         <div
-                          className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-xl border-2 border-gray-200 dark:border-gray-700 hover:border-[#00B46A] transition-all duration-300 hover:-translate-y-2 w-full relative z-20"
+                          className="bg-white dark:bg-[rgb(30,35,45)] rounded-xl p-6 shadow-xl border-2 border-gray-200 dark:border-gray-700 hover:border-[#00B46A] transition-all duration-300 hover:-translate-y-2 w-full relative z-20"
                           style={{ animation: `fadeInUp 0.6s ease-out ${stepIndex * 0.15}s both` }}
                         >
                           <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3">
@@ -120,7 +120,7 @@ export default function VinfotechApproachSection({
                     </div>
                   </div>
                   <div className="flex-1">
-                    <div className="bg-white dark:bg-gray-800 rounded-xl p-4 sm:p-6 shadow-lg border border-gray-200 dark:border-gray-700">
+                    <div className="bg-white dark:bg-[rgb(30,35,45)] rounded-xl p-4 sm:p-6 shadow-lg border border-gray-200 dark:border-gray-700">
                       <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white mb-2">
                         {step.title}
                       </h3>
@@ -214,7 +214,7 @@ export default function VinfotechApproachSection({
                         top: isAbove ? '-185px' : '90px'
                       }}
                     >
-                      <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-xl border-2 border-gray-200 dark:border-gray-700 hover:border-[#00B46A] transition-all duration-300 hover:-translate-y-2">
+                      <div className="bg-white dark:bg-[rgb(30,35,45)] rounded-xl p-4 shadow-xl border-2 border-gray-200 dark:border-gray-700 hover:border-[#00B46A] transition-all duration-300 hover:-translate-y-2">
                         <h3 className="text-sm font-bold text-gray-900 dark:text-white mb-2 break-words leading-tight">
                           {step.title}
                         </h3>
@@ -243,7 +243,7 @@ export default function VinfotechApproachSection({
                   </div>
                 </div>
                 <div className="flex-1">
-                  <div className="bg-white dark:bg-gray-800 rounded-xl p-4 sm:p-6 shadow-lg border border-gray-200 dark:border-gray-700">
+                  <div className="bg-white dark:bg-[rgb(30,35,45)] rounded-xl p-4 sm:p-6 shadow-lg border border-gray-200 dark:border-gray-700">
                     <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white mb-2">
                       {step.title}
                     </h3>

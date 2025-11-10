@@ -81,7 +81,7 @@ export default function ApproachTimeline() {
             <div className="hidden lg:grid lg:grid-cols-2 lg:gap-16">
               {/* Left content */}
               <div className={`${index % 2 === 0 ? 'block' : 'hidden'}`}>
-                <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700 hover:border-[#00B46A] transition-all duration-300">
+                <div className="bg-white dark:bg-[rgb(30,35,45)] rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700 hover:border-[#00B46A] transition-all duration-300">
                   <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
                     {step.title}
                   </h4>
@@ -93,7 +93,7 @@ export default function ApproachTimeline() {
 
               {/* Right content */}
               <div className={`${index % 2 === 1 ? 'block' : 'hidden'}`}>
-                <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700 hover:border-[#00B46A] transition-all duration-300">
+                <div className="bg-white dark:bg-[rgb(30,35,45)] rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700 hover:border-[#00B46A] transition-all duration-300">
                   <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
                     {step.title}
                   </h4>
@@ -123,7 +123,7 @@ export default function ApproachTimeline() {
                 </div>
               </div>
               <div className="flex-1">
-                <div className="bg-white dark:bg-gray-800 rounded-xl p-4 sm:p-6 shadow-lg border border-gray-200 dark:border-gray-700">
+                <div className="bg-white dark:bg-[rgb(30,35,45)] rounded-xl p-4 sm:p-6 shadow-lg border border-gray-200 dark:border-gray-700">
                   <h4 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white mb-2">
                     {step.title}
                   </h4>

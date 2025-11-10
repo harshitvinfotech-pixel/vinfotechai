@@ -28,7 +28,7 @@ export default function TimelineBlock({ timeline }: TimelineBlockProps) {
                 </div>
               </div>
 
-              <div className="flex-1 bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
+              <div className="flex-1 bg-white dark:bg-[rgb(30,35,45)] rounded-2xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3">
                   <h3 className="text-xl font-bold text-gray-900 dark:text-white">
                     {phase.phase}

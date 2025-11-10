@@ -19,7 +19,7 @@ export default function TwoColumnBlock({ data }: TwoColumnBlockProps) {
           <div className="order-1 lg:order-1">
             <div className="relative overflow-hidden rounded-2xl shadow-2xl">
               {!isImageLoaded && (
-                <div className="absolute inset-0 bg-gray-200 dark:bg-gray-800 animate-pulse"></div>
+                <div className="absolute inset-0 bg-gray-200 dark:bg-[rgb(30,35,45)] animate-pulse"></div>
               )}
               <img
                 src={image_url}
@@ -45,7 +45,7 @@ export default function TwoColumnBlock({ data }: TwoColumnBlockProps) {
           <div className="order-3 lg:order-2">
             <div className="relative overflow-hidden rounded-2xl shadow-2xl">
               {!isImageLoaded && (
-                <div className="absolute inset-0 bg-gray-200 dark:bg-gray-800 animate-pulse"></div>
+                <div className="absolute inset-0 bg-gray-200 dark:bg-[rgb(30,35,45)] animate-pulse"></div>
               )}
               <img
                 src={image_url}

@@ -47,7 +47,7 @@ export default function ChallengeDiagram() {
           </p>
         </div>
 
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 lg:p-8 shadow-md border border-gray-200 dark:border-gray-700 mb-8">
+        <div className="bg-white dark:bg-[rgb(30,35,45)] rounded-xl p-6 lg:p-8 shadow-md border border-gray-200 dark:border-gray-700 mb-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
             {dataSources.map((source, index) => (
               <div
@@ -78,7 +78,7 @@ export default function ChallengeDiagram() {
           {problems.map((problem, index) => (
             <div
               key={index}
-              className="bg-white dark:bg-gray-800 rounded-lg p-5 border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
+              className="bg-white dark:bg-[rgb(30,35,45)] rounded-lg p-5 border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
             >
               <div className="flex items-start gap-3">
                 <div

@@ -94,7 +94,7 @@ function RelatedCaseStudyCard({ study, onClick }: RelatedCaseStudyCardProps) {
           </div>
         )}
         {imageUrl && !imageLoaded && (
-          <div className="absolute inset-0 flex items-center justify-center bg-gray-100 dark:bg-gray-800">
+          <div className="absolute inset-0 flex items-center justify-center bg-gray-100 dark:bg-[rgb(30,35,45)]">
             <div className="w-10 h-10 border-3 border-gray-300 dark:border-gray-600 border-t-[#00B46A] rounded-full animate-spin"></div>
           </div>
         )}

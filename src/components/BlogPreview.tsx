@@ -60,7 +60,7 @@ export default function BlogPreview() {
         {loading ? (
           <div className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-10 sm:mb-12 overflow-x-auto md:overflow-x-visible pb-4 -mx-6 px-6 sm:-mx-8 sm:px-8 lg:mx-0 lg:px-0 snap-x snap-mandatory md:snap-none scrollbar-hide touch-pan-x">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="flex-shrink-0 w-[85vw] sm:w-[75vw] md:w-auto h-[400px] sm:h-[420px] bg-gray-200 dark:bg-gray-800 rounded-xl sm:rounded-2xl animate-pulse snap-center"></div>
+              <div key={i} className="flex-shrink-0 w-[85vw] sm:w-[75vw] md:w-auto h-[400px] sm:h-[420px] bg-gray-200 dark:bg-[rgb(30,35,45)] rounded-xl sm:rounded-2xl animate-pulse snap-center"></div>
             ))}
           </div>
         ) : (

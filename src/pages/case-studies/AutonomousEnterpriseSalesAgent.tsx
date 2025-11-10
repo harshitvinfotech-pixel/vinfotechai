@@ -223,7 +223,7 @@ export default function AutonomousEnterpriseSalesAgent() {
                 { title: 'Highly Auto-Indexing', description: 'Real-time document search and synthesis for accurate, cited responses.' },
                 { title: 'Real-Time Processing', description: 'Context-aware follow-up question generation guides visitors effectively.' }
               ].map((item, idx) => (
-                <div key={idx} className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300">
+                <div key={idx} className="bg-gray-50 dark:bg-[rgb(30,35,45)] rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300">
                   <div className="w-12 h-12 rounded-xl mb-4" style={{ backgroundColor: '#00B46A20' }}>
                     <div className="w-full h-full flex items-center justify-center">
                       <CheckCircle2 style={{ color: '#00B46A' }} size={24} />
@@ -272,7 +272,7 @@ export default function AutonomousEnterpriseSalesAgent() {
                   <div className={`absolute top-0 ${idx % 2 === 0 ? 'right-0' : 'left-0'} w-8 h-8 rounded-full flex items-center justify-center transform ${idx % 2 === 0 ? 'translate-x-1/2' : '-translate-x-1/2'}`} style={{ backgroundColor: '#00B46A' }}>
                     <span className="text-white font-bold text-sm">{idx + 1}</span>
                   </div>
-                  <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow duration-300">
+                  <div className="bg-white dark:bg-[rgb(30,35,45)] rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow duration-300">
                     <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">{item.title}</h3>
                     <p className="text-sm text-gray-600 dark:text-gray-400">{item.description}</p>
                   </div>
@@ -367,7 +367,7 @@ export default function AutonomousEnterpriseSalesAgent() {
                 { name: 'PostgreSQL', icon: '🐘' },
                 { name: 'Redis', icon: '📮' }
               ].map((tech, idx) => (
-                <div key={idx} className="bg-white dark:bg-gray-800 rounded-xl p-6 hover:shadow-lg transition-all duration-300 text-center group">
+                <div key={idx} className="bg-white dark:bg-[rgb(30,35,45)] rounded-xl p-6 hover:shadow-lg transition-all duration-300 text-center group">
                   <div className="text-4xl mb-3">{tech.icon}</div>
                   <h4 className="text-base font-bold text-gray-900 dark:text-white">{tech.name}</h4>
                 </div>
@@ -383,7 +383,7 @@ export default function AutonomousEnterpriseSalesAgent() {
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
                 Key Takeaway
               </h2>
-              <div className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 border border-gray-200 dark:border-gray-700">
+              <div className="bg-gray-50 dark:bg-[rgb(30,35,45)] rounded-2xl p-8 border border-gray-200 dark:border-gray-700">
                 <div className="flex items-start gap-4 mb-6">
                   <CheckCircle2 style={{ color: '#00B46A' }} size={24} className="flex-shrink-0 mt-1" />
                   <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed text-left">

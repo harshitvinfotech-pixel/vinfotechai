@@ -127,7 +127,7 @@ interface DiagramNodeProps {
 function DiagramNode({ icon: Icon, label, description, color, isActive }: DiagramNodeProps) {
   return (
     <div
-      className={`relative bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border-2 transition-all duration-300 ${
+      className={`relative bg-white dark:bg-[rgb(30,35,45)] rounded-xl p-6 shadow-lg border-2 transition-all duration-300 ${
         isActive
           ? 'border-emerald-500 dark:border-emerald-400 shadow-2xl shadow-emerald-500/20'
           : 'border-gray-200 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-emerald-600'

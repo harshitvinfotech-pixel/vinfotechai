@@ -43,7 +43,7 @@ export default function TechStack({ technologies }: TechStackProps = { technolog
           return (
             <div
               key={tech.id}
-              className={`bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 hover:border-[#00B46A] dark:hover:border-[#00B46A] transition-all duration-300 hover:shadow-lg group ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+              className={`bg-white dark:bg-[rgb(30,35,45)] rounded-xl p-6 border border-gray-200 dark:border-gray-700 hover:border-[#00B46A] dark:hover:border-[#00B46A] transition-all duration-300 hover:shadow-lg group ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
               style={{ transitionDelay: `${index * 100}ms` }}
             >
               <div className="flex flex-col items-center text-center">

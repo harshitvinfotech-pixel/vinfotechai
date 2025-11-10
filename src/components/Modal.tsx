@@ -40,10 +40,10 @@ export default function Modal({ isOpen, onClose, children, title }: ModalProps) 
       onClick={onClose}
     >
       <div
-        className="bg-white dark:bg-gray-800 w-full h-full md:h-auto md:max-h-[90vh] md:rounded-2xl shadow-2xl md:max-w-2xl animate-slide-up md:animate-scale-in transition-all duration-500 overflow-hidden flex flex-col"
+        className="bg-white dark:bg-[rgb(30,35,45)] w-full h-full md:h-auto md:max-h-[90vh] md:rounded-2xl shadow-2xl md:max-w-2xl animate-slide-up md:animate-scale-in transition-all duration-500 overflow-hidden flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700 px-6 py-4 flex items-center justify-between md:rounded-t-2xl flex-shrink-0">
+        <div className="bg-white dark:bg-[rgb(30,35,45)] border-b border-gray-100 dark:border-gray-700 px-6 py-4 flex items-center justify-between md:rounded-t-2xl flex-shrink-0">
           {title && <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{title}</h2>}
           <button
             onClick={onClose}

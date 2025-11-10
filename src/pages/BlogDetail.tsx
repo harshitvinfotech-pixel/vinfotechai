@@ -51,11 +51,11 @@ export default function BlogDetail() {
       <div className="min-h-screen bg-white dark:bg-dark-bg">
         <Header onQuoteClick={() => {}} />
         <div className="max-w-4xl mx-auto px-6 py-20">
-          <div className="h-96 bg-gray-200 dark:bg-gray-800 rounded-3xl animate-pulse mb-8"></div>
+          <div className="h-96 bg-gray-200 dark:bg-[rgb(30,35,45)] rounded-3xl animate-pulse mb-8"></div>
           <div className="space-y-4">
-            <div className="h-8 bg-gray-200 dark:bg-gray-800 rounded animate-pulse w-3/4"></div>
-            <div className="h-4 bg-gray-200 dark:bg-gray-800 rounded animate-pulse"></div>
-            <div className="h-4 bg-gray-200 dark:bg-gray-800 rounded animate-pulse"></div>
+            <div className="h-8 bg-gray-200 dark:bg-[rgb(30,35,45)] rounded animate-pulse w-3/4"></div>
+            <div className="h-4 bg-gray-200 dark:bg-[rgb(30,35,45)] rounded animate-pulse"></div>
+            <div className="h-4 bg-gray-200 dark:bg-[rgb(30,35,45)] rounded animate-pulse"></div>
           </div>
         </div>
         <Footer />
@@ -123,7 +123,7 @@ export default function BlogDetail() {
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-xl p-8 sm:p-12 md:p-16 mb-16">
+          <div className="bg-white dark:bg-[rgb(30,35,45)] rounded-3xl shadow-xl p-8 sm:p-12 md:p-16 mb-16">
             <div className="blog-content">
               <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
@@ -141,7 +141,7 @@ export default function BlogDetail() {
                 {blog.tags.map((tag, index) => (
                   <span
                     key={index}
-                    className="px-4 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg text-base font-medium"
+                    className="px-4 py-2 bg-gray-100 dark:bg-[rgb(30,35,45)] text-gray-700 dark:text-gray-300 rounded-lg text-base font-medium"
                   >
                     #{tag}
                   </span>
@@ -160,7 +160,7 @@ export default function BlogDetail() {
                   <Link
                     key={relatedBlog.id}
                     to={`/blogs/${relatedBlog.slug}`}
-                    className="group block bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2"
+                    className="group block bg-white dark:bg-[rgb(30,35,45)] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2"
                   >
                     <div className="relative h-40 overflow-hidden">
                       <img

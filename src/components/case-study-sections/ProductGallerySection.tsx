@@ -134,7 +134,7 @@ export default function ProductGallerySection({ images }: ProductGallerySectionP
           <button
             onClick={handlePrev}
             disabled={isTransitioning}
-            className="hidden lg:flex z-20 w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 bg-white dark:bg-gray-800 rounded-full items-center justify-center shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 border-2 border-gray-200 dark:border-gray-700 hover:border-[#00B46A] dark:hover:border-[#00B46A] disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0"
+            className="hidden lg:flex z-20 w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 bg-white dark:bg-[rgb(30,35,45)] rounded-full items-center justify-center shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 border-2 border-gray-200 dark:border-gray-700 hover:border-[#00B46A] dark:hover:border-[#00B46A] disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0"
             aria-label="Previous image"
           >
             <ChevronLeft className="text-[#00B46A]" size={24} strokeWidth={2.5} />
@@ -218,7 +218,7 @@ export default function ProductGallerySection({ images }: ProductGallerySectionP
           <button
             onClick={handleNext}
             disabled={isTransitioning}
-            className="hidden lg:flex z-20 w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 bg-white dark:bg-gray-800 rounded-full items-center justify-center shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 border-2 border-gray-200 dark:border-gray-700 hover:border-[#00B46A] dark:hover:border-[#00B46A] disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0"
+            className="hidden lg:flex z-20 w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 bg-white dark:bg-[rgb(30,35,45)] rounded-full items-center justify-center shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 border-2 border-gray-200 dark:border-gray-700 hover:border-[#00B46A] dark:hover:border-[#00B46A] disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0"
             aria-label="Next image"
           >
             <ChevronRight className="text-[#00B46A]" size={24} strokeWidth={2.5} />

@@ -82,7 +82,7 @@ export default function Blogs() {
                 placeholder="Search blog posts..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-12 pr-4 py-4 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B46A] focus:border-transparent transition-all"
+                className="w-full pl-12 pr-4 py-4 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-[rgb(30,35,45)] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B46A] focus:border-transparent transition-all"
               />
             </div>
           </form>
@@ -93,7 +93,7 @@ export default function Blogs() {
         {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[1, 2, 3, 4, 5, 6].map((i) => (
-              <div key={i} className="bg-gray-100 dark:bg-gray-800 rounded-2xl h-96 animate-pulse"></div>
+              <div key={i} className="bg-gray-100 dark:bg-[rgb(30,35,45)] rounded-2xl h-96 animate-pulse"></div>
             ))}
           </div>
         ) : blogs.length === 0 ? (
@@ -111,7 +111,7 @@ export default function Blogs() {
                 <Link
                   key={blog.id}
                   to={`/blogs/${blog.slug}`}
-                  className="group block bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2"
+                  className="group block bg-white dark:bg-[rgb(30,35,45)] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2"
                 >
                   <div className="relative h-48 overflow-hidden">
                     <img
@@ -151,7 +151,7 @@ export default function Blogs() {
                 <button
                   onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                   disabled={currentPage === 1}
-                  className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                  className="p-2 rounded-lg bg-gray-100 dark:bg-[rgb(30,35,45)] text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                 >
                   <ChevronLeft size={20} />
                 </button>
@@ -164,7 +164,7 @@ export default function Blogs() {
                       className={`w-10 h-10 rounded-lg font-semibold transition-all ${
                         currentPage === page
                           ? 'bg-[#00B46A] text-white shadow-lg shadow-[#00B46A]/30'
-                          : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
+                          : 'bg-gray-100 dark:bg-[rgb(30,35,45)] text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
                       }`}
                     >
                       {page}
@@ -175,7 +175,7 @@ export default function Blogs() {
                 <button
                   onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
                   disabled={currentPage === totalPages}
-                  className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                  className="p-2 rounded-lg bg-gray-100 dark:bg-[rgb(30,35,45)] text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                 >
                   <ChevronRight size={20} />
                 </button>

@@ -75,7 +75,7 @@ export default function TechStackSection({
                   transitionDelay: `${index * 50}ms`
                 }}
               >
-                <div className="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 rounded-xl lg:rounded-2xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 flex items-center justify-center mb-3 sm:mb-4 lg:mb-6">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 rounded-xl lg:rounded-2xl bg-white dark:bg-[rgb(30,35,45)] border border-gray-200 dark:border-gray-700 flex items-center justify-center mb-3 sm:mb-4 lg:mb-6">
                   {tech.logo_url ? (
                     <img
                       src={tech.logo_url}
