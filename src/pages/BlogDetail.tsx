@@ -91,118 +91,124 @@ export default function BlogDetail() {
           </div>
         </div>
 
-        <div className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-12 py-12 sm:py-16 md:py-20">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
-            {blog.title}
-          </h1>
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-12 sm:py-16 md:py-20">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+            <div className="lg:col-span-8">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
+                {blog.title}
+              </h1>
 
-          <div className="flex flex-wrap items-center gap-6 text-gray-700 dark:text-gray-300 mb-12">
-            <div className="flex items-center gap-3">
-              {blog.author_avatar_url ? (
-                <img
-                  src={blog.author_avatar_url}
-                  alt={blog.author_name}
-                  className="w-12 h-12 rounded-full object-cover border-2 border-gray-300 dark:border-gray-700"
-                />
-              ) : (
-                <div className="w-12 h-12 rounded-full bg-[#00B46A] flex items-center justify-center border-2 border-gray-300 dark:border-gray-700">
-                  <User size={20} className="text-white" />
+              <div className="flex flex-wrap items-center gap-6 text-gray-700 dark:text-gray-300 mb-12">
+                <div className="flex items-center gap-3">
+                  {blog.author_avatar_url ? (
+                    <img
+                      src={blog.author_avatar_url}
+                      alt={blog.author_name}
+                      className="w-12 h-12 rounded-full object-cover border-2 border-gray-300 dark:border-gray-700"
+                    />
+                  ) : (
+                    <div className="w-12 h-12 rounded-full bg-[#00B46A] flex items-center justify-center border-2 border-gray-300 dark:border-gray-700">
+                      <User size={20} className="text-white" />
+                    </div>
+                  )}
+                  <span className="font-semibold text-xl">{blog.author_name}</span>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <Calendar size={18} />
+                  <span className="text-lg">{formatPublishedDate(blog.published_at)}</span>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <Clock size={18} />
+                  <span className="text-lg">{formatReadingTime(blog.reading_time_minutes)}</span>
+                </div>
+              </div>
+
+              <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-xl p-8 sm:p-12 md:p-16 mb-16">
+                <div className="blog-content">
+                  <ReactMarkdown
+                    remarkPlugins={[remarkGfm]}
+                    rehypePlugins={[rehypeRaw]}
+                  >
+                    {blog.content}
+                  </ReactMarkdown>
+                </div>
+              </div>
+
+              {blog.tags && blog.tags.length > 0 && (
+                <div className="mb-16">
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Tags</h3>
+                  <div className="flex flex-wrap gap-3">
+                    {blog.tags.map((tag, index) => (
+                      <span
+                        key={index}
+                        className="px-4 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg text-base font-medium"
+                      >
+                        #{tag}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               )}
-              <span className="font-semibold text-xl">{blog.author_name}</span>
             </div>
 
-            <div className="flex items-center gap-2">
-              <Calendar size={18} />
-              <span className="text-lg">{formatPublishedDate(blog.published_at)}</span>
-            </div>
+            {relatedBlogs.length > 0 && (
+              <aside className="lg:col-span-4">
+                <div className="sticky top-24">
+                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                    More Blogs to Read
+                  </h2>
+                  <div className="space-y-6">
+                    {relatedBlogs.map((relatedBlog) => (
+                      <Link
+                        key={relatedBlog.id}
+                        to={`/blogs/${relatedBlog.slug}`}
+                        className="group block bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1"
+                      >
+                        <div className="relative h-40 overflow-hidden">
+                          <img
+                            src={relatedBlog.featured_image_url}
+                            alt={relatedBlog.title}
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
 
-            <div className="flex items-center gap-2">
-              <Clock size={18} />
-              <span className="text-lg">{formatReadingTime(blog.reading_time_minutes)}</span>
-            </div>
-          </div>
-
-          <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-xl p-8 sm:p-12 md:p-16 mb-16">
-            <div className="blog-content">
-              <ReactMarkdown
-                remarkPlugins={[remarkGfm]}
-                rehypePlugins={[rehypeRaw]}
-              >
-                {blog.content}
-              </ReactMarkdown>
-            </div>
-          </div>
-
-          {blog.tags && blog.tags.length > 0 && (
-            <div className="mb-16">
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Tags</h3>
-              <div className="flex flex-wrap gap-3">
-                {blog.tags.map((tag, index) => (
-                  <span
-                    key={index}
-                    className="px-4 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg text-base font-medium"
-                  >
-                    #{tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {relatedBlogs.length > 0 && (
-            <div>
-              <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-8">
-                Related Posts
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {relatedBlogs.map((relatedBlog) => (
-                  <Link
-                    key={relatedBlog.id}
-                    to={`/blogs/${relatedBlog.slug}`}
-                    className="group block bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2"
-                  >
-                    <div className="relative h-40 overflow-hidden">
-                      <img
-                        src={relatedBlog.featured_image_url}
-                        alt={relatedBlog.title}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
-
-                      {relatedBlog.category && (
-                        <div className="absolute top-3 left-3">
-                          <span
-                            className="inline-block px-2 py-1 rounded-full text-xs font-semibold text-white backdrop-blur-sm"
-                            style={{ backgroundColor: `${relatedBlog.category.color}CC` }}
-                          >
-                            {relatedBlog.category.name}
-                          </span>
+                          {relatedBlog.category && (
+                            <div className="absolute top-3 left-3">
+                              <span
+                                className="inline-block px-2 py-1 rounded-full text-xs font-semibold text-white backdrop-blur-sm"
+                                style={{ backgroundColor: `${relatedBlog.category.color}CC` }}
+                              >
+                                {relatedBlog.category.name}
+                              </span>
+                            </div>
+                          )}
                         </div>
-                      )}
-                    </div>
 
-                    <div className="p-5">
-                      <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 line-clamp-2 group-hover:text-[#00B46A] dark:group-hover:text-[#00FFB2] transition-colors duration-300">
-                        {relatedBlog.title}
-                      </h3>
+                        <div className="p-4">
+                          <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2 line-clamp-2 group-hover:text-[#00B46A] transition-colors duration-300">
+                            {relatedBlog.title}
+                          </h3>
 
-                      <p className="text-base text-gray-600 dark:text-gray-400 mb-3 line-clamp-2">
-                        {relatedBlog.excerpt}
-                      </p>
+                          <p className="text-sm text-gray-600 dark:text-gray-400 mb-3 line-clamp-2">
+                            {relatedBlog.excerpt}
+                          </p>
 
-                      <div className="flex items-center gap-3 text-sm text-gray-500 dark:text-gray-500">
-                        <div className="flex items-center gap-1">
-                          <Clock size={12} />
-                          <span>{formatReadingTime(relatedBlog.reading_time_minutes)}</span>
+                          <div className="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-500">
+                            <div className="flex items-center gap-1">
+                              <Clock size={12} />
+                              <span>{formatReadingTime(relatedBlog.reading_time_minutes)}</span>
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          )}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </aside>
+            )}
+          </div>
         </div>
       </article>
 

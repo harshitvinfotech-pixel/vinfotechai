@@ -123,7 +123,7 @@ export default function Blogs() {
                   </div>
 
                   <div className="p-6">
-                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-2 group-hover:text-[#00B46A] dark:group-hover:text-[#00FFB2] transition-colors duration-300">
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-[#00B46A] transition-colors duration-300">
                       {blog.title}
                     </h3>
 
