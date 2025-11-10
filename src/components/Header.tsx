@@ -52,7 +52,7 @@ export default function Header({ onQuoteClick }: HeaderProps) {
           : 'bg-white/90 dark:bg-gray-900/90 backdrop-blur-md shadow-sm'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
+      <div className="max-w-7xl mx-auto px-0">
         <div className="flex items-center justify-between h-20 px-1">
           <button
             onClick={() => navigate('/')}
