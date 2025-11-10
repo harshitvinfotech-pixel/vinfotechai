@@ -72,24 +72,40 @@ export default function BlogDetail() {
       <Header onQuoteClick={() => {}} />
 
       <article className="relative pt-20">
-        <div className="relative h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden">
+        <div className="relative">
+          <div className="absolute top-4 left-0 right-0 z-40">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-1">
+              <Link
+                to="/blogs"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white/10 backdrop-blur-md text-white hover:bg-white/20 transition-all duration-300 group border border-white/30 animate-[slideInLeft_0.5s_ease-out]"
+              >
+                <style>{`
+                  @keyframes slideInLeft {
+                    from {
+                      opacity: 0;
+                      transform: translateX(-20px);
+                    }
+                    to {
+                      opacity: 1;
+                      transform: translateX(0);
+                    }
+                  }
+                `}</style>
+                <ArrowLeft size={20} className="transition-transform duration-300 group-hover:-translate-x-1" />
+                <span className="font-semibold">Back to Blogs</span>
+              </Link>
+            </div>
+          </div>
+
+          <div className="relative h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden">
             <img
               src={blog.featured_image_url}
               alt={blog.title}
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-black/40"></div>
-
-            <div className="absolute bottom-6 left-6 lg:left-12 z-10">
-              <Link
-                to="/blogs"
-                className="inline-flex items-center gap-2 px-3 py-2 sm:px-4 sm:py-2 bg-white/10 backdrop-blur-md rounded-full text-white hover:bg-[#00B46A] transition-all duration-300 group"
-              >
-                <ArrowLeft size={16} className="sm:w-[18px] sm:h-[18px] transition-transform duration-300 group-hover:-translate-x-1" />
-                <span className="font-semibold text-xs sm:text-sm">Back to Blogs</span>
-              </Link>
-            </div>
           </div>
+        </div>
 
         <div className="max-w-7xl mx-auto -mt-12 sm:-mt-16 md:-mt-20 relative z-10">
           <div className="bg-white dark:bg-gray-800 rounded-2xl sm:rounded-3xl shadow-2xl p-4 sm:p-8 lg:p-12 mb-8 sm:mb-12">
