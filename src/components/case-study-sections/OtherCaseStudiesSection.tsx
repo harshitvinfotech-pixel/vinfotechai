@@ -119,7 +119,7 @@ function CaseStudyCard({ study, onClick }: CaseStudyCardProps) {
 
       <div
         onClick={() => onClick()}
-        className="relative flex flex-col bg-white dark:bg-gray-900 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-emerald-500/30 dark:hover:border-emerald-500/30 transition-all duration-500 shadow-lg hover:shadow-2xl h-[700px] overflow-hidden cursor-pointer"
+        className="relative flex flex-col bg-white dark:bg-gray-900 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-emerald-500/30 dark:hover:border-emerald-500/30 transition-all duration-500 shadow-lg hover:shadow-2xl h-[550px] sm:h-[600px] overflow-hidden cursor-pointer"
       >
 
         <div className={`relative overflow-hidden flex-shrink-0 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 transition-all duration-500 ${
@@ -142,9 +142,9 @@ function CaseStudyCard({ study, onClick }: CaseStudyCardProps) {
           </div>
 
           <div className={`absolute left-0 right-0 z-10 px-6 sm:px-8 transition-all duration-500 ${
-            isExpanded ? 'bottom-4' : 'bottom-8'
+            isExpanded ? 'bottom-4' : 'bottom-16 sm:bottom-20'
           }`}>
-            <h3 className="font-bold text-white leading-tight text-left w-full text-[26px] sm:text-[30px]" aria-label={`Case study: ${study.title}`}>
+            <h3 className="font-bold text-white leading-tight text-left w-full pr-0 text-[26px] sm:text-[28px]" aria-label={`Case study: ${study.title}`}>
               {study.title}
             </h3>
           </div>
