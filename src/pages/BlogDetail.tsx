@@ -72,7 +72,7 @@ export default function BlogDetail() {
       <Header onQuoteClick={() => {}} />
 
       <article className="relative pt-20">
-        <div className="relative h-[60vh] min-h-[400px] max-h-[600px] overflow-hidden">
+        <div className="relative h-[350px] sm:h-[60vh] sm:min-h-[400px] sm:max-h-[600px] overflow-hidden">
           <img
             src={blog.featured_image_url}
             alt={blog.title}
