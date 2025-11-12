@@ -667,7 +667,7 @@ export default function ChatWidget() {
       <button
         onClick={handleCollapsedClick}
         className={`fixed bottom-6 right-6 text-white shadow-2xl transition-all duration-300 hover:scale-105 z-50 group rounded-full md:rounded-3xl ${theme === 'dark' ? 'shadow-emerald-500/20' : ''}`}
-        style={{ backgroundColor: '#00B46A' }}
+        style={{ background: 'linear-gradient(45deg, rgba(0, 207, 85, 1) 0%, rgba(0, 180, 106, 1) 23%, rgba(0, 156, 92, 1) 47%, rgba(0, 171, 71, 1) 75%, rgba(14, 116, 74, 1) 100%)' }}
       >
         <div className="flex items-center gap-2 p-3 md:gap-3 md:px-5 md:py-4">
           <div className="flex items-center gap-3 hidden md:flex">
