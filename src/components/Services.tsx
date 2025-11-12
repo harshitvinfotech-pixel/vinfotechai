@@ -115,7 +115,7 @@ export default function Services() {
                     transitionDelay: isVisible ? '100ms' : '0ms',
                   }}
                 >
-                  <div className={`relative h-[350px] sm:h-[450px] lg:h-full overflow-hidden transition-all duration-1000 ${isVisible ? 'scale-100 opacity-100' : 'scale-95 opacity-0'}`}
+                  <div className={`relative h-[350px] sm:h-[450px] lg:h-[630px] overflow-hidden transition-all duration-1000 ${isVisible ? 'scale-100 opacity-100' : 'scale-95 opacity-0'}`}
                     style={{
                       transitionDelay: isVisible ? '200ms' : '0ms',
                     }}
@@ -141,7 +141,7 @@ export default function Services() {
                     </div>
                   </div>
 
-                  <div className={`bg-gray-50 dark:bg-[rgb(39,44,54)] p-6 sm:p-8 lg:p-10 flex items-start ${index === 2 ? 'min-h-[520px] sm:min-h-[580px] lg:min-h-[580px]' : 'min-h-[520px] sm:min-h-[580px] lg:min-h-[580px]'}`}>
+                  <div className={`bg-gray-50 dark:bg-[rgb(39,44,54)] p-6 sm:p-8 lg:p-10 flex items-start min-h-[520px] sm:min-h-[580px] lg:h-[630px]`}>
                     <div className={`w-full py-2 ${index === 2 ? 'space-y-8 sm:space-y-10 lg:space-y-12' : 'space-y-6 sm:space-y-7 lg:space-y-8'}`}>
                       <p className={`text-lg sm:text-lg lg:text-xl text-gray-600 dark:text-gray-400 leading-relaxed mb-4 sm:mb-6 lg:mb-8 pt-2 sm:pt-8 transition-all duration-700 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'}`}
                         style={{
