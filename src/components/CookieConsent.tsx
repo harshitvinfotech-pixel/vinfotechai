@@ -26,8 +26,8 @@ export default function CookieConsent() {
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 animate-slide-up">
       <div className="bg-white dark:bg-[rgb(39,44,54)] shadow-[0_-4px_20px_rgba(0,0,0,0.15)] dark:shadow-[0_-4px_20px_rgba(0,0,0,0.4)] border-t border-gray-200 dark:border-gray-700">
-        <div className="max-w-7xl mx-auto pl-[10px] pr-4 sm:px-6 lg:px-8 py-3 sm:py-4">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-6">
+        <div className="max-w-5xl mx-auto pl-[10px] pr-4 sm:px-6 lg:px-8 py-3 sm:py-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
             <p className="text-[13px] text-gray-700 dark:text-gray-300 leading-relaxed flex-1">
               We use cookies to ensure that we give you the best experience on our website. If you continue to use this site we will assume that you are happy with it.
             </p>
