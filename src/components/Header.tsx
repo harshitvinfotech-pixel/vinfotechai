@@ -56,7 +56,7 @@ export default function Header({ onQuoteClick }: HeaderProps) {
         <div className="flex items-center justify-between h-20 px-1">
           <button
             onClick={() => navigate('/')}
-            className="flex items-center animate-fade-in-down cursor-pointer"
+            className="flex items-center animate-fade-in-down cursor-pointer pl-[10px] md:pl-0"
             aria-label="Go to Vinfotech homepage"
           >
             <img
