@@ -7,6 +7,7 @@ import Modal from './components/Modal';
 import QuoteForm from './components/QuoteForm';
 import QuoteSuccessConfirmation from './components/QuoteSuccessConfirmation';
 import ChatWidget from './components/ChatWidget';
+import CookieConsent from './components/CookieConsent';
 
 const Blogs = lazy(() => import('./pages/Blogs'));
 const BlogDetail = lazy(() => import('./pages/BlogDetail'));
@@ -105,6 +106,7 @@ function AppContent() {
       )}
 
       <ChatWidget />
+      <CookieConsent />
     </div>
   );
 }
