@@ -28,6 +28,22 @@ import { useTheme } from '../contexts/ThemeContext';
 
 type WidgetState = 'collapsed' | 'preview' | 'full';
 
+// Utility function to extract current page slug for case studies and blogs
+const getCurrentPagePath = (): string | undefined => {
+  const pathname = window.location.pathname;
+  
+  // Match paths starting with /case-studies/ or /blogs/ and extract only the slug part
+  const match = pathname.match(/\/(?:case-studies|blogs)\/(.+)/);
+  
+  if (match && match[1]) {
+    // Return only the slug part (after case-studies/ or blogs/)
+    // e.g., "vision-based-attendance-productivity-monitoring" or "scalable-microservices-architecture-best-practices"
+    return match[1];
+  }
+  
+  return undefined;
+};
+
 // Hardcoded fallback questions
 const FALLBACK_QUESTIONS: SuggestedQuestion[] = [
   {
@@ -423,6 +439,12 @@ export default function ChatWidget() {
     const sessionId = sessionIdRef.current || getSessionId();
     sessionIdRef.current = sessionId;
 
+    // Get current page path if on case study or blog page
+    const currentPagePath = getCurrentPagePath();
+    if (currentPagePath) {
+      console.log('📄 Current page:', currentPagePath);
+    }
+
     // Switch to full mode first if needed
     if (widgetState === 'preview') {
       setWidgetState('full');
@@ -561,7 +583,8 @@ export default function ChatWidget() {
         },
         getDefaultUserId(),
         getDefaultTeamId(),
-        queryType // Pass the query_type parameter: 0 = suggested (clicked), 1 = typed (manual)
+        queryType, // Pass the query_type parameter: 0 = suggested (clicked), 1 = typed (manual)
+        currentPagePath // Pass only the slug part (e.g., "vision-based-attendance-productivity-monitoring" or "scalable-microservices-architecture-best-practices")
       );
     } catch (error) {
       console.error('Error getting response:', error);

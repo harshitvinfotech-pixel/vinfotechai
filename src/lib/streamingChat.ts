@@ -32,6 +32,7 @@ export interface StreamQueryRequest {
   session_id: string;
   question: string;
   query_type?: number; // 0 = suggested (clicked), 1 = typed (manual)
+  current_page?: string; // Only the slug part, e.g., "vision-based-attendance-productivity-monitoring" or "scalable-microservices-architecture-best-practices"
   top_k?: number;
 }
 
@@ -169,7 +170,8 @@ export async function streamQuery(
   handlers: StreamEventHandlers,
   userId: string = defaultUserId,
   teamId: string = defaultTeamId,
-  queryType?: number // 0 = suggested (clicked), 1 = typed (manual)
+  queryType?: number, // 0 = suggested (clicked), 1 = typed (manual)
+  currentPage?: string // Only the slug part, e.g., "vision-based-attendance-productivity-monitoring" or "scalable-microservices-architecture-best-practices"
 ): Promise<void> {
   console.log('🚀 streamQuery called for question:', question.substring(0, 50));
   
@@ -178,7 +180,8 @@ export async function streamQuery(
     team_id: teamId,
     session_id: sessionId,
     question: question,
-    ...(queryType !== undefined && { query_type: queryType })
+    ...(queryType !== undefined && { query_type: queryType }),
+    ...(currentPage && { current_page: currentPage })
   };
 
   const response = await fetch(`${normalizedChatApiUrl}/chat/query/stream`, {
