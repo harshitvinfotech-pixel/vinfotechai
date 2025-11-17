@@ -79,12 +79,12 @@ export default function Blogs() {
         </div>
 
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative">
-          <div className="flex items-center gap-3 mb-6 justify-center">
-            <div className="h-px w-12 bg-[#00B46A]"></div>
-            <Sparkles className="text-[#00B46A]" size={22} />
-            <span className="text-[#00B46A] font-bold text-sm tracking-[0.2em] uppercase">Latest Insights</span>
-            <Sparkles className="text-[#00B46A]" size={22} />
-            <div className="h-px w-12 bg-[#00B46A]"></div>
+          <div className="flex items-center gap-2 sm:gap-3 mb-6 justify-center">
+            <div className="h-px w-6 sm:w-12 bg-[#00B46A]"></div>
+            <Sparkles className="text-[#00B46A]" size={20} />
+            <span className="text-[#00B46A] font-bold text-xs sm:text-sm tracking-[0.15em] sm:tracking-[0.2em] uppercase whitespace-nowrap">Latest Insights</span>
+            <Sparkles className="text-[#00B46A]" size={20} />
+            <div className="h-px w-6 sm:w-12 bg-[#00B46A]"></div>
           </div>
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6 text-center leading-[1.1]">
