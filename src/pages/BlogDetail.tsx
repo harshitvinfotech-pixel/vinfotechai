@@ -200,7 +200,7 @@ export default function BlogDetail() {
                         <Link
                           key={relatedBlog.id}
                           to={`/blogs/${relatedBlog.slug}`}
-                          className="group block bg-white dark:bg-gray-700/50 rounded-lg sm:rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
+                          className="group block bg-white dark:bg-gray-700/50 rounded-lg sm:rounded-xl overflow-hidden transition-all duration-300"
                         >
                           <div className="relative h-32 sm:h-40 overflow-hidden">
                             <img
