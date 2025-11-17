@@ -86,7 +86,8 @@ export default function BlogDetail() {
       <article className="relative pt-20">
         <div className="relative">
           <div className="absolute top-4 left-0 right-0 z-40">
-            <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 pl-[10px] md:pl-0">
+            <div className="max-w-7xl mx-auto px-0">
+              <div className="px-1 pl-[10px] md:pl-0">
               <button
                 onClick={handleBackClick}
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-black/30 backdrop-blur-sm text-white hover:bg-black/50 transition-all duration-300 group border border-white/20"
@@ -94,6 +95,7 @@ export default function BlogDetail() {
                 <ArrowLeft size={18} className="transition-transform duration-300 group-hover:-translate-x-1" />
                 <span className="font-semibold text-sm md:text-base">Back</span>
               </button>
+              </div>
             </div>
           </div>
 
