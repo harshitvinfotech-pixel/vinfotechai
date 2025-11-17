@@ -172,28 +172,50 @@ export async function getCategoryWithCount(slug: string): Promise<{ category: Bl
 
 export async function getRelatedBlogs(blog: Blog, limit: number = 3): Promise<BlogWithCategory[]> {
   try {
-    if (!blog.category_id) {
-      return [];
+    let data: BlogWithCategory[] = [];
+
+    // First, try to get blogs from the same category
+    if (blog.category_id) {
+      const { data: categoryBlogs, error } = await supabase
+        .from('blogs')
+        .select(`
+          *,
+          category:blog_categories(*)
+        `)
+        .eq('is_published', true)
+        .eq('category_id', blog.category_id)
+        .neq('id', blog.id)
+        .order('published_at', { ascending: false })
+        .limit(limit);
+
+      if (!error && categoryBlogs) {
+        data = categoryBlogs;
+      }
     }
 
-    const { data, error } = await supabase
-      .from('blogs')
-      .select(`
-        *,
-        category:blog_categories(*)
-      `)
-      .eq('is_published', true)
-      .eq('category_id', blog.category_id)
-      .neq('id', blog.id)
-      .order('published_at', { ascending: false })
-      .limit(limit);
+    // If we don't have enough blogs, get recent blogs from any category
+    if (data.length < limit) {
+      const remaining = limit - data.length;
+      const { data: recentBlogs, error } = await supabase
+        .from('blogs')
+        .select(`
+          *,
+          category:blog_categories(*)
+        `)
+        .eq('is_published', true)
+        .neq('id', blog.id)
+        .order('published_at', { ascending: false })
+        .limit(remaining);
 
-    if (error) {
-      console.error('Error fetching related blogs:', error);
-      return [];
+      if (!error && recentBlogs) {
+        // Add recent blogs that aren't already in the data array
+        const existingIds = new Set(data.map(b => b.id));
+        const newBlogs = recentBlogs.filter(b => !existingIds.has(b.id));
+        data = [...data, ...newBlogs];
+      }
     }
 
-    return data || [];
+    return data;
   } catch (error) {
     console.error('Error fetching related blogs:', error);
     return [];
