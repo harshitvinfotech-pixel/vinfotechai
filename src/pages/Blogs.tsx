@@ -42,7 +42,8 @@ export default function Blogs() {
     setCurrentPage(1);
   };
 
-  const regularBlogs = blogs.slice(1);
+  const featuredBlog = blogs.find(blog => blog.is_featured);
+  const regularBlogs = blogs.filter(blog => !blog.is_featured);
 
   return (
     <>
@@ -130,21 +131,21 @@ export default function Blogs() {
           </div>
         ) : (
           <>
-            {blogs.length >= 1 && (
+            {featuredBlog && (
               <div className="mb-16">
                 <div className="flex items-center justify-between mb-8">
                   <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Featured Blog</h2>
                 </div>
 
                 <Link
-                  to={`/blogs/${blogs[0].slug}`}
+                  to={`/blogs/${featuredBlog.slug}`}
                   className="group block"
                 >
                   <div className="grid lg:grid-cols-2 gap-8 items-center">
                     <div className="relative overflow-hidden rounded-3xl aspect-[16/10]">
                       <img
-                        src={blogs[0].featured_image_url}
-                        alt={blogs[0].title}
+                        src={featuredBlog.featured_image_url}
+                        alt={featuredBlog.title}
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                       />
                     </div>
@@ -156,21 +157,21 @@ export default function Blogs() {
                       </div>
 
                       <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 leading-tight group-hover:text-[#00B46A] transition-colors duration-300">
-                        {blogs[0].title}
+                        {featuredBlog.title}
                       </h2>
 
                       <p className="text-lg text-gray-600 dark:text-gray-400 mb-6 leading-relaxed line-clamp-3">
-                        {blogs[0].excerpt}
+                        {featuredBlog.excerpt}
                       </p>
 
                       <div className="flex items-center gap-6 text-sm text-gray-500 dark:text-gray-400">
                         <div className="flex items-center gap-2">
                           <Calendar size={16} />
-                          <span className="font-medium">{formatPublishedDate(blogs[0].published_at)}</span>
+                          <span className="font-medium">{formatPublishedDate(featuredBlog.published_at)}</span>
                         </div>
                         <div className="flex items-center gap-2">
                           <Clock size={16} />
-                          <span className="font-medium">{formatReadingTime(blogs[0].reading_time_minutes)}</span>
+                          <span className="font-medium">{formatReadingTime(featuredBlog.reading_time_minutes)}</span>
                         </div>
                       </div>
 

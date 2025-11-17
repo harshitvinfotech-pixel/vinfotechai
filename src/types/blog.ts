@@ -23,6 +23,7 @@ export interface Blog {
   published_at: string;
   reading_time_minutes: number;
   is_published: boolean;
+  is_featured: boolean;
   display_order: number;
   created_at: string;
   updated_at: string;

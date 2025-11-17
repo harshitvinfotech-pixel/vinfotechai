@@ -42,7 +42,8 @@ export async function getPublishedBlogs(params: BlogListParams = {}): Promise<Bl
         *,
         category:blog_categories(*)
       `, { count: 'exact' })
-      .eq('is_published', true);
+      .eq('is_published', true)
+      .order('is_featured', { ascending: false });
 
     if (categorySlug) {
       const { data: category } = await supabase
