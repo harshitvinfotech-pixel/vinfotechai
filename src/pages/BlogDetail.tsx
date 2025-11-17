@@ -30,7 +30,7 @@ export default function BlogDetail() {
         }
         setBlog(data);
 
-        const related = await getRelatedBlogs(data, 3);
+        const related = await getRelatedBlogs(data, 1);
         setRelatedBlogs(related);
       } catch (error) {
         console.error('Error loading blog:', error);
