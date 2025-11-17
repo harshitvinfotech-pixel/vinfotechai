@@ -85,7 +85,7 @@ export default function BlogDetail() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-1">
               <Link
                 to="/blogs"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white/10 backdrop-blur-md text-white hover:bg-white/20 transition-all duration-300 group border border-white/30 animate-[slideInLeft_0.5s_ease-out]"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-black/70 backdrop-blur-md text-white hover:bg-black/80 transition-all duration-300 group border border-white/30 animate-[slideInLeft_0.5s_ease-out]"
               >
                 <style>{`
                   @keyframes slideInLeft {
@@ -111,7 +111,6 @@ export default function BlogDetail() {
               alt={blog.title}
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-black/40"></div>
           </div>
         </div>
 
