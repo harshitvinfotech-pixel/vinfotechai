@@ -200,12 +200,12 @@ export default function BlogDetail() {
             {relatedBlogs.length > 0 && (
               <aside className="lg:col-span-4">
                 <div className="lg:sticky lg:top-24">
-                  <div className="p-4 sm:p-6 rounded-3xl border-t border-gray-200 dark:border-gray-700 lg:border-t-0">
-                    <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 flex items-center gap-2">
+                  <div className="lg:p-6 lg:rounded-3xl">
+                    <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 flex items-center gap-2 px-4 lg:px-0">
                       <span className="w-1 h-6 sm:h-8 bg-[#00B46A] rounded-full"></span>
                       More to Read
                     </h2>
-                    <div className="space-y-4 sm:space-y-6">
+                    <div className="space-y-4 sm:space-y-6 px-4 lg:px-0">
                       {relatedBlogs.map((relatedBlog) => (
                         <Link
                           key={relatedBlog.id}
@@ -238,7 +238,7 @@ export default function BlogDetail() {
                     </div>
                     <Link
                       to="/blogs"
-                      className="mt-4 sm:mt-6 block w-full py-2.5 sm:py-3 bg-gradient-to-r from-[#00B46A] to-[#00B46A]/80 text-white text-center font-semibold text-sm sm:text-base rounded-lg sm:rounded-xl hover:shadow-lg hover:shadow-[#00B46A]/30 transition-all duration-300"
+                      className="mt-4 sm:mt-6 block w-full py-2.5 sm:py-3 bg-gradient-to-r from-[#00B46A] to-[#00B46A]/80 text-white text-center font-semibold text-sm sm:text-base rounded-lg sm:rounded-xl hover:shadow-lg hover:shadow-[#00B46A]/30 transition-all duration-300 mx-4 lg:mx-0"
                     >
                       View All Blogs
                     </Link>
