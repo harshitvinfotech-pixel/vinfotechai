@@ -212,9 +212,9 @@ export default function Blogs() {
                           </p>
 
                           <div className="mt-auto space-y-4">
-                            <div className="flex items-center gap-2 text-[#00B46A] font-semibold text-sm group-hover:gap-3 transition-all duration-300">
+                            <div className="flex items-center gap-2 text-[#00B46A] font-semibold text-sm">
                               <span>Read More</span>
-                              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-300" />
+                              <ArrowRight size={16} />
                             </div>
 
                             <div className="flex items-center gap-6 text-gray-500 dark:text-gray-400 text-sm pt-4 border-t border-gray-200 dark:border-gray-700">
