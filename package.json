@@ -17,6 +17,7 @@
     "ogl": "^1.0.11",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-helmet-async": "^2.0.5",
     "react-markdown": "^10.1.0",
     "react-phone-number-input": "^3.4.12",
     "react-router-dom": "^7.9.4",

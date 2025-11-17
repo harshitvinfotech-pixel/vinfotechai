@@ -6,6 +6,7 @@ import Footer from '../components/Footer';
 import Modal from '../components/Modal';
 import QuoteForm from '../components/QuoteForm';
 import QuoteSuccessConfirmation from '../components/QuoteSuccessConfirmation';
+import PageMeta from '../components/PageMeta';
 import { getCaseStudyBySlug, getCaseStudyBySlugSync } from '../lib/caseStudies';
 import type { CaseStudyWithDetails } from '../types/caseStudy';
 import HeroSection from '../components/case-study-sections/HeroSection';
@@ -107,20 +108,27 @@ export default function CaseStudyDetail() {
   })) || [];
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300 overflow-x-hidden">
-      <style>{`
-        * {
-          scroll-behavior: smooth;
-        }
-        img {
-          image-rendering: -webkit-optimize-contrast;
-          image-rendering: crisp-edges;
-        }
-        body {
-          overflow-x: hidden;
-        }
-      `}</style>
-      <Header onQuoteClick={() => setIsQuoteModalOpen(true)} />
+    <>
+      <PageMeta
+        title={caseStudy.title}
+        description={caseStudy.hero_description || caseStudy.problem}
+        keywords={`${caseStudy.industry}, AI case study, ${caseStudy.technologies?.map(t => t.name).join(', ')}, machine learning`}
+        ogImage={caseStudy.overview_image_url || caseStudy.hero_image}
+      />
+      <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300 overflow-x-hidden">
+        <style>{`
+          * {
+            scroll-behavior: smooth;
+          }
+          img {
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+          }
+          body {
+            overflow-x: hidden;
+          }
+        `}</style>
+        <Header onQuoteClick={() => setIsQuoteModalOpen(true)} />
 
       <div className="relative">
         <div className="absolute top-24 left-0 right-0 z-40">
@@ -230,6 +238,7 @@ export default function CaseStudyDetail() {
           />
         )}
       </Modal>
-    </div>
+      </div>
+    </>
   );
 }

@@ -11,6 +11,7 @@ import CTA from '../components/CTA';
 import BlogPreview from '../components/BlogPreview';
 import Footer from '../components/Footer';
 import AbstractBackground from '../components/AbstractBackground';
+import PageMeta from '../components/PageMeta';
 
 interface HomeProps {
   onQuoteClick: () => void;
@@ -38,16 +39,22 @@ export default function Home({ onQuoteClick }: HomeProps) {
   }, [location]);
 
   return (
-    <div className="page-transition-enter">
-      <div
-        className="relative min-h-screen overflow-hidden"
-        id="hero-section"
-      >
-        <AbstractBackground />
-        <div className="relative z-10 pt-20">
-          <Hero onQuoteClick={onQuoteClick} />
+    <>
+      <PageMeta
+        title="AI Development Company"
+        description="Vinfotech is a leading AI development company specializing in custom AI solutions, machine learning, computer vision, and enterprise AI applications. Transform your business with cutting-edge artificial intelligence technology."
+        keywords="AI development, artificial intelligence, machine learning, computer vision, AI solutions, enterprise AI, custom AI development, AI consulting"
+      />
+      <div className="page-transition-enter">
+        <div
+          className="relative min-h-screen overflow-hidden"
+          id="hero-section"
+        >
+          <AbstractBackground />
+          <div className="relative z-10 pt-20">
+            <Hero onQuoteClick={onQuoteClick} />
+          </div>
         </div>
-      </div>
 
       <main>
         <IntroSection />
@@ -61,6 +68,7 @@ export default function Home({ onQuoteClick }: HomeProps) {
       </main>
 
       <Footer />
-    </div>
+      </div>
+    </>
   );
 }

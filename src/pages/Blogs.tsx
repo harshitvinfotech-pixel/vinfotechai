@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Calendar, Clock, Search, ChevronLeft, ChevronRight, Sparkles, ArrowRight } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import PageMeta from '../components/PageMeta';
 import { getPublishedBlogs, formatPublishedDate, formatReadingTime } from '../lib/blogs';
 import type { BlogWithCategory } from '../types/blog';
 
@@ -52,8 +53,14 @@ export default function Blogs() {
   const regularBlogs = blogs.slice(2);
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900">
-      <Header onQuoteClick={() => {}} />
+    <>
+      <PageMeta
+        title="AI Blog & Insights"
+        description="Explore the latest insights, trends, and innovations in artificial intelligence, machine learning, and technology. Expert perspectives on AI development, implementation strategies, and industry best practices."
+        keywords="AI blog, artificial intelligence insights, machine learning articles, AI trends, technology blog, AI development, ML tutorials, AI news"
+      />
+      <div className="min-h-screen bg-white dark:bg-gray-900">
+        <Header onQuoteClick={() => {}} />
 
       <div className="relative bg-gray-50 dark:bg-gray-900 pt-24 pb-12 overflow-hidden">
         <div className="absolute inset-0 opacity-[0.05] dark:opacity-[0.1]">
@@ -325,6 +332,7 @@ export default function Blogs() {
       </div>
 
       <Footer />
-    </div>
+      </div>
+    </>
   );
 }

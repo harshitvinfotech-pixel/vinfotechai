@@ -6,6 +6,7 @@ import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import PageMeta from '../components/PageMeta';
 import { getBlogBySlug, getRelatedBlogs, formatPublishedDate, formatReadingTime } from '../lib/blogs';
 import type { BlogWithCategory } from '../types/blog';
 
@@ -68,8 +69,15 @@ export default function BlogDetail() {
   }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900">
-      <Header onQuoteClick={() => {}} />
+    <>
+      <PageMeta
+        title={blog.title}
+        description={blog.excerpt}
+        keywords={blog.tags?.join(', ')}
+        ogImage={blog.featured_image_url}
+      />
+      <div className="min-h-screen bg-white dark:bg-gray-900">
+        <Header onQuoteClick={() => {}} />
 
       <article className="relative pt-20">
         <div className="relative">
@@ -279,6 +287,7 @@ export default function BlogDetail() {
       </article>
 
       <Footer />
-    </div>
+      </div>
+    </>
   );
 }
