@@ -119,7 +119,7 @@ export default function BlogDetail() {
                 <img
                   src="/vinfo-2.png"
                   alt="Vinfotech"
-                  className="w-10 h-10 sm:w-12 sm:h-12 object-contain"
+                  className="w-[30px] h-[30px] object-contain"
                 />
                 <div>
                   <p className="font-semibold text-sm sm:text-base text-gray-900 dark:text-white">Vinfotech Team</p>
