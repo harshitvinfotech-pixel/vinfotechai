@@ -109,7 +109,7 @@ export default function BlogDetail() {
         </div>
 
         <div className="max-w-7xl mx-auto -mt-12 sm:-mt-16 md:-mt-20 relative z-10">
-          <div className="bg-white dark:bg-gray-800 p-4 sm:p-8 lg:p-12 mb-2 sm:mb-4 shadow-lg" style={{borderRadius: '1.5rem'}}>
+          <div className="bg-white dark:bg-gray-800 p-4 sm:p-8 lg:p-12 mb-2 sm:mb-4 sm:shadow-lg sm:rounded-[1.5rem]">
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 leading-tight">
               {blog.title}
             </h1>
