@@ -5,10 +5,7 @@ export async function getBlogBySlug(slug: string): Promise<BlogWithCategory | nu
   try {
     const { data, error } = await supabase
       .from('blogs')
-      .select(`
-        *,
-        category:blog_categories(*)
-      `)
+      .select('*')
       .eq('slug', slug)
       .eq('is_published', true)
       .maybeSingle();
@@ -18,7 +15,7 @@ export async function getBlogBySlug(slug: string): Promise<BlogWithCategory | nu
       return null;
     }
 
-    return data;
+    return data as BlogWithCategory | null;
   } catch (error) {
     console.error('Error fetching blog:', error);
     return null;
@@ -38,23 +35,8 @@ export async function getPublishedBlogs(params: BlogListParams = {}): Promise<Bl
 
     let query = supabase
       .from('blogs')
-      .select(`
-        *,
-        category:blog_categories(*)
-      `, { count: 'exact' })
+      .select('*', { count: 'exact' })
       .eq('is_published', true);
-
-    if (categorySlug) {
-      const { data: category } = await supabase
-        .from('blog_categories')
-        .select('id')
-        .eq('slug', categorySlug)
-        .maybeSingle();
-
-      if (category) {
-        query = query.eq('category_id', category.id);
-      }
-    }
 
     if (searchQuery) {
       query = query.or(`title.ilike.%${searchQuery}%,excerpt.ilike.%${searchQuery}%,content.ilike.%${searchQuery}%`);
@@ -108,10 +90,7 @@ export async function getFeaturedBlogs(limit: number = 3): Promise<BlogWithCateg
   try {
     const { data, error } = await supabase
       .from('blogs')
-      .select(`
-        *,
-        category:blog_categories(*)
-      `)
+      .select('*')
       .eq('is_published', true)
       .order('published_at', { ascending: false })
       .limit(limit);
@@ -121,7 +100,7 @@ export async function getFeaturedBlogs(limit: number = 3): Promise<BlogWithCateg
       return [];
     }
 
-    return data || [];
+    return (data || []) as BlogWithCategory[];
   } catch (error) {
     console.error('Error fetching featured blogs:', error);
     return [];
@@ -129,95 +108,32 @@ export async function getFeaturedBlogs(limit: number = 3): Promise<BlogWithCateg
 }
 
 export async function getBlogCategories(): Promise<BlogCategory[]> {
-  try {
-    const { data, error } = await supabase
-      .from('blog_categories')
-      .select('*')
-      .order('display_order', { ascending: true });
-
-    if (error) {
-      console.error('Error fetching blog categories:', error);
-      return [];
-    }
-
-    return data || [];
-  } catch (error) {
-    console.error('Error fetching blog categories:', error);
-    return [];
-  }
+  // Categories table doesn't exist yet, return empty array
+  return [];
 }
 
 export async function getCategoryWithCount(slug: string): Promise<{ category: BlogCategory | null; count: number }> {
-  try {
-    const { data: category } = await supabase
-      .from('blog_categories')
-      .select('*')
-      .eq('slug', slug)
-      .maybeSingle();
-
-    if (!category) {
-      return { category: null, count: 0 };
-    }
-
-    const { count } = await supabase
-      .from('blogs')
-      .select('*', { count: 'exact', head: true })
-      .eq('category_id', category.id)
-      .eq('is_published', true);
-
-    return { category, count: count || 0 };
-  } catch (error) {
-    console.error('Error fetching category with count:', error);
-    return { category: null, count: 0 };
-  }
+  // Categories table doesn't exist yet
+  return { category: null, count: 0 };
 }
 
 export async function getRelatedBlogs(blog: Blog, limit: number = 3): Promise<BlogWithCategory[]> {
   try {
-    let data: BlogWithCategory[] = [];
+    // Get recent blogs excluding the current one
+    const { data: recentBlogs, error } = await supabase
+      .from('blogs')
+      .select('*')
+      .eq('is_published', true)
+      .neq('id', blog.id)
+      .order('published_at', { ascending: false })
+      .limit(limit);
 
-    // First, try to get blogs from the same category
-    if (blog.category_id) {
-      const { data: categoryBlogs, error } = await supabase
-        .from('blogs')
-        .select(`
-          *,
-          category:blog_categories(*)
-        `)
-        .eq('is_published', true)
-        .eq('category_id', blog.category_id)
-        .neq('id', blog.id)
-        .order('published_at', { ascending: false })
-        .limit(limit);
-
-      if (!error && categoryBlogs) {
-        data = categoryBlogs;
-      }
+    if (error) {
+      console.error('Error fetching related blogs:', error);
+      return [];
     }
 
-    // If we don't have enough blogs, get recent blogs from any category
-    if (data.length < limit) {
-      const remaining = limit - data.length;
-      const { data: recentBlogs, error } = await supabase
-        .from('blogs')
-        .select(`
-          *,
-          category:blog_categories(*)
-        `)
-        .eq('is_published', true)
-        .neq('id', blog.id)
-        .order('published_at', { ascending: false })
-        .limit(remaining);
-
-      if (!error && recentBlogs) {
-        // Add recent blogs that aren't already in the data array
-        const existingIds = new Set(data.map(b => b.id));
-        const newBlogs = recentBlogs.filter(b => !existingIds.has(b.id));
-        data = [...data, ...newBlogs];
-      }
-    }
-
-    return data;
+    return (recentBlogs || []) as BlogWithCategory[];
   } catch (error) {
     console.error('Error fetching related blogs:', error);
     return [];
