@@ -86,7 +86,7 @@ export default function BlogDetail() {
       <article className="relative pt-20">
         <div className="relative">
           <div className="absolute top-4 left-0 right-0 z-40">
-            <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div className="max-w-7xl mx-auto sm:px-6 lg:px-8" style={{ paddingLeft: '0rem' }}>
               <button
                 onClick={handleBackClick}
                 className="inline-flex items-center gap-2 pr-4 py-2.5 rounded-lg bg-black/30 backdrop-blur-sm text-white hover:bg-black/50 transition-all duration-300 group border border-white/20"
