@@ -137,7 +137,7 @@ export default function BlogDetail() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 pb-12 sm:pb-16 md:pb-20 lg:items-start">
             <div className="lg:col-span-8">
               <div className="max-w-none">
-                <div className="p-4 sm:p-8 lg:p-12">
+                <div className="pt-4 px-4 sm:p-8 lg:p-12">
                   <p className="text-[30px] font-bold text-gray-700 dark:text-gray-300 leading-relaxed mb-8">
                     {blog.excerpt}
                   </p>
