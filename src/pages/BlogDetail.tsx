@@ -200,7 +200,7 @@ export default function BlogDetail() {
             {relatedBlogs.length > 0 && (
               <aside className="lg:col-span-4">
                 <div className="lg:sticky lg:top-24">
-                  <div className="p-4 sm:p-6 rounded-3xl">
+                  <div className="p-4 sm:p-6 rounded-3xl border-t border-gray-200 dark:border-gray-700 lg:border-t-0">
                     <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 flex items-center gap-2">
                       <span className="w-1 h-6 sm:h-8 bg-[#00B46A] rounded-full"></span>
                       More to Read
