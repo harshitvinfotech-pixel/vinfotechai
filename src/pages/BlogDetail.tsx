@@ -110,7 +110,7 @@ export default function BlogDetail() {
 
         <div className="max-w-7xl mx-auto -mt-12 sm:-mt-16 md:-mt-20 relative z-10">
           <div className="bg-white dark:bg-gray-800 p-4 sm:p-8 lg:p-12 mb-2 sm:mb-4 sm:shadow-lg sm:rounded-[1.5rem]">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 leading-tight">
+            <h1 className="text-[30px] sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 leading-tight">
               {blog.title}
             </h1>
 
@@ -138,7 +138,7 @@ export default function BlogDetail() {
             <div className="lg:col-span-8">
               <div className="max-w-none">
                 <div className="pt-4 pl-4 pr-8">
-                  <p className="text-[30px] font-bold text-gray-700 dark:text-gray-300 leading-relaxed mb-8">
+                  <p className="text-[20px] sm:text-[30px] font-bold text-gray-700 dark:text-gray-300 leading-relaxed mb-8">
                     {blog.excerpt}
                   </p>
                   <ReactMarkdown
