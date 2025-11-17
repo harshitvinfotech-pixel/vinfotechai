@@ -85,7 +85,7 @@ export default function BlogDetail() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-1">
               <Link
                 to="/blogs"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-black/70 backdrop-blur-md text-white hover:bg-black/80 transition-all duration-300 group border border-white/30 animate-[slideInLeft_0.5s_ease-out]"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-black/30 backdrop-blur-sm text-white hover:bg-black/50 transition-all duration-300 group border border-white/20 animate-[slideInLeft_0.5s_ease-out]"
               >
                 <style>{`
                   @keyframes slideInLeft {
@@ -99,8 +99,8 @@ export default function BlogDetail() {
                     }
                   }
                 `}</style>
-                <ArrowLeft size={20} className="transition-transform duration-300 group-hover:-translate-x-1" />
-                <span className="font-semibold">Back to Blogs</span>
+                <ArrowLeft size={18} className="transition-transform duration-300 group-hover:-translate-x-1" />
+                <span className="font-medium text-sm md:text-base">Back to Blogs</span>
               </Link>
             </div>
           </div>
