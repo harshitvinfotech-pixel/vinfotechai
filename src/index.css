@@ -961,6 +961,27 @@ input[type=number] {
   background: transparent;
 }
 
+.nested-bullet-list {
+  list-style-type: none !important;
+}
+
+.nested-bullet-list li {
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.nested-bullet-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 8px;
+  height: 8px;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  background: transparent;
+}
+
 .blog-content blockquote {
   border-left: 4px solid #00B46A;
   padding-left: 1.5rem;
