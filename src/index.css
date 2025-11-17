@@ -940,6 +940,14 @@ input[type=number] {
   margin-bottom: 0.5rem;
 }
 
+.blog-content ul ul {
+  list-style-type: circle;
+}
+
+.blog-content ul ul li::marker {
+  color: currentColor;
+}
+
 .blog-content blockquote {
   border-left: 4px solid #00B46A;
   padding-left: 1.5rem;
