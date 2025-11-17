@@ -116,17 +116,11 @@ export default function BlogDetail() {
 
             <div className="flex items-center gap-3 sm:gap-6 text-gray-600 dark:text-gray-400">
               <div className="flex items-center gap-2 sm:gap-3">
-                {blog.author_avatar_url ? (
-                  <img
-                    src={blog.author_avatar_url}
-                    alt={blog.author_name}
-                    className="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover ring-2 ring-[#00B46A]/30"
-                  />
-                ) : (
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#00B46A] flex items-center justify-center ring-2 ring-[#00B46A]/30">
-                    <User size={18} className="sm:w-5 sm:h-5 text-white" />
-                  </div>
-                )}
+                <img
+                  src="/vinfo-2.png"
+                  alt="Vinfotech"
+                  className="w-10 h-10 sm:w-12 sm:h-12 object-contain"
+                />
                 <div>
                   <p className="font-semibold text-sm sm:text-base text-gray-900 dark:text-white">Vinfotech Team</p>
                   <div className="flex items-center gap-2 sm:gap-3 text-xs sm:text-sm">
