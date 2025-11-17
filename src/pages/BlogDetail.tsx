@@ -236,7 +236,7 @@ export default function BlogDetail() {
                     </div>
                     <Link
                       to="/blogs"
-                      className="mt-4 sm:mt-6 block w-full py-2.5 sm:py-3 bg-gradient-to-r from-[#00B46A] to-[#00B46A]/80 text-white text-center font-semibold text-sm sm:text-base rounded-lg sm:rounded-xl hover:shadow-lg hover:shadow-[#00B46A]/30 transition-all duration-300 mx-4 lg:mx-0"
+                      className="mt-4 sm:mt-6 block max-w-xs mx-auto lg:max-w-full py-2.5 sm:py-3 bg-gradient-to-r from-[#00B46A] to-[#00B46A]/80 text-white text-center font-semibold text-sm sm:text-base rounded-lg sm:rounded-xl hover:shadow-lg hover:shadow-[#00B46A]/30 transition-all duration-300"
                     >
                       View All Blogs
                     </Link>
