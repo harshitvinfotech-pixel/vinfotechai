@@ -82,7 +82,7 @@ export default function Blogs() {
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6 text-center leading-[1.1]">
             Discover Our{' '}
             <span className="text-[#00B46A]">
-              Latest Stories
+              Latest Blogs
             </span>
           </h1>
 
