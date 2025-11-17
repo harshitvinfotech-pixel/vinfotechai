@@ -109,7 +109,7 @@ export default function BlogDetail() {
         </div>
 
         <div className="max-w-7xl mx-auto -mt-12 sm:-mt-16 md:-mt-20 relative z-10">
-          <div className="bg-white dark:bg-gray-800 p-4 sm:p-8 lg:p-12 mb-2 sm:mb-4 rounded-lg shadow-lg">
+          <div className="bg-white dark:bg-gray-800 p-4 sm:p-8 lg:p-12 mb-2 sm:mb-4 shadow-lg" style={{borderRadius: '1.5rem'}}>
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 leading-tight">
               {blog.title}
             </h1>
@@ -190,7 +190,7 @@ export default function BlogDetail() {
             {relatedBlogs.length > 0 && (
               <aside className="lg:col-span-4">
                 <div className="lg:sticky lg:top-24">
-                  <div className="p-4 sm:p-6 rounded-3xl shadow-xl">
+                  <div className="p-4 sm:p-6 rounded-3xl">
                     <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 flex items-center gap-2">
                       <span className="w-1 h-6 sm:h-8 bg-[#00B46A] rounded-full"></span>
                       More to Read
