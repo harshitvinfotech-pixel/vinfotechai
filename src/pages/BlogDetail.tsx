@@ -190,36 +190,6 @@ export default function BlogDetail() {
                     {blog.content}
                   </ReactMarkdown>
                 </div>
-
-                <div className="mt-8 sm:mt-12 bg-gradient-to-br from-[#00B46A]/5 to-transparent dark:from-[#00B46A]/10 dark:to-transparent border border-[#00B46A]/20 dark:border-[#00B46A]/30 rounded-xl sm:rounded-2xl p-4 sm:p-8">
-                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                    <div className="flex items-center gap-3 sm:gap-4">
-                      {blog.author_avatar_url ? (
-                        <img
-                          src={blog.author_avatar_url}
-                          alt={blog.author_name}
-                          className="w-12 h-12 sm:w-16 sm:h-16 rounded-full object-cover ring-2 ring-[#00B46A]/30"
-                        />
-                      ) : (
-                        <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-[#00B46A] flex items-center justify-center ring-2 ring-[#00B46A]/30">
-                          <User size={20} className="sm:w-6 sm:h-6 text-white" />
-                        </div>
-                      )}
-                      <div>
-                        <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mb-1">Written by</p>
-                        <p className="font-bold text-base sm:text-xl text-gray-900 dark:text-white">Vinfotech Team</p>
-                      </div>
-                    </div>
-                    <div className="flex gap-2 sm:gap-3">
-                      <button className="p-2 sm:p-3 bg-white dark:bg-gray-700 rounded-full shadow-md hover:shadow-lg hover:bg-[#00B46A] hover:text-white transition-all duration-300 group">
-                        <Share2 size={18} className="sm:w-5 sm:h-5 text-gray-700 dark:text-gray-300 group-hover:text-white" />
-                      </button>
-                      <button className="p-2 sm:p-3 bg-white dark:bg-gray-700 rounded-full shadow-md hover:shadow-lg hover:bg-[#00B46A] hover:text-white transition-all duration-300 group">
-                        <BookmarkPlus size={18} className="sm:w-5 sm:h-5 text-gray-700 dark:text-gray-300 group-hover:text-white" />
-                      </button>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
 
