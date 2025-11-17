@@ -109,7 +109,7 @@ export default function BlogDetail() {
         </div>
 
         <div className="max-w-7xl mx-auto -mt-12 sm:-mt-16 md:-mt-20 relative z-10">
-          <div className="bg-white dark:bg-gray-800 p-4 sm:p-8 lg:p-12 mb-8 sm:mb-12">
+          <div className="bg-white dark:bg-gray-800 p-4 sm:p-8 lg:p-12 mb-2 sm:mb-4">
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 leading-tight">
               {blog.title}
             </h1>
@@ -142,13 +142,26 @@ export default function BlogDetail() {
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 pb-12 sm:pb-16 md:pb-20">
             <div className="lg:col-span-8">
+              <div className="flex items-start justify-between gap-4 mb-6">
+                <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed flex-1">
+                  {blog.excerpt}
+                </p>
+                {relatedBlogs.length > 0 && (
+                  <Link
+                    to="/blogs"
+                    className="whitespace-nowrap text-[#00B46A] hover:text-[#00A060] font-semibold text-sm sm:text-base transition-colors duration-300"
+                  >
+                    More to Read →
+                  </Link>
+                )}
+              </div>
               <div className="max-w-none">
                 <div className="p-4 sm:p-8 lg:p-12">
                   <ReactMarkdown
                     remarkPlugins={[remarkGfm]}
                     rehypePlugins={[rehypeRaw]}
                     components={{
-                      h1: ({node, ...props}) => <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 mt-6 sm:mt-8" {...props} />,
+                      h1: ({node, ...props}) => <h1 className="hidden" {...props} />,
                       h2: ({node, ...props}) => <h2 className="text-[28px] font-bold text-gray-900 dark:text-white mb-4 sm:mb-5 mt-6 sm:mt-8" {...props} />,
                       h3: ({node, ...props}) => <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 mt-4 sm:mt-6" {...props} />,
                       p: ({node, ...props}) => <p className="text-[20px] text-gray-700 dark:text-gray-300 leading-relaxed mb-[30px]" {...props} />,
@@ -190,7 +203,7 @@ export default function BlogDetail() {
             {relatedBlogs.length > 0 && (
               <aside className="lg:col-span-4">
                 <div className="lg:sticky lg:top-24">
-                  <div className="bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-gray-100 dark:border-gray-700">
+                  <div className="p-4 sm:p-6">
                     <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 flex items-center gap-2">
                       <span className="w-1 h-6 sm:h-8 bg-[#00B46A] rounded-full"></span>
                       More to Read
