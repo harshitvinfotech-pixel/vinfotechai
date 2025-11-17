@@ -175,7 +175,7 @@ export default function Blogs() {
                       </div>
 
                       <div className="flex items-center gap-2 text-[#00B46A] font-semibold text-sm mt-6 group-hover:gap-3 transition-all duration-300">
-                        <span>Read Full Story</span>
+                        <span>Read Full Blog</span>
                         <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform duration-300" />
                       </div>
                     </div>
