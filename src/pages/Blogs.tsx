@@ -123,7 +123,7 @@ export default function Blogs() {
             {featuredBlog && (
               <div className="mb-16">
                 <div className="flex items-center justify-between mb-8">
-                  <h2 className="text-3xl sm:text-[20px] font-bold text-gray-900 dark:text-white">Featured Blog</h2>
+                  <h2 className="text-[20px] font-bold text-gray-900 dark:text-white">Featured Blog</h2>
                 </div>
 
                 <Link
@@ -176,7 +176,7 @@ export default function Blogs() {
             {regularBlogs.length > 0 && (
               <div className="mb-16">
                 <div className="flex items-center justify-between mb-8">
-                  <h2 className="text-3xl sm:text-[20px] font-bold text-gray-900 dark:text-white">All Blogs</h2>
+                  <h2 className="text-[20px] font-bold text-gray-900 dark:text-white">All Blogs</h2>
                   <div className="h-1 flex-1 ml-8 bg-[#00B46A]/30 rounded-full"></div>
                 </div>
 
