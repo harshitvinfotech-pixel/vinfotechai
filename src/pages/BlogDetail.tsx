@@ -93,7 +93,7 @@ export default function BlogDetail() {
                 style={{ paddingLeft: '0rem' }}
               >
                 <ArrowLeft size={18} className="transition-transform duration-300 group-hover:-translate-x-1" />
-                <span className="font-semibold text-sm md:text-base">Back to Blogs</span>
+                <span className="font-semibold text-sm md:text-base">Back</span>
               </button>
             </div>
           </div>
