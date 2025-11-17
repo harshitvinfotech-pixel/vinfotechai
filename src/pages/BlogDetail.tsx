@@ -182,26 +182,7 @@ export default function BlogDetail() {
                   </ReactMarkdown>
                 </div>
 
-                {blog.tags && blog.tags.length > 0 && (
-                  <div className="mt-8 sm:mt-12 bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl p-4 sm:p-8 shadow-lg">
-                    <h3 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 flex items-center gap-2">
-                      <span className="w-1 h-5 sm:h-6 bg-[#00B46A] rounded-full"></span>
-                      Tags
-                    </h3>
-                    <div className="flex flex-wrap gap-2 sm:gap-3">
-                      {blog.tags.map((tag, index) => (
-                        <span
-                          key={index}
-                          className="px-3 py-1.5 sm:px-4 sm:py-2 bg-gradient-to-r from-[#00B46A]/10 to-[#00B46A]/5 border border-[#00B46A]/20 text-[#00B46A] dark:text-[#00FFB2] rounded-full text-xs sm:text-sm font-semibold hover:from-[#00B46A] hover:to-[#00B46A] hover:text-white transition-all duration-300 cursor-pointer"
-                        >
-                          #{tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                <div className="mt-6 sm:mt-8 bg-gradient-to-br from-[#00B46A]/5 to-transparent dark:from-[#00B46A]/10 dark:to-transparent border border-[#00B46A]/20 dark:border-[#00B46A]/30 rounded-xl sm:rounded-2xl p-4 sm:p-8">
+                <div className="mt-8 sm:mt-12 bg-gradient-to-br from-[#00B46A]/5 to-transparent dark:from-[#00B46A]/10 dark:to-transparent border border-[#00B46A]/20 dark:border-[#00B46A]/30 rounded-xl sm:rounded-2xl p-4 sm:p-8">
                   <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                     <div className="flex items-center gap-3 sm:gap-4">
                       {blog.author_avatar_url ? (
