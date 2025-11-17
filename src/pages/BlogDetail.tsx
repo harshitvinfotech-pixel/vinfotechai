@@ -176,6 +176,16 @@ export default function BlogDetail() {
                         ) : (
                           <code className="block bg-gray-900 dark:bg-gray-950 text-gray-100 p-6 rounded-xl overflow-x-auto text-sm font-mono my-6" {...props} />
                         ),
+                      table: ({node, ...props}) => (
+                        <div className="my-8 overflow-x-auto">
+                          <table className="w-full border-collapse border-2 border-gray-300 dark:border-gray-600" {...props} />
+                        </div>
+                      ),
+                      thead: ({node, ...props}) => <thead className="bg-gray-100 dark:bg-gray-700" {...props} />,
+                      tbody: ({node, ...props}) => <tbody {...props} />,
+                      tr: ({node, ...props}) => <tr className="border-b border-gray-300 dark:border-gray-600" {...props} />,
+                      th: ({node, ...props}) => <th className="border border-gray-300 dark:border-gray-600 px-6 py-4 text-left font-bold text-gray-900 dark:text-white text-base" {...props} />,
+                      td: ({node, ...props}) => <td className="border border-gray-300 dark:border-gray-600 px-6 py-4 text-gray-700 dark:text-gray-300 text-base" {...props} />,
                     }}
                   >
                     {blog.content}
