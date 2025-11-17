@@ -147,7 +147,6 @@ export default function Blogs() {
                         alt={blogs[0].title}
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                       />
-                      <div className="absolute inset-0 bg-black/20"></div>
                     </div>
 
                     <div className="flex flex-col justify-center lg:pl-4">
@@ -208,7 +207,6 @@ export default function Blogs() {
                             alt={blog.title}
                             className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-110"
                           />
-                          <div className="absolute inset-0 bg-black/30 group-hover:bg-[#00B46A]/10 transition-all duration-500"></div>
                         </div>
 
                         <div className="p-6 flex flex-col flex-grow">
