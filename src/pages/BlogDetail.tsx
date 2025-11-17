@@ -17,6 +17,10 @@ export default function BlogDetail() {
   const [relatedBlogs, setRelatedBlogs] = useState<BlogWithCategory[]>([]);
   const [loading, setLoading] = useState(true);
 
+  const handleBackClick = () => {
+    navigate('/blogs');
+  };
+
   useEffect(() => {
     async function loadBlog() {
       if (!slug) return;
@@ -82,26 +86,14 @@ export default function BlogDetail() {
       <article className="relative pt-20">
         <div className="relative">
           <div className="absolute top-4 left-0 right-0 z-40">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-1">
-              <Link
-                to="/blogs"
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-black/30 backdrop-blur-sm text-white hover:bg-black/50 transition-all duration-300 group border border-white/20 animate-[slideInLeft_0.5s_ease-out]"
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <button
+                onClick={handleBackClick}
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-black/30 backdrop-blur-sm text-white hover:bg-black/50 transition-all duration-300 group border border-white/20"
               >
-                <style>{`
-                  @keyframes slideInLeft {
-                    from {
-                      opacity: 0;
-                      transform: translateX(-20px);
-                    }
-                    to {
-                      opacity: 1;
-                      transform: translateX(0);
-                    }
-                  }
-                `}</style>
                 <ArrowLeft size={18} className="transition-transform duration-300 group-hover:-translate-x-1" />
-                <span className="font-medium text-sm md:text-base">Back to Blogs</span>
-              </Link>
+                <span className="font-semibold text-sm md:text-base">Back to Blogs</span>
+              </button>
             </div>
           </div>
 
