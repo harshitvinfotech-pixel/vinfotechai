@@ -100,7 +100,7 @@ export default function ProductGallerySection({ images }: ProductGallerySectionP
     return (
       <section className="py-12 sm:py-16 lg:py-20 bg-white dark:bg-gray-900">
         <div className="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8">
-          <div className="relative overflow-hidden rounded-xl lg:rounded-2xl shadow-xl">
+          <div className="relative overflow-hidden rounded-xl lg:rounded-2xl shadow-xl border-2 border-gray-300 dark:border-gray-600">
             <img
               src={sortedImages[0].image_url}
               alt={sortedImages[0].caption || 'Gallery image'}
@@ -146,7 +146,7 @@ export default function ProductGallerySection({ images }: ProductGallerySectionP
                 onClick={() => handleImageClick(prevIndex)}
                 className="hidden lg:block relative w-[200px] sm:w-[280px] lg:w-[400px] cursor-pointer opacity-40 hover:opacity-60 transition-all duration-300 transform scale-90 hover:scale-95 flex-shrink-0"
               >
-                <div className="relative overflow-hidden rounded-xl lg:rounded-2xl shadow-xl aspect-video h-[115px] sm:h-[160px] lg:h-[225px]">
+                <div className="relative overflow-hidden rounded-xl lg:rounded-2xl shadow-xl aspect-video h-[115px] sm:h-[160px] lg:h-[225px] border-2 border-gray-300 dark:border-gray-600">
                   <img
                     src={sortedImages[prevIndex].image_url}
                     alt={sortedImages[prevIndex].caption || `Gallery image ${prevIndex + 1}`}
@@ -158,7 +158,7 @@ export default function ProductGallerySection({ images }: ProductGallerySectionP
 
               <div ref={galleryRef} className={`relative flex-1 max-w-6xl transition-all duration-1000 ${galleryVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
                 <div
-                  className="relative overflow-hidden rounded-xl lg:rounded-3xl shadow-xl lg:shadow-2xl aspect-video h-[250px] sm:h-[400px] lg:h-[650px] touch-pan-x"
+                  className="relative overflow-hidden rounded-xl lg:rounded-3xl shadow-xl lg:shadow-2xl aspect-video h-[250px] sm:h-[400px] lg:h-[650px] touch-pan-x border-2 border-gray-300 dark:border-gray-600"
                   onTouchStart={handleTouchStart}
                   onTouchMove={handleTouchMove}
                   onTouchEnd={handleTouchEnd}
@@ -187,7 +187,7 @@ export default function ProductGallerySection({ images }: ProductGallerySectionP
                 onClick={() => handleImageClick(nextIndex)}
                 className="hidden lg:block relative w-[200px] sm:w-[280px] lg:w-[400px] cursor-pointer opacity-40 hover:opacity-60 transition-all duration-300 transform scale-90 hover:scale-95 flex-shrink-0"
               >
-                <div className="relative overflow-hidden rounded-xl lg:rounded-2xl shadow-xl aspect-video h-[115px] sm:h-[160px] lg:h-[225px]">
+                <div className="relative overflow-hidden rounded-xl lg:rounded-2xl shadow-xl aspect-video h-[115px] sm:h-[160px] lg:h-[225px] border-2 border-gray-300 dark:border-gray-600">
                   <img
                     src={sortedImages[nextIndex].image_url}
                     alt={sortedImages[nextIndex].caption || `Gallery image ${nextIndex + 1}`}
