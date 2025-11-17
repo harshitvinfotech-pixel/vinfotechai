@@ -90,6 +90,7 @@ export default function BlogDetail() {
               <button
                 onClick={handleBackClick}
                 className="inline-flex items-center gap-2 pr-4 py-2.5 rounded-lg bg-black/30 backdrop-blur-sm text-white hover:bg-black/50 transition-all duration-300 group border border-white/20"
+                style={{ paddingLeft: '0rem' }}
               >
                 <ArrowLeft size={18} className="transition-transform duration-300 group-hover:-translate-x-1" />
                 <span className="font-semibold text-sm md:text-base">Back to Blogs</span>
