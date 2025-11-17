@@ -72,13 +72,6 @@ export default function Blogs() {
         </div>
 
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative">
-          <div className="flex items-center gap-2 sm:gap-3 mb-6 justify-center">
-            <div className="h-px w-6 sm:w-12 bg-[#00B46A]"></div>
-            <Sparkles className="text-[#00B46A]" size={20} />
-            <span className="text-[#00B46A] font-bold text-xs sm:text-sm tracking-[0.15em] sm:tracking-[0.2em] uppercase whitespace-nowrap">Latest Insights</span>
-            <Sparkles className="text-[#00B46A]" size={20} />
-            <div className="h-px w-6 sm:w-12 bg-[#00B46A]"></div>
-          </div>
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6 text-center leading-[1.1]">
             Discover Our{' '}
@@ -134,7 +127,7 @@ export default function Blogs() {
             {featuredBlog && (
               <div className="mb-16">
                 <div className="flex items-center justify-between mb-8">
-                  <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Featured Blog</h2>
+                  <h2 className="text-3xl sm:text-[20px] font-bold text-gray-900 dark:text-white">Featured Blog</h2>
                 </div>
 
                 <Link
@@ -152,7 +145,6 @@ export default function Blogs() {
 
                     <div className="flex flex-col justify-center lg:pl-4">
                       <div className="inline-flex items-center gap-2 text-[#00B46A] text-sm font-bold mb-3 uppercase tracking-wider">
-                        <Sparkles size={16} />
                         <span>Featured</span>
                       </div>
 
@@ -160,7 +152,7 @@ export default function Blogs() {
                         {featuredBlog.title}
                       </h2>
 
-                      <p className="text-lg text-gray-600 dark:text-gray-400 mb-6 leading-relaxed line-clamp-3">
+                      <p className="text-lg text-gray-600 dark:text-gray-400 mb-4 leading-relaxed line-clamp-3">
                         {featuredBlog.excerpt}
                       </p>
 
@@ -188,7 +180,7 @@ export default function Blogs() {
             {regularBlogs.length > 0 && (
               <div className="mb-16">
                 <div className="flex items-center justify-between mb-8">
-                  <h2 className="text-3xl font-bold text-gray-900 dark:text-white">All Blogs</h2>
+                  <h2 className="text-3xl sm:text-[20px] font-bold text-gray-900 dark:text-white">All Blogs</h2>
                   <div className="h-1 flex-1 ml-8 bg-[#00B46A]/30 rounded-full"></div>
                 </div>
 
@@ -225,12 +217,12 @@ export default function Blogs() {
                               <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-300" />
                             </div>
 
-                            <div className="flex items-center gap-6 text-gray-500 dark:text-gray-400 text-sm pt-4 border-t border-gray-200 dark:border-gray-700 group-hover:border-[#00B46A]/30 transition-colors duration-300">
-                              <div className="flex items-center gap-2 group-hover:text-[#00B46A] transition-colors duration-300">
+                            <div className="flex items-center gap-6 text-gray-500 dark:text-gray-400 text-sm pt-4 border-t border-gray-200 dark:border-gray-700">
+                              <div className="flex items-center gap-2">
                                 <Calendar size={16} className="flex-shrink-0" />
                                 <span className="font-medium">{formatPublishedDate(blog.published_at)}</span>
                               </div>
-                              <div className="flex items-center gap-2 group-hover:text-[#00B46A] transition-colors duration-300">
+                              <div className="flex items-center gap-2">
                                 <Clock size={16} className="flex-shrink-0" />
                                 <span className="font-medium">{formatReadingTime(blog.reading_time_minutes)}</span>
                               </div>
