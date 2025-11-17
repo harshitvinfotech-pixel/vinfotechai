@@ -13,7 +13,6 @@ export default function Blogs() {
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [currentFeaturedIndex, setCurrentFeaturedIndex] = useState(0);
   const pageSize = 9;
 
   useEffect(() => {
@@ -37,20 +36,13 @@ export default function Blogs() {
     loadBlogs();
   }, [currentPage, searchQuery]);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentFeaturedIndex((prev) => (prev === 0 ? 1 : 0));
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, []);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     setCurrentPage(1);
   };
 
-  const regularBlogs = blogs.slice(2);
+  const regularBlogs = blogs.slice(1);
 
   return (
     <>
@@ -138,85 +130,58 @@ export default function Blogs() {
           </div>
         ) : (
           <>
-            {blogs.length >= 2 && (
+            {blogs.length >= 1 && (
               <div className="mb-16">
                 <div className="flex items-center justify-between mb-8">
-                  <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Featured Stories</h2>
-                  <div className="flex gap-2">
-                    <button
-                      onClick={() => setCurrentFeaturedIndex(0)}
-                      className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
-                        currentFeaturedIndex === 0 ? 'bg-[#00B46A] w-8' : 'bg-gray-300 dark:bg-gray-600'
-                      }`}
-                      aria-label="View first featured blog"
-                    />
-                    <button
-                      onClick={() => setCurrentFeaturedIndex(1)}
-                      className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
-                        currentFeaturedIndex === 1 ? 'bg-[#00B46A] w-8' : 'bg-gray-300 dark:bg-gray-600'
-                      }`}
-                      aria-label="View second featured blog"
-                    />
-                  </div>
+                  <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Featured Blog</h2>
                 </div>
 
-                <div className="relative overflow-hidden">
-                  <div
-                    className="flex transition-transform duration-700 ease-in-out"
-                    style={{ transform: `translateX(-${currentFeaturedIndex * 100}%)` }}
-                  >
-                    {blogs.slice(0, 2).map((blog, index) => (
-                      <div key={blog.id} className="w-full flex-shrink-0 px-2">
-                        <Link
-                          to={`/blogs/${blog.slug}`}
-                          className="group block"
-                        >
-                          <div className="grid lg:grid-cols-2 gap-8 items-center">
-                            <div className="relative overflow-hidden rounded-3xl aspect-[16/10]">
-                              <img
-                                src={blog.featured_image_url}
-                                alt={blog.title}
-                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                              />
-                              <div className="absolute inset-0 bg-black/20"></div>
-                            </div>
+                <Link
+                  to={`/blogs/${blogs[0].slug}`}
+                  className="group block"
+                >
+                  <div className="grid lg:grid-cols-2 gap-8 items-center">
+                    <div className="relative overflow-hidden rounded-3xl aspect-[16/10]">
+                      <img
+                        src={blogs[0].featured_image_url}
+                        alt={blogs[0].title}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      />
+                      <div className="absolute inset-0 bg-black/20"></div>
+                    </div>
 
-                            <div className="flex flex-col justify-center lg:pl-4">
-                              <div className="inline-flex items-center gap-2 text-[#00B46A] text-sm font-bold mb-3 uppercase tracking-wider">
-                                <Sparkles size={16} />
-                                <span>Featured</span>
-                              </div>
-
-                              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 leading-tight group-hover:text-[#00B46A] transition-colors duration-300">
-                                {blog.title}
-                              </h2>
-
-                              <p className="text-lg text-gray-600 dark:text-gray-400 mb-6 leading-relaxed line-clamp-3">
-                                {blog.excerpt}
-                              </p>
-
-                              <div className="flex items-center gap-6 text-sm text-gray-500 dark:text-gray-400">
-                                <div className="flex items-center gap-2">
-                                  <Calendar size={16} />
-                                  <span className="font-medium">{formatPublishedDate(blog.published_at)}</span>
-                                </div>
-                                <div className="flex items-center gap-2">
-                                  <Clock size={16} />
-                                  <span className="font-medium">{formatReadingTime(blog.reading_time_minutes)}</span>
-                                </div>
-                              </div>
-
-                              <div className="flex items-center gap-2 text-[#00B46A] font-semibold text-sm mt-6 group-hover:gap-3 transition-all duration-300">
-                                <span>Read Full Story</span>
-                                <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform duration-300" />
-                              </div>
-                            </div>
-                          </div>
-                        </Link>
+                    <div className="flex flex-col justify-center lg:pl-4">
+                      <div className="inline-flex items-center gap-2 text-[#00B46A] text-sm font-bold mb-3 uppercase tracking-wider">
+                        <Sparkles size={16} />
+                        <span>Featured</span>
                       </div>
-                    ))}
+
+                      <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 leading-tight group-hover:text-[#00B46A] transition-colors duration-300">
+                        {blogs[0].title}
+                      </h2>
+
+                      <p className="text-lg text-gray-600 dark:text-gray-400 mb-6 leading-relaxed line-clamp-3">
+                        {blogs[0].excerpt}
+                      </p>
+
+                      <div className="flex items-center gap-6 text-sm text-gray-500 dark:text-gray-400">
+                        <div className="flex items-center gap-2">
+                          <Calendar size={16} />
+                          <span className="font-medium">{formatPublishedDate(blogs[0].published_at)}</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Clock size={16} />
+                          <span className="font-medium">{formatReadingTime(blogs[0].reading_time_minutes)}</span>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-2 text-[#00B46A] font-semibold text-sm mt-6 group-hover:gap-3 transition-all duration-300">
+                        <span>Read Full Story</span>
+                        <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform duration-300" />
+                      </div>
+                    </div>
                   </div>
-                </div>
+                </Link>
               </div>
             )}
 
