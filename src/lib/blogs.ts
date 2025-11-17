@@ -42,8 +42,7 @@ export async function getPublishedBlogs(params: BlogListParams = {}): Promise<Bl
         *,
         category:blog_categories(*)
       `, { count: 'exact' })
-      .eq('is_published', true)
-      .order('is_featured', { ascending: false });
+      .eq('is_published', true);
 
     if (categorySlug) {
       const { data: category } = await supabase
@@ -61,7 +60,9 @@ export async function getPublishedBlogs(params: BlogListParams = {}): Promise<Bl
       query = query.or(`title.ilike.%${searchQuery}%,excerpt.ilike.%${searchQuery}%,content.ilike.%${searchQuery}%`);
     }
 
-    query = query.order(sortBy, { ascending: sortOrder === 'asc' });
+    query = query
+      .order('is_featured', { ascending: false })
+      .order(sortBy, { ascending: sortOrder === 'asc' });
 
     const from = (page - 1) * pageSize;
     const to = from + pageSize - 1;
