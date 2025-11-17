@@ -156,9 +156,9 @@ export default function BlogDetail() {
                     rehypePlugins={[rehypeRaw]}
                     components={{
                       h1: ({node, ...props}) => <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 mt-6 sm:mt-8" {...props} />,
-                      h2: ({node, ...props}) => <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-5 mt-6 sm:mt-8" {...props} />,
+                      h2: ({node, ...props}) => <h2 className="text-[28px] font-bold text-gray-900 dark:text-white mb-4 sm:mb-5 mt-6 sm:mt-8" {...props} />,
                       h3: ({node, ...props}) => <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 mt-4 sm:mt-6" {...props} />,
-                      p: ({node, ...props}) => <p className="text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-4 sm:mb-6" {...props} />,
+                      p: ({node, ...props}) => <p className="text-[20px] text-gray-700 dark:text-gray-300 leading-relaxed mb-8" {...props} />,
                       ul: ({node, ...props}) => <ul className="list-disc list-inside text-base sm:text-lg text-gray-700 dark:text-gray-300 space-y-2 mb-4 sm:mb-6 ml-2 sm:ml-4" {...props} />,
                       ol: ({node, ...props}) => <ol className="list-decimal list-inside text-base sm:text-lg text-gray-700 dark:text-gray-300 space-y-2 mb-4 sm:mb-6 ml-2 sm:ml-4" {...props} />,
                       blockquote: ({node, ...props}) => (
