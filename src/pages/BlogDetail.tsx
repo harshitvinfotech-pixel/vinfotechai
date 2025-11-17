@@ -198,6 +198,7 @@ export default function BlogDetail() {
               <aside className="lg:col-span-4">
                 <div className="lg:sticky lg:top-24">
                   <div className="lg:p-6 lg:rounded-3xl">
+                    <div className="border-t border-gray-300 dark:border-gray-700 lg:border-0 pt-8 lg:pt-0"></div>
                     <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 flex items-center gap-2 px-4 lg:px-0">
                       <span className="w-1 h-6 sm:h-8 bg-[#00B46A] rounded-full"></span>
                       More to Read
