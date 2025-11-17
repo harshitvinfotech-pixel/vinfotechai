@@ -109,7 +109,7 @@ export default function BlogDetail() {
         </div>
 
         <div className="max-w-7xl mx-auto -mt-12 sm:-mt-16 md:-mt-20 relative z-10">
-          <div className="bg-white dark:bg-gray-800 rounded-2xl sm:rounded-3xl shadow-2xl p-4 sm:p-8 lg:p-12 mb-8 sm:mb-12">
+          <div className="bg-white dark:bg-gray-800 p-4 sm:p-8 lg:p-12 mb-8 sm:mb-12">
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 leading-tight">
               {blog.title}
             </h1>
@@ -143,7 +143,7 @@ export default function BlogDetail() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 pb-12 sm:pb-16 md:pb-20">
             <div className="lg:col-span-8">
               <div className="max-w-none">
-                <div className="bg-gradient-to-br from-gray-50 to-white dark:from-gray-800/50 dark:to-gray-800 rounded-xl sm:rounded-2xl p-4 sm:p-8 lg:p-12 shadow-lg">
+                <div className="p-4 sm:p-8 lg:p-12">
                   <ReactMarkdown
                     remarkPlugins={[remarkGfm]}
                     rehypePlugins={[rehypeRaw]}
@@ -158,7 +158,7 @@ export default function BlogDetail() {
                         <blockquote className="border-l-4 border-[#00B46A] bg-gray-100 dark:bg-gray-700 pl-4 sm:pl-6 py-3 sm:py-4 my-4 sm:my-6 italic text-gray-700 dark:text-gray-300" {...props} />
                       ),
                       img: ({node, ...props}) => (
-                        <div className="my-4 sm:my-8 rounded-lg sm:rounded-xl overflow-hidden shadow-xl">
+                        <div className="my-4 sm:my-8 overflow-hidden">
                           <img className="w-full h-auto" {...props} />
                         </div>
                       ),
@@ -190,7 +190,7 @@ export default function BlogDetail() {
             {relatedBlogs.length > 0 && (
               <aside className="lg:col-span-4">
                 <div className="lg:sticky lg:top-24">
-                  <div className="bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg border border-gray-100 dark:border-gray-700">
+                  <div className="bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-gray-100 dark:border-gray-700">
                     <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 flex items-center gap-2">
                       <span className="w-1 h-6 sm:h-8 bg-[#00B46A] rounded-full"></span>
                       More to Read
