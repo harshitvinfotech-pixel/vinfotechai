@@ -17,7 +17,7 @@ export default function HeroSection({ heroImage, title, overviewText }: HeroSect
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/60"></div>
       </div>
 
-      <div className="relative h-full flex flex-col items-center justify-center text-center px-6 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+      <div className="relative h-full flex flex-col items-center justify-center text-center px-6 sm:px-6 lg:px-8 max-w-[80rem] mx-auto">
         <h1 className="text-3xl sm:text-4xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 sm:mb-5 lg:mb-6 leading-tight animate-[fadeInUp_0.8s_ease-out_0.2s_both]">
           {title}
         </h1>
