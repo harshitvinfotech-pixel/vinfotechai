@@ -158,8 +158,8 @@ export default function BlogDetail() {
                         <blockquote className="border-l-4 border-[#00B46A] bg-gray-100 dark:bg-gray-700 pl-4 sm:pl-6 py-3 sm:py-4 my-4 sm:my-6 italic text-gray-700 dark:text-gray-300" {...props} />
                       ),
                       img: ({node, ...props}) => (
-                        <div className="my-4 sm:my-8 overflow-hidden">
-                          <img className="w-full h-auto" {...props} />
+                        <div className="my-4 sm:my-8 overflow-hidden" style={{borderRadius: '0.75rem'}}>
+                          <img className="w-full h-auto" style={{borderRadius: '0.75rem'}} {...props} />
                         </div>
                       ),
                       a: ({node, ...props}) => <a className="text-[#00B46A] hover:underline font-medium" {...props} />,
