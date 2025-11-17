@@ -245,7 +245,7 @@ export default function SolutionSection({ solutionText, solutionImage, slug }: S
                 <AttendanceDashboardMockup />
               </div>
             ) : (
-              <div className="relative rounded-xl lg:rounded-2xl overflow-hidden shadow-xl transition-transform duration-500 hover:scale-[1.02] bg-gray-50 dark:bg-gray-800 flex items-center justify-center">
+              <div className="relative rounded-xl lg:rounded-2xl overflow-hidden shadow-xl transition-transform duration-500 hover:scale-[1.02] bg-gray-50 dark:bg-gray-800 flex items-center justify-center border-2 border-gray-300 dark:border-gray-600">
                 <img
                   src={solutionImage}
                   alt="AI Solution"
