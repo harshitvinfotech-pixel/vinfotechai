@@ -159,7 +159,7 @@ export default function BlogDetail() {
                       h3: ({node, ...props}) => <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 mt-4 sm:mt-6" {...props} />,
                       p: ({node, ...props}) => <p className="text-[20px] text-gray-700 dark:text-gray-300 leading-relaxed mb-[30px]" {...props} />,
                       ul: ({node, ...props}) => <ul className="list-disc list-inside text-base sm:text-lg text-gray-700 dark:text-gray-300 space-y-2 mb-4 sm:mb-6 ml-2 sm:ml-4" {...props} />,
-                      ol: ({node, ...props}) => <ol className="list-decimal list-inside text-base sm:text-lg text-gray-700 dark:text-gray-300 space-y-2 mb-4 sm:mb-6 ml-2 sm:ml-4" {...props} />,
+                      ol: ({node, ...props}) => <ol className="list-disc list-inside text-base sm:text-lg text-gray-700 dark:text-gray-300 space-y-2 mb-4 sm:mb-6 ml-2 sm:ml-4" {...props} />,
                       blockquote: ({node, ...props}) => (
                         <blockquote className="border-l-4 border-[#00B46A] bg-gray-100 dark:bg-gray-700 pl-4 sm:pl-6 py-3 sm:py-4 my-4 sm:my-6 italic text-gray-700 dark:text-gray-300" {...props} />
                       ),
