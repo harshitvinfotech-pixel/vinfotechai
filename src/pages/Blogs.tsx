@@ -98,7 +98,7 @@ export default function Blogs() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-4 pb-16">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-8 pb-16">
         {loading ? (
           <div className="space-y-8">
             <div className="bg-gray-100 dark:bg-gray-800 rounded-3xl h-[500px] animate-pulse"></div>
