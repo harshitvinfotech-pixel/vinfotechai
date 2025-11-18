@@ -130,7 +130,7 @@ export default function ProductGallerySection({ images }: ProductGallerySectionP
             Gallery
           </h2>
         </div>
-        <div className="relative flex items-center justify-center gap-6 lg:gap-10">
+        <div className="relative flex items-center justify-center gap-3 sm:gap-6 lg:gap-10">
           <button
             onClick={handlePrev}
             disabled={isTransitioning}
@@ -140,8 +140,8 @@ export default function ProductGallerySection({ images }: ProductGallerySectionP
             <ChevronLeft className="text-[#00B46A]" size={24} strokeWidth={2.5} />
           </button>
 
-          <div className="relative w-full max-w-full overflow-hidden lg:overflow-visible">
-            <div className="flex items-center justify-center gap-6 lg:gap-10">
+          <div className="relative w-full">
+            <div className="flex items-center justify-center gap-3 sm:gap-6 lg:gap-10">
               <div
                 onClick={() => handleImageClick(prevIndex)}
                 className="hidden lg:block relative w-[200px] sm:w-[280px] lg:w-[400px] cursor-pointer opacity-40 hover:opacity-60 transition-all duration-300 transform scale-90 hover:scale-95 flex-shrink-0"
@@ -156,9 +156,9 @@ export default function ProductGallerySection({ images }: ProductGallerySectionP
                 </div>
               </div>
 
-              <div ref={galleryRef} className={`relative w-full lg:flex-1 lg:max-w-6xl transition-all duration-1000 ${galleryVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
+              <div ref={galleryRef} className={`relative flex-1 max-w-[calc(100vw-2rem)] sm:max-w-6xl transition-all duration-1000 ${galleryVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
                 <div
-                  className="relative overflow-hidden rounded-lg sm:rounded-xl lg:rounded-3xl shadow-xl lg:shadow-2xl aspect-video max-h-[250px] sm:h-[400px] lg:h-[650px] touch-pan-x border-2 border-gray-300 dark:border-gray-600"
+                  className="relative overflow-hidden rounded-lg sm:rounded-xl lg:rounded-3xl shadow-xl lg:shadow-2xl aspect-video h-[250px] sm:h-[400px] lg:h-[650px] touch-pan-x border-2 border-gray-300 dark:border-gray-600"
                   onTouchStart={handleTouchStart}
                   onTouchMove={handleTouchMove}
                   onTouchEnd={handleTouchEnd}
