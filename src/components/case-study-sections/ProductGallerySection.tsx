@@ -158,7 +158,7 @@ export default function ProductGallerySection({ images }: ProductGallerySectionP
 
               <div ref={galleryRef} className={`relative flex-1 max-w-[calc(100vw-2rem)] sm:max-w-6xl transition-all duration-1000 ${galleryVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
                 <div
-                  className="relative overflow-hidden rounded-lg sm:rounded-xl lg:rounded-3xl shadow-xl lg:shadow-2xl aspect-video h-[214px] sm:h-[400px] lg:h-[650px] touch-pan-x border-2 border-gray-300 dark:border-gray-600"
+                  className="relative overflow-hidden rounded-lg sm:rounded-xl lg:rounded-3xl shadow-xl lg:shadow-2xl aspect-video h-[215px] sm:h-[400px] lg:h-[650px] touch-pan-x border-2 border-gray-300 dark:border-gray-600"
                   onTouchStart={handleTouchStart}
                   onTouchMove={handleTouchMove}
                   onTouchEnd={handleTouchEnd}
