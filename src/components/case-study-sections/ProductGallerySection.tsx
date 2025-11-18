@@ -99,7 +99,7 @@ export default function ProductGallerySection({ images }: ProductGallerySectionP
   if (sortedImages.length === 1) {
     return (
       <section className="py-12 sm:py-16 lg:py-20 bg-white dark:bg-gray-900">
-        <div className="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="relative overflow-hidden rounded-xl lg:rounded-2xl shadow-xl border-2 border-gray-300 dark:border-gray-600">
             <img
               src={sortedImages[0].image_url}
@@ -124,7 +124,7 @@ export default function ProductGallerySection({ images }: ProductGallerySectionP
 
   return (
     <section ref={sectionRef} className="py-12 sm:py-16 lg:py-20 bg-white dark:bg-gray-900 transition-colors duration-300">
-      <div className="max-w-[1920px] mx-auto px-6 sm:px-6 lg:px-8">
+      <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8">
         <div ref={headerRef} className={`mb-8 sm:mb-12 lg:mb-16 text-left lg:text-center transition-all duration-1000 ${headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold text-gray-900 dark:text-white">
             Gallery
@@ -156,9 +156,9 @@ export default function ProductGallerySection({ images }: ProductGallerySectionP
                 </div>
               </div>
 
-              <div ref={galleryRef} className={`relative flex-1 max-w-6xl transition-all duration-1000 ${galleryVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
+              <div ref={galleryRef} className={`relative flex-1 max-w-[calc(100vw-2rem)] sm:max-w-6xl transition-all duration-1000 ${galleryVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
                 <div
-                  className="relative overflow-hidden rounded-xl lg:rounded-3xl shadow-xl lg:shadow-2xl aspect-video h-[250px] sm:h-[400px] lg:h-[650px] touch-pan-x border-2 border-gray-300 dark:border-gray-600"
+                  className="relative overflow-hidden rounded-lg sm:rounded-xl lg:rounded-3xl shadow-xl lg:shadow-2xl aspect-video h-[250px] sm:h-[400px] lg:h-[650px] touch-pan-x border-2 border-gray-300 dark:border-gray-600"
                   onTouchStart={handleTouchStart}
                   onTouchMove={handleTouchMove}
                   onTouchEnd={handleTouchEnd}
