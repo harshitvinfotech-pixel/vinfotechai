@@ -104,7 +104,7 @@ export default function ProductGallerySection({ images }: ProductGallerySectionP
             <img
               src={sortedImages[0].image_url}
               alt={sortedImages[0].caption || 'Gallery image'}
-              className="w-full h-auto object-cover"
+              className="w-full h-auto object-contain sm:object-cover"
             />
           </div>
         </div>
@@ -175,7 +175,7 @@ export default function ProductGallerySection({ images }: ProductGallerySectionP
                       <img
                         src={image.image_url}
                         alt={image.caption || `Gallery image ${index + 1}`}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-contain sm:object-cover"
                         loading="lazy"
                       />
                     </div>
