@@ -11,7 +11,6 @@ export default function Header({ onQuoteClick }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeNav, setActiveNav] = useState<'home' | 'services' | 'case-studies' | 'blogs'>('home');
-
   const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
   const location = useLocation();
@@ -25,16 +24,6 @@ export default function Header({ onQuoteClick }: HeaderProps) {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  // Sync active tab with route (mainly for /blogs vs /)
-  useEffect(() => {
-    if (location.pathname === '/blogs') {
-      setActiveNav('blogs');
-    } else if (location.pathname === '/') {
-      // If we came back from blogs, default to home (services/case-studies keep their own click state)
-      setActiveNav((prev) => (prev === 'blogs' ? 'home' : prev));
-    }
-  }, [location.pathname]);
 
   const scrollToSection = (id: string) => {
     if (!isHomePage) {
@@ -68,13 +57,6 @@ export default function Header({ onQuoteClick }: HeaderProps) {
       activeNav === key ? 'w-full' : 'w-0 group-hover:w-full'
     }`;
 
-  const getMobileNavClass = (key: 'home' | 'services' | 'case-studies' | 'blogs') =>
-    `block w-full text-left px-2 py-2 rounded-lg transition-all duration-300 font-medium text-xl sm:text-lg ${
-      activeNav === key
-        ? 'text-emerald-600 dark:text-white bg-emerald-50 dark:bg-white/10'
-        : 'text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-white hover:bg-emerald-50 dark:hover:bg-white/10'
-    }`;
-
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -86,9 +68,7 @@ export default function Header({ onQuoteClick }: HeaderProps) {
       <div className="max-w-7xl mx-auto px-0">
         <div className="flex items-center justify-between h-20 px-1">
           <button
-            onClick={() => {
-              window.location.href = 'https://www.vinfotech.com';
-            }}
+            onClick={() => { window.location.href = 'https://www.vinfotech.com'; }}
             className="flex items-center animate-fade-in-down cursor-pointer pl-[10px] md:pl-0"
             aria-label="Go to Vinfotech homepage"
           >
@@ -191,4 +171,71 @@ export default function Header({ onQuoteClick }: HeaderProps) {
           <nav className="px-6 py-4 space-y-2">
             {/* AI Home */}
             <button
-              onCl
+              onClick={() => {
+                setActiveNav('home');
+                if (isHomePage) {
+                  scrollToSection('about');
+                } else {
+                  navigate('/');
+                }
+                setIsMobileMenuOpen(false);
+              }}
+              className="block w-full text-left px-2 py-2 rounded-lg transition-all duration-300 font-medium text-xl sm:text-lg text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-white hover:bg-emerald-50 dark:hover:bg-white/10"
+            >
+              AI Home
+            </button>
+
+            {/* AI Services */}
+            <button
+              onClick={() => {
+                setActiveNav('services');
+                scrollToSection('services');
+                setIsMobileMenuOpen(false);
+              }}
+              className="block w-full text-left px-2 py-2 rounded-lg transition-all duration-300 font-medium text-xl sm:text-lg text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-white hover:bg-emerald-50 dark:hover:bg-white/10"
+            >
+              AI Services
+            </button>
+
+            {/* AI Case Studies */}
+            <button
+              onClick={() => {
+                setActiveNav('case-studies');
+                scrollToSection('case-studies');
+                setIsMobileMenuOpen(false);
+              }}
+              className="block w-full text-left px-2 py-2 rounded-lg transition-all duration-300 font-medium text-xl sm:text-lg text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-white hover:bg-emerald-50 dark:hover:bg-white/10"
+            >
+              AI Case Studies
+            </button>
+
+            {/* AI Blogs */}
+            <button
+              onClick={() => {
+                setActiveNav('blogs');
+                navigate('/blogs');
+                setIsMobileMenuOpen(false);
+              }}
+              className="block w-full text-left px-2 py-2 rounded-lg transition-all duration-300 font-medium text-xl sm:text-lg text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-white hover:bg-emerald-50 dark:hover:bg-white/10"
+            >
+              AI Blog
+            </button>
+
+            <div className="pt-2">
+              <button
+                onClick={() => {
+                  onQuoteClick();
+                  setIsMobileMenuOpen(false);
+                }}
+                className="w-full max-w-[280px] mx-auto block bg-[#00B46A] text-white px-6 py-2.5 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 transform hover:scale-105"
+                aria-label="Get a quote for custom AI development"
+              >
+                Get a Quote
+              </button>
+            </div>
+          </nav>
+        </div>
+      )}
+    </header>
+  );
+}
