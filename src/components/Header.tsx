@@ -78,21 +78,21 @@ export default function Header({ onQuoteClick }: HeaderProps) {
               onClick={() => navigate('/blogs')}
               className="relative transition-all duration-300 font-medium group text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-white"
             >
-              Blogs
+              AI Blogs
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-brand-primary to-brand-light group-hover:w-full transition-all duration-300"></span>
             </button>
             <button
               onClick={() => scrollToSection('services')}
               className="relative transition-all duration-300 font-medium group text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-white"
             >
-              Services
+              AI Services
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-brand-primary to-brand-light group-hover:w-full transition-all duration-300"></span>
             </button>
             <button
               onClick={() => scrollToSection('case-studies')}
               className="relative transition-all duration-300 font-medium group text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-white"
             >
-              Case Studies
+              AI Case Studies
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-brand-primary to-brand-light group-hover:w-full transition-all duration-300"></span>
             </button>
             <button
