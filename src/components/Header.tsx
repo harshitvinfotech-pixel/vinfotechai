@@ -10,6 +10,7 @@ interface HeaderProps {
 export default function Header({ onQuoteClick }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeNav, setActiveNav] = useState<'home' | 'services' | 'case-studies' | 'blogs'>('home');
   const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
   const location = useLocation();
@@ -44,6 +45,18 @@ export default function Header({ onQuoteClick }: HeaderProps) {
     }
   };
 
+  const getNavLinkClass = (key: 'home' | 'services' | 'case-studies' | 'blogs') =>
+    `relative transition-all duration-300 font-medium group ${
+      activeNav === key
+        ? 'text-emerald-600 dark:text-white'
+        : 'text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-white'
+    }`;
+
+  const getUnderlineClass = (key: 'home' | 'services' | 'case-studies' | 'blogs') =>
+    `absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-brand-primary to-brand-light transition-all duration-300 ${
+      activeNav === key ? 'w-full' : 'w-0 group-hover:w-full'
+    }`;
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -66,35 +79,58 @@ export default function Header({ onQuoteClick }: HeaderProps) {
             />
           </button>
 
-          <nav className="hidden md:flex items-center space-x-8 animate-fade-in-down" style={{ animationDelay: '0.1s', animationFillMode: 'both' }}>
+          <nav
+            className="hidden md:flex items-center space-x-8 animate-fade-in-down"
+            style={{ animationDelay: '0.1s', animationFillMode: 'both' }}
+          >
+            {/* AI Home */}
             <button
-              onClick={() => isHomePage ? scrollToSection('about') : navigate('/')}
-              className="relative transition-all duration-300 font-medium group text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-white"
+              onClick={() => {
+                setActiveNav('home');
+                isHomePage ? scrollToSection('about') : navigate('/');
+              }}
+              className={getNavLinkClass('home')}
             >
-              {isHomePage ? 'AI Home' : 'AI Home'}
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-brand-primary to-brand-light group-hover:w-full transition-all duration-300"></span>
+              AI Home
+              <span className={getUnderlineClass('home')} />
             </button>
+
+            {/* AI Services */}
             <button
-              onClick={() => navigate('/blogs')}
-              className="relative transition-all duration-300 font-medium group text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-white"
-            >
-              AI Blogs
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-brand-primary to-brand-light group-hover:w-full transition-all duration-300"></span>
-            </button>
-            <button
-              onClick={() => scrollToSection('services')}
-              className="relative transition-all duration-300 font-medium group text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-white"
+              onClick={() => {
+                setActiveNav('services');
+                scrollToSection('services');
+              }}
+              className={getNavLinkClass('services')}
             >
               AI Services
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-brand-primary to-brand-light group-hover:w-full transition-all duration-300"></span>
+              <span className={getUnderlineClass('services')} />
             </button>
+
+            {/* AI Case Studies */}
             <button
-              onClick={() => scrollToSection('case-studies')}
-              className="relative transition-all duration-300 font-medium group text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-white"
+              onClick={() => {
+                setActiveNav('case-studies');
+                scrollToSection('case-studies');
+              }}
+              className={getNavLinkClass('case-studies')}
             >
               AI Case Studies
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-brand-primary to-brand-light group-hover:w-full transition-all duration-300"></span>
+              <span className={getUnderlineClass('case-studies')} />
             </button>
+
+            {/* AI Blogs */}
+            <button
+              onClick={() => {
+                setActiveNav('blogs');
+                navigate('/blogs');
+              }}
+              className={getNavLinkClass('blogs')}
+            >
+              AI Blogs
+              <span className={getUnderlineClass('blogs')} />
+            </button>
+
             <button
               onClick={toggleTheme}
               className="p-2 rounded-lg transition-all duration-300 hover:scale-110 active:scale-95 text-gray-700 dark:text-gray-300 hover:bg-emerald-50 dark:hover:bg-white/10 hover:text-emerald-600 dark:hover:text-white"
@@ -133,8 +169,10 @@ export default function Header({ onQuoteClick }: HeaderProps) {
       {isMobileMenuOpen && (
         <div className="md:hidden backdrop-blur-md border-t animate-slide-down bg-white/95 dark:bg-gray-900/95 border-gray-200 dark:border-gray-800">
           <nav className="px-6 py-4 space-y-2">
+            {/* AI Home */}
             <button
               onClick={() => {
+                setActiveNav('home');
                 if (isHomePage) {
                   scrollToSection('about');
                 } else {
@@ -144,10 +182,37 @@ export default function Header({ onQuoteClick }: HeaderProps) {
               }}
               className="block w-full text-left px-2 py-2 rounded-lg transition-all duration-300 font-medium text-xl sm:text-lg text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-white hover:bg-emerald-50 dark:hover:bg-white/10"
             >
-              {isHomePage ? 'AI Home' : 'AI Home'}
+              AI Home
             </button>
+
+            {/* AI Services */}
             <button
               onClick={() => {
+                setActiveNav('services');
+                scrollToSection('services');
+                setIsMobileMenuOpen(false);
+              }}
+              className="block w-full text-left px-2 py-2 rounded-lg transition-all duration-300 font-medium text-xl sm:text-lg text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-white hover:bg-emerald-50 dark:hover:bg-white/10"
+            >
+              AI Services
+            </button>
+
+            {/* AI Case Studies */}
+            <button
+              onClick={() => {
+                setActiveNav('case-studies');
+                scrollToSection('case-studies');
+                setIsMobileMenuOpen(false);
+              }}
+              className="block w-full text-left px-2 py-2 rounded-lg transition-all duration-300 font-medium text-xl sm:text-lg text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-white hover:bg-emerald-50 dark:hover:bg-white/10"
+            >
+              AI Case Studies
+            </button>
+
+            {/* AI Blogs */}
+            <button
+              onClick={() => {
+                setActiveNav('blogs');
                 navigate('/blogs');
                 setIsMobileMenuOpen(false);
               }}
@@ -155,22 +220,7 @@ export default function Header({ onQuoteClick }: HeaderProps) {
             >
               AI Blogs
             </button>
-            <button
-              onClick={() => {
-                scrollToSection('services');
-              }}
-              className="block w-full text-left px-2 py-2 rounded-lg transition-all duration-300 font-medium text-xl sm:text-lg text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-white hover:bg-emerald-50 dark:hover:bg-white/10"
-            >
-              AI Services
-            </button>
-            <button
-              onClick={() => {
-                scrollToSection('case-studies');
-              }}
-              className="block w-full text-left px-2 py-2 rounded-lg transition-all duration-300 font-medium text-xl sm:text-lg text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-white hover:bg-emerald-50 dark:hover:bg-white/10"
-            >
-              AI Case Studies
-            </button>
+
             <div className="pt-2">
               <button
                 onClick={() => {
