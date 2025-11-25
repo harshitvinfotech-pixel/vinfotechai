@@ -71,7 +71,7 @@ export default function Header({ onQuoteClick }: HeaderProps) {
               onClick={() => isHomePage ? scrollToSection('about') : navigate('/')}
               className="relative transition-all duration-300 font-medium group text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-white"
             >
-              {isHomePage ? 'AI Home' : 'Home'}
+              {isHomePage ? 'AI Home' : 'AI Home'}
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-brand-primary to-brand-light group-hover:w-full transition-all duration-300"></span>
             </button>
             <button
