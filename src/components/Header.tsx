@@ -91,7 +91,7 @@ export default function Header({ onQuoteClick }: HeaderProps) {
               }}
               className={getNavLinkClass('home')}
             >
-              AI Homes
+              AI Home
               <span className={getUnderlineClass('home')} />
             </button>
 
