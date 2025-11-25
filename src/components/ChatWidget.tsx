@@ -9,13 +9,13 @@ import {
   cacheChatHistory,
   clearChatHistory,
   chatHistoryTtlMs,
-  type SuggestedQuestion,
   type ChatMessage
 } from '../lib/chat';
 import {
   streamQuery,
   submitChatFeedback,
   submitContactForm,
+  fetchInitialSuggestions,
   getDefaultUserId,
   getDefaultTeamId,
   type SourceDocument,
@@ -44,56 +44,11 @@ const getCurrentPagePath = (): string | undefined => {
   return undefined;
 };
 
-// Hardcoded fallback questions
-const FALLBACK_QUESTIONS: SuggestedQuestion[] = [
-  {
-    id: 'fallback-1',
-    question_text: 'What AI solutions does Vinfotech offer?',
-    category: 'services',
-    display_order: 1,
-    is_active: true,
-    click_count: 0
-  },
-  {
-    id: 'fallback-2',
-    question_text: 'How can AI improve my business operations?',
-    category: 'general',
-    display_order: 2,
-    is_active: true,
-    click_count: 0
-  },
-  {
-    id: 'fallback-3',
-    question_text: 'What industries do you specialize in?',
-    category: 'services',
-    display_order: 3,
-    is_active: true,
-    click_count: 0
-  },
-  {
-    id: 'fallback-4',
-    question_text: 'Tell me about your custom AI agent development',
-    category: 'services',
-    display_order: 4,
-    is_active: true,
-    click_count: 0
-  },
-  {
-    id: 'fallback-5',
-    question_text: 'How do you ensure data security in AI projects?',
-    category: 'technical',
-    display_order: 5,
-    is_active: true,
-    click_count: 0
-  },
-  {
-    id: 'fallback-6',
-    question_text: 'What is your AI project implementation timeline?',
-    category: 'process',
-    display_order: 6,
-    is_active: true,
-    click_count: 0
-  }
+// Hardcoded fallback questions (used only if API fails)
+const FALLBACK_QUESTIONS: string[] = [
+  'What AI solutions does Vinfotech offer?',
+  'How can AI improve my business operations?',
+  'What industries do you specialize in?'
 ];
 
 const DEFAULT_CONTACT_FORM: ContactFormPayload = {
@@ -145,7 +100,8 @@ export default function ChatWidget() {
   const [messages, setMessages] = useState<ChatMessage[]>(cachedStateRef.current.messages);
   const [isLoading, setIsLoading] = useState(false);
   const [isStreaming, setIsStreaming] = useState(false);
-  const suggestedQuestions = FALLBACK_QUESTIONS;
+  const [initialSuggestions, setInitialSuggestions] = useState<string[]>([]);
+  const [isLoadingSuggestions, setIsLoadingSuggestions] = useState(false);
   const [dynamicSuggestions, setDynamicSuggestions] = useState<string[]>(cachedStateRef.current.suggestions);
   const [clickedSuggestions, setClickedSuggestions] = useState<Set<string>>(new Set());
   const [showPredefinedQuestions, setShowPredefinedQuestions] = useState(
@@ -184,6 +140,8 @@ export default function ChatWidget() {
   useEffect(() => {
     checkSessionState();
     resetSessionTimeout();
+    // Prefetch suggestions on component mount (when user visits website)
+    loadInitialSuggestions();
 
     const handleResize = () => {
       setIsDesktop(window.innerWidth >= 768);
@@ -192,6 +150,31 @@ export default function ChatWidget() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  // Load initial suggestions from API (prefetch on mount)
+  const loadInitialSuggestions = async () => {
+    // Skip if already loaded or currently loading
+    if (initialSuggestions.length > 0 || isLoadingSuggestions) return;
+
+    setIsLoadingSuggestions(true);
+    try {
+      const result = await fetchInitialSuggestions(getDefaultUserId(), getDefaultTeamId());
+      
+      if (result.success && result.suggestions && result.suggestions.length > 0) {
+        setInitialSuggestions(result.suggestions);
+        console.log('✅ Initial suggestions loaded:', result.suggestions);
+      } else {
+        // Use fallback questions if API fails
+        setInitialSuggestions(FALLBACK_QUESTIONS);
+        console.log('⚠️ Using fallback suggestions');
+      }
+    } catch (error) {
+      console.error('Failed to load initial suggestions:', error);
+      setInitialSuggestions(FALLBACK_QUESTIONS);
+    } finally {
+      setIsLoadingSuggestions(false);
+    }
+  };
 
   // Cycle through loading messages
   useEffect(() => {
@@ -283,6 +266,8 @@ export default function ChatWidget() {
       setClickedSuggestions(new Set());
       setMessageFeedback({});
       setShowPredefinedQuestions(true);
+      // Reload initial suggestions on session reset
+      loadInitialSuggestions();
     }, chatHistoryTtlMs);
   };
 
@@ -602,14 +587,9 @@ export default function ChatWidget() {
     }
   };
 
-  const handleSuggestedQuestionClick = async (sq: SuggestedQuestion | string) => {
-    const questionText = typeof sq === 'string' ? sq : sq.question_text;
-    
+  const handleSuggestedQuestionClick = async (questionText: string) => {
     // Mark this suggestion as clicked
-    if (typeof sq === 'string') {
-      setClickedSuggestions(prev => new Set([...prev, sq]));
-    }
-    
+    setClickedSuggestions(prev => new Set([...prev, questionText]));
     await askQuestion(questionText, 0); // 0 = suggested (clicked) query
   };
 
@@ -745,19 +725,19 @@ export default function ChatWidget() {
           </div>
 
           <div className="p-6">
-            {showPredefinedQuestions && suggestedQuestions.length > 0 && (
+            {showPredefinedQuestions && initialSuggestions.length > 0 && (
               <div className="grid grid-cols-1 gap-3 mb-4">
-                {suggestedQuestions.map((sq, index) => (
+                {initialSuggestions.map((question, index) => (
                   <button
-                    key={sq.id}
-                    onClick={() => handleSuggestedQuestionClick(sq)}
+                    key={index}
+                    onClick={() => handleSuggestedQuestionClick(question)}
                     className="text-left px-4 py-3 rounded-xl bg-gray-50 hover:bg-emerald-50 border border-gray-200 hover:border-emerald-300 transition-all duration-300 group hover:scale-[1.02] hover:-translate-y-0.5 active:scale-[0.98]"
                     style={{ animationDelay: `${index * 50}ms` }}
                   >
                     <div className="flex items-start gap-3">
                       <Sparkles className="w-4 h-4 text-emerald-500 mt-0.5 flex-shrink-0" />
                       <span className="text-[15px] text-gray-700 group-hover:text-emerald-700 font-medium">
-                        {sq.question_text}
+                        {question}
                       </span>
                     </div>
                   </button>
@@ -894,18 +874,26 @@ export default function ChatWidget() {
             <h3 className={`text-lg font-bold mb-1 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>How can I help you today?</h3>
             <p className={`text-base mb-6 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-400'}`}>Ask me anything about our services</p>
 
-            {showPredefinedQuestions && (
+            {showPredefinedQuestions && !isLoadingSuggestions && (
               <div className="grid grid-cols-1 gap-3 w-full max-w-sm">
-                {suggestedQuestions.slice(0, 3).map((sq, index) => (
+                {initialSuggestions.slice(0, 3).map((question, index) => (
                   <button
-                    key={sq.id}
-                    onClick={() => handleSuggestedQuestionClick(sq)}
+                    key={index}
+                    onClick={() => handleSuggestedQuestionClick(question)}
                     className={`text-left px-4 py-3 rounded-lg border transition-all duration-300 text-base hover:scale-[1.02] hover:-translate-y-0.5 active:scale-[0.98] ${theme === 'dark' ? 'bg-gray-700 hover:bg-gray-600 border-gray-600 hover:border-emerald-500 text-gray-200' : 'bg-white hover:bg-gray-50 border-gray-200 hover:border-gray-300 text-gray-700'}`}
                     style={{ animationDelay: `${index * 50}ms` }}
                   >
-                    {sq.question_text}
+                    {question}
                   </button>
                 ))}
+              </div>
+            )}
+
+            {isLoadingSuggestions && (
+              <div className="flex items-center justify-center gap-2 text-emerald-500">
+                <div className="w-2 h-2 rounded-full animate-bounce" style={{ animationDelay: '0ms', backgroundColor: '#00B46A' }}></div>
+                <div className="w-2 h-2 rounded-full animate-bounce" style={{ animationDelay: '150ms', backgroundColor: '#00B46A' }}></div>
+                <div className="w-2 h-2 rounded-full animate-bounce" style={{ animationDelay: '300ms', backgroundColor: '#00B46A' }}></div>
               </div>
             )}
           </div>

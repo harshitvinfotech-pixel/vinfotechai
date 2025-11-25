@@ -311,6 +311,47 @@ export async function streamQuery(
   }
 }
 
+export interface InitialSuggestionsResponse {
+  success: boolean;
+  suggestions: string[];
+  count: number;
+  message: string | null;
+}
+
+export async function fetchInitialSuggestions(
+  userId: string = defaultUserId,
+  teamId: string = defaultTeamId
+): Promise<InitialSuggestionsResponse> {
+  try {
+    const url = new URL(`${normalizedChatApiUrl}/chat/suggestions`);
+    url.searchParams.append('user_id', userId);
+    url.searchParams.append('team_id', teamId);
+
+    const response = await fetch(url.toString(), {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const result = await response.json();
+    return result as InitialSuggestionsResponse;
+  } catch (error) {
+    console.error('Error fetching initial suggestions:', error);
+    // Return fallback empty response
+    return {
+      success: false,
+      suggestions: [],
+      count: 0,
+      message: 'Failed to fetch suggestions'
+    };
+  }
+}
+
 export function getDefaultUserId(): string {
   return defaultUserId;
 }
