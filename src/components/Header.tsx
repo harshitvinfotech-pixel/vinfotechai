@@ -144,7 +144,7 @@ export default function Header({ onQuoteClick }: HeaderProps) {
               }}
               className="block w-full text-left px-2 py-2 rounded-lg transition-all duration-300 font-medium text-xl sm:text-lg text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-white hover:bg-emerald-50 dark:hover:bg-white/10"
             >
-              {isHomePage ? 'About' : 'Home'}
+              {isHomePage ? 'AI HOME' : 'Home'}
             </button>
             <button
               onClick={() => {
