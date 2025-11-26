@@ -6,6 +6,9 @@ import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import Modal from '../components/Modal';
+import QuoteForm from '../components/QuoteForm';
+import QuoteSuccessConfirmation from '../components/QuoteSuccessConfirmation';
 import PageMeta from '../components/PageMeta';
 import { getBlogBySlug, getRelatedBlogs, formatPublishedDate, formatReadingTime } from '../lib/blogs';
 import type { BlogWithCategory } from '../types/blog';
@@ -16,9 +19,20 @@ export default function BlogDetail() {
   const [blog, setBlog] = useState<BlogWithCategory | null>(null);
   const [relatedBlogs, setRelatedBlogs] = useState<BlogWithCategory[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
+  const [showSuccessConfirmation, setShowSuccessConfirmation] = useState(false);
 
   const handleBackClick = () => {
     navigate('/blogs');
+  };
+
+  const handleShowSuccessConfirmation = () => {
+    setShowSuccessConfirmation(true);
+  };
+
+  const handleCloseSuccessConfirmation = () => {
+    setShowSuccessConfirmation(false);
+    setIsQuoteModalOpen(false);
   };
 
   useEffect(() => {
@@ -54,7 +68,7 @@ export default function BlogDetail() {
   if (loading) {
     return (
       <div className="min-h-screen bg-white dark:bg-gray-900">
-        <Header onQuoteClick={() => {}} />
+        <Header onQuoteClick={() => setIsQuoteModalOpen(true)} />
         <div className="max-w-7xl mx-auto px-6 py-20">
           <div className="h-96 bg-gray-200 dark:bg-gray-800 rounded-3xl animate-pulse mb-8"></div>
           <div className="space-y-4">
@@ -81,7 +95,7 @@ export default function BlogDetail() {
         ogImage={blog.featured_image_url}
       />
       <div className="min-h-screen bg-white dark:bg-gray-900">
-        <Header onQuoteClick={() => {}} />
+        <Header onQuoteClick={() => setIsQuoteModalOpen(true)} />
 
       <article className="relative pt-20">
         <div className="relative">
@@ -249,6 +263,23 @@ export default function BlogDetail() {
       </article>
 
       <Footer />
+
+      <Modal
+        isOpen={isQuoteModalOpen}
+        onClose={() => {
+          setIsQuoteModalOpen(false);
+          setShowSuccessConfirmation(false);
+        }}
+        title={showSuccessConfirmation ? '' : 'Get a Quote'}
+      >
+        {showSuccessConfirmation ? (
+          <QuoteSuccessConfirmation onClose={handleCloseSuccessConfirmation} />
+        ) : (
+          <QuoteForm
+            onShowSuccessConfirmation={handleShowSuccessConfirmation}
+          />
+        )}
+      </Modal>
       </div>
     </>
   );

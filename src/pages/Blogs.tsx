@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import { Calendar, Clock, Search, ChevronLeft, ChevronRight, Sparkles, ArrowRight } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import Modal from '../components/Modal';
+import QuoteForm from '../components/QuoteForm';
+import QuoteSuccessConfirmation from '../components/QuoteSuccessConfirmation';
 import PageMeta from '../components/PageMeta';
 import { getPublishedBlogs, formatPublishedDate, formatReadingTime } from '../lib/blogs';
 import type { BlogWithCategory } from '../types/blog';
@@ -13,6 +16,8 @@ export default function Blogs() {
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
+  const [showSuccessConfirmation, setShowSuccessConfirmation] = useState(false);
   const pageSize = 9;
 
   useEffect(() => {
@@ -42,6 +47,15 @@ export default function Blogs() {
     setCurrentPage(1);
   };
 
+  const handleShowSuccessConfirmation = () => {
+    setShowSuccessConfirmation(true);
+  };
+
+  const handleCloseSuccessConfirmation = () => {
+    setShowSuccessConfirmation(false);
+    setIsQuoteModalOpen(false);
+  };
+
   const featuredBlog = blogs.find(blog => blog.is_featured);
   const regularBlogs = blogs.filter(blog => !blog.is_featured);
 
@@ -53,7 +67,7 @@ export default function Blogs() {
         keywords="AI blog, artificial intelligence insights, machine learning articles, AI trends, technology blog, AI development, ML tutorials, AI news"
       />
       <div className="min-h-screen bg-white dark:bg-gray-900">
-        <Header onQuoteClick={() => {}} />
+        <Header onQuoteClick={() => setIsQuoteModalOpen(true)} />
 
       <div className="relative bg-gray-50 dark:bg-gray-900 pt-24 pb-12 overflow-hidden">
         <div className="absolute inset-0 opacity-[0.05] dark:opacity-[0.1]">
@@ -284,6 +298,23 @@ export default function Blogs() {
       </div>
 
       <Footer />
+
+      <Modal
+        isOpen={isQuoteModalOpen}
+        onClose={() => {
+          setIsQuoteModalOpen(false);
+          setShowSuccessConfirmation(false);
+        }}
+        title={showSuccessConfirmation ? '' : 'Get a Quote'}
+      >
+        {showSuccessConfirmation ? (
+          <QuoteSuccessConfirmation onClose={handleCloseSuccessConfirmation} />
+        ) : (
+          <QuoteForm
+            onShowSuccessConfirmation={handleShowSuccessConfirmation}
+          />
+        )}
+      </Modal>
       </div>
     </>
   );
