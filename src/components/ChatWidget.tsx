@@ -119,6 +119,7 @@ export default function ChatWidget() {
     useState<{ type: 'success' | 'error'; message: string } | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
   const abortControllerRef = useRef<AbortController | null>(null);
   const sessionTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const lastChunkRef = useRef<string>(''); // Track last chunk to prevent duplicates
@@ -412,6 +413,24 @@ export default function ChatWidget() {
     await askQuestion(question, 1); // 1 = typed (manual) query
   };
 
+  // Auto-resize textarea based on content (max 3 lines)
+  const handleQuestionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const textarea = e.target;
+    setQuestion(textarea.value);
+    
+    // Reset height to auto to get the correct scrollHeight
+    textarea.style.height = 'auto';
+    
+    // Calculate line height (approximately 24px for text-base)
+    const lineHeight = 24;
+    const maxLines = 3;
+    const maxHeight = lineHeight * maxLines;
+    
+    // Set height based on content, but cap at max 3 lines
+    const newHeight = Math.min(textarea.scrollHeight, maxHeight);
+    textarea.style.height = `${newHeight}px`;
+  };
+
   const askQuestion = async (questionText: string, queryType?: number) => {
     // Prevent duplicate calls
     if (isLoading || isStreaming || isProcessingRef.current) {
@@ -441,6 +460,10 @@ export default function ChatWidget() {
     lastUserQuestionRef.current = questionText;
 
     setQuestion('');
+    // Reset textarea height
+    if (textareaRef.current) {
+      textareaRef.current.style.height = 'auto';
+    }
     setMessages(prev => [...prev, { type: 'user', text: questionText }]);
     setIsLoading(true);
     setIsStreaming(false);
@@ -726,17 +749,17 @@ export default function ChatWidget() {
 
           <div className="p-6">
             {showPredefinedQuestions && initialSuggestions.length > 0 && (
-              <div className="grid grid-cols-1 gap-3 mb-4">
+              <div className="grid grid-cols-1 gap-2 mb-4">
                 {initialSuggestions.map((question, index) => (
                   <button
                     key={index}
                     onClick={() => handleSuggestedQuestionClick(question)}
-                    className="text-left px-4 py-3 rounded-xl bg-gray-50 hover:bg-emerald-50 border border-gray-200 hover:border-emerald-300 transition-all duration-300 group hover:scale-[1.02] hover:-translate-y-0.5 active:scale-[0.98]"
+                    className="text-left px-3 py-2 rounded-lg bg-white hover:bg-emerald-50 border-2 border-gray-200 hover:border-emerald-500 transition-all duration-300 group hover:scale-[1.02] hover:-translate-y-0.5 active:scale-[0.98] hover:shadow-md"
                     style={{ animationDelay: `${index * 50}ms` }}
                   >
-                    <div className="flex items-start gap-3">
-                      <Sparkles className="w-4 h-4 text-emerald-500 mt-0.5 flex-shrink-0" />
-                      <span className="text-[15px] text-gray-700 group-hover:text-emerald-700 font-medium">
+                    <div className="flex items-start gap-2">
+                      <Sparkles className="w-3.5 h-3.5 text-emerald-500 mt-0.5 flex-shrink-0 group-hover:scale-110 transition-transform" />
+                      <span className="text-sm text-gray-700 group-hover:text-emerald-700 font-medium leading-snug">
                         {question}
                       </span>
                     </div>
@@ -747,8 +770,8 @@ export default function ChatWidget() {
 
             {/* Show dynamic suggestions in preview mode when user has chat history */}
             {!showPredefinedQuestions && dynamicSuggestions.length > 0 && (
-              <div className="grid grid-cols-1 gap-3 mb-4">
-                <p className="text-xs font-medium text-gray-500 px-2 mb-2">Continue the conversation:</p>
+              <div className="grid grid-cols-1 gap-2 mb-4">
+                <p className="text-xs font-medium text-gray-500 px-2 mb-1">Continue the conversation:</p>
                 {dynamicSuggestions
                   .filter(suggestion => !clickedSuggestions.has(suggestion))
                   .slice(0, 3)
@@ -756,11 +779,11 @@ export default function ChatWidget() {
                     <button
                       key={index}
                       onClick={() => handleDynamicSuggestionClick(suggestion)}
-                      className="text-left px-4 py-3 rounded-xl bg-gradient-to-r from-emerald-50 to-teal-50 hover:from-emerald-100 hover:to-teal-100 border border-emerald-200 hover:border-emerald-300 transition-all duration-300 hover:scale-[1.02] hover:-translate-y-0.5 active:scale-[0.98] group"
+                      className="text-left px-3 py-2 rounded-lg bg-gradient-to-r from-emerald-50 to-teal-50 hover:from-emerald-100 hover:to-teal-100 border border-emerald-200 hover:border-emerald-300 transition-all duration-300 hover:scale-[1.02] hover:-translate-y-0.5 active:scale-[0.98] group"
                     >
-                      <div className="flex items-start gap-3">
-                        <Sparkles className="w-4 h-4 text-emerald-600 mt-0.5 flex-shrink-0 group-hover:animate-pulse" />
-                        <span className="text-[15px] text-gray-700 group-hover:text-emerald-800 font-medium">
+                      <div className="flex items-start gap-2">
+                        <Sparkles className="w-3.5 h-3.5 text-emerald-600 mt-0.5 flex-shrink-0 group-hover:animate-pulse" />
+                        <span className="text-sm text-gray-700 group-hover:text-emerald-800 font-medium leading-snug">
                           {suggestion}
                         </span>
                       </div>
@@ -770,17 +793,29 @@ export default function ChatWidget() {
             )}
 
             <form onSubmit={handleSubmit} className="relative">
-              <input
-                type="text"
+              <textarea
+                rows={1}
                 value={question}
-                onChange={(e) => setQuestion(e.target.value)}
+                onChange={handleQuestionChange}
+                onKeyDown={(e) => {
+                  // Submit on Enter (without Shift)
+                  if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    handleSubmit(e as any);
+                  }
+                }}
                 placeholder="Or ask your own question..."
-                className={`w-full px-4 py-3 pr-12 rounded-xl border outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-none ${theme === 'dark' ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' : 'bg-white border-gray-200 text-gray-900'}`}
+                className={`w-full px-4 py-3 pr-12 rounded-xl border outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-none resize-none overflow-y-auto scrollbar-hide ${theme === 'dark' ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' : 'bg-white border-gray-200 text-gray-900'}`}
+                style={{ 
+                  minHeight: '48px',
+                  maxHeight: '72px',
+                  lineHeight: '24px'
+                }}
               />
               <button
                 type="submit"
                 disabled={!question.trim() || isLoading}
-                className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 hover:scale-110 active:scale-95"
+                className="absolute right-2 bottom-3 p-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 hover:scale-110 active:scale-95"
               >
                 <Send className="w-4 h-4" />
               </button>
@@ -863,7 +898,7 @@ export default function ChatWidget() {
         </div>
       </div>
 
-      <div ref={chatContainerRef} className={`flex-1 overflow-y-auto px-6 py-4 space-y-4 ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'}`}>
+      <div ref={chatContainerRef} className={`flex-1 overflow-y-auto px-6 py-4 space-y-4 scrollbar-hide ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'}`}>
         {messages.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full text-center px-4">
             <img
@@ -875,15 +910,20 @@ export default function ChatWidget() {
             <p className={`text-base mb-6 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-400'}`}>Ask me anything about our services</p>
 
             {showPredefinedQuestions && !isLoadingSuggestions && (
-              <div className="grid grid-cols-1 gap-3 w-full max-w-sm">
+              <div className="grid grid-cols-1 gap-2 w-full max-w-sm">
                 {initialSuggestions.slice(0, 3).map((question, index) => (
                   <button
                     key={index}
                     onClick={() => handleSuggestedQuestionClick(question)}
-                    className={`text-left px-4 py-3 rounded-lg border transition-all duration-300 text-base hover:scale-[1.02] hover:-translate-y-0.5 active:scale-[0.98] ${theme === 'dark' ? 'bg-gray-700 hover:bg-gray-600 border-gray-600 hover:border-emerald-500 text-gray-200' : 'bg-white hover:bg-gray-50 border-gray-200 hover:border-gray-300 text-gray-700'}`}
+                    className={`text-left px-3 py-2 rounded-lg border-2 transition-all duration-300 text-sm hover:scale-[1.02] hover:-translate-y-0.5 active:scale-[0.98] group hover:shadow-md ${theme === 'dark' ? 'bg-gray-700 hover:bg-gray-600 border-gray-600 hover:border-emerald-500 text-gray-200' : 'bg-white hover:bg-emerald-50 border-gray-200 hover:border-emerald-500 text-gray-700'}`}
                     style={{ animationDelay: `${index * 50}ms` }}
                   >
-                    {question}
+                    <div className="flex items-start gap-2">
+                      <Sparkles className={`w-3.5 h-3.5 mt-0.5 flex-shrink-0 group-hover:scale-110 transition-transform ${theme === 'dark' ? 'text-emerald-400' : 'text-emerald-500'}`} />
+                      <span className={`leading-snug ${theme === 'dark' ? 'group-hover:text-emerald-300' : 'group-hover:text-emerald-700'}`}>
+                        {question}
+                      </span>
+                    </div>
                   </button>
                 ))}
               </div>
@@ -1046,10 +1086,10 @@ export default function ChatWidget() {
             )}
             {dynamicSuggestions.length > 0 && !isLoading && (
               <div className="flex justify-start animate-slide-up-fade pl-10">
-                <div className="flex flex-col gap-3 w-full max-w-[85%]">
+                <div className="flex flex-col gap-2 w-full max-w-[85%]">
                   <div className="flex items-center gap-2">
-                    <Sparkles className="w-4 h-4 text-emerald-500" />
-                    <p className={`text-base font-semibold ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>You can also ask:</p>
+                    <Sparkles className="w-3.5 h-3.5 text-emerald-500" />
+                    <p className={`text-sm font-semibold ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>You can also ask:</p>
                   </div>
                   {dynamicSuggestions
                     .filter(suggestion => !clickedSuggestions.has(suggestion))
@@ -1057,11 +1097,11 @@ export default function ChatWidget() {
                       <button
                         key={index}
                         onClick={() => handleDynamicSuggestionClick(suggestion)}
-                        className={`text-left px-4 py-2.5 rounded-xl border transition-all duration-300 hover:scale-[1.02] hover:-translate-y-0.5 active:scale-[0.98] group shadow-sm w-full ${theme === 'dark' ? 'bg-gradient-to-r from-gray-700 to-gray-600 hover:from-gray-600 hover:to-gray-500 border-emerald-500/30 hover:border-emerald-400' : 'bg-gradient-to-r from-emerald-50 to-teal-50 hover:from-emerald-100 hover:to-teal-100 border-emerald-200 hover:border-emerald-300'}`}
+                        className={`text-left px-3 py-2 rounded-lg border transition-all duration-300 hover:scale-[1.02] hover:-translate-y-0.5 active:scale-[0.98] group shadow-sm w-full ${theme === 'dark' ? 'bg-gradient-to-r from-gray-700 to-gray-600 hover:from-gray-600 hover:to-gray-500 border-emerald-500/30 hover:border-emerald-400' : 'bg-gradient-to-r from-emerald-50 to-teal-50 hover:from-emerald-100 hover:to-teal-100 border-emerald-200 hover:border-emerald-300'}`}
                       >
                         <div className="flex items-start gap-2">
-                          <Sparkles className="w-4 h-4 mt-0.5 text-emerald-500 flex-shrink-0 group-hover:scale-110 transition-transform" />
-                          <span className={`text-base font-normal leading-relaxed ${theme === 'dark' ? 'text-gray-100 group-hover:text-emerald-300' : 'text-gray-800 group-hover:text-emerald-700'}`}>
+                          <Sparkles className="w-3.5 h-3.5 mt-0.5 text-emerald-500 flex-shrink-0 group-hover:scale-110 transition-transform" />
+                          <span className={`text-sm font-normal leading-snug ${theme === 'dark' ? 'text-gray-100 group-hover:text-emerald-300' : 'text-gray-800 group-hover:text-emerald-700'}`}>
                             {suggestion}
                           </span>
                         </div>
@@ -1194,17 +1234,30 @@ export default function ChatWidget() {
 
       <div className={`px-6 py-4 border-t flex-shrink-0 ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'}`}>
         <form onSubmit={handleSubmit} className="relative mb-3">
-          <input
-            type="text"
+          <textarea
+            ref={textareaRef}
+            rows={1}
             value={question}
-            onChange={(e) => setQuestion(e.target.value)}
+            onChange={handleQuestionChange}
+            onKeyDown={(e) => {
+              // Submit on Enter (without Shift)
+              if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                handleSubmit(e as any);
+              }
+            }}
             placeholder="Ask a question..."
-            className={`w-full px-4 py-3 pr-12 rounded-xl border outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all duration-300 ${theme === 'dark' ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' : 'bg-gray-50 border-gray-200 text-gray-900'}`}
+            className={`w-full px-4 py-3 pr-12 rounded-xl border outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all duration-300 resize-none overflow-y-auto scrollbar-hide ${theme === 'dark' ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' : 'bg-gray-50 border-gray-200 text-gray-900'}`}
+            style={{ 
+              minHeight: '48px',
+              maxHeight: '72px',
+              lineHeight: '24px'
+            }}
           />
           <button
             type="submit"
             disabled={!question.trim() || isLoading || isStreaming}
-            className="absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-full text-white transition-all duration-300 hover:scale-110 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+            className="absolute right-2 bottom-3 p-2 rounded-full text-white transition-all duration-300 hover:scale-110 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
             style={{ backgroundColor: '#00B46A' }}
           >
             <Send className="w-4 h-4" />
