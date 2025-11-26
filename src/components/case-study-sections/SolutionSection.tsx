@@ -104,7 +104,7 @@ function AttendanceDashboardMockup() {
               {/* Scrollable content area */}
               <div className="absolute inset-0 overflow-y-auto custom-scrollbar bg-white dark:bg-gray-900">
                 <img
-                  src="/AI SOlution.png"
+                  src="/vision-ai-solution.jpg"
                   alt="Vision-Based Attendance Dashboard"
                   className="w-full h-auto mix-blend-normal dark:opacity-90"
                   loading="lazy"
