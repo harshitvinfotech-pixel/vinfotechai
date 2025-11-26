@@ -174,7 +174,7 @@ export default function CaseStudyDetail() {
 
         <SolutionSection
           solutionText={caseStudy.solution}
-          solutionImage={caseStudy.hero_image}
+          solutionImage={slug === 'live-sports-auto-prediction-engine' ? '/AI SOlution.png' : caseStudy.hero_image}
           slug={slug}
         />
 
