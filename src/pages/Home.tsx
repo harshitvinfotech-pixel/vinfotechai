@@ -8,7 +8,8 @@ import TechStack from '../components/TechStack';
 import CaseStudies from '../components/CaseStudies';
 import WhyUs from '../components/WhyUs';
 import CTA from '../components/CTA';
-import BlogPreview from '../components/BlogPreview';
+// BlogPreview - Hidden for now
+// import BlogPreview from '../components/BlogPreview';
 import Footer from '../components/Footer';
 import AbstractBackground from '../components/AbstractBackground';
 import PageMeta from '../components/PageMeta';
@@ -64,7 +65,8 @@ export default function Home({ onQuoteClick }: HomeProps) {
         <CaseStudies />
         <WhyUs />
         <CTA onQuoteClick={onQuoteClick} />
-        <BlogPreview />
+        {/* BlogPreview - Hidden for now */}
+        {/* <BlogPreview /> */}
       </main>
 
       <Footer />

@@ -9,8 +9,9 @@ import QuoteSuccessConfirmation from './components/QuoteSuccessConfirmation';
 import ChatWidget from './components/ChatWidget';
 import CookieConsent from './components/CookieConsent';
 
-const Blogs = lazy(() => import('./pages/Blogs'));
-const BlogDetail = lazy(() => import('./pages/BlogDetail'));
+// Blogs - Hidden for now
+// const Blogs = lazy(() => import('./pages/Blogs'));
+// const BlogDetail = lazy(() => import('./pages/BlogDetail'));
 const CaseStudyDetail = lazy(() => import('./pages/CaseStudyDetail'));
 
 function ScrollToTop() {
@@ -72,8 +73,9 @@ function AppContent() {
       }>
         <Routes>
           <Route path="/" element={<Home onQuoteClick={() => setIsQuoteModalOpen(true)} />} />
-          <Route path="/blogs" element={<Blogs />} />
-          <Route path="/blogs/:slug" element={<BlogDetail />} />
+          {/* Blog routes - Hidden for now */}
+          {/* <Route path="/blogs" element={<Blogs />} /> */}
+          {/* <Route path="/blogs/:slug" element={<BlogDetail />} /> */}
           <Route path="/case-studies/:slug" element={<CaseStudyDetail key={location.pathname} />} />
         </Routes>
       </Suspense>

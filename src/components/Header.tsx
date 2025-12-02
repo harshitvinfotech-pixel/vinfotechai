@@ -146,8 +146,8 @@ export default function Header({ onQuoteClick }: HeaderProps) {
               <span className={getDesktopUnderlineClass('case-studies')} />
             </button>
 
-            {/* AI Blogs */}
-            <button
+            {/* AI Blogs - Hidden for now */}
+            {/* <button
               onClick={() => {
                 setActiveNav('blogs');
                 navigate('/blogs');
@@ -156,7 +156,7 @@ export default function Header({ onQuoteClick }: HeaderProps) {
             >
               AI Blogs
               <span className={getDesktopUnderlineClass('blogs')} />
-            </button>
+            </button> */}
 
             <button
               onClick={toggleTheme}
@@ -237,8 +237,8 @@ export default function Header({ onQuoteClick }: HeaderProps) {
               AI Case Studies
             </button>
 
-            {/* AI Blogs */}
-            <button
+            {/* AI Blogs - Hidden for now */}
+            {/* <button
               onClick={() => {
                 setActiveNav('blogs');
                 navigate('/blogs');
@@ -247,7 +247,7 @@ export default function Header({ onQuoteClick }: HeaderProps) {
               className={getMobileNavClass('blogs')}
             >
               AI Blogs
-            </button>
+            </button> */}
 
             <div className="pt-2">
               <button
