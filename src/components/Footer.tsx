@@ -1,10 +1,32 @@
 import { Mail, Phone, Linkedin, Instagram, Facebook, MapPin } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useTheme } from '../contexts/ThemeContext';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
   const { theme } = useTheme();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
+
+  const scrollToSection = (id: string) => {
+    if (!isHomePage) {
+      navigate('/', { state: { scrollTo: id } });
+      return;
+    }
+
+    const element = document.getElementById(id);
+    if (element) {
+      const offset = 80;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth',
+      });
+    }
+  };
 
   return (
     <footer className="bg-black dark:bg-black text-white py-12 sm:py-16 md:py-20 px-6 sm:px-8 lg:px-12 border-t border-gray-800">
@@ -71,30 +93,43 @@ export default function Footer() {
             <h3 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4 text-white">Quick Links</h3>
             <ul className="space-y-2 sm:space-y-3">
               <li>
-                <a href="#services" className="inline-block text-lg sm:text-lg text-gray-400 hover:text-[#00FFB2] transition-all duration-300 hover:translate-x-1">
+                <button
+                  onClick={() => scrollToSection('services')}
+                  className="inline-block text-lg sm:text-lg text-gray-400 hover:text-[#00FFB2] transition-all duration-300 hover:translate-x-1 cursor-pointer"
+                >
                   Services
-                </a>
+                </button>
               </li>
               <li>
-                <a href="#why-us" className="inline-block text-lg sm:text-lg text-gray-400 hover:text-[#00FFB2] transition-all duration-300 hover:translate-x-1">
+                <button
+                  onClick={() => scrollToSection('why-us')}
+                  className="inline-block text-lg sm:text-lg text-gray-400 hover:text-[#00FFB2] transition-all duration-300 hover:translate-x-1 cursor-pointer"
+                >
                   Why Us
-                </a>
+                </button>
               </li>
               <li>
-                <a href="#case-studies" className="inline-block text-lg sm:text-lg text-gray-400 hover:text-[#00FFB2] transition-all duration-300 hover:translate-x-1">
+                <button
+                  onClick={() => scrollToSection('case-studies')}
+                  className="inline-block text-lg sm:text-lg text-gray-400 hover:text-[#00FFB2] transition-all duration-300 hover:translate-x-1 cursor-pointer"
+                >
                   Case Studies
-                </a>
+                </button>
               </li>
               <li>
-                <a href="#tech-stack" className="inline-block text-lg sm:text-lg text-gray-400 hover:text-[#00FFB2] transition-all duration-300 hover:translate-x-1">
+                <button
+                  onClick={() => scrollToSection('tech-stack')}
+                  className="inline-block text-lg sm:text-lg text-gray-400 hover:text-[#00FFB2] transition-all duration-300 hover:translate-x-1 cursor-pointer"
+                >
                   Tech Stack
-                </a>
+                </button>
               </li>
-              <li>
+              {/* Blog - Hidden for now */}
+              {/* <li>
                 <Link to="/blogs" className="inline-block text-lg sm:text-lg text-gray-400 hover:text-[#00FFB2] transition-all duration-300 hover:translate-x-1">
                   Blog
                 </Link>
-              </li>
+              </li> */}
             </ul>
           </div>
 
