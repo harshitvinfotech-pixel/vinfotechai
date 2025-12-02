@@ -83,7 +83,7 @@ theme: {
 
 ```javascript
 branding: {
-  companyName: 'AI Assistant',      // Display name
+  companyName: 'AIII Assistant',      // Display name
   logoUrl: '/logo.png',             // Company logo URL
   botAvatarUrl: '/bot-avatar.png',  // Bot avatar image
   poweredByText: 'Powered by AI',   // Footer text
