@@ -88,7 +88,7 @@ export default function TechStack({ technologies }: TechStackProps = { technolog
   ];
 
   return (
-    <section ref={sectionRef} className="relative py-12 sm:py-16 md:py-20 lg:py-24 px-6 sm:px-8 lg:px-12 bg-gray-50 dark:bg-gray-900 overflow-hidden">
+    <section id="tech-stack" ref={sectionRef} className="relative py-12 sm:py-16 md:py-20 lg:py-24 px-6 sm:px-8 lg:px-12 bg-gray-50 dark:bg-gray-900 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-gray-100 via-gray-50 to-gray-100 dark:from-black dark:via-gray-900 dark:to-black opacity-90"></div>
 
       <div className="absolute inset-0 opacity-20 dark:opacity-20">
