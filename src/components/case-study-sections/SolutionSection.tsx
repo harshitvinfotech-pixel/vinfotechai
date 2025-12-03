@@ -245,13 +245,13 @@ export default function SolutionSection({ solutionText, solutionImage, slug }: S
                 <AttendanceDashboardMockup />
               </div>
             ) : (
-              <div className="relative w-full max-w-md mx-auto rounded-xl lg:rounded-2xl overflow-hidden shadow-xl transition-transform duration-500 hover:scale-[1.02]" style={{ aspectRatio: '9/16' }}>
+              <div className="relative w-full max-w-lg mx-auto rounded-xl lg:rounded-2xl overflow-hidden shadow-xl transition-transform duration-500 hover:scale-[1.02]">
                 <img
                   src={solutionImage}
                   alt="AI Solution"
-                  className="w-full h-full object-cover rounded-xl lg:rounded-2xl"
+                  className="w-full h-auto object-contain rounded-xl lg:rounded-2xl"
                   loading="lazy"
-                  style={{ display: 'block' }}
+                  style={{ display: 'block', minHeight: '300px', maxHeight: '650px' }}
                 />
               </div>
             )}
