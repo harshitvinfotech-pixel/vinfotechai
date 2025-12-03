@@ -89,11 +89,11 @@ export default function AutonomousEnterpriseSalesAgent() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-12 lg:gap-16 items-center">
               <div className="order-1 lg:order-1">
-                <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-gray-300 dark:border-gray-600 h-[400px]">
+                <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-gray-300 dark:border-gray-600">
                   <img
                     src="/downloadfile-5(1) copy.gif"
                     alt="The Challenge - Data Complexity"
-                    className="w-full h-full object-cover"
+                    className="w-full h-auto object-contain"
                   />
                 </div>
               </div>
