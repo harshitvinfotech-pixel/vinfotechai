@@ -234,7 +234,7 @@ export default function SolutionSection({ solutionText, solutionImage, slug }: S
   return (
     <section ref={sectionRef} className="py-12 sm:py-16 lg:py-20 bg-white dark:bg-gray-900 transition-colors duration-300 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-16 items-center">
           <div ref={imageRef} className={`order-1 lg:order-2 transition-all duration-1000 ${imageVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'}`}>
             {showPhoneMockup ? (
               <div className="flex items-center justify-center py-8">
@@ -245,13 +245,13 @@ export default function SolutionSection({ solutionText, solutionImage, slug }: S
                 <AttendanceDashboardMockup />
               </div>
             ) : (
-              <div className="relative rounded-xl lg:rounded-2xl overflow-visible shadow-xl transition-transform duration-500 hover:scale-[1.02]">
+              <div className="relative max-w-lg mx-auto rounded-xl lg:rounded-2xl overflow-visible shadow-xl transition-transform duration-500 hover:scale-[1.02]">
                 <img
                   src={solutionImage}
                   alt="AI Solution"
                   className="w-full h-auto object-contain rounded-xl lg:rounded-2xl"
                   loading="lazy"
-                  style={{ display: 'block', maxWidth: '100%' }}
+                  style={{ display: 'block', maxWidth: '100%', maxHeight: '600px' }}
                 />
               </div>
             )}
