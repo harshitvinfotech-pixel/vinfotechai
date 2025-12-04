@@ -969,20 +969,25 @@ export default function ChatWidget() {
                   {message.type === 'user' ? (
                     <p className="text-base leading-relaxed whitespace-pre-line font-normal">{message.text}</p>
                   ) : (
-                    <div className="prose prose-sm max-w-none prose-headings:font-bold prose-headings:text-gray-900 prose-p:text-gray-700 prose-p:my-0 prose-p:leading-relaxed prose-a:text-emerald-600 prose-a:no-underline hover:prose-a:underline prose-strong:text-gray-900 prose-ul:list-disc prose-ul:my-0 prose-ol:list-decimal prose-ol:my-0 prose-li:text-gray-700" style={{ fontSize: '16px', lineHeight: '1.6' }}>
+                    <div className="prose prose-sm max-w-none" style={{ fontSize: '16px', lineHeight: '1.6' }}>
                       <ReactMarkdown
                         remarkPlugins={[remarkGfm]}
                         components={{
                           a: ({ node, ...props }) => (
-                            <a 
-                              {...props} 
-                              target="_blank" 
-                              rel="noopener noreferrer" 
-                              className="text-emerald-600 hover:text-emerald-700 hover:underline font-medium cursor-pointer"
+                            <a
+                              {...props}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="hover:underline font-medium cursor-pointer"
+                              style={{ color: theme === 'dark' ? '#34d399' : '#059669' }}
                             />
                           ),
                           p: ({ node, ...props }) => (
-                            <p {...props} className="mb-2 last:mb-0" />
+                            <p
+                              {...props}
+                              className="mb-2 last:mb-0"
+                              style={{ color: theme === 'dark' ? '#e5e7eb' : '#374151' }}
+                            />
                           ),
                           ul: ({ node, ...props }) => (
                             <ul {...props} className="list-disc pl-4 mb-2 space-y-1" />
@@ -991,25 +996,58 @@ export default function ChatWidget() {
                             <ol {...props} className="list-decimal pl-4 mb-2 space-y-1" />
                           ),
                           li: ({ node, ...props }) => (
-                            <li {...props} className="text-gray-700" />
+                            <li
+                              {...props}
+                              style={{ color: theme === 'dark' ? '#e5e7eb' : '#374151' }}
+                            />
                           ),
                           h1: ({ node, ...props }) => (
-                            <h1 {...props} className="text-lg font-bold text-gray-900 mb-2 mt-3 first:mt-0" />
+                            <h1
+                              {...props}
+                              className="text-lg font-bold mb-2 mt-3 first:mt-0"
+                              style={{ color: theme === 'dark' ? '#f9fafb' : '#111827' }}
+                            />
                           ),
                           h2: ({ node, ...props }) => (
-                            <h2 {...props} className="text-base font-bold text-gray-900 mb-2 mt-3 first:mt-0" />
+                            <h2
+                              {...props}
+                              className="text-base font-bold mb-2 mt-3 first:mt-0"
+                              style={{ color: theme === 'dark' ? '#f9fafb' : '#111827' }}
+                            />
                           ),
                           h3: ({ node, ...props }) => (
-                            <h3 {...props} className="text-sm font-bold text-gray-900 mb-1 mt-2 first:mt-0" />
+                            <h3
+                              {...props}
+                              className="text-sm font-bold mb-1 mt-2 first:mt-0"
+                              style={{ color: theme === 'dark' ? '#f9fafb' : '#111827' }}
+                            />
                           ),
                           strong: ({ node, ...props }) => (
-                            <strong {...props} className="font-bold text-gray-900" />
+                            <strong
+                              {...props}
+                              className="font-bold"
+                              style={{ color: theme === 'dark' ? '#f9fafb' : '#111827' }}
+                            />
                           ),
-                          code: ({ node, inline, ...props }: any) => 
+                          code: ({ node, inline, ...props }: any) =>
                             inline ? (
-                              <code {...props} className="bg-gray-100 text-emerald-700 px-1 py-0.5 rounded text-xs font-mono" />
+                              <code
+                                {...props}
+                                className="px-1 py-0.5 rounded text-xs font-mono"
+                                style={{
+                                  backgroundColor: theme === 'dark' ? '#4b5563' : '#f3f4f6',
+                                  color: theme === 'dark' ? '#6ee7b7' : '#059669'
+                                }}
+                              />
                             ) : (
-                              <code {...props} className="block bg-gray-100 text-gray-800 p-2 rounded text-xs font-mono overflow-x-auto" />
+                              <code
+                                {...props}
+                                className="block p-2 rounded text-xs font-mono overflow-x-auto"
+                                style={{
+                                  backgroundColor: theme === 'dark' ? '#4b5563' : '#f3f4f6',
+                                  color: theme === 'dark' ? '#f9fafb' : '#1f2937'
+                                }}
+                              />
                             )
                         }}
                       >
