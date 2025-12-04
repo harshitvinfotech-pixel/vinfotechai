@@ -458,11 +458,7 @@ export function ChatWidget({ config }: ChatWidgetProps) {
                     {message.type === 'user' ? (
                       <p className="text-base leading-relaxed">{message.text}</p>
                     ) : (
-                      <div className={`prose prose-sm max-w-none ${
-                        currentTheme === 'dark'
-                          ? 'prose-invert prose-headings:text-gray-100 prose-p:text-gray-200 prose-strong:text-gray-100 prose-li:text-gray-200 prose-a:text-emerald-400'
-                          : 'prose-headings:text-gray-900 prose-p:text-gray-700 prose-strong:text-gray-900 prose-li:text-gray-700 prose-a:text-emerald-600'
-                      }`}>
+                      <div className="prose prose-sm max-w-none">
                         <ReactMarkdown
                           remarkPlugins={[remarkGfm]}
                           components={{
@@ -471,11 +467,15 @@ export function ChatWidget({ config }: ChatWidgetProps) {
                                 {...props}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className={currentTheme === 'dark' ? 'text-emerald-400 hover:text-emerald-300' : 'text-emerald-600 hover:text-emerald-700'}
+                                style={{ color: currentTheme === 'dark' ? '#34d399' : '#059669' }}
                               />
                             ),
                             p: ({ node, ...props }) => (
-                              <p {...props} className={`mb-2 last:mb-0 ${currentTheme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`} />
+                              <p
+                                {...props}
+                                className="mb-2 last:mb-0"
+                                style={{ color: currentTheme === 'dark' ? '#e5e7eb' : '#374151' }}
+                              />
                             ),
                             ul: ({ node, ...props }) => (
                               <ul {...props} className="list-disc pl-4 mb-2 space-y-1" />
@@ -484,33 +484,58 @@ export function ChatWidget({ config }: ChatWidgetProps) {
                               <ol {...props} className="list-decimal pl-4 mb-2 space-y-1" />
                             ),
                             li: ({ node, ...props }) => (
-                              <li {...props} className={currentTheme === 'dark' ? 'text-gray-200' : 'text-gray-700'} />
+                              <li
+                                {...props}
+                                style={{ color: currentTheme === 'dark' ? '#e5e7eb' : '#374151' }}
+                              />
                             ),
                             h1: ({ node, ...props }) => (
-                              <h1 {...props} className={`text-lg font-bold mb-2 mt-3 first:mt-0 ${currentTheme === 'dark' ? 'text-gray-100' : 'text-gray-900'}`} />
+                              <h1
+                                {...props}
+                                className="text-lg font-bold mb-2 mt-3 first:mt-0"
+                                style={{ color: currentTheme === 'dark' ? '#f9fafb' : '#111827' }}
+                              />
                             ),
                             h2: ({ node, ...props }) => (
-                              <h2 {...props} className={`text-base font-bold mb-2 mt-3 first:mt-0 ${currentTheme === 'dark' ? 'text-gray-100' : 'text-gray-900'}`} />
+                              <h2
+                                {...props}
+                                className="text-base font-bold mb-2 mt-3 first:mt-0"
+                                style={{ color: currentTheme === 'dark' ? '#f9fafb' : '#111827' }}
+                              />
                             ),
                             h3: ({ node, ...props }) => (
-                              <h3 {...props} className={`text-sm font-bold mb-1 mt-2 first:mt-0 ${currentTheme === 'dark' ? 'text-gray-100' : 'text-gray-900'}`} />
+                              <h3
+                                {...props}
+                                className="text-sm font-bold mb-1 mt-2 first:mt-0"
+                                style={{ color: currentTheme === 'dark' ? '#f9fafb' : '#111827' }}
+                              />
                             ),
                             strong: ({ node, ...props }) => (
-                              <strong {...props} className={`font-bold ${currentTheme === 'dark' ? 'text-gray-100' : 'text-gray-900'}`} />
+                              <strong
+                                {...props}
+                                className="font-bold"
+                                style={{ color: currentTheme === 'dark' ? '#f9fafb' : '#111827' }}
+                              />
                             ),
                             code: ({ node, inline, ...props }: any) =>
                               inline ? (
-                                <code {...props} className={`px-1 py-0.5 rounded text-xs font-mono ${
-                                  currentTheme === 'dark'
-                                    ? 'bg-gray-600 text-emerald-300'
-                                    : 'bg-gray-100 text-emerald-700'
-                                }`} />
+                                <code
+                                  {...props}
+                                  className="px-1 py-0.5 rounded text-xs font-mono"
+                                  style={{
+                                    backgroundColor: currentTheme === 'dark' ? '#4b5563' : '#f3f4f6',
+                                    color: currentTheme === 'dark' ? '#6ee7b7' : '#059669'
+                                  }}
+                                />
                               ) : (
-                                <code {...props} className={`block p-2 rounded text-xs font-mono overflow-x-auto ${
-                                  currentTheme === 'dark'
-                                    ? 'bg-gray-600 text-gray-100'
-                                    : 'bg-gray-100 text-gray-800'
-                                }`} />
+                                <code
+                                  {...props}
+                                  className="block p-2 rounded text-xs font-mono overflow-x-auto"
+                                  style={{
+                                    backgroundColor: currentTheme === 'dark' ? '#4b5563' : '#f3f4f6',
+                                    color: currentTheme === 'dark' ? '#f9fafb' : '#1f2937'
+                                  }}
+                                />
                               )
                           }}
                         >

@@ -20438,7 +20438,7 @@ function ChatWidget({ config }) {
                   }
                 }
               ),
-              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: `max-w-[85%] px-4 py-3 transition-all duration-300 ${message.type === "user" ? "rounded-tl-2xl rounded-bl-2xl rounded-br-2xl text-white" : currentTheme === "dark" ? "bg-gray-700 text-gray-100 border border-gray-600 rounded-2xl" : "bg-white text-gray-900 border border-gray-100 rounded-2xl"}`, style: message.type === "user" ? { backgroundColor: primaryColor } : {}, children: message.type === "user" ? /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-base leading-relaxed", children: message.text }) : /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: `prose prose-sm max-w-none ${currentTheme === "dark" ? "prose-invert prose-headings:text-gray-100 prose-p:text-gray-200 prose-strong:text-gray-100 prose-li:text-gray-200 prose-a:text-emerald-400" : "prose-headings:text-gray-900 prose-p:text-gray-700 prose-strong:text-gray-900 prose-li:text-gray-700 prose-a:text-emerald-600"}`, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: `max-w-[85%] px-4 py-3 transition-all duration-300 ${message.type === "user" ? "rounded-tl-2xl rounded-bl-2xl rounded-br-2xl text-white" : currentTheme === "dark" ? "bg-gray-700 text-gray-100 border border-gray-600 rounded-2xl" : "bg-white text-gray-900 border border-gray-100 rounded-2xl"}`, style: message.type === "user" ? { backgroundColor: primaryColor } : {}, children: message.type === "user" ? /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-base leading-relaxed", children: message.text }) : /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "prose prose-sm max-w-none", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
                 Markdown,
                 {
                   remarkPlugins: [remarkGfm],
@@ -20449,18 +20449,79 @@ function ChatWidget({ config }) {
                         ...props,
                         target: "_blank",
                         rel: "noopener noreferrer",
-                        className: currentTheme === "dark" ? "text-emerald-400 hover:text-emerald-300" : "text-emerald-600 hover:text-emerald-700"
+                        style: { color: currentTheme === "dark" ? "#34d399" : "#059669" }
                       }
                     ),
-                    p: ({ node: node2, ...props }) => /* @__PURE__ */ jsxRuntimeExports.jsx("p", { ...props, className: `mb-2 last:mb-0 ${currentTheme === "dark" ? "text-gray-200" : "text-gray-700"}` }),
+                    p: ({ node: node2, ...props }) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+                      "p",
+                      {
+                        ...props,
+                        className: "mb-2 last:mb-0",
+                        style: { color: currentTheme === "dark" ? "#e5e7eb" : "#374151" }
+                      }
+                    ),
                     ul: ({ node: node2, ...props }) => /* @__PURE__ */ jsxRuntimeExports.jsx("ul", { ...props, className: "list-disc pl-4 mb-2 space-y-1" }),
                     ol: ({ node: node2, ...props }) => /* @__PURE__ */ jsxRuntimeExports.jsx("ol", { ...props, className: "list-decimal pl-4 mb-2 space-y-1" }),
-                    li: ({ node: node2, ...props }) => /* @__PURE__ */ jsxRuntimeExports.jsx("li", { ...props, className: currentTheme === "dark" ? "text-gray-200" : "text-gray-700" }),
-                    h1: ({ node: node2, ...props }) => /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { ...props, className: `text-lg font-bold mb-2 mt-3 first:mt-0 ${currentTheme === "dark" ? "text-gray-100" : "text-gray-900"}` }),
-                    h2: ({ node: node2, ...props }) => /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { ...props, className: `text-base font-bold mb-2 mt-3 first:mt-0 ${currentTheme === "dark" ? "text-gray-100" : "text-gray-900"}` }),
-                    h3: ({ node: node2, ...props }) => /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { ...props, className: `text-sm font-bold mb-1 mt-2 first:mt-0 ${currentTheme === "dark" ? "text-gray-100" : "text-gray-900"}` }),
-                    strong: ({ node: node2, ...props }) => /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { ...props, className: `font-bold ${currentTheme === "dark" ? "text-gray-100" : "text-gray-900"}` }),
-                    code: ({ node: node2, inline, ...props }) => inline ? /* @__PURE__ */ jsxRuntimeExports.jsx("code", { ...props, className: `px-1 py-0.5 rounded text-xs font-mono ${currentTheme === "dark" ? "bg-gray-600 text-emerald-300" : "bg-gray-100 text-emerald-700"}` }) : /* @__PURE__ */ jsxRuntimeExports.jsx("code", { ...props, className: `block p-2 rounded text-xs font-mono overflow-x-auto ${currentTheme === "dark" ? "bg-gray-600 text-gray-100" : "bg-gray-100 text-gray-800"}` })
+                    li: ({ node: node2, ...props }) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+                      "li",
+                      {
+                        ...props,
+                        style: { color: currentTheme === "dark" ? "#e5e7eb" : "#374151" }
+                      }
+                    ),
+                    h1: ({ node: node2, ...props }) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+                      "h1",
+                      {
+                        ...props,
+                        className: "text-lg font-bold mb-2 mt-3 first:mt-0",
+                        style: { color: currentTheme === "dark" ? "#f9fafb" : "#111827" }
+                      }
+                    ),
+                    h2: ({ node: node2, ...props }) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+                      "h2",
+                      {
+                        ...props,
+                        className: "text-base font-bold mb-2 mt-3 first:mt-0",
+                        style: { color: currentTheme === "dark" ? "#f9fafb" : "#111827" }
+                      }
+                    ),
+                    h3: ({ node: node2, ...props }) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+                      "h3",
+                      {
+                        ...props,
+                        className: "text-sm font-bold mb-1 mt-2 first:mt-0",
+                        style: { color: currentTheme === "dark" ? "#f9fafb" : "#111827" }
+                      }
+                    ),
+                    strong: ({ node: node2, ...props }) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+                      "strong",
+                      {
+                        ...props,
+                        className: "font-bold",
+                        style: { color: currentTheme === "dark" ? "#f9fafb" : "#111827" }
+                      }
+                    ),
+                    code: ({ node: node2, inline, ...props }) => inline ? /* @__PURE__ */ jsxRuntimeExports.jsx(
+                      "code",
+                      {
+                        ...props,
+                        className: "px-1 py-0.5 rounded text-xs font-mono",
+                        style: {
+                          backgroundColor: currentTheme === "dark" ? "#4b5563" : "#f3f4f6",
+                          color: currentTheme === "dark" ? "#6ee7b7" : "#059669"
+                        }
+                      }
+                    ) : /* @__PURE__ */ jsxRuntimeExports.jsx(
+                      "code",
+                      {
+                        ...props,
+                        className: "block p-2 rounded text-xs font-mono overflow-x-auto",
+                        style: {
+                          backgroundColor: currentTheme === "dark" ? "#4b5563" : "#f3f4f6",
+                          color: currentTheme === "dark" ? "#f9fafb" : "#1f2937"
+                        }
+                      }
+                    )
                   },
                   children: message.text
                 }
