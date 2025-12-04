@@ -1,4 +1,5 @@
 export interface ChatWidgetConfig {
+  version?: string;
   apiUrl: string;
   userId?: string;
   teamId?: string;
@@ -10,10 +11,8 @@ export interface ChatWidgetConfig {
 
   branding?: {
     companyName?: string;
-    logoUrl?: string;
-    botAvatarUrl?: string;
-    poweredByText?: string;
     showPoweredBy?: boolean;
+    poweredByText?: string;
   };
 
   behavior?: {
@@ -36,12 +35,6 @@ export interface ChatWidgetConfig {
     fallbackQuestions?: string[];
   };
 
-  privacy?: {
-    enableLocalStorage?: boolean;
-    sessionTtlMinutes?: number;
-    enableCookies?: boolean;
-  };
-
   customization?: {
     css?: string;
     className?: string;
@@ -50,13 +43,6 @@ export interface ChatWidgetConfig {
   callbacks?: {
     onOpen?: () => void;
     onClose?: () => void;
-    onMessage?: (message: string) => void;
-    onError?: (error: Error) => void;
-  };
-
-  analytics?: {
-    enabled?: boolean;
-    trackEvents?: boolean;
   };
 }
 
@@ -67,6 +53,7 @@ export interface ChatMessage {
 }
 
 export const DEFAULT_CONFIG: Partial<ChatWidgetConfig> = {
+  version: '1.0.0',
   theme: {
     primaryColor: '#00B46A',
     mode: 'auto'
@@ -96,14 +83,5 @@ export const DEFAULT_CONFIG: Partial<ChatWidgetConfig> = {
       'How can you help my business?',
       'Tell me about your solutions'
     ]
-  },
-  privacy: {
-    enableLocalStorage: true,
-    sessionTtlMinutes: 60,
-    enableCookies: false
-  },
-  analytics: {
-    enabled: false,
-    trackEvents: false
   }
 };

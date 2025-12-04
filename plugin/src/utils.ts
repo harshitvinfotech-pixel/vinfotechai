@@ -3,6 +3,7 @@ import { DEFAULT_CONFIG } from './types';
 
 export function mergeConfig(userConfig: Partial<ChatWidgetConfig>): ChatWidgetConfig {
   return {
+    version: userConfig.version || DEFAULT_CONFIG.version || '1.0.0',
     apiUrl: userConfig.apiUrl || '',
     userId: userConfig.userId || 'default_user',
     teamId: userConfig.teamId || 'default_team',
@@ -26,16 +27,8 @@ export function mergeConfig(userConfig: Partial<ChatWidgetConfig>): ChatWidgetCo
       ...DEFAULT_CONFIG.suggestions,
       ...userConfig.suggestions
     },
-    privacy: {
-      ...DEFAULT_CONFIG.privacy,
-      ...userConfig.privacy
-    },
     customization: userConfig.customization,
-    callbacks: userConfig.callbacks,
-    analytics: {
-      ...DEFAULT_CONFIG.analytics,
-      ...userConfig.analytics
-    }
+    callbacks: userConfig.callbacks
   } as ChatWidgetConfig;
 }
 

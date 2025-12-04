@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vinfotech Chat Widget - Quick Test</title>
+
+  <!-- Widget CSS -->
+  <link rel="stylesheet" href="./built-files/vinfotech-chat-widget.css">
+
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      margin: 0;
+      padding: 40px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .version {
+      color: #00B46A;
+      font-weight: bold;
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+
+    .feature-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .feature-card {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 12px;
+      border-left: 4px solid #00B46A;
+    }
+
+    .feature-card h3 {
+      margin-top: 0;
+      color: #00B46A;
+      font-size: 16px;
+    }
+
+    .feature-card ul {
+      margin: 10px 0;
+      padding-left: 20px;
+    }
+
+    .feature-card li {
+      margin: 5px 0;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .status {
+      display: inline-block;
+      background: #00B46A;
+      color: white;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .test-buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-primary {
+      background: #00B46A;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #00956A;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,180,106,0.4);
+    }
+
+    .btn-secondary {
+      background: #6c757d;
+      color: white;
+    }
+
+    .btn-secondary:hover {
+      background: #5a6268;
+      transform: translateY(-2px);
+    }
+
+    .info-box {
+      background: #e7f5ff;
+      border-left: 4px solid #1971c2;
+      padding: 16px;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+
+    .info-box strong {
+      color: #1971c2;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🤖 Vinfotech Chat Widget</h1>
+    <div class="version">Version 1.0.0 <span class="status">UPDATED</span></div>
+
+    <p style="color: #666; line-height: 1.6;">
+      This is a test page for the updated Vinfotech Chat Widget plugin.
+      The widget has been enhanced with all the features from the main application.
+    </p>
+
+    <div class="info-box">
+      <strong>ℹ️ Note:</strong> For this test to work properly, make sure your API URL is configured correctly in the script below,
+      and that <code>/ai-bot.png</code> is available in your public directory.
+    </div>
+
+    <h2 style="margin-top: 40px; color: #333;">🎨 New Features</h2>
+
+    <div class="feature-list">
+      <div class="feature-card">
+        <h3>✨ Version Control</h3>
+        <ul>
+          <li>Version tracking</li>
+          <li>Logged on initialization</li>
+          <li>getVersion() method</li>
+        </ul>
+      </div>
+
+      <div class="feature-card">
+        <h3>🤖 Robot Icon & Loader</h3>
+        <ul>
+          <li>Robot icon in all states</li>
+          <li>Animated spinner ring</li>
+          <li>Dynamic loading messages</li>
+          <li>Bouncing dots animation</li>
+        </ul>
+      </div>
+
+      <div class="feature-card">
+        <h3>💬 Suggested Questions</h3>
+        <ul>
+          <li>Initial questions from API</li>
+          <li>Dynamic post-response suggestions</li>
+          <li>Click-to-hide behavior</li>
+          <li>Fallback questions</li>
+        </ul>
+      </div>
+
+      <div class="feature-card">
+        <h3>📱 Mobile Responsive</h3>
+        <ul>
+          <li>Full screen on mobile</li>
+          <li>Optimized touch interactions</li>
+          <li>Adaptive layout</li>
+          <li>Desktop maximize/minimize</li>
+        </ul>
+      </div>
+
+      <div class="feature-card">
+        <h3>⚙️ Config Cleanup</h3>
+        <ul>
+          <li>Removed privacy config</li>
+          <li>Removed analytics config</li>
+          <li>Only onOpen/onClose callbacks</li>
+          <li>Removed updateConfig()</li>
+        </ul>
+      </div>
+
+      <div class="feature-card">
+        <h3>🎨 Simplified Branding</h3>
+        <ul>
+          <li>Removed logoUrl</li>
+          <li>Removed botAvatarUrl</li>
+          <li>Uses /ai-bot.png</li>
+          <li>Powered by text only</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2 style="margin-top: 40px; color: #333;">🧪 Test Actions</h2>
+
+    <div class="test-buttons">
+      <button class="btn btn-primary" onclick="openWidget()">Open Widget</button>
+      <button class="btn btn-secondary" onclick="checkVersion()">Check Version</button>
+      <button class="btn btn-secondary" onclick="checkReady()">Check Ready Status</button>
+      <button class="btn btn-secondary" onclick="testMobile()">Test Mobile View</button>
+    </div>
+
+    <h2 style="margin-top: 40px; color: #333;">📋 Test Checklist</h2>
+    <div style="background: #f8f9fa; padding: 20px; border-radius: 12px; margin-top: 20px;">
+      <h3 style="margin-top: 0;">Desktop Tests:</h3>
+      <ul style="line-height: 2;">
+        <li>✅ Click the floating button to open the widget</li>
+        <li>✅ Verify robot icon appears in collapsed button</li>
+        <li>✅ Check that initial suggested questions load</li>
+        <li>✅ Ask a question and watch loading messages cycle</li>
+        <li>✅ Verify robot icon spins during loading</li>
+        <li>✅ Check dynamic suggestions appear after response</li>
+        <li>✅ Click a suggestion and verify it disappears</li>
+        <li>✅ Test thumbs up/down feedback buttons</li>
+        <li>✅ Test maximize/minimize functionality</li>
+        <li>✅ Close and reopen to test persistence</li>
+      </ul>
+
+      <h3 style="margin-top: 20px;">Mobile Tests:</h3>
+      <ul style="line-height: 2;">
+        <li>✅ Open developer tools and toggle mobile view</li>
+        <li>✅ Verify full-screen layout</li>
+        <li>✅ Check collapsed button has ? indicator</li>
+        <li>✅ Verify no maximize/minimize button on mobile</li>
+        <li>✅ Test touch interactions with suggestions</li>
+        <li>✅ Test keyboard input on mobile</li>
+      </ul>
+    </div>
+
+    <div style="margin-top: 40px; padding: 20px; background: #d4edda; border-radius: 12px; border-left: 4px solid #28a745;">
+      <strong style="color: #155724;">✅ All Features Implemented!</strong>
+      <p style="color: #155724; margin: 10px 0 0 0;">
+        The chat widget is ready to use. Click the floating button in the bottom-right corner to start chatting!
+      </p>
+    </div>
+  </div>
+
+  <!-- Widget Script -->
+  <script src="./built-files/vinfotech-chat-widget.umd.js"></script>
+
+  <script>
+    // Initialize the widget
+    window.VinfotechChatWidget.init({
+      version: '1.0.0',
+      apiUrl: 'https://your-api-endpoint.com', // Replace with your actual API URL
+
+      theme: {
+        primaryColor: '#00B46A',
+        mode: 'auto' // 'light' | 'dark' | 'auto'
+      },
+
+      branding: {
+        companyName: 'Vinfotech AI',
+        showPoweredBy: true,
+        poweredByText: 'Powered by Vinfotech AI'
+      },
+
+      behavior: {
+        autoOpen: false, // Set to true to open automatically
+        defaultState: 'collapsed',
+        position: 'bottom-right',
+        mobileFullscreen: true
+      },
+
+      messages: {
+        welcomeMessage: 'How can I help you today?',
+        placeholderText: 'Ask a question...',
+        errorMessage: "I apologize, but I'm having trouble connecting right now. Please try again."
+      },
+
+      suggestions: {
+        enabled: true,
+        fallbackQuestions: [
+          'What AI solutions does Vinfotech offer?',
+          'How can AI improve my business operations?',
+          'What industries do you specialize in?'
+        ]
+      },
+
+      callbacks: {
+        onOpen: () => {
+          console.log('✅ Widget opened');
+        },
+        onClose: () => {
+          console.log('✅ Widget closed');
+        }
+      }
+    });
+
+    // Test functions
+    function openWidget() {
+      console.log('Opening widget...');
+      // Widget opens when user clicks the floating button
+      alert('Click the floating button in the bottom-right corner to open the widget!');
+    }
+
+    function checkVersion() {
+      const version = window.VinfotechChatWidget.getVersion();
+      alert('Widget Version: ' + version);
+      console.log('Widget Version:', version);
+    }
+
+    function checkReady() {
+      const isReady = window.VinfotechChatWidget.isReady();
+      alert('Widget Ready: ' + isReady);
+      console.log('Widget Ready:', isReady);
+    }
+
+    function testMobile() {
+      alert('Open your browser\'s developer tools (F12), toggle device toolbar, and select a mobile device to test mobile view.');
+    }
+
+    // Log successful initialization
+    console.log('✅ Chat Widget Test Page Loaded');
+    console.log('📝 Check the floating button in the bottom-right corner');
+  </script>
+</body>
+</html>

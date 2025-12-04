@@ -13,15 +13,17 @@ interface ChatWidgetProps {
   config: ChatWidgetConfig;
 }
 
+const FALLBACK_QUESTIONS: string[] = [
+  'What AI solutions does Vinfotech offer?',
+  'How can AI improve my business operations?',
+  'What industries do you specialize in?'
+];
+
 export function ChatWidget({ config }: ChatWidgetProps) {
   const sessionIdRef = useRef<string>(getSessionId());
   const apiRef = useRef<ChatAPI>(new ChatAPI(config.apiUrl));
   const storageRef = useRef<ChatStorage>(
-    new ChatStorage(
-      'vinfotech_chat_',
-      config.privacy?.sessionTtlMinutes || 60,
-      config.privacy?.enableLocalStorage !== false
-    )
+    new ChatStorage('vinfotech_chat_', 60, true)
   );
 
   const cachedStateRef = useRef(storageRef.current.loadChatHistory(sessionIdRef.current));
@@ -29,12 +31,15 @@ export function ChatWidget({ config }: ChatWidgetProps) {
     config.behavior?.defaultState || 'collapsed'
   );
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 768);
   const [question, setQuestion] = useState('');
   const [messages, setMessages] = useState<ChatMessage[]>(cachedStateRef.current.messages);
   const [isLoading, setIsLoading] = useState(false);
   const [isStreaming, setIsStreaming] = useState(false);
   const [initialSuggestions, setInitialSuggestions] = useState<string[]>([]);
+  const [isLoadingSuggestions, setIsLoadingSuggestions] = useState(false);
   const [dynamicSuggestions, setDynamicSuggestions] = useState<string[]>(cachedStateRef.current.suggestions);
+  const [clickedSuggestions, setClickedSuggestions] = useState<Set<string>>(new Set());
   const [showPredefinedQuestions, setShowPredefinedQuestions] = useState(
     cachedStateRef.current.messages.length === 0
   );
@@ -42,6 +47,7 @@ export function ChatWidget({ config }: ChatWidgetProps) {
     cachedStateRef.current.feedback
   );
   const [currentTheme, setCurrentTheme] = useState(detectTheme(config.theme?.mode));
+  const [loadingMessageIndex, setLoadingMessageIndex] = useState(0);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
@@ -51,9 +57,16 @@ export function ChatWidget({ config }: ChatWidgetProps) {
 
   const primaryColor = config.theme?.primaryColor || '#00B46A';
   const companyName = config.branding?.companyName || 'AI Assistant';
-  const botAvatarUrl = config.branding?.botAvatarUrl || '/ai-bot.png';
+  const botAvatarUrl = '/ai-bot.png';
   const welcomeMessage = config.messages?.welcomeMessage || 'How can I help you today?';
   const placeholderText = config.messages?.placeholderText || 'Ask a question...';
+
+  const loadingMessages = [
+    'Thinking',
+    'Processing',
+    'Gathering information...',
+    'Just a sec..'
+  ];
 
   useEffect(() => {
     if (config.behavior?.autoOpen) {
@@ -66,13 +79,30 @@ export function ChatWidget({ config }: ChatWidgetProps) {
     const handleThemeChange = () => setCurrentTheme(detectTheme(config.theme?.mode));
     mediaQuery.addEventListener('change', handleThemeChange);
 
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth >= 768);
+    };
+    window.addEventListener('resize', handleResize);
+
     return () => {
       mediaQuery.removeEventListener('change', handleThemeChange);
+      window.removeEventListener('resize', handleResize);
       if (abortControllerRef.current) {
         abortControllerRef.current.abort();
       }
     };
   }, []);
+
+  useEffect(() => {
+    if (isLoading && !isStreaming) {
+      const interval = setInterval(() => {
+        setLoadingMessageIndex(prev => (prev + 1) % loadingMessages.length);
+      }, 2000);
+      return () => clearInterval(interval);
+    } else {
+      setLoadingMessageIndex(0);
+    }
+  }, [isLoading, isStreaming]);
 
   useEffect(() => {
     if (messages.length === 0 && dynamicSuggestions.length === 0) {
@@ -99,8 +129,9 @@ export function ChatWidget({ config }: ChatWidgetProps) {
   }, [messages, dynamicSuggestions, messageFeedback]);
 
   const loadInitialSuggestions = async () => {
-    if (initialSuggestions.length > 0 || !config.suggestions?.enabled) return;
+    if (initialSuggestions.length > 0 || isLoadingSuggestions || !config.suggestions?.enabled) return;
 
+    setIsLoadingSuggestions(true);
     try {
       const suggestions = await apiRef.current.fetchInitialSuggestions(
         config.userId || 'default_user',
@@ -111,12 +142,18 @@ export function ChatWidget({ config }: ChatWidgetProps) {
         setInitialSuggestions(suggestions);
       } else if (config.suggestions?.fallbackQuestions) {
         setInitialSuggestions(config.suggestions.fallbackQuestions);
+      } else {
+        setInitialSuggestions(FALLBACK_QUESTIONS);
       }
     } catch (error) {
       console.error('Failed to load suggestions:', error);
       if (config.suggestions?.fallbackQuestions) {
         setInitialSuggestions(config.suggestions.fallbackQuestions);
+      } else {
+        setInitialSuggestions(FALLBACK_QUESTIONS);
       }
+    } finally {
+      setIsLoadingSuggestions(false);
     }
   };
 
@@ -140,10 +177,6 @@ export function ChatWidget({ config }: ChatWidgetProps) {
     setIsStreaming(false);
     setDynamicSuggestions([]);
     setShowPredefinedQuestions(false);
-
-    if (config.callbacks?.onMessage) {
-      config.callbacks.onMessage(questionText);
-    }
 
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
@@ -210,10 +243,6 @@ export function ChatWidget({ config }: ChatWidgetProps) {
             setMessages(prev => [...prev, { type: 'assistant', text: errorMsg }]);
             setIsLoading(false);
             setIsStreaming(false);
-
-            if (config.callbacks?.onError) {
-              config.callbacks.onError(new Error(error));
-            }
           }
         },
         config.userId || 'default_user',
@@ -227,10 +256,6 @@ export function ChatWidget({ config }: ChatWidgetProps) {
       setMessages(prev => [...prev, { type: 'assistant', text: errorMsg }]);
       setIsLoading(false);
       setIsStreaming(false);
-
-      if (config.callbacks?.onError && error instanceof Error) {
-        config.callbacks.onError(error);
-      }
     }
   };
 
@@ -242,6 +267,11 @@ export function ChatWidget({ config }: ChatWidgetProps) {
 
   const handleSuggestedQuestionClick = async (questionText: string) => {
     await askQuestion(questionText, 0);
+  };
+
+  const handleDynamicSuggestionClick = async (suggestion: string) => {
+    setClickedSuggestions(prev => new Set(prev).add(suggestion));
+    await askQuestion(suggestion, 0);
   };
 
   const handleCollapsedClick = () => {
@@ -284,7 +314,7 @@ export function ChatWidget({ config }: ChatWidgetProps) {
     return (
       <button
         onClick={handleCollapsedClick}
-        className="fixed bottom-6 right-6 text-white shadow-2xl transition-all duration-300 hover:scale-105 z-50 group rounded-full md:rounded-3xl"
+        className={`fixed bottom-6 right-6 text-white shadow-2xl transition-all duration-300 hover:scale-105 z-50 group rounded-full md:rounded-3xl ${currentTheme === 'dark' ? 'shadow-emerald-500/20' : ''}`}
         style={{ background: `linear-gradient(45deg, ${primaryColor}, ${adjustColorBrightness(primaryColor, -20)})` }}
       >
         <div className="flex items-center gap-2 p-3 md:gap-3 md:px-5 md:py-4">
@@ -292,13 +322,20 @@ export function ChatWidget({ config }: ChatWidgetProps) {
             <Sparkles className="w-5 h-5" />
             <span className="font-bold text-lg">Ask Us Anything?</span>
           </div>
+          <div className="relative md:hidden">
+            <img
+              src={botAvatarUrl}
+              alt={companyName}
+              className="w-12 h-12 object-contain drop-shadow-xl"
+            />
+            <div className="absolute -top-1 -right-1 bg-white text-emerald-600 rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold shadow-lg">
+              ?
+            </div>
+          </div>
           <img
             src={botAvatarUrl}
             alt={companyName}
-            className="w-12 h-12 md:w-16 md:h-16 object-contain drop-shadow-xl"
-            onError={(e) => {
-              (e.target as HTMLImageElement).style.display = 'none';
-            }}
+            className="w-16 h-16 object-contain drop-shadow-xl hidden md:block"
           />
         </div>
       </button>
@@ -309,14 +346,16 @@ export function ChatWidget({ config }: ChatWidgetProps) {
     <div
       className={`fixed z-50 shadow-2xl flex flex-col overflow-hidden transition-all duration-500 ease-in-out ${currentTheme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}
       style={{
-        bottom: '24px',
-        right: '24px',
-        width: isExpanded ? '800px' : '450px',
-        maxWidth: 'calc(100vw - 48px)',
-        height: '700px',
-        minHeight: '500px',
-        maxHeight: 'calc(100vh - 120px)',
-        borderRadius: '24px',
+        top: isDesktop ? 'auto' : '80px',
+        left: isDesktop ? 'auto' : '0',
+        right: isDesktop ? '24px' : '0',
+        bottom: isDesktop ? '24px' : '0',
+        width: isDesktop ? (isExpanded ? '800px' : '450px') : '100%',
+        maxWidth: isDesktop ? 'calc(100vw - 48px)' : '100%',
+        height: isDesktop ? '700px' : 'calc(100vh - 80px)',
+        minHeight: isDesktop ? '500px' : 'auto',
+        maxHeight: isDesktop ? 'calc(100vh - 120px)' : 'calc(100vh - 80px)',
+        borderRadius: isDesktop ? '24px' : '0',
       }}
     >
       <div
@@ -338,12 +377,14 @@ export function ChatWidget({ config }: ChatWidgetProps) {
           <span className="font-bold text-white text-base">{companyName}</span>
         </div>
         <div className="flex items-center gap-2">
-          <button
-            onClick={() => setIsExpanded(!isExpanded)}
-            className="p-2 hover:bg-white/20 rounded-lg transition-all duration-300"
-          >
-            {isExpanded ? <Minimize2 className="w-5 h-5 text-white" /> : <Maximize2 className="w-5 h-5 text-white" />}
-          </button>
+          {isDesktop && (
+            <button
+              onClick={() => setIsExpanded(!isExpanded)}
+              className="p-2 hover:bg-white/20 rounded-lg transition-all duration-300"
+            >
+              {isExpanded ? <Minimize2 className="w-5 h-5 text-white" /> : <Maximize2 className="w-5 h-5 text-white" />}
+            </button>
+          )}
           <button
             onClick={closeWidget}
             className="p-2 hover:bg-white/20 rounded-lg transition-all duration-300"
@@ -366,7 +407,7 @@ export function ChatWidget({ config }: ChatWidgetProps) {
             />
             <h3 className={`text-lg font-bold mb-1 ${currentTheme === 'dark' ? 'text-white' : 'text-gray-900'}`}>{welcomeMessage}</h3>
 
-            {showPredefinedQuestions && initialSuggestions.length > 0 && (
+            {showPredefinedQuestions && !isLoadingSuggestions && initialSuggestions.length > 0 && (
               <div className="grid grid-cols-1 gap-2 w-full max-w-sm mt-6">
                 {initialSuggestions.slice(0, 3).map((question, index) => (
                   <button
@@ -381,6 +422,14 @@ export function ChatWidget({ config }: ChatWidgetProps) {
                     </div>
                   </button>
                 ))}
+              </div>
+            )}
+
+            {isLoadingSuggestions && (
+              <div className="flex items-center justify-center gap-2 text-emerald-500 mt-6">
+                <div className="w-2 h-2 rounded-full animate-bounce" style={{ animationDelay: '0ms', backgroundColor: primaryColor }}></div>
+                <div className="w-2 h-2 rounded-full animate-bounce" style={{ animationDelay: '150ms', backgroundColor: primaryColor }}></div>
+                <div className="w-2 h-2 rounded-full animate-bounce" style={{ animationDelay: '300ms', backgroundColor: primaryColor }}></div>
               </div>
             )}
           </div>
@@ -432,26 +481,69 @@ export function ChatWidget({ config }: ChatWidgetProps) {
                     >
                       <ThumbsDown className={`w-4 h-4 ${messageFeedback[index] === 'negative' ? 'text-red-500' : 'text-gray-400'}`} />
                     </button>
+                    {messageFeedback[index] && (
+                      <span className={`text-xs ${currentTheme === 'dark' ? 'text-gray-500' : 'text-gray-400'}`}>
+                        Thanks for your feedback!
+                      </span>
+                    )}
                   </div>
                 )}
               </div>
             ))}
-            {isLoading && (
+            {(isLoading && !isStreaming) && (
               <div className="flex justify-start items-start gap-3">
-                <img
-                  src={botAvatarUrl}
-                  alt="AI"
-                  className="w-8 h-8 object-contain mt-1"
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).style.display = 'none';
-                  }}
-                />
+                <div className="flex-shrink-0 mt-1 relative">
+                  <div className="absolute inset-0 rounded-full animate-spin" style={{
+                    border: '2px solid transparent',
+                    borderTopColor: primaryColor,
+                    borderRightColor: primaryColor
+                  }}></div>
+                  <img
+                    src={botAvatarUrl}
+                    alt="AI"
+                    className="w-8 h-8 object-contain relative z-10"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).style.display = 'none';
+                    }}
+                  />
+                </div>
                 <div className={`rounded-2xl px-5 py-3 ${currentTheme === 'dark' ? 'bg-gray-700' : 'bg-white border border-gray-100'}`}>
-                  <div className="flex gap-1">
-                    <div className="w-2 h-2 rounded-full animate-bounce" style={{ backgroundColor: primaryColor }}></div>
-                    <div className="w-2 h-2 rounded-full animate-bounce" style={{ backgroundColor: primaryColor, animationDelay: '150ms' }}></div>
-                    <div className="w-2 h-2 rounded-full animate-bounce" style={{ backgroundColor: primaryColor, animationDelay: '300ms' }}></div>
+                  <div className="flex items-center gap-2">
+                    <span className={`text-base font-medium ${currentTheme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
+                      {loadingMessages[loadingMessageIndex]}
+                    </span>
+                    <div className="flex gap-1">
+                      <div className="w-2 h-2 rounded-full animate-bounce" style={{ backgroundColor: primaryColor, animationDelay: '0ms' }}></div>
+                      <div className="w-2 h-2 rounded-full animate-bounce" style={{ backgroundColor: primaryColor, animationDelay: '150ms' }}></div>
+                      <div className="w-2 h-2 rounded-full animate-bounce" style={{ backgroundColor: primaryColor, animationDelay: '300ms' }}></div>
+                    </div>
                   </div>
+                </div>
+              </div>
+            )}
+            {dynamicSuggestions.length > 0 && !isLoading && (
+              <div className="flex justify-start pl-10">
+                <div className="flex flex-col gap-2 w-full max-w-[85%]">
+                  <div className="flex items-center gap-2">
+                    <Sparkles className="w-3.5 h-3.5" style={{ color: primaryColor }} />
+                    <p className={`text-sm font-semibold ${currentTheme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>You can also ask:</p>
+                  </div>
+                  {dynamicSuggestions
+                    .filter(suggestion => !clickedSuggestions.has(suggestion))
+                    .map((suggestion, index) => (
+                      <button
+                        key={index}
+                        onClick={() => handleDynamicSuggestionClick(suggestion)}
+                        className={`text-left px-3 py-2 rounded-lg border transition-all duration-300 hover:scale-[1.02] group shadow-sm w-full ${currentTheme === 'dark' ? 'bg-gradient-to-r from-gray-700 to-gray-600 hover:from-gray-600 hover:to-gray-500 border-emerald-500/30' : 'bg-gradient-to-r from-emerald-50 to-teal-50 hover:from-emerald-100 hover:to-teal-100 border-emerald-200'}`}
+                      >
+                        <div className="flex items-start gap-2">
+                          <Sparkles className="w-3.5 h-3.5 mt-0.5 flex-shrink-0 group-hover:scale-110 transition-transform" style={{ color: primaryColor }} />
+                          <span className={`text-sm leading-snug ${currentTheme === 'dark' ? 'text-gray-100' : 'text-gray-800'}`}>
+                            {suggestion}
+                          </span>
+                        </div>
+                      </button>
+                    ))}
                 </div>
               </div>
             )}

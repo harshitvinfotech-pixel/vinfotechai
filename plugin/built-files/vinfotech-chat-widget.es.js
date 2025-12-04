@@ -19908,6 +19908,7 @@ class ChatStorage {
   }
 }
 const DEFAULT_CONFIG = {
+  version: "1.0.0",
   theme: {
     primaryColor: "#00B46A",
     mode: "auto"
@@ -19937,19 +19938,11 @@ const DEFAULT_CONFIG = {
       "How can you help my business?",
       "Tell me about your solutions"
     ]
-  },
-  privacy: {
-    enableLocalStorage: true,
-    sessionTtlMinutes: 60,
-    enableCookies: false
-  },
-  analytics: {
-    enabled: false,
-    trackEvents: false
   }
 };
 function mergeConfig(userConfig) {
   return {
+    version: userConfig.version || DEFAULT_CONFIG.version,
     apiUrl: userConfig.apiUrl || "",
     userId: userConfig.userId || "default_user",
     teamId: userConfig.teamId || "default_team",
@@ -19973,16 +19966,8 @@ function mergeConfig(userConfig) {
       ...DEFAULT_CONFIG.suggestions,
       ...userConfig.suggestions
     },
-    privacy: {
-      ...DEFAULT_CONFIG.privacy,
-      ...userConfig.privacy
-    },
     customization: userConfig.customization,
-    callbacks: userConfig.callbacks,
-    analytics: {
-      ...DEFAULT_CONFIG.analytics,
-      ...userConfig.analytics
-    }
+    callbacks: userConfig.callbacks
   };
 }
 function detectTheme(mode) {
@@ -20043,45 +20028,56 @@ function removeStyles(id2 = "vinfotech-widget-custom-styles") {
     styleEl.remove();
   }
 }
+const FALLBACK_QUESTIONS = [
+  "What AI solutions does Vinfotech offer?",
+  "How can AI improve my business operations?",
+  "What industries do you specialize in?"
+];
 function ChatWidget({ config }) {
-  var _a, _b, _c, _d, _e, _f, _g, _h, _i, _j, _k;
+  var _a, _b, _c, _d, _e, _f, _g, _h;
   const sessionIdRef = reactExports.useRef(getSessionId());
   const apiRef = reactExports.useRef(new ChatAPI(config.apiUrl));
   const storageRef = reactExports.useRef(
-    new ChatStorage(
-      "vinfotech_chat_",
-      ((_a = config.privacy) == null ? void 0 : _a.sessionTtlMinutes) || 60,
-      ((_b = config.privacy) == null ? void 0 : _b.enableLocalStorage) !== false
-    )
+    new ChatStorage("vinfotech_chat_", 60, true)
   );
   const cachedStateRef = reactExports.useRef(storageRef.current.loadChatHistory(sessionIdRef.current));
   const [widgetState, setWidgetState] = reactExports.useState(
-    ((_c = config.behavior) == null ? void 0 : _c.defaultState) || "collapsed"
+    ((_a = config.behavior) == null ? void 0 : _a.defaultState) || "collapsed"
   );
   const [isExpanded, setIsExpanded] = reactExports.useState(false);
+  const [isDesktop, setIsDesktop] = reactExports.useState(window.innerWidth >= 768);
   const [question, setQuestion] = reactExports.useState("");
   const [messages, setMessages] = reactExports.useState(cachedStateRef.current.messages);
   const [isLoading, setIsLoading] = reactExports.useState(false);
   const [isStreaming, setIsStreaming] = reactExports.useState(false);
   const [initialSuggestions, setInitialSuggestions] = reactExports.useState([]);
+  const [isLoadingSuggestions, setIsLoadingSuggestions] = reactExports.useState(false);
   const [dynamicSuggestions, setDynamicSuggestions] = reactExports.useState(cachedStateRef.current.suggestions);
+  const [clickedSuggestions, setClickedSuggestions] = reactExports.useState(/* @__PURE__ */ new Set());
   const [showPredefinedQuestions, setShowPredefinedQuestions] = reactExports.useState(
     cachedStateRef.current.messages.length === 0
   );
   const [messageFeedback, setMessageFeedback] = reactExports.useState(
     cachedStateRef.current.feedback
   );
-  const [currentTheme, setCurrentTheme] = reactExports.useState(detectTheme((_d = config.theme) == null ? void 0 : _d.mode));
+  const [currentTheme, setCurrentTheme] = reactExports.useState(detectTheme((_b = config.theme) == null ? void 0 : _b.mode));
+  const [loadingMessageIndex, setLoadingMessageIndex] = reactExports.useState(0);
   const messagesEndRef = reactExports.useRef(null);
   const chatContainerRef = reactExports.useRef(null);
   const textareaRef = reactExports.useRef(null);
   const abortControllerRef = reactExports.useRef(null);
   const isProcessingRef = reactExports.useRef(false);
-  const primaryColor = ((_e = config.theme) == null ? void 0 : _e.primaryColor) || "#00B46A";
-  const companyName = ((_f = config.branding) == null ? void 0 : _f.companyName) || "AI Assistant";
-  const botAvatarUrl = ((_g = config.branding) == null ? void 0 : _g.botAvatarUrl) || "/ai-bot.png";
-  const welcomeMessage = ((_h = config.messages) == null ? void 0 : _h.welcomeMessage) || "How can I help you today?";
-  const placeholderText = ((_i = config.messages) == null ? void 0 : _i.placeholderText) || "Ask a question...";
+  const primaryColor = ((_c = config.theme) == null ? void 0 : _c.primaryColor) || "#00B46A";
+  const companyName = ((_d = config.branding) == null ? void 0 : _d.companyName) || "AI Assistant";
+  const botAvatarUrl = "/ai-bot.png";
+  const welcomeMessage = ((_e = config.messages) == null ? void 0 : _e.welcomeMessage) || "How can I help you today?";
+  const placeholderText = ((_f = config.messages) == null ? void 0 : _f.placeholderText) || "Ask a question...";
+  const loadingMessages = [
+    "Thinking",
+    "Processing",
+    "Gathering information...",
+    "Just a sec.."
+  ];
   reactExports.useEffect(() => {
     var _a2;
     if ((_a2 = config.behavior) == null ? void 0 : _a2.autoOpen) {
@@ -20094,13 +20090,28 @@ function ChatWidget({ config }) {
       return setCurrentTheme(detectTheme((_a3 = config.theme) == null ? void 0 : _a3.mode));
     };
     mediaQuery.addEventListener("change", handleThemeChange);
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth >= 768);
+    };
+    window.addEventListener("resize", handleResize);
     return () => {
       mediaQuery.removeEventListener("change", handleThemeChange);
+      window.removeEventListener("resize", handleResize);
       if (abortControllerRef.current) {
         abortControllerRef.current.abort();
       }
     };
   }, []);
+  reactExports.useEffect(() => {
+    if (isLoading && !isStreaming) {
+      const interval = setInterval(() => {
+        setLoadingMessageIndex((prev) => (prev + 1) % loadingMessages.length);
+      }, 2e3);
+      return () => clearInterval(interval);
+    } else {
+      setLoadingMessageIndex(0);
+    }
+  }, [isLoading, isStreaming]);
   reactExports.useEffect(() => {
     if (messages.length === 0 && dynamicSuggestions.length === 0) {
       setShowPredefinedQuestions(true);
@@ -20123,7 +20134,8 @@ function ChatWidget({ config }) {
   }, [messages, dynamicSuggestions, messageFeedback]);
   const loadInitialSuggestions = async () => {
     var _a2, _b2, _c2;
-    if (initialSuggestions.length > 0 || !((_a2 = config.suggestions) == null ? void 0 : _a2.enabled)) return;
+    if (initialSuggestions.length > 0 || isLoadingSuggestions || !((_a2 = config.suggestions) == null ? void 0 : _a2.enabled)) return;
+    setIsLoadingSuggestions(true);
     try {
       const suggestions = await apiRef.current.fetchInitialSuggestions(
         config.userId || "default_user",
@@ -20133,16 +20145,22 @@ function ChatWidget({ config }) {
         setInitialSuggestions(suggestions);
       } else if ((_b2 = config.suggestions) == null ? void 0 : _b2.fallbackQuestions) {
         setInitialSuggestions(config.suggestions.fallbackQuestions);
+      } else {
+        setInitialSuggestions(FALLBACK_QUESTIONS);
       }
     } catch (error) {
       console.error("Failed to load suggestions:", error);
       if ((_c2 = config.suggestions) == null ? void 0 : _c2.fallbackQuestions) {
         setInitialSuggestions(config.suggestions.fallbackQuestions);
+      } else {
+        setInitialSuggestions(FALLBACK_QUESTIONS);
       }
+    } finally {
+      setIsLoadingSuggestions(false);
     }
   };
   const askQuestion = async (questionText, queryType) => {
-    var _a2, _b2, _c2;
+    var _a2;
     if (isLoading || isStreaming || isProcessingRef.current) return;
     isProcessingRef.current = true;
     if (widgetState === "preview") {
@@ -20158,9 +20176,6 @@ function ChatWidget({ config }) {
     setIsStreaming(false);
     setDynamicSuggestions([]);
     setShowPredefinedQuestions(false);
-    if ((_a2 = config.callbacks) == null ? void 0 : _a2.onMessage) {
-      config.callbacks.onMessage(questionText);
-    }
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
         if (chatContainerRef.current) {
@@ -20215,16 +20230,13 @@ function ChatWidget({ config }) {
             isProcessingRef.current = false;
           },
           onError: (error) => {
-            var _a3, _b3;
+            var _a3;
             console.error("Streaming error:", error);
             isProcessingRef.current = false;
             const errorMsg = ((_a3 = config.messages) == null ? void 0 : _a3.errorMessage) || "I apologize, but I'm having trouble connecting right now.";
             setMessages((prev) => [...prev, { type: "assistant", text: errorMsg }]);
             setIsLoading(false);
             setIsStreaming(false);
-            if ((_b3 = config.callbacks) == null ? void 0 : _b3.onError) {
-              config.callbacks.onError(new Error(error));
-            }
           }
         },
         config.userId || "default_user",
@@ -20234,13 +20246,10 @@ function ChatWidget({ config }) {
     } catch (error) {
       console.error("Error getting response:", error);
       isProcessingRef.current = false;
-      const errorMsg = ((_b2 = config.messages) == null ? void 0 : _b2.errorMessage) || "I apologize, but I'm having trouble connecting right now.";
+      const errorMsg = ((_a2 = config.messages) == null ? void 0 : _a2.errorMessage) || "I apologize, but I'm having trouble connecting right now.";
       setMessages((prev) => [...prev, { type: "assistant", text: errorMsg }]);
       setIsLoading(false);
       setIsStreaming(false);
-      if (((_c2 = config.callbacks) == null ? void 0 : _c2.onError) && error instanceof Error) {
-        config.callbacks.onError(error);
-      }
     }
   };
   const handleSubmit = async (e) => {
@@ -20250,6 +20259,10 @@ function ChatWidget({ config }) {
   };
   const handleSuggestedQuestionClick = async (questionText) => {
     await askQuestion(questionText, 0);
+  };
+  const handleDynamicSuggestionClick = async (suggestion) => {
+    setClickedSuggestions((prev) => new Set(prev).add(suggestion));
+    await askQuestion(suggestion, 0);
   };
   const handleCollapsedClick = () => {
     var _a2;
@@ -20289,22 +20302,30 @@ function ChatWidget({ config }) {
       "button",
       {
         onClick: handleCollapsedClick,
-        className: "fixed bottom-6 right-6 text-white shadow-2xl transition-all duration-300 hover:scale-105 z-50 group rounded-full md:rounded-3xl",
+        className: `fixed bottom-6 right-6 text-white shadow-2xl transition-all duration-300 hover:scale-105 z-50 group rounded-full md:rounded-3xl ${currentTheme === "dark" ? "shadow-emerald-500/20" : ""}`,
         style: { background: `linear-gradient(45deg, ${primaryColor}, ${adjustColorBrightness(primaryColor, -20)})` },
         children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 p-3 md:gap-3 md:px-5 md:py-4", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3 hidden md:flex", children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx(Sparkles, { className: "w-5 h-5" }),
             /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "font-bold text-lg", children: "Ask Us Anything?" })
           ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative md:hidden", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "img",
+              {
+                src: botAvatarUrl,
+                alt: companyName,
+                className: "w-12 h-12 object-contain drop-shadow-xl"
+              }
+            ),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute -top-1 -right-1 bg-white text-emerald-600 rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold shadow-lg", children: "?" })
+          ] }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(
             "img",
             {
               src: botAvatarUrl,
               alt: companyName,
-              className: "w-12 h-12 md:w-16 md:h-16 object-contain drop-shadow-xl",
-              onError: (e) => {
-                e.target.style.display = "none";
-              }
+              className: "w-16 h-16 object-contain drop-shadow-xl hidden md:block"
             }
           )
         ] })
@@ -20316,14 +20337,16 @@ function ChatWidget({ config }) {
     {
       className: `fixed z-50 shadow-2xl flex flex-col overflow-hidden transition-all duration-500 ease-in-out ${currentTheme === "dark" ? "bg-gray-800" : "bg-white"}`,
       style: {
-        bottom: "24px",
-        right: "24px",
-        width: isExpanded ? "800px" : "450px",
-        maxWidth: "calc(100vw - 48px)",
-        height: "700px",
-        minHeight: "500px",
-        maxHeight: "calc(100vh - 120px)",
-        borderRadius: "24px"
+        top: isDesktop ? "auto" : "80px",
+        left: isDesktop ? "auto" : "0",
+        right: isDesktop ? "24px" : "0",
+        bottom: isDesktop ? "24px" : "0",
+        width: isDesktop ? isExpanded ? "800px" : "450px" : "100%",
+        maxWidth: isDesktop ? "calc(100vw - 48px)" : "100%",
+        height: isDesktop ? "700px" : "calc(100vh - 80px)",
+        minHeight: isDesktop ? "500px" : "auto",
+        maxHeight: isDesktop ? "calc(100vh - 120px)" : "calc(100vh - 80px)",
+        borderRadius: isDesktop ? "24px" : "0"
       },
       children: [
         /* @__PURE__ */ jsxRuntimeExports.jsxs(
@@ -20350,7 +20373,7 @@ function ChatWidget({ config }) {
                 /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "font-bold text-white text-base", children: companyName })
               ] }),
               /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                isDesktop && /* @__PURE__ */ jsxRuntimeExports.jsx(
                   "button",
                   {
                     onClick: () => setIsExpanded(!isExpanded),
@@ -20383,7 +20406,7 @@ function ChatWidget({ config }) {
             }
           ),
           /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: `text-lg font-bold mb-1 ${currentTheme === "dark" ? "text-white" : "text-gray-900"}`, children: welcomeMessage }),
-          showPredefinedQuestions && initialSuggestions.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-1 gap-2 w-full max-w-sm mt-6", children: initialSuggestions.slice(0, 3).map((question2, index2) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+          showPredefinedQuestions && !isLoadingSuggestions && initialSuggestions.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-1 gap-2 w-full max-w-sm mt-6", children: initialSuggestions.slice(0, 3).map((question2, index2) => /* @__PURE__ */ jsxRuntimeExports.jsx(
             "button",
             {
               onClick: () => handleSuggestedQuestionClick(question2),
@@ -20395,7 +20418,12 @@ function ChatWidget({ config }) {
               ] })
             },
             index2
-          )) })
+          )) }),
+          isLoadingSuggestions && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-center gap-2 text-emerald-500 mt-6", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-2 h-2 rounded-full animate-bounce", style: { animationDelay: "0ms", backgroundColor: primaryColor } }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-2 h-2 rounded-full animate-bounce", style: { animationDelay: "150ms", backgroundColor: primaryColor } }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-2 h-2 rounded-full animate-bounce", style: { animationDelay: "300ms", backgroundColor: primaryColor } })
+          ] })
         ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
           messages.map((message, index2) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
             /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: `flex ${message.type === "user" ? "justify-end" : "justify-start items-start gap-2"}`, children: [
@@ -20428,27 +20456,56 @@ function ChatWidget({ config }) {
                   className: "p-1 transition-all duration-300",
                   children: /* @__PURE__ */ jsxRuntimeExports.jsx(ThumbsDown, { className: `w-4 h-4 ${messageFeedback[index2] === "negative" ? "text-red-500" : "text-gray-400"}` })
                 }
-              )
+              ),
+              messageFeedback[index2] && /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: `text-xs ${currentTheme === "dark" ? "text-gray-500" : "text-gray-400"}`, children: "Thanks for your feedback!" })
             ] })
           ] }, index2)),
-          isLoading && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex justify-start items-start gap-3", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(
-              "img",
-              {
-                src: botAvatarUrl,
-                alt: "AI",
-                className: "w-8 h-8 object-contain mt-1",
-                onError: (e) => {
-                  e.target.style.display = "none";
+          isLoading && !isStreaming && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex justify-start items-start gap-3", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-shrink-0 mt-1 relative", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute inset-0 rounded-full animate-spin", style: {
+                border: "2px solid transparent",
+                borderTopColor: primaryColor,
+                borderRightColor: primaryColor
+              } }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "img",
+                {
+                  src: botAvatarUrl,
+                  alt: "AI",
+                  className: "w-8 h-8 object-contain relative z-10",
+                  onError: (e) => {
+                    e.target.style.display = "none";
+                  }
                 }
-              }
-            ),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: `rounded-2xl px-5 py-3 ${currentTheme === "dark" ? "bg-gray-700" : "bg-white border border-gray-100"}`, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-1", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-2 h-2 rounded-full animate-bounce", style: { backgroundColor: primaryColor } }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-2 h-2 rounded-full animate-bounce", style: { backgroundColor: primaryColor, animationDelay: "150ms" } }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-2 h-2 rounded-full animate-bounce", style: { backgroundColor: primaryColor, animationDelay: "300ms" } })
+              )
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: `rounded-2xl px-5 py-3 ${currentTheme === "dark" ? "bg-gray-700" : "bg-white border border-gray-100"}`, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: `text-base font-medium ${currentTheme === "dark" ? "text-gray-300" : "text-gray-600"}`, children: loadingMessages[loadingMessageIndex] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-1", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-2 h-2 rounded-full animate-bounce", style: { backgroundColor: primaryColor, animationDelay: "0ms" } }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-2 h-2 rounded-full animate-bounce", style: { backgroundColor: primaryColor, animationDelay: "150ms" } }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-2 h-2 rounded-full animate-bounce", style: { backgroundColor: primaryColor, animationDelay: "300ms" } })
+              ] })
             ] }) })
           ] }),
+          dynamicSuggestions.length > 0 && !isLoading && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex justify-start pl-10", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col gap-2 w-full max-w-[85%]", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(Sparkles, { className: "w-3.5 h-3.5", style: { color: primaryColor } }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: `text-sm font-semibold ${currentTheme === "dark" ? "text-gray-200" : "text-gray-700"}`, children: "You can also ask:" })
+            ] }),
+            dynamicSuggestions.filter((suggestion) => !clickedSuggestions.has(suggestion)).map((suggestion, index2) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "button",
+              {
+                onClick: () => handleDynamicSuggestionClick(suggestion),
+                className: `text-left px-3 py-2 rounded-lg border transition-all duration-300 hover:scale-[1.02] group shadow-sm w-full ${currentTheme === "dark" ? "bg-gradient-to-r from-gray-700 to-gray-600 hover:from-gray-600 hover:to-gray-500 border-emerald-500/30" : "bg-gradient-to-r from-emerald-50 to-teal-50 hover:from-emerald-100 hover:to-teal-100 border-emerald-200"}`,
+                children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-start gap-2", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(Sparkles, { className: "w-3.5 h-3.5 mt-0.5 flex-shrink-0 group-hover:scale-110 transition-transform", style: { color: primaryColor } }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: `text-sm leading-snug ${currentTheme === "dark" ? "text-gray-100" : "text-gray-800"}`, children: suggestion })
+                ] })
+              },
+              index2
+            ))
+          ] }) }),
           /* @__PURE__ */ jsxRuntimeExports.jsx("div", { ref: messagesEndRef })
         ] }) }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: `px-6 py-4 border-t flex-shrink-0 ${currentTheme === "dark" ? "bg-gray-800 border-gray-700" : "bg-white border-gray-200"}`, children: [
@@ -20482,7 +20539,7 @@ function ChatWidget({ config }) {
               }
             )
           ] }),
-          ((_j = config.branding) == null ? void 0 : _j.showPoweredBy) !== false && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: `text-xs text-center ${currentTheme === "dark" ? "text-gray-500" : "text-gray-400"}`, children: ((_k = config.branding) == null ? void 0 : _k.poweredByText) || "Powered by Vinfotech AI" })
+          ((_g = config.branding) == null ? void 0 : _g.showPoweredBy) !== false && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: `text-xs text-center ${currentTheme === "dark" ? "text-gray-500" : "text-gray-400"}`, children: ((_h = config.branding) == null ? void 0 : _h.poweredByText) || "Powered by Vinfotech AI" })
         ] })
       ]
     }
@@ -20524,7 +20581,8 @@ class VinfotechChatWidget {
     this.createContainer();
     this.render();
     this.isInitialized = true;
-    console.log("VinfotechChatWidget initialized successfully");
+    const version = this.config.version || "1.0.0";
+    console.log(`VinfotechChatWidget v${version} initialized successfully`);
   }
   createContainer() {
     var _a, _b;
@@ -20559,14 +20617,6 @@ class VinfotechChatWidget {
     this.config = null;
     console.log("VinfotechChatWidget destroyed");
   }
-  updateConfig(updates) {
-    if (!this.isInitialized || !this.config) {
-      console.error("Widget must be initialized before updating config");
-      return;
-    }
-    this.config = mergeConfig({ ...this.config, ...updates });
-    this.render();
-  }
   open() {
     console.log("Open method not yet implemented");
   }
@@ -20575,6 +20625,10 @@ class VinfotechChatWidget {
   }
   isReady() {
     return this.isInitialized;
+  }
+  getVersion() {
+    var _a;
+    return ((_a = this.config) == null ? void 0 : _a.version) || "1.0.0";
   }
 }
 const widget = new VinfotechChatWidget();

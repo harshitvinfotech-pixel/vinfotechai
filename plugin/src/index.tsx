@@ -39,7 +39,8 @@ class VinfotechChatWidget {
     this.render();
     this.isInitialized = true;
 
-    console.log('VinfotechChatWidget initialized successfully');
+    const version = this.config.version || '1.0.0';
+    console.log(`VinfotechChatWidget v${version} initialized successfully`);
   }
 
   private createContainer(): void {
@@ -85,16 +86,6 @@ class VinfotechChatWidget {
     console.log('VinfotechChatWidget destroyed');
   }
 
-  updateConfig(updates: Partial<ChatWidgetConfig>): void {
-    if (!this.isInitialized || !this.config) {
-      console.error('Widget must be initialized before updating config');
-      return;
-    }
-
-    this.config = mergeConfig({ ...this.config, ...updates });
-    this.render();
-  }
-
   open(): void {
     console.log('Open method not yet implemented');
   }
@@ -105,6 +96,10 @@ class VinfotechChatWidget {
 
   isReady(): boolean {
     return this.isInitialized;
+  }
+
+  getVersion(): string {
+    return this.config?.version || '1.0.0';
   }
 }
 
