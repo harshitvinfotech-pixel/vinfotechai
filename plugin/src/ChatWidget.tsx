@@ -48,6 +48,8 @@ export function ChatWidget({ config }: ChatWidgetProps) {
   );
   const [currentTheme, setCurrentTheme] = useState(detectTheme(config.theme?.mode));
   const [loadingMessageIndex, setLoadingMessageIndex] = useState(0);
+  const [contactForm, setContactForm] = useState<ContactFormPayload | null>(null);
+  const [contactFormData, setContactFormData] = useState<Record<string, string>>({});
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
@@ -226,6 +228,7 @@ export function ChatWidget({ config }: ChatWidgetProps) {
             setIsLoading(false);
             setIsStreaming(false);
             isProcessingRef.current = false;
+            setContactForm(contactPayload);
             setMessages(prev => [
               ...prev,
               { type: 'assistant', text: contactPayload.message }
@@ -346,15 +349,15 @@ export function ChatWidget({ config }: ChatWidgetProps) {
     <div
       className={`fixed z-50 shadow-2xl flex flex-col overflow-hidden transition-all duration-500 ease-in-out ${currentTheme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}
       style={{
-        top: isDesktop ? 'auto' : '80px',
+        top: isDesktop ? 'auto' : '0',
         left: isDesktop ? 'auto' : '0',
         right: isDesktop ? '24px' : '0',
         bottom: isDesktop ? '24px' : '0',
         width: isDesktop ? (isExpanded ? '800px' : '450px') : '100%',
         maxWidth: isDesktop ? 'calc(100vw - 48px)' : '100%',
-        height: isDesktop ? '700px' : 'calc(100vh - 80px)',
-        minHeight: isDesktop ? '500px' : 'auto',
-        maxHeight: isDesktop ? 'calc(100vh - 120px)' : 'calc(100vh - 80px)',
+        height: isDesktop ? '700px' : '100vh',
+        minHeight: isDesktop ? '500px' : '100vh',
+        maxHeight: isDesktop ? 'calc(100vh - 120px)' : '100vh',
         borderRadius: isDesktop ? '24px' : '0',
       }}
     >
@@ -413,8 +416,21 @@ export function ChatWidget({ config }: ChatWidgetProps) {
                   <button
                     key={index}
                     onClick={() => handleSuggestedQuestionClick(question)}
-                    className={`text-left px-3 py-2 rounded-lg border-2 transition-all duration-300 text-sm hover:scale-[1.02] group ${currentTheme === 'dark' ? 'bg-gray-700 hover:bg-gray-600 border-gray-600 text-gray-200' : 'bg-white hover:bg-green-50 border-gray-200 text-gray-700'}`}
-                    style={{ borderColor: currentTheme === 'dark' ? '' : primaryColor + '40' }}
+                    className={`text-left px-3 py-2 rounded-lg border-2 transition-all duration-300 text-sm hover:scale-[1.02] group ${currentTheme === 'dark' ? 'bg-gray-700 hover:bg-gray-600 border-gray-600 text-gray-200' : 'bg-white text-gray-700'}`}
+                    style={{
+                      borderColor: primaryColor + (currentTheme === 'dark' ? '60' : '40'),
+                      backgroundColor: currentTheme === 'light' ? primaryColor + '08' : undefined
+                    }}
+                    onMouseEnter={(e) => {
+                      if (currentTheme === 'light') {
+                        e.currentTarget.style.backgroundColor = primaryColor + '15';
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (currentTheme === 'light') {
+                        e.currentTarget.style.backgroundColor = primaryColor + '08';
+                      }
+                    }}
                   >
                     <div className="flex items-start gap-2">
                       <Sparkles className="w-3.5 h-3.5 mt-0.5 flex-shrink-0" style={{ color: primaryColor }} />
@@ -613,7 +629,21 @@ export function ChatWidget({ config }: ChatWidgetProps) {
                       <button
                         key={index}
                         onClick={() => handleDynamicSuggestionClick(suggestion)}
-                        className={`text-left px-3 py-2 rounded-lg border transition-all duration-300 hover:scale-[1.02] group shadow-sm w-full ${currentTheme === 'dark' ? 'bg-gradient-to-r from-gray-700 to-gray-600 hover:from-gray-600 hover:to-gray-500 border-emerald-500/30' : 'bg-gradient-to-r from-emerald-50 to-teal-50 hover:from-emerald-100 hover:to-teal-100 border-emerald-200'}`}
+                        className={`text-left px-3 py-2 rounded-lg border transition-all duration-300 hover:scale-[1.02] group shadow-sm w-full ${currentTheme === 'dark' ? 'bg-gray-700 hover:bg-gray-600 border-gray-600' : 'bg-white text-gray-700'}`}
+                        style={{
+                          borderColor: primaryColor + (currentTheme === 'dark' ? '40' : '30'),
+                          backgroundColor: currentTheme === 'light' ? primaryColor + '10' : undefined
+                        }}
+                        onMouseEnter={(e) => {
+                          if (currentTheme === 'light') {
+                            e.currentTarget.style.backgroundColor = primaryColor + '20';
+                          }
+                        }}
+                        onMouseLeave={(e) => {
+                          if (currentTheme === 'light') {
+                            e.currentTarget.style.backgroundColor = primaryColor + '10';
+                          }
+                        }}
                       >
                         <div className="flex items-start gap-2">
                           <Sparkles className="w-3.5 h-3.5 mt-0.5 flex-shrink-0 group-hover:scale-110 transition-transform" style={{ color: primaryColor }} />
@@ -632,31 +662,109 @@ export function ChatWidget({ config }: ChatWidgetProps) {
       </div>
 
       <div className={`px-6 py-4 border-t flex-shrink-0 ${currentTheme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'}`}>
-        <form onSubmit={handleSubmit} className="relative mb-3">
-          <textarea
-            ref={textareaRef}
-            rows={1}
-            value={question}
-            onChange={(e) => setQuestion(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' && !e.shiftKey) {
-                e.preventDefault();
-                handleSubmit(e as any);
-              }
-            }}
-            placeholder={placeholderText}
-            className={`w-full px-4 py-3 pr-12 rounded-xl border outline-none transition-all resize-none ${currentTheme === 'dark' ? 'bg-gray-700 border-gray-600 text-white' : 'bg-gray-50 border-gray-200 text-gray-900'}`}
-            style={{ minHeight: '48px', maxHeight: '72px' }}
-          />
-          <button
-            type="submit"
-            disabled={!question.trim() || isLoading}
-            className="absolute right-2 bottom-3 p-2 rounded-full text-white transition-all disabled:opacity-50"
-            style={{ backgroundColor: primaryColor }}
-          >
-            <Send className="w-4 h-4" />
-          </button>
-        </form>
+        {contactForm ? (
+          <div className="space-y-3 mb-3">
+            {contactForm.fields.sort((a, b) => (a.order || 0) - (b.order || 0)).map((field) => (
+              <div key={field.field_name}>
+                <label className={`block text-sm font-medium mb-1 ${currentTheme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>
+                  {field.field_label}
+                  {field.required && <span className="text-red-500 ml-1">*</span>}
+                </label>
+                {field.field_type === 'textarea' ? (
+                  <textarea
+                    value={contactFormData[field.field_name] || ''}
+                    onChange={(e) => setContactFormData(prev => ({ ...prev, [field.field_name]: e.target.value }))}
+                    placeholder={field.placeholder}
+                    rows={3}
+                    className={`w-full px-3 py-2 rounded-lg border outline-none transition-all ${currentTheme === 'dark' ? 'bg-gray-700 border-gray-600 text-white' : 'bg-gray-50 border-gray-200 text-gray-900'}`}
+                  />
+                ) : (
+                  <input
+                    type={field.field_type}
+                    value={contactFormData[field.field_name] || ''}
+                    onChange={(e) => setContactFormData(prev => ({ ...prev, [field.field_name]: e.target.value }))}
+                    placeholder={field.placeholder}
+                    className={`w-full px-3 py-2 rounded-lg border outline-none transition-all ${currentTheme === 'dark' ? 'bg-gray-700 border-gray-600 text-white' : 'bg-gray-50 border-gray-200 text-gray-900'}`}
+                  />
+                )}
+              </div>
+            ))}
+            <div className="flex gap-2">
+              <button
+                onClick={async () => {
+                  const allRequiredFilled = contactForm.fields
+                    .filter(f => f.required)
+                    .every(f => contactFormData[f.field_name]?.trim());
+
+                  if (!allRequiredFilled) {
+                    alert('Please fill all required fields');
+                    return;
+                  }
+
+                  try {
+                    const result = await apiRef.current.submitContactForm({
+                      user_id: config.userId || 'default_user',
+                      team_id: config.teamId || 'default_team',
+                      session_id: sessionIdRef.current,
+                      user_query: contactForm.original_query,
+                      contact_data: contactFormData
+                    });
+
+                    if (result.success) {
+                      setMessages(prev => [...prev, { type: 'assistant', text: result.message || 'Thank you! We\'ll be in touch soon.' }]);
+                    } else {
+                      setMessages(prev => [...prev, { type: 'assistant', text: result.error || 'Sorry, there was an error. Please try again.' }]);
+                    }
+                    setContactForm(null);
+                    setContactFormData({});
+                  } catch (error) {
+                    console.error('Error submitting contact form:', error);
+                    setMessages(prev => [...prev, { type: 'assistant', text: 'Sorry, there was an error. Please try again.' }]);
+                  }
+                }}
+                className="flex-1 px-4 py-2 rounded-lg text-white font-medium transition-all"
+                style={{ backgroundColor: primaryColor }}
+              >
+                Submit
+              </button>
+              <button
+                onClick={() => {
+                  setContactForm(null);
+                  setContactFormData({});
+                }}
+                className={`px-4 py-2 rounded-lg font-medium transition-all ${currentTheme === 'dark' ? 'bg-gray-700 text-gray-200' : 'bg-gray-200 text-gray-700'}`}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="relative mb-3">
+            <textarea
+              ref={textareaRef}
+              rows={1}
+              value={question}
+              onChange={(e) => setQuestion(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                  e.preventDefault();
+                  handleSubmit(e as any);
+                }
+              }}
+              placeholder={placeholderText}
+              className={`w-full px-4 py-3 pr-12 rounded-xl border outline-none transition-all resize-none ${currentTheme === 'dark' ? 'bg-gray-700 border-gray-600 text-white' : 'bg-gray-50 border-gray-200 text-gray-900'}`}
+              style={{ minHeight: '48px', maxHeight: '72px' }}
+            />
+            <button
+              type="submit"
+              disabled={!question.trim() || isLoading}
+              className="absolute right-2 bottom-3 p-2 rounded-full text-white transition-all disabled:opacity-50"
+              style={{ backgroundColor: primaryColor }}
+            >
+              <Send className="w-4 h-4" />
+            </button>
+          </form>
+        )}
 
         {config.branding?.showPoweredBy !== false && (
           <p className={`text-xs text-center ${currentTheme === 'dark' ? 'text-gray-500' : 'text-gray-400'}`}>

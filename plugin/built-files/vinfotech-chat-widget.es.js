@@ -20062,6 +20062,8 @@ function ChatWidget({ config }) {
   );
   const [currentTheme, setCurrentTheme] = reactExports.useState(detectTheme((_b = config.theme) == null ? void 0 : _b.mode));
   const [loadingMessageIndex, setLoadingMessageIndex] = reactExports.useState(0);
+  const [contactForm, setContactForm] = reactExports.useState(null);
+  const [contactFormData, setContactFormData] = reactExports.useState({});
   const messagesEndRef = reactExports.useRef(null);
   const chatContainerRef = reactExports.useRef(null);
   const textareaRef = reactExports.useRef(null);
@@ -20219,6 +20221,7 @@ function ChatWidget({ config }) {
             setIsLoading(false);
             setIsStreaming(false);
             isProcessingRef.current = false;
+            setContactForm(contactPayload);
             setMessages((prev) => [
               ...prev,
               { type: "assistant", text: contactPayload.message }
@@ -20337,15 +20340,15 @@ function ChatWidget({ config }) {
     {
       className: `fixed z-50 shadow-2xl flex flex-col overflow-hidden transition-all duration-500 ease-in-out ${currentTheme === "dark" ? "bg-gray-800" : "bg-white"}`,
       style: {
-        top: isDesktop ? "auto" : "80px",
+        top: isDesktop ? "auto" : "0",
         left: isDesktop ? "auto" : "0",
         right: isDesktop ? "24px" : "0",
         bottom: isDesktop ? "24px" : "0",
         width: isDesktop ? isExpanded ? "800px" : "450px" : "100%",
         maxWidth: isDesktop ? "calc(100vw - 48px)" : "100%",
-        height: isDesktop ? "700px" : "calc(100vh - 80px)",
-        minHeight: isDesktop ? "500px" : "auto",
-        maxHeight: isDesktop ? "calc(100vh - 120px)" : "calc(100vh - 80px)",
+        height: isDesktop ? "700px" : "100vh",
+        minHeight: isDesktop ? "500px" : "100vh",
+        maxHeight: isDesktop ? "calc(100vh - 120px)" : "100vh",
         borderRadius: isDesktop ? "24px" : "0"
       },
       children: [
@@ -20410,8 +20413,21 @@ function ChatWidget({ config }) {
             "button",
             {
               onClick: () => handleSuggestedQuestionClick(question2),
-              className: `text-left px-3 py-2 rounded-lg border-2 transition-all duration-300 text-sm hover:scale-[1.02] group ${currentTheme === "dark" ? "bg-gray-700 hover:bg-gray-600 border-gray-600 text-gray-200" : "bg-white hover:bg-green-50 border-gray-200 text-gray-700"}`,
-              style: { borderColor: currentTheme === "dark" ? "" : primaryColor + "40" },
+              className: `text-left px-3 py-2 rounded-lg border-2 transition-all duration-300 text-sm hover:scale-[1.02] group ${currentTheme === "dark" ? "bg-gray-700 hover:bg-gray-600 border-gray-600 text-gray-200" : "bg-white text-gray-700"}`,
+              style: {
+                borderColor: primaryColor + (currentTheme === "dark" ? "60" : "40"),
+                backgroundColor: currentTheme === "light" ? primaryColor + "08" : void 0
+              },
+              onMouseEnter: (e) => {
+                if (currentTheme === "light") {
+                  e.currentTarget.style.backgroundColor = primaryColor + "15";
+                }
+              },
+              onMouseLeave: (e) => {
+                if (currentTheme === "light") {
+                  e.currentTarget.style.backgroundColor = primaryColor + "08";
+                }
+              },
               children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-start gap-2", children: [
                 /* @__PURE__ */ jsxRuntimeExports.jsx(Sparkles, { className: "w-3.5 h-3.5 mt-0.5 flex-shrink-0", style: { color: primaryColor } }),
                 /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: question2 })
@@ -20584,7 +20600,21 @@ function ChatWidget({ config }) {
               "button",
               {
                 onClick: () => handleDynamicSuggestionClick(suggestion),
-                className: `text-left px-3 py-2 rounded-lg border transition-all duration-300 hover:scale-[1.02] group shadow-sm w-full ${currentTheme === "dark" ? "bg-gradient-to-r from-gray-700 to-gray-600 hover:from-gray-600 hover:to-gray-500 border-emerald-500/30" : "bg-gradient-to-r from-emerald-50 to-teal-50 hover:from-emerald-100 hover:to-teal-100 border-emerald-200"}`,
+                className: `text-left px-3 py-2 rounded-lg border transition-all duration-300 hover:scale-[1.02] group shadow-sm w-full ${currentTheme === "dark" ? "bg-gray-700 hover:bg-gray-600 border-gray-600" : "bg-white text-gray-700"}`,
+                style: {
+                  borderColor: primaryColor + (currentTheme === "dark" ? "40" : "30"),
+                  backgroundColor: currentTheme === "light" ? primaryColor + "10" : void 0
+                },
+                onMouseEnter: (e) => {
+                  if (currentTheme === "light") {
+                    e.currentTarget.style.backgroundColor = primaryColor + "20";
+                  }
+                },
+                onMouseLeave: (e) => {
+                  if (currentTheme === "light") {
+                    e.currentTarget.style.backgroundColor = primaryColor + "10";
+                  }
+                },
                 children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-start gap-2", children: [
                   /* @__PURE__ */ jsxRuntimeExports.jsx(Sparkles, { className: "w-3.5 h-3.5 mt-0.5 flex-shrink-0 group-hover:scale-110 transition-transform", style: { color: primaryColor } }),
                   /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: `text-sm leading-snug ${currentTheme === "dark" ? "text-gray-100" : "text-gray-800"}`, children: suggestion })
@@ -20596,7 +20626,83 @@ function ChatWidget({ config }) {
           /* @__PURE__ */ jsxRuntimeExports.jsx("div", { ref: messagesEndRef })
         ] }) }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: `px-6 py-4 border-t flex-shrink-0 ${currentTheme === "dark" ? "bg-gray-800 border-gray-700" : "bg-white border-gray-200"}`, children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("form", { onSubmit: handleSubmit, className: "relative mb-3", children: [
+          contactForm ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-3 mb-3", children: [
+            contactForm.fields.sort((a, b) => (a.order || 0) - (b.order || 0)).map((field) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: `block text-sm font-medium mb-1 ${currentTheme === "dark" ? "text-gray-200" : "text-gray-700"}`, children: [
+                field.field_label,
+                field.required && /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-red-500 ml-1", children: "*" })
+              ] }),
+              field.field_type === "textarea" ? /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "textarea",
+                {
+                  value: contactFormData[field.field_name] || "",
+                  onChange: (e) => setContactFormData((prev) => ({ ...prev, [field.field_name]: e.target.value })),
+                  placeholder: field.placeholder,
+                  rows: 3,
+                  className: `w-full px-3 py-2 rounded-lg border outline-none transition-all ${currentTheme === "dark" ? "bg-gray-700 border-gray-600 text-white" : "bg-gray-50 border-gray-200 text-gray-900"}`
+                }
+              ) : /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "input",
+                {
+                  type: field.field_type,
+                  value: contactFormData[field.field_name] || "",
+                  onChange: (e) => setContactFormData((prev) => ({ ...prev, [field.field_name]: e.target.value })),
+                  placeholder: field.placeholder,
+                  className: `w-full px-3 py-2 rounded-lg border outline-none transition-all ${currentTheme === "dark" ? "bg-gray-700 border-gray-600 text-white" : "bg-gray-50 border-gray-200 text-gray-900"}`
+                }
+              )
+            ] }, field.field_name)),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-2", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "button",
+                {
+                  onClick: async () => {
+                    const allRequiredFilled = contactForm.fields.filter((f2) => f2.required).every((f2) => {
+                      var _a2;
+                      return (_a2 = contactFormData[f2.field_name]) == null ? void 0 : _a2.trim();
+                    });
+                    if (!allRequiredFilled) {
+                      alert("Please fill all required fields");
+                      return;
+                    }
+                    try {
+                      const result = await apiRef.current.submitContactForm({
+                        user_id: config.userId || "default_user",
+                        team_id: config.teamId || "default_team",
+                        session_id: sessionIdRef.current,
+                        user_query: contactForm.original_query,
+                        contact_data: contactFormData
+                      });
+                      if (result.success) {
+                        setMessages((prev) => [...prev, { type: "assistant", text: result.message || "Thank you! We'll be in touch soon." }]);
+                      } else {
+                        setMessages((prev) => [...prev, { type: "assistant", text: result.error || "Sorry, there was an error. Please try again." }]);
+                      }
+                      setContactForm(null);
+                      setContactFormData({});
+                    } catch (error) {
+                      console.error("Error submitting contact form:", error);
+                      setMessages((prev) => [...prev, { type: "assistant", text: "Sorry, there was an error. Please try again." }]);
+                    }
+                  },
+                  className: "flex-1 px-4 py-2 rounded-lg text-white font-medium transition-all",
+                  style: { backgroundColor: primaryColor },
+                  children: "Submit"
+                }
+              ),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "button",
+                {
+                  onClick: () => {
+                    setContactForm(null);
+                    setContactFormData({});
+                  },
+                  className: `px-4 py-2 rounded-lg font-medium transition-all ${currentTheme === "dark" ? "bg-gray-700 text-gray-200" : "bg-gray-200 text-gray-700"}`,
+                  children: "Cancel"
+                }
+              )
+            ] })
+          ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs("form", { onSubmit: handleSubmit, className: "relative mb-3", children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx(
               "textarea",
               {
