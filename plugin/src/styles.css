@@ -60,25 +60,6 @@
 }
 
 @layer utilities {
-  .prose {
-    color: #374151;
-  }
-
-  .prose p {
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
-    color: #374151;
-  }
-
-  .prose a {
-    color: #00B46A;
-    text-decoration: none;
-  }
-
-  .prose a:hover {
-    text-decoration: underline;
-  }
-
   .prose ul,
   .prose ol {
     margin-top: 0.5em;
@@ -89,33 +70,11 @@
   .prose li {
     margin-top: 0.25em;
     margin-bottom: 0.25em;
-    color: #374151;
   }
 
-  .prose code {
-    background-color: #f3f4f6;
-    color: #059669;
-    padding: 0.125rem 0.25rem;
-    border-radius: 0.25rem;
-    font-size: 0.875em;
-  }
-
-  .prose pre {
-    background-color: #f3f4f6;
-    padding: 1rem;
-    border-radius: 0.5rem;
-    overflow-x: auto;
-  }
-
-  .prose pre code {
-    background-color: transparent;
-    padding: 0;
-    color: #1f2937;
-  }
-
-  .prose strong {
-    font-weight: 600;
-    color: #111827;
+  .prose p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
   }
 
   .prose h1,
@@ -127,48 +86,34 @@
     margin-top: 1em;
     margin-bottom: 0.5em;
     font-weight: 600;
-    color: #111827;
   }
 
-  .prose-invert {
-    color: #e5e7eb !important;
+  .prose strong {
+    font-weight: 600;
   }
 
-  .prose-invert p {
-    color: #e5e7eb !important;
+  .prose a {
+    text-decoration: none;
   }
 
-  .prose-invert li {
-    color: #e5e7eb !important;
+  .prose a:hover {
+    text-decoration: underline;
   }
 
-  .prose-invert strong {
-    color: #f9fafb !important;
+  .prose code {
+    padding: 0.125rem 0.25rem;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
   }
 
-  .prose-invert h1,
-  .prose-invert h2,
-  .prose-invert h3,
-  .prose-invert h4,
-  .prose-invert h5,
-  .prose-invert h6 {
-    color: #f9fafb !important;
+  .prose pre {
+    padding: 1rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
   }
 
-  .prose-invert a {
-    color: #34d399 !important;
-  }
-
-  .prose-invert code {
-    background-color: #4b5563 !important;
-    color: #6ee7b7 !important;
-  }
-
-  .prose-invert pre {
-    background-color: #4b5563 !important;
-  }
-
-  .prose-invert pre code {
-    color: #f9fafb !important;
+  .prose pre code {
+    background-color: transparent;
+    padding: 0;
   }
 }
