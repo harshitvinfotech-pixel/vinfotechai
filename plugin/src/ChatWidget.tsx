@@ -334,28 +334,28 @@ export function ChatWidget({ config }: ChatWidgetProps) {
     return (
       <button
         onClick={handleCollapsedClick}
-        className={`fixed bottom-6 right-6 text-white shadow-2xl transition-all duration-300 hover:scale-105 z-[9999] group rounded-full md:rounded-3xl ${currentTheme === 'dark' ? 'shadow-emerald-500/20' : ''}`}
+        className={`vw-fixed vw-bottom-6 vw-right-6 vw-text-white vw-shadow-2xl vw-transition-all vw-duration-300 hover:vw-scale-105 vw-z-[9999] vw-group vw-rounded-full md:vw-rounded-3xl ${currentTheme === 'dark' ? 'vw-shadow-emerald-500/20' : ''}`}
         style={{ background: `linear-gradient(45deg, ${primaryColor}, ${adjustColorBrightness(primaryColor, -20)})` }}
       >
-        <div className="flex items-center gap-2 p-3 md:gap-3 md:px-5 md:py-4">
-          <div className="flex items-center gap-3 hidden md:flex">
-            <Sparkles className="w-5 h-5" />
-            <span className="font-bold text-lg">Ask Us Anything?</span>
+        <div className="vw-flex vw-items-center vw-gap-2 vw-p-3 md:vw-gap-3 md:vw-px-5 md:vw-py-4">
+          <div className="vw-flex vw-items-center vw-gap-3 vw-hidden md:vw-flex">
+            <Sparkles className="vw-w-5 vw-h-5" />
+            <span className="vw-font-bold vw-text-lg">Ask Us Anything?</span>
           </div>
-          <div className="relative md:hidden">
+          <div className="vw-relative md:vw-hidden">
             <img
               src={botAvatarUrl}
               alt={companyName}
-              className="w-12 h-12 object-contain drop-shadow-xl"
+              className="vw-w-12 vw-h-12 vw-object-contain vw-drop-shadow-xl"
             />
-            <div className="absolute -top-1 -right-1 bg-white text-emerald-600 rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold shadow-lg">
+            <div className="vw-absolute vw--top-1 vw--right-1 vw-bg-white vw-text-emerald-600 vw-rounded-full vw-w-5 vw-h-5 vw-flex vw-items-center vw-justify-center vw-text-xs vw-font-bold vw-shadow-lg">
               ?
             </div>
           </div>
           <img
             src={botAvatarUrl}
             alt={companyName}
-            className="w-16 h-16 object-contain drop-shadow-xl hidden md:block"
+            className="vw-w-16 vw-h-16 vw-object-contain vw-drop-shadow-xl vw-hidden md:vw-block"
           />
         </div>
       </button>
@@ -364,7 +364,7 @@ export function ChatWidget({ config }: ChatWidgetProps) {
 
   return (
     <div
-      className={`fixed z-[9999] shadow-2xl flex flex-col overflow-hidden transition-all duration-500 ease-in-out ${currentTheme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}
+      className={`vw-fixed vw-z-[9999] vw-shadow-2xl vw-flex vw-flex-col vw-overflow-hidden vw-transition-all vw-duration-500 vw-ease-in-out ${currentTheme === 'dark' ? 'vw-bg-gray-800' : 'vw-bg-white'}`}
       style={{
         top: isDesktop ? 'auto' : '0',
         left: isDesktop ? 'auto' : '0',
@@ -379,61 +379,61 @@ export function ChatWidget({ config }: ChatWidgetProps) {
       }}
     >
       <div
-        className="flex items-center justify-between px-5 py-4 shadow-sm flex-shrink-0"
+        className="vw-flex vw-items-center vw-justify-between vw-px-5 vw-py-4 vw-shadow-sm vw-flex-shrink-0"
         style={{
           backgroundColor: primaryColor,
           borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
         }}
       >
-        <div className="flex items-center gap-3">
+        <div className="vw-flex vw-items-center vw-gap-3">
           <img
             src={botAvatarUrl}
             alt={companyName}
-            className="w-9 h-9 object-contain"
+            className="vw-w-9 vw-h-9 vw-object-contain"
             onError={(e) => {
               (e.target as HTMLImageElement).style.display = 'none';
             }}
           />
-          <span className="font-bold text-white text-base">{companyName}</span>
+          <span className="vw-font-bold vw-text-white vw-text-base">{companyName}</span>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="vw-flex vw-items-center vw-gap-2">
           {isDesktop && (
             <button
               onClick={() => setIsExpanded(!isExpanded)}
-              className="p-2 hover:bg-white/20 rounded-lg transition-all duration-300"
+              className="vw-p-2 hover:vw-bg-white/20 vw-rounded-lg vw-transition-all vw-duration-300"
             >
-              {isExpanded ? <Minimize2 className="w-5 h-5 text-white" /> : <Maximize2 className="w-5 h-5 text-white" />}
+              {isExpanded ? <Minimize2 className="vw-w-5 vw-h-5 vw-text-white" /> : <Maximize2 className="vw-w-5 vw-h-5 vw-text-white" />}
             </button>
           )}
           <button
             onClick={closeWidget}
-            className="p-2 hover:bg-white/20 rounded-lg transition-all duration-300"
+            className="vw-p-2 hover:vw-bg-white/20 vw-rounded-lg vw-transition-all vw-duration-300"
           >
-            <X className="w-5 h-5 text-white" />
+            <X className="vw-w-5 vw-h-5 vw-text-white" />
           </button>
         </div>
       </div>
 
-      <div ref={chatContainerRef} className={`flex-1 overflow-y-auto px-6 py-4 space-y-4 ${currentTheme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'}`}>
+      <div ref={chatContainerRef} className={`vw-flex-1 vw-overflow-y-auto vw-px-6 vw-py-4 vw-space-y-4 ${currentTheme === 'dark' ? 'vw-bg-gray-900' : 'vw-bg-gray-50'}`}>
         {messages.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-full text-center px-4">
+          <div className="vw-flex vw-flex-col vw-items-center vw-justify-center vw-h-full vw-text-center vw-px-4">
             <img
               src={botAvatarUrl}
               alt={companyName}
-              className="w-24 h-24 object-contain mb-6"
+              className="vw-w-24 vw-h-24 vw-object-contain vw-mb-6"
               onError={(e) => {
                 (e.target as HTMLImageElement).style.display = 'none';
               }}
             />
-            <h3 className={`text-lg font-bold mb-1 ${currentTheme === 'dark' ? 'text-white' : 'text-gray-900'}`}>{welcomeMessage}</h3>
+            <h3 className={`vw-text-lg vw-font-bold vw-mb-1 ${currentTheme === 'dark' ? 'vw-text-white' : 'vw-text-gray-900'}`}>{welcomeMessage}</h3>
 
             {showPredefinedQuestions && !isLoadingSuggestions && initialSuggestions.length > 0 && (
-              <div className="grid grid-cols-1 gap-2 w-full max-w-sm mt-6">
+              <div className="vw-grid vw-grid-cols-1 vw-gap-2 vw-w-full vw-max-w-sm vw-mt-6">
                 {initialSuggestions.slice(0, 3).map((question, index) => (
                   <button
                     key={index}
                     onClick={() => handleSuggestedQuestionClick(question)}
-                    className={`text-left px-3 py-2 rounded-lg border-2 transition-all duration-300 text-sm hover:scale-[1.02] group ${currentTheme === 'dark' ? 'bg-gray-700 hover:bg-gray-600 border-gray-600 text-gray-200' : 'bg-white text-gray-700'}`}
+                    className={`vw-text-left vw-px-3 vw-py-2 vw-rounded-lg vw-border-2 vw-transition-all vw-duration-300 vw-text-sm hover:vw-scale-[1.02] vw-group ${currentTheme === 'dark' ? 'vw-bg-gray-700 hover:vw-bg-gray-600 vw-border-gray-600 vw-text-gray-200' : 'vw-bg-white vw-text-gray-700'}`}
                     style={{
                       borderColor: primaryColor + (currentTheme === 'dark' ? '60' : '40'),
                       backgroundColor: currentTheme === 'light' ? primaryColor + '08' : undefined
@@ -449,8 +449,8 @@ export function ChatWidget({ config }: ChatWidgetProps) {
                       }
                     }}
                   >
-                    <div className="flex items-start gap-2">
-                      <Sparkles className="w-3.5 h-3.5 mt-0.5 flex-shrink-0" style={{ color: primaryColor }} />
+                    <div className="vw-flex vw-items-start vw-gap-2">
+                      <Sparkles className="vw-w-3.5 vw-h-3.5 vw-mt-0.5 vw-flex-shrink-0" style={{ color: primaryColor }} />
                       <span>{question}</span>
                     </div>
                   </button>
@@ -459,10 +459,10 @@ export function ChatWidget({ config }: ChatWidgetProps) {
             )}
 
             {isLoadingSuggestions && (
-              <div className="flex items-center justify-center gap-2 text-emerald-500 mt-6">
-                <div className="w-2 h-2 rounded-full animate-bounce" style={{ animationDelay: '0ms', backgroundColor: primaryColor }}></div>
-                <div className="w-2 h-2 rounded-full animate-bounce" style={{ animationDelay: '150ms', backgroundColor: primaryColor }}></div>
-                <div className="w-2 h-2 rounded-full animate-bounce" style={{ animationDelay: '300ms', backgroundColor: primaryColor }}></div>
+              <div className="vw-flex vw-items-center vw-justify-center vw-gap-2 vw-text-emerald-500 vw-mt-6">
+                <div className="vw-w-2 vw-h-2 vw-rounded-full vw-animate-bounce" style={{ animationDelay: '0ms', backgroundColor: primaryColor }}></div>
+                <div className="vw-w-2 vw-h-2 vw-rounded-full vw-animate-bounce" style={{ animationDelay: '150ms', backgroundColor: primaryColor }}></div>
+                <div className="vw-w-2 vw-h-2 vw-rounded-full vw-animate-bounce" style={{ animationDelay: '300ms', backgroundColor: primaryColor }}></div>
               </div>
             )}
           </div>
@@ -470,28 +470,28 @@ export function ChatWidget({ config }: ChatWidgetProps) {
           <>
             {messages.map((message, index) => (
               <div key={index}>
-                <div className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start items-start gap-2'}`}>
+                <div className={`vw-flex ${message.type === 'user' ? 'vw-justify-end' : 'vw-justify-start vw-items-start vw-gap-2'}`}>
                   {message.type === 'assistant' && (
                     <img
                       src={botAvatarUrl}
                       alt="AI"
-                      className="w-8 h-8 object-contain mt-1"
+                      className="vw-w-8 vw-h-8 vw-object-contain vw-mt-1"
                       onError={(e) => {
                         (e.target as HTMLImageElement).style.display = 'none';
                       }}
                     />
                   )}
-                  <div className={`max-w-[85%] px-4 py-3 transition-all duration-300 ${
+                  <div className={`vw-max-w-[85%] vw-px-4 vw-py-3 vw-transition-all vw-duration-300 ${
                     message.type === 'user'
-                      ? 'rounded-tl-2xl rounded-bl-2xl rounded-br-2xl text-white'
+                      ? 'vw-rounded-tl-2xl vw-rounded-bl-2xl vw-rounded-br-2xl vw-text-white'
                       : currentTheme === 'dark'
-                        ? 'bg-gray-700 text-gray-100 border border-gray-600 rounded-2xl'
-                        : 'bg-white text-gray-900 border border-gray-100 rounded-2xl'
+                        ? 'vw-bg-gray-700 vw-text-gray-100 vw-border vw-border-gray-600 vw-rounded-2xl'
+                        : 'vw-bg-white vw-text-gray-900 vw-border vw-border-gray-100 vw-rounded-2xl'
                   }`} style={message.type === 'user' ? { backgroundColor: primaryColor } : {}}>
                     {message.type === 'user' ? (
-                      <p className="text-base leading-relaxed">{message.text}</p>
+                      <p className="vw-text-base vw-leading-relaxed">{message.text}</p>
                     ) : (
-                      <div className="prose prose-sm max-w-none">
+                      <div className="vw-prose vw-prose-sm vw-max-w-none">
                         <ReactMarkdown
                           remarkPlugins={[remarkGfm]}
                           components={{
@@ -506,15 +506,15 @@ export function ChatWidget({ config }: ChatWidgetProps) {
                             p: ({ node, ...props }) => (
                               <p
                                 {...props}
-                                className="mb-2 last:mb-0"
+                                className="vw-mb-2 last:vw-mb-0"
                                 style={{ color: currentTheme === 'dark' ? '#e5e7eb' : '#374151' }}
                               />
                             ),
                             ul: ({ node, ...props }) => (
-                              <ul {...props} className="list-disc pl-4 mb-2 space-y-1" />
+                              <ul {...props} className="vw-list-disc vw-pl-4 vw-mb-2 vw-space-y-1" />
                             ),
                             ol: ({ node, ...props }) => (
-                              <ol {...props} className="list-decimal pl-4 mb-2 space-y-1" />
+                              <ol {...props} className="vw-list-decimal vw-pl-4 vw-mb-2 vw-space-y-1" />
                             ),
                             li: ({ node, ...props }) => (
                               <li
@@ -525,28 +525,28 @@ export function ChatWidget({ config }: ChatWidgetProps) {
                             h1: ({ node, ...props }) => (
                               <h1
                                 {...props}
-                                className="text-lg font-bold mb-2 mt-3 first:mt-0"
+                                className="vw-text-lg vw-font-bold vw-mb-2 vw-mt-3 first:vw-mt-0"
                                 style={{ color: currentTheme === 'dark' ? '#f9fafb' : '#111827' }}
                               />
                             ),
                             h2: ({ node, ...props }) => (
                               <h2
                                 {...props}
-                                className="text-base font-bold mb-2 mt-3 first:mt-0"
+                                className="vw-text-base vw-font-bold vw-mb-2 vw-mt-3 first:vw-mt-0"
                                 style={{ color: currentTheme === 'dark' ? '#f9fafb' : '#111827' }}
                               />
                             ),
                             h3: ({ node, ...props }) => (
                               <h3
                                 {...props}
-                                className="text-sm font-bold mb-1 mt-2 first:mt-0"
+                                className="vw-text-sm vw-font-bold vw-mb-1 vw-mt-2 first:vw-mt-0"
                                 style={{ color: currentTheme === 'dark' ? '#f9fafb' : '#111827' }}
                               />
                             ),
                             strong: ({ node, ...props }) => (
                               <strong
                                 {...props}
-                                className="font-bold"
+                                className="vw-font-bold"
                                 style={{ color: currentTheme === 'dark' ? '#f9fafb' : '#111827' }}
                               />
                             ),
@@ -554,7 +554,7 @@ export function ChatWidget({ config }: ChatWidgetProps) {
                               inline ? (
                                 <code
                                   {...props}
-                                  className="px-1 py-0.5 rounded text-xs font-mono"
+                                  className="vw-px-1 vw-py-0.5 vw-rounded vw-text-xs vw-font-mono"
                                   style={{
                                     backgroundColor: currentTheme === 'dark' ? '#4b5563' : '#f3f4f6',
                                     color: currentTheme === 'dark' ? '#6ee7b7' : '#059669'
@@ -563,7 +563,7 @@ export function ChatWidget({ config }: ChatWidgetProps) {
                               ) : (
                                 <code
                                   {...props}
-                                  className="block p-2 rounded text-xs font-mono overflow-x-auto"
+                                  className="vw-block vw-p-2 vw-rounded vw-text-xs vw-font-mono vw-overflow-x-auto"
                                   style={{
                                     backgroundColor: currentTheme === 'dark' ? '#4b5563' : '#f3f4f6',
                                     color: currentTheme === 'dark' ? '#f9fafb' : '#1f2937'
@@ -580,21 +580,21 @@ export function ChatWidget({ config }: ChatWidgetProps) {
                 </div>
 
                 {message.type === 'assistant' && !isLoading && (
-                  <div className="flex items-center gap-3 ml-10 mt-2">
+                  <div className="vw-flex vw-items-center vw-gap-3 vw-ml-10 vw-mt-2">
                     <button
                       onClick={() => handleFeedback(index, 'positive')}
-                      className="p-1 transition-all duration-300"
+                      className="vw-p-1 vw-transition-all vw-duration-300"
                     >
-                      <ThumbsUp className={`w-4 h-4 ${messageFeedback[index] === 'positive' ? 'text-green-500' : 'text-gray-400'}`} />
+                      <ThumbsUp className={`vw-w-4 vw-h-4 ${messageFeedback[index] === 'positive' ? 'vw-text-green-500' : 'vw-text-gray-400'}`} />
                     </button>
                     <button
                       onClick={() => handleFeedback(index, 'negative')}
-                      className="p-1 transition-all duration-300"
+                      className="vw-p-1 vw-transition-all vw-duration-300"
                     >
-                      <ThumbsDown className={`w-4 h-4 ${messageFeedback[index] === 'negative' ? 'text-red-500' : 'text-gray-400'}`} />
+                      <ThumbsDown className={`vw-w-4 vw-h-4 ${messageFeedback[index] === 'negative' ? 'vw-text-red-500' : 'vw-text-gray-400'}`} />
                     </button>
                     {messageFeedback[index] && (
-                      <span className={`text-xs ${currentTheme === 'dark' ? 'text-gray-500' : 'text-gray-400'}`}>
+                      <span className={`vw-text-xs ${currentTheme === 'dark' ? 'vw-text-gray-500' : 'vw-text-gray-400'}`}>
                         Thanks for your feedback!
                       </span>
                     )}
@@ -603,9 +603,9 @@ export function ChatWidget({ config }: ChatWidgetProps) {
               </div>
             ))}
             {(isLoading && !isStreaming) && (
-              <div className="flex justify-start items-start gap-3">
-                <div className="flex-shrink-0 mt-1 relative">
-                  <div className="absolute inset-0 rounded-full animate-spin" style={{
+              <div className="vw-flex vw-justify-start vw-items-start vw-gap-3">
+                <div className="vw-flex-shrink-0 vw-mt-1 vw-relative">
+                  <div className="vw-absolute vw-inset-0 vw-rounded-full vw-animate-spin" style={{
                     border: '2px solid transparent',
                     borderTopColor: primaryColor,
                     borderRightColor: primaryColor
@@ -613,32 +613,32 @@ export function ChatWidget({ config }: ChatWidgetProps) {
                   <img
                     src={botAvatarUrl}
                     alt="AI"
-                    className="w-8 h-8 object-contain relative z-10"
+                    className="vw-w-8 vw-h-8 vw-object-contain vw-relative vw-z-10"
                     onError={(e) => {
                       (e.target as HTMLImageElement).style.display = 'none';
                     }}
                   />
                 </div>
-                <div className={`rounded-2xl px-5 py-3 ${currentTheme === 'dark' ? 'bg-gray-700' : 'bg-white border border-gray-100'}`}>
-                  <div className="flex items-center gap-2">
-                    <span className={`text-base font-medium ${currentTheme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
+                <div className={`vw-rounded-2xl vw-px-5 vw-py-3 ${currentTheme === 'dark' ? 'vw-bg-gray-700' : 'vw-bg-white vw-border vw-border-gray-100'}`}>
+                  <div className="vw-flex vw-items-center vw-gap-2">
+                    <span className={`vw-text-base vw-font-medium ${currentTheme === 'dark' ? 'vw-text-gray-300' : 'vw-text-gray-600'}`}>
                       {loadingMessages[loadingMessageIndex]}
                     </span>
-                    <div className="flex gap-1">
-                      <div className="w-2 h-2 rounded-full animate-bounce" style={{ backgroundColor: primaryColor, animationDelay: '0ms' }}></div>
-                      <div className="w-2 h-2 rounded-full animate-bounce" style={{ backgroundColor: primaryColor, animationDelay: '150ms' }}></div>
-                      <div className="w-2 h-2 rounded-full animate-bounce" style={{ backgroundColor: primaryColor, animationDelay: '300ms' }}></div>
+                    <div className="vw-flex vw-gap-1">
+                      <div className="vw-w-2 vw-h-2 vw-rounded-full vw-animate-bounce" style={{ backgroundColor: primaryColor, animationDelay: '0ms' }}></div>
+                      <div className="vw-w-2 vw-h-2 vw-rounded-full vw-animate-bounce" style={{ backgroundColor: primaryColor, animationDelay: '150ms' }}></div>
+                      <div className="vw-w-2 vw-h-2 vw-rounded-full vw-animate-bounce" style={{ backgroundColor: primaryColor, animationDelay: '300ms' }}></div>
                     </div>
                   </div>
                 </div>
               </div>
             )}
             {dynamicSuggestions.length > 0 && !isLoading && (
-              <div className="flex justify-start pl-10">
-                <div className="flex flex-col gap-2 w-full max-w-[85%]">
-                  <div className="flex items-center gap-2">
-                    <Sparkles className="w-3.5 h-3.5" style={{ color: primaryColor }} />
-                    <p className={`text-sm font-semibold ${currentTheme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>You can also ask:</p>
+              <div className="vw-flex vw-justify-start vw-pl-10">
+                <div className="vw-flex vw-flex-col vw-gap-2 vw-w-full vw-max-w-[85%]">
+                  <div className="vw-flex vw-items-center vw-gap-2">
+                    <Sparkles className="vw-w-3.5 vw-h-3.5" style={{ color: primaryColor }} />
+                    <p className={`vw-text-sm vw-font-semibold ${currentTheme === 'dark' ? 'vw-text-gray-200' : 'vw-text-gray-700'}`}>You can also ask:</p>
                   </div>
                   {dynamicSuggestions
                     .filter(suggestion => !clickedSuggestions.has(suggestion))
@@ -646,7 +646,7 @@ export function ChatWidget({ config }: ChatWidgetProps) {
                       <button
                         key={index}
                         onClick={() => handleDynamicSuggestionClick(suggestion)}
-                        className={`text-left px-3 py-2 rounded-lg border transition-all duration-300 hover:scale-[1.02] group shadow-sm w-full ${currentTheme === 'dark' ? 'bg-gray-700 hover:bg-gray-600 border-gray-600' : 'bg-white text-gray-700'}`}
+                        className={`vw-text-left vw-px-3 vw-py-2 vw-rounded-lg vw-border vw-transition-all vw-duration-300 hover:vw-scale-[1.02] vw-group vw-shadow-sm vw-w-full ${currentTheme === 'dark' ? 'vw-bg-gray-700 hover:vw-bg-gray-600 vw-border-gray-600' : 'vw-bg-white vw-text-gray-700'}`}
                         style={{
                           borderColor: primaryColor + (currentTheme === 'dark' ? '40' : '30'),
                           backgroundColor: currentTheme === 'light' ? primaryColor + '10' : undefined
@@ -662,9 +662,9 @@ export function ChatWidget({ config }: ChatWidgetProps) {
                           }
                         }}
                       >
-                        <div className="flex items-start gap-2">
-                          <Sparkles className="w-3.5 h-3.5 mt-0.5 flex-shrink-0 group-hover:scale-110 transition-transform" style={{ color: primaryColor }} />
-                          <span className={`text-sm leading-snug ${currentTheme === 'dark' ? 'text-gray-100' : 'text-gray-800'}`}>
+                        <div className="vw-flex vw-items-start vw-gap-2">
+                          <Sparkles className="vw-w-3.5 vw-h-3.5 vw-mt-0.5 vw-flex-shrink-0 group-hover:vw-scale-110 vw-transition-transform" style={{ color: primaryColor }} />
+                          <span className={`vw-text-sm vw-leading-snug ${currentTheme === 'dark' ? 'vw-text-gray-100' : 'vw-text-gray-800'}`}>
                             {suggestion}
                           </span>
                         </div>
@@ -678,14 +678,14 @@ export function ChatWidget({ config }: ChatWidgetProps) {
         )}
       </div>
 
-      <div className={`px-6 py-4 border-t flex-shrink-0 ${currentTheme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'}`}>
+      <div className={`vw-px-6 vw-py-4 vw-border-t vw-flex-shrink-0 ${currentTheme === 'dark' ? 'vw-bg-gray-800 vw-border-gray-700' : 'vw-bg-white vw-border-gray-200'}`}>
         {contactForm ? (
-          <div className="space-y-3 mb-3">
+          <div className="vw-space-y-3 vw-mb-3">
             {contactForm.fields.sort((a, b) => (a.order || 0) - (b.order || 0)).map((field) => (
               <div key={field.field_name}>
-                <label className={`block text-sm font-medium mb-1 ${currentTheme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>
+                <label className={`vw-block vw-text-sm vw-font-medium vw-mb-1 ${currentTheme === 'dark' ? 'vw-text-gray-200' : 'vw-text-gray-700'}`}>
                   {field.field_label}
-                  {field.required && <span className="text-red-500 ml-1">*</span>}
+                  {field.required && <span className="vw-text-red-500 vw-ml-1">*</span>}
                 </label>
                 {field.field_type === 'textarea' ? (
                   <textarea
@@ -693,7 +693,7 @@ export function ChatWidget({ config }: ChatWidgetProps) {
                     onChange={(e) => setContactFormData(prev => ({ ...prev, [field.field_name]: e.target.value }))}
                     placeholder={field.placeholder}
                     rows={3}
-                    className={`w-full px-3 py-2 rounded-lg border outline-none transition-all ${currentTheme === 'dark' ? 'bg-gray-700 border-gray-600 text-white' : 'bg-gray-50 border-gray-200 text-gray-900'}`}
+                    className={`vw-w-full vw-px-3 vw-py-2 vw-rounded-lg vw-border vw-outline-none vw-transition-all ${currentTheme === 'dark' ? 'vw-bg-gray-700 vw-border-gray-600 vw-text-white' : 'vw-bg-gray-50 vw-border-gray-200 vw-text-gray-900'}`}
                   />
                 ) : (
                   <input
@@ -701,12 +701,12 @@ export function ChatWidget({ config }: ChatWidgetProps) {
                     value={contactFormData[field.field_name] || ''}
                     onChange={(e) => setContactFormData(prev => ({ ...prev, [field.field_name]: e.target.value }))}
                     placeholder={field.placeholder}
-                    className={`w-full px-3 py-2 rounded-lg border outline-none transition-all ${currentTheme === 'dark' ? 'bg-gray-700 border-gray-600 text-white' : 'bg-gray-50 border-gray-200 text-gray-900'}`}
+                    className={`vw-w-full vw-px-3 vw-py-2 vw-rounded-lg vw-border vw-outline-none vw-transition-all ${currentTheme === 'dark' ? 'vw-bg-gray-700 vw-border-gray-600 vw-text-white' : 'vw-bg-gray-50 vw-border-gray-200 vw-text-gray-900'}`}
                   />
                 )}
               </div>
             ))}
-            <div className="flex gap-2">
+            <div className="vw-flex vw-gap-2">
               <button
                 onClick={async () => {
                   const allRequiredFilled = contactForm.fields
@@ -739,7 +739,7 @@ export function ChatWidget({ config }: ChatWidgetProps) {
                     setMessages(prev => [...prev, { type: 'assistant', text: 'Sorry, there was an error. Please try again.' }]);
                   }
                 }}
-                className="flex-1 px-4 py-2 rounded-lg text-white font-medium transition-all"
+                className="vw-flex-1 vw-px-4 vw-py-2 vw-rounded-lg vw-text-white vw-font-medium vw-transition-all"
                 style={{ backgroundColor: primaryColor }}
               >
                 Submit
@@ -749,14 +749,14 @@ export function ChatWidget({ config }: ChatWidgetProps) {
                   setContactForm(null);
                   setContactFormData({});
                 }}
-                className={`px-4 py-2 rounded-lg font-medium transition-all ${currentTheme === 'dark' ? 'bg-gray-700 text-gray-200' : 'bg-gray-200 text-gray-700'}`}
+                className={`vw-px-4 vw-py-2 vw-rounded-lg vw-font-medium vw-transition-all ${currentTheme === 'dark' ? 'vw-bg-gray-700 vw-text-gray-200' : 'vw-bg-gray-200 vw-text-gray-700'}`}
               >
                 Cancel
               </button>
             </div>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="relative mb-3">
+          <form onSubmit={handleSubmit} className="vw-relative vw-mb-3">
             <textarea
               ref={textareaRef}
               rows={1}
@@ -769,22 +769,22 @@ export function ChatWidget({ config }: ChatWidgetProps) {
                 }
               }}
               placeholder={placeholderText}
-              className={`w-full px-4 py-3 pr-12 rounded-xl border outline-none transition-all resize-none ${currentTheme === 'dark' ? 'bg-gray-700 border-gray-600 text-white' : 'bg-gray-50 border-gray-200 text-gray-900'}`}
+              className={`vw-w-full vw-px-4 vw-py-3 vw-pr-12 vw-rounded-xl vw-border vw-outline-none vw-transition-all vw-resize-none ${currentTheme === 'dark' ? 'vw-bg-gray-700 vw-border-gray-600 vw-text-white' : 'vw-bg-gray-50 vw-border-gray-200 vw-text-gray-900'}`}
               style={{ minHeight: '48px', maxHeight: '72px' }}
             />
             <button
               type="submit"
               disabled={!question.trim() || isLoading}
-              className="absolute right-2 bottom-3 p-2 rounded-full text-white transition-all disabled:opacity-50"
+              className="vw-absolute vw-right-2 vw-bottom-3 vw-p-2 vw-rounded-full vw-text-white vw-transition-all disabled:vw-opacity-50"
               style={{ backgroundColor: primaryColor }}
             >
-              <Send className="w-4 h-4" />
+              <Send className="vw-w-4 vw-h-4" />
             </button>
           </form>
         )}
 
         {config.branding?.showPoweredBy !== false && (
-          <p className={`text-xs text-center ${currentTheme === 'dark' ? 'text-gray-500' : 'text-gray-400'}`}>
+          <p className={`vw-text-xs vw-text-center ${currentTheme === 'dark' ? 'vw-text-gray-500' : 'vw-text-gray-400'}`}>
             {config.branding?.poweredByText || 'Powered by Vinfotech AI'}
           </p>
         )}
