@@ -19655,6 +19655,11 @@ function remarkGfm(options) {
   fromMarkdownExtensions.push(gfmFromMarkdown());
   toMarkdownExtensions.push(gfmToMarkdown(settings));
 }
+const version = "1.0.0";
+const packageJson = {
+  version
+};
+const WIDGET_VERSION = packageJson.version;
 class ChatAPI {
   constructor(apiUrl) {
     __publicField(this, "apiUrl");
@@ -19672,7 +19677,8 @@ class ChatAPI {
     const response = await fetch(`${this.apiUrl}/chat/query/stream`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "X-Widget-Version": WIDGET_VERSION
       },
       body: JSON.stringify(requestPayload)
     });
@@ -19765,7 +19771,8 @@ class ChatAPI {
       const response = await fetch(url.toString(), {
         method: "GET",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "X-Widget-Version": WIDGET_VERSION
         }
       });
       if (!response.ok) {
@@ -19783,7 +19790,8 @@ class ChatAPI {
       const response = await fetch(`${this.apiUrl}/chat/feedback`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "X-Widget-Version": WIDGET_VERSION
         },
         body: JSON.stringify({
           session_id: sessionId,
@@ -19803,7 +19811,8 @@ class ChatAPI {
       const response = await fetch(`${this.apiUrl}/chat/contact-submission`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "X-Widget-Version": WIDGET_VERSION
         },
         body: JSON.stringify(payload)
       });
@@ -20134,6 +20143,22 @@ function ChatWidget({ config }) {
       feedback: messageFeedback
     });
   }, [messages, dynamicSuggestions, messageFeedback]);
+  reactExports.useEffect(() => {
+    if (widgetState === "full" && messages.length > 0 && chatContainerRef.current) {
+      setTimeout(() => {
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            if (chatContainerRef.current) {
+              chatContainerRef.current.scrollTo({
+                top: chatContainerRef.current.scrollHeight,
+                behavior: "smooth"
+              });
+            }
+          });
+        });
+      }, 150);
+    }
+  }, [widgetState]);
   const loadInitialSuggestions = async () => {
     var _a2, _b2, _c2;
     if (initialSuggestions.length > 0 || isLoadingSuggestions || !((_a2 = config.suggestions) == null ? void 0 : _a2.enabled)) return;
@@ -20305,7 +20330,7 @@ function ChatWidget({ config }) {
       "button",
       {
         onClick: handleCollapsedClick,
-        className: `fixed bottom-6 right-6 text-white shadow-2xl transition-all duration-300 hover:scale-105 z-50 group rounded-full md:rounded-3xl ${currentTheme === "dark" ? "shadow-emerald-500/20" : ""}`,
+        className: `fixed bottom-6 right-6 text-white shadow-2xl transition-all duration-300 hover:scale-105 z-[9999] group rounded-full md:rounded-3xl ${currentTheme === "dark" ? "shadow-emerald-500/20" : ""}`,
         style: { background: `linear-gradient(45deg, ${primaryColor}, ${adjustColorBrightness(primaryColor, -20)})` },
         children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 p-3 md:gap-3 md:px-5 md:py-4", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3 hidden md:flex", children: [
@@ -20338,7 +20363,7 @@ function ChatWidget({ config }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(
     "div",
     {
-      className: `fixed z-50 shadow-2xl flex flex-col overflow-hidden transition-all duration-500 ease-in-out ${currentTheme === "dark" ? "bg-gray-800" : "bg-white"}`,
+      className: `fixed z-[9999] shadow-2xl flex flex-col overflow-hidden transition-all duration-500 ease-in-out ${currentTheme === "dark" ? "bg-gray-800" : "bg-white"}`,
       style: {
         top: isDesktop ? "auto" : "0",
         left: isDesktop ? "auto" : "0",
@@ -20774,8 +20799,8 @@ class VinfotechChatWidget {
     this.createContainer();
     this.render();
     this.isInitialized = true;
-    const version = this.config.version || "1.0.0";
-    console.log(`VinfotechChatWidget v${version} initialized successfully`);
+    const version2 = this.config.version || "1.0.0";
+    console.log(`VinfotechChatWidget v${version2} initialized successfully`);
   }
   createContainer() {
     var _a, _b;

@@ -1,3 +1,7 @@
+import packageJson from '../package.json';
+
+const WIDGET_VERSION = packageJson.version;
+
 export interface StreamEventHandlers {
   onResponseChunk?: (content: string) => void;
   onCompleteResponse?: (content: string) => void;
@@ -70,6 +74,7 @@ export class ChatAPI {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'X-Widget-Version': WIDGET_VERSION,
       },
       body: JSON.stringify(requestPayload)
     });
@@ -182,7 +187,8 @@ export class ChatAPI {
       const response = await fetch(url.toString(), {
         method: 'GET',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'X-Widget-Version': WIDGET_VERSION,
         }
       });
 
@@ -203,7 +209,8 @@ export class ChatAPI {
       const response = await fetch(`${this.apiUrl}/chat/feedback`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'X-Widget-Version': WIDGET_VERSION,
         },
         body: JSON.stringify({
           session_id: sessionId,
@@ -230,7 +237,8 @@ export class ChatAPI {
       const response = await fetch(`${this.apiUrl}/chat/contact-submission`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'X-Widget-Version': WIDGET_VERSION,
         },
         body: JSON.stringify(payload)
       });

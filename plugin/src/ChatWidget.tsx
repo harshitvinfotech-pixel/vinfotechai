@@ -130,6 +130,23 @@ export function ChatWidget({ config }: ChatWidgetProps) {
     });
   }, [messages, dynamicSuggestions, messageFeedback]);
 
+  useEffect(() => {
+    if (widgetState === 'full' && messages.length > 0 && chatContainerRef.current) {
+      setTimeout(() => {
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            if (chatContainerRef.current) {
+              chatContainerRef.current.scrollTo({
+                top: chatContainerRef.current.scrollHeight,
+                behavior: 'smooth'
+              });
+            }
+          });
+        });
+      }, 150);
+    }
+  }, [widgetState]);
+
   const loadInitialSuggestions = async () => {
     if (initialSuggestions.length > 0 || isLoadingSuggestions || !config.suggestions?.enabled) return;
 
@@ -317,7 +334,7 @@ export function ChatWidget({ config }: ChatWidgetProps) {
     return (
       <button
         onClick={handleCollapsedClick}
-        className={`fixed bottom-6 right-6 text-white shadow-2xl transition-all duration-300 hover:scale-105 z-50 group rounded-full md:rounded-3xl ${currentTheme === 'dark' ? 'shadow-emerald-500/20' : ''}`}
+        className={`fixed bottom-6 right-6 text-white shadow-2xl transition-all duration-300 hover:scale-105 z-[9999] group rounded-full md:rounded-3xl ${currentTheme === 'dark' ? 'shadow-emerald-500/20' : ''}`}
         style={{ background: `linear-gradient(45deg, ${primaryColor}, ${adjustColorBrightness(primaryColor, -20)})` }}
       >
         <div className="flex items-center gap-2 p-3 md:gap-3 md:px-5 md:py-4">
@@ -347,7 +364,7 @@ export function ChatWidget({ config }: ChatWidgetProps) {
 
   return (
     <div
-      className={`fixed z-50 shadow-2xl flex flex-col overflow-hidden transition-all duration-500 ease-in-out ${currentTheme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}
+      className={`fixed z-[9999] shadow-2xl flex flex-col overflow-hidden transition-all duration-500 ease-in-out ${currentTheme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}
       style={{
         top: isDesktop ? 'auto' : '0',
         left: isDesktop ? 'auto' : '0',
