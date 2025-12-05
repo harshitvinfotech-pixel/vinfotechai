@@ -1,4 +1,3 @@
-@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -15,11 +14,87 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-#vinfotech-chat-widget-root * {
+#vinfotech-chat-widget-root *,
+#vinfotech-chat-widget-root *::before,
+#vinfotech-chat-widget-root *::after {
   box-sizing: border-box;
+  border-width: 0;
+  border-style: solid;
+  border-color: #e5e7eb;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif !important;
+}
+
+#vinfotech-chat-widget-root h1,
+#vinfotech-chat-widget-root h2,
+#vinfotech-chat-widget-root h3,
+#vinfotech-chat-widget-root h4,
+#vinfotech-chat-widget-root h5,
+#vinfotech-chat-widget-root h6 {
+  font-size: inherit;
+  font-weight: inherit;
+  margin: 0;
+}
+
+#vinfotech-chat-widget-root p,
+#vinfotech-chat-widget-root blockquote,
+#vinfotech-chat-widget-root dl,
+#vinfotech-chat-widget-root dd,
+#vinfotech-chat-widget-root figure,
+#vinfotech-chat-widget-root pre {
+  margin: 0;
+}
+
+#vinfotech-chat-widget-root ol,
+#vinfotech-chat-widget-root ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#vinfotech-chat-widget-root a {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+#vinfotech-chat-widget-root button,
+#vinfotech-chat-widget-root input,
+#vinfotech-chat-widget-root optgroup,
+#vinfotech-chat-widget-root select,
+#vinfotech-chat-widget-root textarea {
+  font-family: inherit;
+  font-size: 100%;
+  font-weight: inherit;
+  line-height: inherit;
+  color: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+#vinfotech-chat-widget-root button,
+#vinfotech-chat-widget-root [role="button"] {
+  cursor: pointer;
+}
+
+#vinfotech-chat-widget-root img,
+#vinfotech-chat-widget-root svg,
+#vinfotech-chat-widget-root video,
+#vinfotech-chat-widget-root canvas {
+  display: block;
+  vertical-align: middle;
+  max-width: 100%;
+  height: auto;
+}
+
+#vinfotech-chat-widget-root input::placeholder,
+#vinfotech-chat-widget-root textarea::placeholder {
+  opacity: 1;
+  color: #9ca3af;
+}
+
+#vinfotech-chat-widget-root textarea {
+  resize: vertical;
 }
 
 .scrollbar-hide::-webkit-scrollbar {
@@ -66,59 +141,59 @@
 }
 
 @layer utilities {
-  .prose ul,
-  .prose ol {
+  #vinfotech-chat-widget-root .prose ul,
+  #vinfotech-chat-widget-root .prose ol {
     margin-top: 0.5em;
     margin-bottom: 0.5em;
     padding-left: 1.5em;
   }
 
-  .prose li {
+  #vinfotech-chat-widget-root .prose li {
     margin-top: 0.25em;
     margin-bottom: 0.25em;
   }
 
-  .prose p {
+  #vinfotech-chat-widget-root .prose p {
     margin-top: 0.5em;
     margin-bottom: 0.5em;
   }
 
-  .prose h1,
-  .prose h2,
-  .prose h3,
-  .prose h4,
-  .prose h5,
-  .prose h6 {
+  #vinfotech-chat-widget-root .prose h1,
+  #vinfotech-chat-widget-root .prose h2,
+  #vinfotech-chat-widget-root .prose h3,
+  #vinfotech-chat-widget-root .prose h4,
+  #vinfotech-chat-widget-root .prose h5,
+  #vinfotech-chat-widget-root .prose h6 {
     margin-top: 1em;
     margin-bottom: 0.5em;
     font-weight: 600;
   }
 
-  .prose strong {
+  #vinfotech-chat-widget-root .prose strong {
     font-weight: 600;
   }
 
-  .prose a {
+  #vinfotech-chat-widget-root .prose a {
     text-decoration: none;
   }
 
-  .prose a:hover {
+  #vinfotech-chat-widget-root .prose a:hover {
     text-decoration: underline;
   }
 
-  .prose code {
+  #vinfotech-chat-widget-root .prose code {
     padding: 2px 4px;
     border-radius: 4px;
     font-size: 0.875em;
   }
 
-  .prose pre {
+  #vinfotech-chat-widget-root .prose pre {
     padding: 16px;
     border-radius: 8px;
     overflow-x: auto;
   }
 
-  .prose pre code {
+  #vinfotech-chat-widget-root .prose pre code {
     background-color: transparent;
     padding: 0;
   }

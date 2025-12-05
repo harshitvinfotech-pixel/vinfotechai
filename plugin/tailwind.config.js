@@ -1,6 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   prefix: 'vw-',
+  important: '#vinfotech-chat-widget-root',
+  corePlugins: {
+    preflight: false,
+  },
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
