@@ -48,6 +48,10 @@ declare global {
         enabled?: boolean;
         fallbackQuestions?: string[];
       };
+      customization?: {
+        css?: string;
+        className?: string;
+      };
       callbacks?: {
         onOpen?: () => void;
         onClose?: () => void;
@@ -106,6 +110,49 @@ export default function ChatWidgetPlugin() {
           'How can AI improve my business operations?',
           'What industries do you specialize in?',
         ],
+      },
+
+      // Custom CSS to override font and typography (matches main website styles)
+      customization: {
+        css: `
+          #vinfotech-chat-widget-root,
+          #vinfotech-chat-widget-root *,
+          #vinfotech-chat-widget-root .vw-prose,
+          #vinfotech-chat-widget-root .vw-prose * {
+            font-family: 'Helvetica', 'Arial', sans-serif !important;
+          }
+          
+          /* Match message text sizing */
+          #vinfotech-chat-widget-root .vw-prose p,
+          #vinfotech-chat-widget-root .vw-text-base {
+            font-size: 16px !important;
+            line-height: 1.6 !important;
+            font-weight: 400 !important;
+          }
+          
+          /* Match suggestion text sizing - text-sm (0.875rem) */
+          #vinfotech-chat-widget-root .vw-text-sm {
+            font-size: 0.875rem !important;
+            line-height: 1.5 !important;
+          }
+          
+          /* Match font weights */
+          #vinfotech-chat-widget-root .vw-font-bold {
+            font-weight: 700 !important;
+          }
+          
+          #vinfotech-chat-widget-root .vw-font-semibold {
+            font-weight: 600 !important;
+          }
+          
+          #vinfotech-chat-widget-root .vw-font-medium {
+            font-weight: 500 !important;
+          }
+          
+          #vinfotech-chat-widget-root .vw-font-normal {
+            font-weight: 400 !important;
+          }
+        `,
       },
     };
 
