@@ -6,8 +6,8 @@ import Home from './pages/Home';
 import Modal from './components/Modal';
 import QuoteForm from './components/QuoteForm';
 import QuoteSuccessConfirmation from './components/QuoteSuccessConfirmation';
-import ChatWidget from './components/ChatWidget';
 import CookieConsent from './components/CookieConsent';
+import ChatWidgetPlugin from './components/ChatWidgetPlugin';
 
 // Blogs - Hidden for now
 // const Blogs = lazy(() => import('./pages/Blogs'));
@@ -107,7 +107,7 @@ function AppContent() {
         </button>
       )}
 
-      <ChatWidget />
+      <ChatWidgetPlugin />
       <CookieConsent />
     </div>
   );

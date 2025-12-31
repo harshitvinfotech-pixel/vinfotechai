@@ -282,7 +282,8 @@ export default function ChatWidget() {
   const buildInitialContactValues = (fields: ContactFormField[]) => {
     const values: Record<string, string> = {};
     fields.forEach(field => {
-      values[field.field_name] = '';
+      // Use pre-filled value from backend if available, otherwise empty string
+      values[field.field_name] = field.value || '';
     });
     return values;
   };
