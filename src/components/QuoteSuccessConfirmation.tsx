@@ -5,7 +5,7 @@ interface QuoteSuccessConfirmationProps {
 }
 
 export default function QuoteSuccessConfirmation({ onClose }: QuoteSuccessConfirmationProps) {
-  const phoneNumber = '+1-480-409-4391';
+  const phoneNumber = '+91-9826034200';
 
   const socialLinks = [
     { icon: Facebook, url: 'https://facebook.com', label: 'Facebook' },
