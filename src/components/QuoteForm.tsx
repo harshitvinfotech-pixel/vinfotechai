@@ -1,5 +1,6 @@
 import { useState, FormEvent } from 'react';
 import { submitQuote, QuoteSubmission } from '../lib/supabase';
+import { submitContactToApi } from '../lib/contactApi';
 import { AlertCircle, Loader2 } from 'lucide-react';
 import { validateProjectDescription, getCharacterCount, getRemainingCharacters } from '../lib/validation';
 import CountryCodeSelect from './CountryCodeSelect';
@@ -100,8 +101,27 @@ export default function QuoteForm({ onShowSuccessConfirmation }: QuoteFormProps)
 
       console.log('Submitting quote:', submissionData);
 
+      // Submit to Supabase
       const result = await submitQuote(submissionData);
       console.log('Quote submitted successfully:', result);
+
+      // Send thank you email in background (non-blocking)
+      submitContactToApi({
+        name: formData.name,
+        email: formData.email,
+        phone_number: submissionData.phone_number,
+        company: formData.company || '',
+        project_description: formData.project_description,
+        country_code: selectedCountryCode,
+      }).then(emailResult => {
+        if (emailResult.success) {
+          console.log('✅ Thank you email sent successfully');
+        } else {
+          console.warn('⚠️ Email send failed (non-critical):', emailResult.error);
+        }
+      }).catch(err => {
+        console.warn('⚠️ Email send error (non-critical):', err);
+      });
 
       setSubmitStatus('success');
       setFormData({
