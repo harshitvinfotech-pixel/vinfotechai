@@ -20079,10 +20079,10 @@ function ChatWidget({ config }) {
   const abortControllerRef = reactExports.useRef(null);
   const isProcessingRef = reactExports.useRef(false);
   const primaryColor = ((_c = config.theme) == null ? void 0 : _c.primaryColor) || "#00B46A";
-  const companyName = ((_d = config.branding) == null ? void 0 : _d.companyName) || "AI Assistant";
+  const companyName = ((_d = config.branding) == null ? void 0 : _d.companyName) || "Vinfotech AI";
   const botAvatarUrl = "/ai-bot.png";
-  const welcomeMessage = ((_e = config.messages) == null ? void 0 : _e.welcomeMessage) || "How can I help you today?";
-  const placeholderText = ((_f = config.messages) == null ? void 0 : _f.placeholderText) || "Ask a question...";
+  const welcomeMessage = ((_e = config.messages) == null ? void 0 : _e.welcomeMessage) || "How can I help you?";
+  const placeholderText = ((_f = config.messages) == null ? void 0 : _f.placeholderText) || "Ask something";
   const loadingMessages = [
     "Thinking",
     "Processing",
@@ -20335,7 +20335,7 @@ function ChatWidget({ config }) {
         children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "vw-flex vw-items-center vw-gap-2 vw-p-3 md:vw-gap-3 md:vw-px-5 md:vw-py-4", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "vw-flex vw-items-center vw-gap-3 vw-hidden md:vw-flex", children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx(Sparkles, { className: "vw-w-5 vw-h-5" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "vw-font-bold vw-text-lg", children: "Ask Us Anything?" })
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "vw-font-bold vw-text-lg", children: "Ask Me Anything??" })
           ] }),
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "vw-relative md:vw-hidden", children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -20380,10 +20380,9 @@ function ChatWidget({ config }) {
         /* @__PURE__ */ jsxRuntimeExports.jsxs(
           "div",
           {
-            className: "vw-flex vw-items-center vw-justify-between vw-px-5 vw-py-4 vw-shadow-sm vw-flex-shrink-0",
+            className: `vw-flex vw-items-center vw-justify-between vw-px-5 vw-py-4 vw-shadow-sm vw-flex-shrink-0 ${currentTheme === "dark" ? "vw-bg-gray-800" : "vw-bg-white"}`,
             style: {
-              backgroundColor: primaryColor,
-              borderBottom: "1px solid rgba(255, 255, 255, 0.1)"
+              borderBottom: currentTheme === "dark" ? "1px solid #374151" : "1px solid #e5e7eb"
             },
             children: [
               /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "vw-flex vw-items-center vw-gap-3", children: [
@@ -20392,71 +20391,47 @@ function ChatWidget({ config }) {
                   {
                     src: botAvatarUrl,
                     alt: companyName,
-                    className: "vw-w-9 vw-h-9 vw-object-contain",
+                    className: "vw-w-8 vw-h-8 vw-object-contain",
                     onError: (e) => {
                       e.target.style.display = "none";
                     }
                   }
                 ),
-                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "vw-font-bold vw-text-white vw-text-base", children: companyName })
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "vw-flex vw-flex-col", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: `vw-text-xs ${currentTheme === "dark" ? "vw-text-gray-400" : "vw-text-gray-500"}`, children: "Powered by" }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: `vw-font-bold vw-text-sm ${currentTheme === "dark" ? "vw-text-white" : "vw-text-gray-900"}`, children: companyName })
+                ] })
               ] }),
               /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "vw-flex vw-items-center vw-gap-2", children: [
                 isDesktop && /* @__PURE__ */ jsxRuntimeExports.jsx(
                   "button",
                   {
                     onClick: () => setIsExpanded(!isExpanded),
-                    className: "vw-p-2 hover:vw-bg-white/20 vw-rounded-lg vw-transition-all vw-duration-300",
-                    children: isExpanded ? /* @__PURE__ */ jsxRuntimeExports.jsx(Minimize2, { className: "vw-w-5 vw-h-5 vw-text-white" }) : /* @__PURE__ */ jsxRuntimeExports.jsx(Maximize2, { className: "vw-w-5 vw-h-5 vw-text-white" })
+                    className: `vw-p-2 vw-rounded-lg vw-transition-all vw-duration-300 ${currentTheme === "dark" ? "hover:vw-bg-gray-700" : "hover:vw-bg-gray-100"}`,
+                    children: isExpanded ? /* @__PURE__ */ jsxRuntimeExports.jsx(Minimize2, { className: `vw-w-5 vw-h-5 ${currentTheme === "dark" ? "vw-text-gray-400" : "vw-text-gray-600"}` }) : /* @__PURE__ */ jsxRuntimeExports.jsx(Maximize2, { className: `vw-w-5 vw-h-5 ${currentTheme === "dark" ? "vw-text-gray-400" : "vw-text-gray-600"}` })
                   }
                 ),
                 /* @__PURE__ */ jsxRuntimeExports.jsx(
                   "button",
                   {
                     onClick: closeWidget,
-                    className: "vw-p-2 hover:vw-bg-white/20 vw-rounded-lg vw-transition-all vw-duration-300",
-                    children: /* @__PURE__ */ jsxRuntimeExports.jsx(X, { className: "vw-w-5 vw-h-5 vw-text-white" })
+                    className: `vw-p-2 vw-rounded-lg vw-transition-all vw-duration-300 ${currentTheme === "dark" ? "hover:vw-bg-gray-700" : "hover:vw-bg-gray-100"}`,
+                    children: /* @__PURE__ */ jsxRuntimeExports.jsx(X, { className: `vw-w-5 vw-h-5 ${currentTheme === "dark" ? "vw-text-gray-400" : "vw-text-gray-600"}` })
                   }
                 )
               ] })
             ]
           }
         ),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { ref: chatContainerRef, className: `vw-flex-1 vw-overflow-y-auto vw-px-6 vw-py-4 vw-space-y-4 ${currentTheme === "dark" ? "vw-bg-gray-900" : "vw-bg-gray-50"}`, children: messages.length === 0 ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "vw-flex vw-flex-col vw-items-center vw-justify-center vw-h-full vw-text-center vw-px-4", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            "img",
-            {
-              src: botAvatarUrl,
-              alt: companyName,
-              className: "vw-w-24 vw-h-24 vw-object-contain vw-mb-6",
-              onError: (e) => {
-                e.target.style.display = "none";
-              }
-            }
-          ),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: `vw-text-lg vw-font-bold vw-mb-1 ${currentTheme === "dark" ? "vw-text-white" : "vw-text-gray-900"}`, children: welcomeMessage }),
-          showPredefinedQuestions && !isLoadingSuggestions && initialSuggestions.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "vw-grid vw-grid-cols-1 vw-gap-2 vw-w-full vw-max-w-sm vw-mt-6", children: initialSuggestions.slice(0, 3).map((question2, index2) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { ref: chatContainerRef, className: `vw-flex-1 vw-overflow-y-auto vw-px-6 vw-py-4 vw-space-y-4 ${currentTheme === "dark" ? "vw-bg-gray-900" : "vw-bg-white"}`, children: messages.length === 0 ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "vw-flex vw-flex-col vw-items-start vw-justify-center vw-h-full vw-px-4", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: `vw-text-3xl vw-font-bold vw-mb-1 ${currentTheme === "dark" ? "vw-text-white" : "vw-text-gray-900"}`, children: "Hello," }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "vw-text-3xl vw-font-bold vw-mb-6", style: { color: primaryColor }, children: welcomeMessage }),
+          showPredefinedQuestions && !isLoadingSuggestions && initialSuggestions.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "vw-grid vw-grid-cols-1 vw-gap-3 vw-w-full", children: initialSuggestions.slice(0, 3).map((question2, index2) => /* @__PURE__ */ jsxRuntimeExports.jsx(
             "button",
             {
               onClick: () => handleSuggestedQuestionClick(question2),
-              className: `vw-text-left vw-px-3 vw-py-2 vw-rounded-lg vw-border-2 vw-transition-all vw-duration-300 vw-text-sm hover:vw-scale-[1.02] vw-group ${currentTheme === "dark" ? "vw-bg-gray-700 hover:vw-bg-gray-600 vw-border-gray-600 vw-text-gray-200" : "vw-bg-white vw-text-gray-700"}`,
-              style: {
-                borderColor: primaryColor + (currentTheme === "dark" ? "60" : "40"),
-                backgroundColor: currentTheme === "light" ? primaryColor + "08" : void 0
-              },
-              onMouseEnter: (e) => {
-                if (currentTheme === "light") {
-                  e.currentTarget.style.backgroundColor = primaryColor + "15";
-                }
-              },
-              onMouseLeave: (e) => {
-                if (currentTheme === "light") {
-                  e.currentTarget.style.backgroundColor = primaryColor + "08";
-                }
-              },
-              children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "vw-flex vw-items-start vw-gap-2", children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx(Sparkles, { className: "vw-w-3.5 vw-h-3.5 vw-mt-0.5 vw-flex-shrink-0", style: { color: primaryColor } }),
-                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: question2 })
-              ] })
+              className: `vw-text-left vw-px-4 vw-py-3 vw-rounded-xl vw-border vw-transition-all vw-duration-300 vw-text-sm hover:vw-scale-[1.01] vw-shadow-sm ${currentTheme === "dark" ? "vw-bg-gray-800 hover:vw-bg-gray-700 vw-border-gray-700 vw-text-gray-200" : "vw-bg-white vw-text-gray-800 vw-border-gray-200 hover:vw-border-gray-300"}`,
+              children: question2
             },
             index2
           )) }),
@@ -20479,7 +20454,7 @@ function ChatWidget({ config }) {
                   }
                 }
               ),
-              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: `vw-max-w-[85%] vw-px-4 vw-py-3 vw-transition-all vw-duration-300 ${message.type === "user" ? "vw-rounded-tl-2xl vw-rounded-bl-2xl vw-rounded-br-2xl vw-text-white" : currentTheme === "dark" ? "vw-bg-gray-700 vw-text-gray-100 vw-border vw-border-gray-600 vw-rounded-2xl" : "vw-bg-white vw-text-gray-900 vw-border vw-border-gray-100 vw-rounded-2xl"}`, style: message.type === "user" ? { backgroundColor: primaryColor } : {}, children: message.type === "user" ? /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "vw-text-base vw-leading-relaxed", children: message.text }) : /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "vw-prose vw-prose-sm vw-max-w-none", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: `vw-max-w-[85%] vw-px-4 vw-py-3 vw-transition-all vw-duration-300 vw-rounded-2xl ${message.type === "user" ? currentTheme === "dark" ? "vw-text-white" : "vw-text-gray-900" : currentTheme === "dark" ? "vw-bg-gray-800 vw-text-gray-100 vw-border vw-border-gray-700" : "vw-bg-white vw-text-gray-900 vw-border vw-border-gray-200"}`, style: message.type === "user" ? { backgroundColor: currentTheme === "dark" ? primaryColor : `${primaryColor}15` } : {}, children: message.type === "user" ? /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "vw-text-base vw-leading-relaxed", children: message.text }) : /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "vw-prose vw-prose-sm vw-max-w-none", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
                 Markdown,
                 {
                   remarkPlugins: [remarkGfm],
@@ -20568,24 +20543,23 @@ function ChatWidget({ config }) {
                 }
               ) }) })
             ] }),
-            message.type === "assistant" && !isLoading && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "vw-flex vw-items-center vw-gap-3 vw-ml-10 vw-mt-2", children: [
+            message.type === "assistant" && !isLoading && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "vw-flex vw-items-center vw-gap-2 vw-ml-10 vw-mt-2", children: [
               /* @__PURE__ */ jsxRuntimeExports.jsx(
                 "button",
                 {
                   onClick: () => handleFeedback(index2, "positive"),
-                  className: "vw-p-1 vw-transition-all vw-duration-300",
-                  children: /* @__PURE__ */ jsxRuntimeExports.jsx(ThumbsUp, { className: `vw-w-4 vw-h-4 ${messageFeedback[index2] === "positive" ? "vw-text-green-500" : "vw-text-gray-400"}` })
+                  className: `vw-p-1.5 vw-rounded vw-transition-all vw-duration-300 ${messageFeedback[index2] === "positive" ? "vw-bg-green-50" : currentTheme === "dark" ? "hover:vw-bg-gray-800" : "hover:vw-bg-gray-100"}`,
+                  children: /* @__PURE__ */ jsxRuntimeExports.jsx(ThumbsUp, { className: `vw-w-4 vw-h-4 ${messageFeedback[index2] === "positive" ? "vw-text-green-500" : currentTheme === "dark" ? "vw-text-gray-500" : "vw-text-gray-400"}` })
                 }
               ),
               /* @__PURE__ */ jsxRuntimeExports.jsx(
                 "button",
                 {
                   onClick: () => handleFeedback(index2, "negative"),
-                  className: "vw-p-1 vw-transition-all vw-duration-300",
-                  children: /* @__PURE__ */ jsxRuntimeExports.jsx(ThumbsDown, { className: `vw-w-4 vw-h-4 ${messageFeedback[index2] === "negative" ? "vw-text-red-500" : "vw-text-gray-400"}` })
+                  className: `vw-p-1.5 vw-rounded vw-transition-all vw-duration-300 ${messageFeedback[index2] === "negative" ? "vw-bg-red-50" : currentTheme === "dark" ? "hover:vw-bg-gray-800" : "hover:vw-bg-gray-100"}`,
+                  children: /* @__PURE__ */ jsxRuntimeExports.jsx(ThumbsDown, { className: `vw-w-4 vw-h-4 ${messageFeedback[index2] === "negative" ? "vw-text-red-500" : currentTheme === "dark" ? "vw-text-gray-500" : "vw-text-gray-400"}` })
                 }
-              ),
-              messageFeedback[index2] && /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: `vw-text-xs ${currentTheme === "dark" ? "vw-text-gray-500" : "vw-text-gray-400"}`, children: "Thanks for your feedback!" })
+              )
             ] })
           ] }, index2)),
           isLoading && !isStreaming && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "vw-flex vw-justify-start vw-items-start vw-gap-3", children: [
@@ -20617,33 +20591,13 @@ function ChatWidget({ config }) {
             ] }) })
           ] }),
           dynamicSuggestions.length > 0 && !isLoading && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "vw-flex vw-justify-start vw-pl-10", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "vw-flex vw-flex-col vw-gap-2 vw-w-full vw-max-w-[85%]", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "vw-flex vw-items-center vw-gap-2", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx(Sparkles, { className: "vw-w-3.5 vw-h-3.5", style: { color: primaryColor } }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: `vw-text-sm vw-font-semibold ${currentTheme === "dark" ? "vw-text-gray-200" : "vw-text-gray-700"}`, children: "You can also ask:" })
-            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: `vw-text-xs vw-mb-1 ${currentTheme === "dark" ? "vw-text-gray-400" : "vw-text-gray-500"}`, children: "You can also ask" }),
             dynamicSuggestions.filter((suggestion) => !clickedSuggestions.has(suggestion)).map((suggestion, index2) => /* @__PURE__ */ jsxRuntimeExports.jsx(
               "button",
               {
                 onClick: () => handleDynamicSuggestionClick(suggestion),
-                className: `vw-text-left vw-px-3 vw-py-2 vw-rounded-lg vw-border vw-transition-all vw-duration-300 hover:vw-scale-[1.02] vw-group vw-shadow-sm vw-w-full ${currentTheme === "dark" ? "vw-bg-gray-700 hover:vw-bg-gray-600 vw-border-gray-600" : "vw-bg-white vw-text-gray-700"}`,
-                style: {
-                  borderColor: primaryColor + (currentTheme === "dark" ? "40" : "30"),
-                  backgroundColor: currentTheme === "light" ? primaryColor + "10" : void 0
-                },
-                onMouseEnter: (e) => {
-                  if (currentTheme === "light") {
-                    e.currentTarget.style.backgroundColor = primaryColor + "20";
-                  }
-                },
-                onMouseLeave: (e) => {
-                  if (currentTheme === "light") {
-                    e.currentTarget.style.backgroundColor = primaryColor + "10";
-                  }
-                },
-                children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "vw-flex vw-items-start vw-gap-2", children: [
-                  /* @__PURE__ */ jsxRuntimeExports.jsx(Sparkles, { className: "vw-w-3.5 vw-h-3.5 vw-mt-0.5 vw-flex-shrink-0 group-hover:vw-scale-110 vw-transition-transform", style: { color: primaryColor } }),
-                  /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: `vw-text-sm vw-leading-snug ${currentTheme === "dark" ? "vw-text-gray-100" : "vw-text-gray-800"}`, children: suggestion })
-                ] })
+                className: `vw-text-left vw-px-3 vw-py-2 vw-rounded-lg vw-transition-all vw-duration-300 hover:vw-scale-[1.01] vw-text-sm ${currentTheme === "dark" ? "vw-bg-gray-800 hover:vw-bg-gray-700 vw-text-gray-200" : "vw-bg-gray-50 hover:vw-bg-gray-100 vw-text-gray-700"}`,
+                children: suggestion
               },
               index2
             ))
@@ -20742,7 +20696,7 @@ function ChatWidget({ config }) {
                   }
                 },
                 placeholder: placeholderText,
-                className: `vw-w-full vw-px-4 vw-py-3 vw-pr-12 vw-rounded-xl vw-border vw-outline-none vw-transition-all vw-resize-none ${currentTheme === "dark" ? "vw-bg-gray-700 vw-border-gray-600 vw-text-white" : "vw-bg-gray-50 vw-border-gray-200 vw-text-gray-900"}`,
+                className: `vw-w-full vw-px-4 vw-py-3 vw-pr-12 vw-rounded-xl vw-border vw-outline-none vw-transition-all vw-resize-none ${currentTheme === "dark" ? "vw-bg-gray-800 vw-border-gray-700 vw-text-white placeholder:vw-text-gray-500" : "vw-bg-white vw-border-gray-200 vw-text-gray-900 placeholder:vw-text-gray-400"}`,
                 style: { minHeight: "48px", maxHeight: "72px" }
               }
             ),
@@ -20751,9 +20705,8 @@ function ChatWidget({ config }) {
               {
                 type: "submit",
                 disabled: !question.trim() || isLoading,
-                className: "vw-absolute vw-right-2 vw-bottom-3 vw-p-2 vw-rounded-full vw-text-white vw-transition-all disabled:vw-opacity-50",
-                style: { backgroundColor: primaryColor },
-                children: /* @__PURE__ */ jsxRuntimeExports.jsx(Send, { className: "vw-w-4 vw-h-4" })
+                className: `vw-absolute vw-right-2 vw-bottom-3 vw-p-2 vw-rounded-lg vw-transition-all disabled:vw-opacity-30 ${currentTheme === "dark" ? "vw-text-gray-400" : "vw-text-gray-500"}`,
+                children: /* @__PURE__ */ jsxRuntimeExports.jsx(Send, { className: "vw-w-5 vw-h-5" })
               }
             )
           ] }),
