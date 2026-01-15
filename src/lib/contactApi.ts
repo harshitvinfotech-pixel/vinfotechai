@@ -1,9 +1,10 @@
 /**
  * Contact API Service
- * Handles sending contact form submissions to backend API for email notifications
+ * Handles sending contact form submissions to Vinfotech enquiry system
  */
 
-const contactApiUrl = import.meta.env.VITE_CONTACT_API_URL || import.meta.env.VITE_CHAT_API_URL || 'http://localhost:8000/api';
+const contactApiUrl = import.meta.env.VITE_CONTACT_API_URL || 'https://www.vinfotech.com';
+const formSubmissionType = import.meta.env.VITE_CONTACT_FORM_TYPE || '20';
 
 export interface ContactSubmissionPayload {
   name: string;
@@ -18,12 +19,13 @@ export interface ContactSubmissionResponse {
   success: boolean;
   message?: string;
   error?: string;
+  sid?: number;
 }
 
 /**
- * Submit contact form data to the backend API
+ * Submit contact form data to Vinfotech enquiry system
  * This will trigger thank you email sending to the customer
- * and notification email to the admin
+ * and notification to the Vinfotech team
  */
 export async function submitContactToApi(
   payload: ContactSubmissionPayload
@@ -31,45 +33,60 @@ export async function submitContactToApi(
   try {
     const apiUrl = contactApiUrl.replace(/\/$/, '');
     
-    console.log('Submitting to email API:', `${apiUrl}/contact/submit`);
+    // Prepare form data in application/x-www-form-urlencoded format
+    const formData = new URLSearchParams();
+    formData.append('name', payload.name);
+    formData.append('email', payload.email);
+    formData.append('phoneNo', payload.phone_number);
+    formData.append('message', payload.project_description);
+    formData.append('page_url', window.location.href);
+    formData.append('form_submission_type', formSubmissionType);
+    
+    // Add company as part of message if provided
+    if (payload.company) {
+      const messageWithCompany = `Company: ${payload.company}\n\n${payload.project_description}`;
+      formData.set('message', messageWithCompany);
+    }
+    
+    console.log('Submitting to Vinfotech enquiry API:', `${apiUrl}/action/add_enquiry`);
 
-    const response = await fetch(`${apiUrl}/contact/submit`, {
+    const response = await fetch(`${apiUrl}/action/add_enquiry`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
-      body: JSON.stringify(payload)
+      body: formData.toString()
     });
 
-    let result: any;
-    const contentType = response.headers.get('content-type');
+    const result = await response.json();
     
-    if (contentType && contentType.includes('application/json')) {
-      result = await response.json();
-    } else {
-      const text = await response.text();
-      result = { message: text };
-    }
+    console.log('Vinfotech API response:', result);
 
-    if (!response.ok) {
-      console.error('Email API error:', result);
+    // Check API response format
+    if (result.message === 'success') {
+      return {
+        success: true,
+        message: 'Thank you for contacting us! We will be in touch shortly.',
+        sid: result.sid
+      };
+    } else if (result.message === 'fail' && result.errors) {
+      // Handle validation errors
+      const errorMessages = Object.values(result.errors).join(', ');
       return {
         success: false,
-        error: result.message || result.error || `HTTP error! status: ${response.status}`
+        error: errorMessages
+      };
+    } else {
+      return {
+        success: false,
+        error: result.message || 'Submission failed. Please try again.'
       };
     }
-
-    console.log('Email API response:', result);
-
-    return {
-      success: true,
-      message: result.message || 'Thank you for contacting us!'
-    };
   } catch (error) {
     console.error('Email API network error:', error);
     return {
       success: false,
-      error: error instanceof Error ? error.message : 'Network error'
+      error: error instanceof Error ? error.message : 'Network error occurred'
     };
   }
 }
