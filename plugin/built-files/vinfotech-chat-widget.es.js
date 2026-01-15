@@ -20335,7 +20335,7 @@ function ChatWidget({ config }) {
         children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "vw-flex vw-items-center vw-gap-2 vw-p-3 md:vw-gap-3 md:vw-px-5 md:vw-py-4", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "vw-flex vw-items-center vw-gap-3 vw-hidden md:vw-flex", children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx(Sparkles, { className: "vw-w-5 vw-h-5" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "vw-font-bold vw-text-lg", children: "Ask Us Anything?" })
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "vw-font-bold vw-text-lg", children: "Ask Us Anything??" })
           ] }),
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "vw-relative md:vw-hidden", children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx(
