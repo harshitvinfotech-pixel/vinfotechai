@@ -20335,7 +20335,7 @@ function ChatWidget({ config }) {
         children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "vw-flex vw-items-center vw-gap-2 vw-p-3 md:vw-gap-3 md:vw-px-5 md:vw-py-4", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "vw-flex vw-items-center vw-gap-3 vw-hidden md:vw-flex", children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx(Sparkles, { className: "vw-w-5 vw-h-5" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "vw-font-bold vw-text-lg", children: "Ask Us Anything??" })
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "vw-font-bold vw-text-lg", children: "Ask Us Anything?" })
           ] }),
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "vw-relative md:vw-hidden", children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -20346,7 +20346,7 @@ function ChatWidget({ config }) {
                 className: "vw-w-12 vw-h-12 vw-object-contain vw-drop-shadow-xl"
               }
             ),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "vw-absolute vw--top-1 vw--right-1 vw-bg-white vw-text-emerald-600 vw-rounded-full vw-w-5 vw-h-5 vw-flex vw-items-center vw-justify-center vw-text-xs vw-font-bold vw-shadow-lg", children: "?" })
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "vw-absolute vw--top-1 vw--right-1 vw-bg-white vw-text-emerald-600 vw-rounded-full vw-w-5 vw-h-5 vw-flex vw-items-center vw-justify-center vw-text-xs vw-font-bold vw-shadow-lg", children: "???" })
           ] }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(
             "img",
