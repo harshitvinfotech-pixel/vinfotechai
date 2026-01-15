@@ -340,7 +340,7 @@ export function ChatWidget({ config }: ChatWidgetProps) {
         <div className="vw-flex vw-items-center vw-gap-2 vw-p-3 md:vw-gap-3 md:vw-px-5 md:vw-py-4">
           <div className="vw-flex vw-items-center vw-gap-3 vw-hidden md:vw-flex">
             <Sparkles className="vw-w-5 vw-h-5" />
-            <span className="vw-font-bold vw-text-lg">Ask Us Anything??</span>
+            <span className="vw-font-bold vw-text-lg">Ask Me Anything</span>
           </div>
           <div className="vw-relative md:vw-hidden">
             <img
