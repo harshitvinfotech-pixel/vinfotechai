@@ -349,7 +349,7 @@ export function ChatWidget({ config }: ChatWidgetProps) {
               className="vw-w-12 vw-h-12 vw-object-contain vw-drop-shadow-xl"
             />
             <div className="vw-absolute vw--top-1 vw--right-1 vw-bg-white vw-text-emerald-600 vw-rounded-full vw-w-5 vw-h-5 vw-flex vw-items-center vw-justify-center vw-text-xs vw-font-bold vw-shadow-lg">
-              ?
+              ???
             </div>
           </div>
           <img
