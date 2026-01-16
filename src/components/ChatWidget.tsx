@@ -1,6 +1,6 @@
 // src/components/ChatWidget.tsx
 import { useState, useEffect, useRef } from 'react';
-import { Send, X, Maximize2, Minimize2, Sparkles, Mail, ThumbsUp, ThumbsDown } from 'lucide-react';
+import { Send, X, Maximize2, Minimize2, Mail, ThumbsUp, ThumbsDown } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import {
@@ -698,7 +698,6 @@ export default function ChatWidget() {
       >
         <div className="flex items-center gap-2 p-3 md:gap-3 md:px-5 md:py-4">
           <div className="flex items-center gap-3 hidden md:flex">
-            <Sparkles className="w-5 h-5" />
             <span className="font-bold text-lg">Ask Us Anything?</span>
           </div>
           <div className="relative md:hidden">
@@ -758,12 +757,9 @@ export default function ChatWidget() {
                     className="text-left px-3 py-2 rounded-lg bg-white hover:bg-emerald-50 border-2 border-gray-200 hover:border-emerald-500 transition-all duration-300 group hover:scale-[1.02] hover:-translate-y-0.5 active:scale-[0.98] hover:shadow-md"
                     style={{ animationDelay: `${index * 50}ms` }}
                   >
-                    <div className="flex items-start gap-2">
-                      <Sparkles className="w-3.5 h-3.5 text-emerald-500 mt-0.5 flex-shrink-0 group-hover:scale-110 transition-transform" />
-                      <span className="text-sm text-gray-700 group-hover:text-emerald-700 font-medium leading-snug">
-                        {question}
-                      </span>
-                    </div>
+                    <span className="text-sm text-gray-700 group-hover:text-emerald-700 font-medium leading-snug">
+                      {question}
+                    </span>
                   </button>
                 ))}
               </div>
@@ -782,12 +778,9 @@ export default function ChatWidget() {
                       onClick={() => handleDynamicSuggestionClick(suggestion)}
                       className="text-left px-3 py-2 rounded-lg bg-gradient-to-r from-emerald-50 to-teal-50 hover:from-emerald-100 hover:to-teal-100 border border-emerald-200 hover:border-emerald-300 transition-all duration-300 hover:scale-[1.02] hover:-translate-y-0.5 active:scale-[0.98] group"
                     >
-                      <div className="flex items-start gap-2">
-                        <Sparkles className="w-3.5 h-3.5 text-emerald-600 mt-0.5 flex-shrink-0 group-hover:animate-pulse" />
-                        <span className="text-sm text-gray-700 group-hover:text-emerald-800 font-medium leading-snug">
-                          {suggestion}
-                        </span>
-                      </div>
+                      <span className="text-sm text-gray-700 group-hover:text-emerald-800 font-medium leading-snug">
+                        {suggestion}
+                      </span>
                     </button>
                   ))}
               </div>
