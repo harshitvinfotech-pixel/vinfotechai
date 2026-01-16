@@ -58,10 +58,10 @@ export function ChatWidget({ config }: ChatWidgetProps) {
   const isProcessingRef = useRef<boolean>(false);
 
   const primaryColor = config.theme?.primaryColor || '#00B46A';
-  const companyName = config.branding?.companyName || 'Vinfotech AI';
+  const companyName = config.branding?.companyName || 'AI Assistant';
   const botAvatarUrl = '/ai-bot.png';
-  const welcomeMessage = config.messages?.welcomeMessage || 'How can I help you?';
-  const placeholderText = config.messages?.placeholderText || 'Ask something';
+  const welcomeMessage = config.messages?.welcomeMessage || 'How can I help you today?';
+  const placeholderText = config.messages?.placeholderText || 'Ask a question...';
 
   const loadingMessages = [
     'Thinking',
@@ -340,7 +340,7 @@ export function ChatWidget({ config }: ChatWidgetProps) {
         <div className="vw-flex vw-items-center vw-gap-2 vw-p-3 md:vw-gap-3 md:vw-px-5 md:vw-py-4">
           <div className="vw-flex vw-items-center vw-gap-3 vw-hidden md:vw-flex">
             <Sparkles className="vw-w-5 vw-h-5" />
-            <span className="vw-font-bold vw-text-lg">Ask Me Anything??</span>
+            <span className="vw-font-bold vw-text-lg">Ask Us Anything??</span>
           </div>
           <div className="vw-relative md:vw-hidden">
             <img
@@ -349,7 +349,7 @@ export function ChatWidget({ config }: ChatWidgetProps) {
               className="vw-w-12 vw-h-12 vw-object-contain vw-drop-shadow-xl"
             />
             <div className="vw-absolute vw--top-1 vw--right-1 vw-bg-white vw-text-emerald-600 vw-rounded-full vw-w-5 vw-h-5 vw-flex vw-items-center vw-justify-center vw-text-xs vw-font-bold vw-shadow-lg">
-              ???
+              ?
             </div>
           </div>
           <img
@@ -379,58 +379,80 @@ export function ChatWidget({ config }: ChatWidgetProps) {
       }}
     >
       <div
-        className={`vw-flex vw-items-center vw-justify-between vw-px-5 vw-py-4 vw-shadow-sm vw-flex-shrink-0 ${currentTheme === 'dark' ? 'vw-bg-gray-800' : 'vw-bg-white'}`}
+        className="vw-flex vw-items-center vw-justify-between vw-px-5 vw-py-4 vw-shadow-sm vw-flex-shrink-0"
         style={{
-          borderBottom: currentTheme === 'dark' ? '1px solid #374151' : '1px solid #e5e7eb',
+          backgroundColor: primaryColor,
+          borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
         }}
       >
         <div className="vw-flex vw-items-center vw-gap-3">
           <img
             src={botAvatarUrl}
             alt={companyName}
-            className="vw-w-8 vw-h-8 vw-object-contain"
+            className="vw-w-9 vw-h-9 vw-object-contain"
             onError={(e) => {
               (e.target as HTMLImageElement).style.display = 'none';
             }}
           />
-          <div className="vw-flex vw-flex-col">
-            <span className={`vw-text-xs ${currentTheme === 'dark' ? 'vw-text-gray-400' : 'vw-text-gray-500'}`}>Powered by</span>
-            <span className={`vw-font-bold vw-text-sm ${currentTheme === 'dark' ? 'vw-text-white' : 'vw-text-gray-900'}`}>{companyName}</span>
-          </div>
+          <span className="vw-font-bold vw-text-white vw-text-base">{companyName}</span>
         </div>
         <div className="vw-flex vw-items-center vw-gap-2">
           {isDesktop && (
             <button
               onClick={() => setIsExpanded(!isExpanded)}
-              className={`vw-p-2 vw-rounded-lg vw-transition-all vw-duration-300 ${currentTheme === 'dark' ? 'hover:vw-bg-gray-700' : 'hover:vw-bg-gray-100'}`}
+              className="vw-p-2 hover:vw-bg-white/20 vw-rounded-lg vw-transition-all vw-duration-300"
             >
-              {isExpanded ? <Minimize2 className={`vw-w-5 vw-h-5 ${currentTheme === 'dark' ? 'vw-text-gray-400' : 'vw-text-gray-600'}`} /> : <Maximize2 className={`vw-w-5 vw-h-5 ${currentTheme === 'dark' ? 'vw-text-gray-400' : 'vw-text-gray-600'}`} />}
+              {isExpanded ? <Minimize2 className="vw-w-5 vw-h-5 vw-text-white" /> : <Maximize2 className="vw-w-5 vw-h-5 vw-text-white" />}
             </button>
           )}
           <button
             onClick={closeWidget}
-            className={`vw-p-2 vw-rounded-lg vw-transition-all vw-duration-300 ${currentTheme === 'dark' ? 'hover:vw-bg-gray-700' : 'hover:vw-bg-gray-100'}`}
+            className="vw-p-2 hover:vw-bg-white/20 vw-rounded-lg vw-transition-all vw-duration-300"
           >
-            <X className={`vw-w-5 vw-h-5 ${currentTheme === 'dark' ? 'vw-text-gray-400' : 'vw-text-gray-600'}`} />
+            <X className="vw-w-5 vw-h-5 vw-text-white" />
           </button>
         </div>
       </div>
 
-      <div ref={chatContainerRef} className={`vw-flex-1 vw-overflow-y-auto vw-px-6 vw-py-4 vw-space-y-4 ${currentTheme === 'dark' ? 'vw-bg-gray-900' : 'vw-bg-white'}`}>
+      <div ref={chatContainerRef} className={`vw-flex-1 vw-overflow-y-auto vw-px-6 vw-py-4 vw-space-y-4 ${currentTheme === 'dark' ? 'vw-bg-gray-900' : 'vw-bg-gray-50'}`}>
         {messages.length === 0 ? (
-          <div className="vw-flex vw-flex-col vw-items-start vw-justify-center vw-h-full vw-px-4">
-            <h3 className={`vw-text-3xl vw-font-bold vw-mb-1 ${currentTheme === 'dark' ? 'vw-text-white' : 'vw-text-gray-900'}`}>Hello,</h3>
-            <h2 className="vw-text-3xl vw-font-bold vw-mb-6" style={{ color: primaryColor }}>{welcomeMessage}</h2>
+          <div className="vw-flex vw-flex-col vw-items-center vw-justify-center vw-h-full vw-text-center vw-px-4">
+            <img
+              src={botAvatarUrl}
+              alt={companyName}
+              className="vw-w-24 vw-h-24 vw-object-contain vw-mb-6"
+              onError={(e) => {
+                (e.target as HTMLImageElement).style.display = 'none';
+              }}
+            />
+            <h3 className={`vw-text-lg vw-font-bold vw-mb-1 ${currentTheme === 'dark' ? 'vw-text-white' : 'vw-text-gray-900'}`}>{welcomeMessage}</h3>
 
             {showPredefinedQuestions && !isLoadingSuggestions && initialSuggestions.length > 0 && (
-              <div className="vw-grid vw-grid-cols-1 vw-gap-3 vw-w-full">
+              <div className="vw-grid vw-grid-cols-1 vw-gap-2 vw-w-full vw-max-w-sm vw-mt-6">
                 {initialSuggestions.slice(0, 3).map((question, index) => (
                   <button
                     key={index}
                     onClick={() => handleSuggestedQuestionClick(question)}
-                    className={`vw-text-left vw-px-4 vw-py-3 vw-rounded-xl vw-border vw-transition-all vw-duration-300 vw-text-sm hover:vw-scale-[1.01] vw-shadow-sm ${currentTheme === 'dark' ? 'vw-bg-gray-800 hover:vw-bg-gray-700 vw-border-gray-700 vw-text-gray-200' : 'vw-bg-white vw-text-gray-800 vw-border-gray-200 hover:vw-border-gray-300'}`}
+                    className={`vw-text-left vw-px-3 vw-py-2 vw-rounded-lg vw-border-2 vw-transition-all vw-duration-300 vw-text-sm hover:vw-scale-[1.02] vw-group ${currentTheme === 'dark' ? 'vw-bg-gray-700 hover:vw-bg-gray-600 vw-border-gray-600 vw-text-gray-200' : 'vw-bg-white vw-text-gray-700'}`}
+                    style={{
+                      borderColor: primaryColor + (currentTheme === 'dark' ? '60' : '40'),
+                      backgroundColor: currentTheme === 'light' ? primaryColor + '08' : undefined
+                    }}
+                    onMouseEnter={(e) => {
+                      if (currentTheme === 'light') {
+                        e.currentTarget.style.backgroundColor = primaryColor + '15';
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (currentTheme === 'light') {
+                        e.currentTarget.style.backgroundColor = primaryColor + '08';
+                      }
+                    }}
                   >
-                    {question}
+                    <div className="vw-flex vw-items-start vw-gap-2">
+                      <Sparkles className="vw-w-3.5 vw-h-3.5 vw-mt-0.5 vw-flex-shrink-0" style={{ color: primaryColor }} />
+                      <span>{question}</span>
+                    </div>
                   </button>
                 ))}
               </div>
@@ -459,15 +481,13 @@ export function ChatWidget({ config }: ChatWidgetProps) {
                       }}
                     />
                   )}
-                  <div className={`vw-max-w-[85%] vw-px-4 vw-py-3 vw-transition-all vw-duration-300 vw-rounded-2xl ${
+                  <div className={`vw-max-w-[85%] vw-px-4 vw-py-3 vw-transition-all vw-duration-300 ${
                     message.type === 'user'
-                      ? currentTheme === 'dark'
-                        ? 'vw-text-white'
-                        : 'vw-text-gray-900'
+                      ? 'vw-rounded-tl-2xl vw-rounded-bl-2xl vw-rounded-br-2xl vw-text-white'
                       : currentTheme === 'dark'
-                        ? 'vw-bg-gray-800 vw-text-gray-100 vw-border vw-border-gray-700'
-                        : 'vw-bg-white vw-text-gray-900 vw-border vw-border-gray-200'
-                  }`} style={message.type === 'user' ? { backgroundColor: currentTheme === 'dark' ? primaryColor : `${primaryColor}15` } : {}}>
+                        ? 'vw-bg-gray-700 vw-text-gray-100 vw-border vw-border-gray-600 vw-rounded-2xl'
+                        : 'vw-bg-white vw-text-gray-900 vw-border vw-border-gray-100 vw-rounded-2xl'
+                  }`} style={message.type === 'user' ? { backgroundColor: primaryColor } : {}}>
                     {message.type === 'user' ? (
                       <p className="vw-text-base vw-leading-relaxed">{message.text}</p>
                     ) : (
@@ -560,19 +580,24 @@ export function ChatWidget({ config }: ChatWidgetProps) {
                 </div>
 
                 {message.type === 'assistant' && !isLoading && (
-                  <div className="vw-flex vw-items-center vw-gap-2 vw-ml-10 vw-mt-2">
+                  <div className="vw-flex vw-items-center vw-gap-3 vw-ml-10 vw-mt-2">
                     <button
                       onClick={() => handleFeedback(index, 'positive')}
-                      className={`vw-p-1.5 vw-rounded vw-transition-all vw-duration-300 ${messageFeedback[index] === 'positive' ? 'vw-bg-green-50' : currentTheme === 'dark' ? 'hover:vw-bg-gray-800' : 'hover:vw-bg-gray-100'}`}
+                      className="vw-p-1 vw-transition-all vw-duration-300"
                     >
-                      <ThumbsUp className={`vw-w-4 vw-h-4 ${messageFeedback[index] === 'positive' ? 'vw-text-green-500' : currentTheme === 'dark' ? 'vw-text-gray-500' : 'vw-text-gray-400'}`} />
+                      <ThumbsUp className={`vw-w-4 vw-h-4 ${messageFeedback[index] === 'positive' ? 'vw-text-green-500' : 'vw-text-gray-400'}`} />
                     </button>
                     <button
                       onClick={() => handleFeedback(index, 'negative')}
-                      className={`vw-p-1.5 vw-rounded vw-transition-all vw-duration-300 ${messageFeedback[index] === 'negative' ? 'vw-bg-red-50' : currentTheme === 'dark' ? 'hover:vw-bg-gray-800' : 'hover:vw-bg-gray-100'}`}
+                      className="vw-p-1 vw-transition-all vw-duration-300"
                     >
-                      <ThumbsDown className={`vw-w-4 vw-h-4 ${messageFeedback[index] === 'negative' ? 'vw-text-red-500' : currentTheme === 'dark' ? 'vw-text-gray-500' : 'vw-text-gray-400'}`} />
+                      <ThumbsDown className={`vw-w-4 vw-h-4 ${messageFeedback[index] === 'negative' ? 'vw-text-red-500' : 'vw-text-gray-400'}`} />
                     </button>
+                    {messageFeedback[index] && (
+                      <span className={`vw-text-xs ${currentTheme === 'dark' ? 'vw-text-gray-500' : 'vw-text-gray-400'}`}>
+                        Thanks for your feedback!
+                      </span>
+                    )}
                   </div>
                 )}
               </div>
@@ -611,16 +636,38 @@ export function ChatWidget({ config }: ChatWidgetProps) {
             {dynamicSuggestions.length > 0 && !isLoading && (
               <div className="vw-flex vw-justify-start vw-pl-10">
                 <div className="vw-flex vw-flex-col vw-gap-2 vw-w-full vw-max-w-[85%]">
-                  <p className={`vw-text-xs vw-mb-1 ${currentTheme === 'dark' ? 'vw-text-gray-400' : 'vw-text-gray-500'}`}>You can also ask</p>
+                  <div className="vw-flex vw-items-center vw-gap-2">
+                    <Sparkles className="vw-w-3.5 vw-h-3.5" style={{ color: primaryColor }} />
+                    <p className={`vw-text-sm vw-font-semibold ${currentTheme === 'dark' ? 'vw-text-gray-200' : 'vw-text-gray-700'}`}>You can also ask:</p>
+                  </div>
                   {dynamicSuggestions
                     .filter(suggestion => !clickedSuggestions.has(suggestion))
                     .map((suggestion, index) => (
                       <button
                         key={index}
                         onClick={() => handleDynamicSuggestionClick(suggestion)}
-                        className={`vw-text-left vw-px-3 vw-py-2 vw-rounded-lg vw-transition-all vw-duration-300 hover:vw-scale-[1.01] vw-text-sm ${currentTheme === 'dark' ? 'vw-bg-gray-800 hover:vw-bg-gray-700 vw-text-gray-200' : 'vw-bg-gray-50 hover:vw-bg-gray-100 vw-text-gray-700'}`}
+                        className={`vw-text-left vw-px-3 vw-py-2 vw-rounded-lg vw-border vw-transition-all vw-duration-300 hover:vw-scale-[1.02] vw-group vw-shadow-sm vw-w-full ${currentTheme === 'dark' ? 'vw-bg-gray-700 hover:vw-bg-gray-600 vw-border-gray-600' : 'vw-bg-white vw-text-gray-700'}`}
+                        style={{
+                          borderColor: primaryColor + (currentTheme === 'dark' ? '40' : '30'),
+                          backgroundColor: currentTheme === 'light' ? primaryColor + '10' : undefined
+                        }}
+                        onMouseEnter={(e) => {
+                          if (currentTheme === 'light') {
+                            e.currentTarget.style.backgroundColor = primaryColor + '20';
+                          }
+                        }}
+                        onMouseLeave={(e) => {
+                          if (currentTheme === 'light') {
+                            e.currentTarget.style.backgroundColor = primaryColor + '10';
+                          }
+                        }}
                       >
-                        {suggestion}
+                        <div className="vw-flex vw-items-start vw-gap-2">
+                          <Sparkles className="vw-w-3.5 vw-h-3.5 vw-mt-0.5 vw-flex-shrink-0 group-hover:vw-scale-110 vw-transition-transform" style={{ color: primaryColor }} />
+                          <span className={`vw-text-sm vw-leading-snug ${currentTheme === 'dark' ? 'vw-text-gray-100' : 'vw-text-gray-800'}`}>
+                            {suggestion}
+                          </span>
+                        </div>
                       </button>
                     ))}
                 </div>
@@ -722,15 +769,16 @@ export function ChatWidget({ config }: ChatWidgetProps) {
                 }
               }}
               placeholder={placeholderText}
-              className={`vw-w-full vw-px-4 vw-py-3 vw-pr-12 vw-rounded-xl vw-border vw-outline-none vw-transition-all vw-resize-none ${currentTheme === 'dark' ? 'vw-bg-gray-800 vw-border-gray-700 vw-text-white placeholder:vw-text-gray-500' : 'vw-bg-white vw-border-gray-200 vw-text-gray-900 placeholder:vw-text-gray-400'}`}
+              className={`vw-w-full vw-px-4 vw-py-3 vw-pr-12 vw-rounded-xl vw-border vw-outline-none vw-transition-all vw-resize-none ${currentTheme === 'dark' ? 'vw-bg-gray-700 vw-border-gray-600 vw-text-white' : 'vw-bg-gray-50 vw-border-gray-200 vw-text-gray-900'}`}
               style={{ minHeight: '48px', maxHeight: '72px' }}
             />
             <button
               type="submit"
               disabled={!question.trim() || isLoading}
-              className={`vw-absolute vw-right-2 vw-bottom-3 vw-p-2 vw-rounded-lg vw-transition-all disabled:vw-opacity-30 ${currentTheme === 'dark' ? 'vw-text-gray-400' : 'vw-text-gray-500'}`}
+              className="vw-absolute vw-right-2 vw-bottom-3 vw-p-2 vw-rounded-full vw-text-white vw-transition-all disabled:vw-opacity-50"
+              style={{ backgroundColor: primaryColor }}
             >
-              <Send className="vw-w-5 vw-h-5" />
+              <Send className="vw-w-4 vw-h-4" />
             </button>
           </form>
         )}

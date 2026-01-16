@@ -1,6 +1,6 @@
 // src/components/ChatWidget.tsx
 import { useState, useEffect, useRef } from 'react';
-import { Send, X, Maximize2, Minimize2, Mail, ThumbsUp, ThumbsDown } from 'lucide-react';
+import { Send, X, Maximize2, Minimize2, Sparkles, Mail, ThumbsUp, ThumbsDown } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import {
@@ -698,7 +698,8 @@ export default function ChatWidget() {
       >
         <div className="flex items-center gap-2 p-3 md:gap-3 md:px-5 md:py-4">
           <div className="flex items-center gap-3 hidden md:flex">
-            <span className="font-bold text-lg">Ask Us Anything?</span>
+            <Sparkles className="w-5 h-5" />
+            <span className="font-bold text-lg">Ask Us Anything??</span>
           </div>
           <div className="relative md:hidden">
             <img
@@ -757,9 +758,12 @@ export default function ChatWidget() {
                     className="text-left px-3 py-2 rounded-lg bg-white hover:bg-emerald-50 border-2 border-gray-200 hover:border-emerald-500 transition-all duration-300 group hover:scale-[1.02] hover:-translate-y-0.5 active:scale-[0.98] hover:shadow-md"
                     style={{ animationDelay: `${index * 50}ms` }}
                   >
-                    <span className="text-sm text-gray-700 group-hover:text-emerald-700 font-medium leading-snug">
-                      {question}
-                    </span>
+                    <div className="flex items-start gap-2">
+                      <Sparkles className="w-3.5 h-3.5 text-emerald-500 mt-0.5 flex-shrink-0 group-hover:scale-110 transition-transform" />
+                      <span className="text-sm text-gray-700 group-hover:text-emerald-700 font-medium leading-snug">
+                        {question}
+                      </span>
+                    </div>
                   </button>
                 ))}
               </div>
@@ -778,9 +782,12 @@ export default function ChatWidget() {
                       onClick={() => handleDynamicSuggestionClick(suggestion)}
                       className="text-left px-3 py-2 rounded-lg bg-gradient-to-r from-emerald-50 to-teal-50 hover:from-emerald-100 hover:to-teal-100 border border-emerald-200 hover:border-emerald-300 transition-all duration-300 hover:scale-[1.02] hover:-translate-y-0.5 active:scale-[0.98] group"
                     >
-                      <span className="text-sm text-gray-700 group-hover:text-emerald-800 font-medium leading-snug">
-                        {suggestion}
-                      </span>
+                      <div className="flex items-start gap-2">
+                        <Sparkles className="w-3.5 h-3.5 text-emerald-600 mt-0.5 flex-shrink-0 group-hover:animate-pulse" />
+                        <span className="text-sm text-gray-700 group-hover:text-emerald-800 font-medium leading-snug">
+                          {suggestion}
+                        </span>
+                      </div>
                     </button>
                   ))}
               </div>
@@ -850,9 +857,10 @@ export default function ChatWidget() {
     >
       {/* Fixed Header */}
       <div
-        className={`flex items-center justify-between px-5 py-4 shadow-sm flex-shrink-0 ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}
+        className="flex items-center justify-between px-5 py-4 shadow-sm flex-shrink-0"
         style={{
-          borderBottom: theme === 'dark' ? '1px solid #374151' : '1px solid #e5e7eb',
+          backgroundColor: '#00B46A',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
           minHeight: '72px',
           maxHeight: '72px',
         }}
@@ -861,52 +869,62 @@ export default function ChatWidget() {
           <img
             src="/ai-bot.png"
             alt="Vinfotech AI"
-            className="w-8 h-8 object-contain"
+            className="w-9 h-9 object-contain"
           />
-          <div className="flex flex-col">
-            <span className={`text-xs ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>Powered by</span>
-            <span className={`font-bold text-sm ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>Vinfotech AI</span>
+          <div>
+            <span className="font-bold text-white text-base">Vinfotech AI</span>
           </div>
         </div>
         <div className="flex items-center gap-2">
           {isDesktop && (
             <button
               onClick={() => setIsExpanded(!isExpanded)}
-              className={`p-2 rounded-lg transition-all duration-300 ${theme === 'dark' ? 'hover:bg-gray-700' : 'hover:bg-gray-100'}`}
+              className="p-2 hover:bg-white/20 rounded-lg transition-all duration-300 hover:scale-110 active:scale-95"
               aria-label={isExpanded ? 'Minimize' : 'Maximize'}
             >
               {isExpanded ? (
-                <Minimize2 className={`w-5 h-5 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`} />
+                <Minimize2 className="w-5 h-5 text-white transition-transform duration-300" />
               ) : (
-                <Maximize2 className={`w-5 h-5 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`} />
+                <Maximize2 className="w-5 h-5 text-white transition-transform duration-300" />
               )}
             </button>
           )}
           <button
             onClick={closeWidget}
-            className={`p-2 rounded-lg transition-all duration-300 ${theme === 'dark' ? 'hover:bg-gray-700' : 'hover:bg-gray-100'}`}
+            className="p-2 hover:bg-white/20 rounded-lg transition-all duration-300 hover:rotate-90"
             aria-label="Close chat"
           >
-            <X className={`w-5 h-5 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`} />
+            <X className="w-5 h-5 text-white" />
           </button>
         </div>
       </div>
 
-      <div ref={chatContainerRef} className={`flex-1 overflow-y-auto px-6 py-4 space-y-4 scrollbar-hide ${theme === 'dark' ? 'bg-gray-900' : 'bg-white'}`}>
+      <div ref={chatContainerRef} className={`flex-1 overflow-y-auto px-6 py-4 space-y-4 scrollbar-hide ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'}`}>
         {messages.length === 0 ? (
-          <div className="flex flex-col items-start justify-center h-full px-4">
-            <h3 className={`text-3xl font-bold mb-1 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>Hello,</h3>
-            <h2 className="text-3xl font-bold mb-6" style={{ color: '#00B46A' }}>How can I help you?</h2>
+          <div className="flex flex-col items-center justify-center h-full text-center px-4">
+            <img
+              src="/ai-bot.png"
+              alt="Vinfotech AI"
+              className="w-24 h-24 object-contain mb-6 animate-float-3d"
+            />
+            <h3 className={`text-lg font-bold mb-1 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>How can I help you today?</h3>
+            <p className={`text-base mb-6 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-400'}`}>Ask me anything about our services</p>
 
             {showPredefinedQuestions && !isLoadingSuggestions && (
-              <div className="grid grid-cols-1 gap-3 w-full">
+              <div className="grid grid-cols-1 gap-2 w-full max-w-sm">
                 {initialSuggestions.slice(0, 3).map((question, index) => (
                   <button
                     key={index}
                     onClick={() => handleSuggestedQuestionClick(question)}
-                    className={`text-left px-4 py-3 rounded-xl border transition-all duration-300 text-sm hover:scale-[1.01] shadow-sm ${theme === 'dark' ? 'bg-gray-800 hover:bg-gray-700 border-gray-700 text-gray-200' : 'bg-white text-gray-800 border-gray-200 hover:border-gray-300'}`}
+                    className={`text-left px-3 py-2 rounded-lg border-2 transition-all duration-300 text-sm hover:scale-[1.02] hover:-translate-y-0.5 active:scale-[0.98] group hover:shadow-md ${theme === 'dark' ? 'bg-gray-700 hover:bg-gray-600 border-gray-600 hover:border-emerald-500 text-gray-200' : 'bg-white hover:bg-emerald-50 border-gray-200 hover:border-emerald-500 text-gray-700'}`}
+                    style={{ animationDelay: `${index * 50}ms` }}
                   >
-                    {question}
+                    <div className="flex items-start gap-2">
+                      <Sparkles className={`w-3.5 h-3.5 mt-0.5 flex-shrink-0 group-hover:scale-110 transition-transform ${theme === 'dark' ? 'text-emerald-400' : 'text-emerald-500'}`} />
+                      <span className={`leading-snug ${theme === 'dark' ? 'group-hover:text-emerald-300' : 'group-hover:text-emerald-700'}`}>
+                        {question}
+                      </span>
+                    </div>
                   </button>
                 ))}
               </div>
@@ -939,15 +957,16 @@ export default function ChatWidget() {
                       />
                     </div>
                   )}
-                  <div className={`relative max-w-[85%] px-4 py-3 transition-all duration-300 rounded-2xl ${
+                  <div className={`relative max-w-[85%] px-4 py-3 transition-all duration-300 hover:scale-[1.02] ${
                     message.type === 'user'
-                      ? theme === 'dark'
-                        ? 'text-white'
-                        : 'text-gray-900'
+                      ? 'bg-emerald-500 text-white rounded-tl-2xl rounded-bl-2xl rounded-br-2xl'
                       : theme === 'dark'
-                        ? 'bg-gray-800 text-gray-100 border border-gray-700'
-                        : 'bg-white text-gray-900 border border-gray-200'
-                  }`} style={message.type === 'user' ? { backgroundColor: theme === 'dark' ? '#00B46A' : 'rgba(0, 180, 106, 0.08)' } : {}}>
+                        ? 'bg-gray-700 text-gray-100 shadow-sm border border-gray-600 rounded-2xl'
+                        : 'bg-white text-gray-900 shadow-sm border border-gray-100 rounded-2xl'
+                  }`}>
+                  {message.type === 'user' && (
+                    <div className="absolute top-0 -right-0 w-3 h-3 bg-emerald-500" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%)' }}></div>
+                  )}
                   {message.type === 'user' ? (
                     <p className="text-base leading-relaxed whitespace-pre-line font-normal">{message.text}</p>
                   ) : (
@@ -1042,21 +1061,38 @@ export default function ChatWidget() {
 
                 {/* Feedback buttons for assistant messages */}
                 {message.type === 'assistant' && !isLoading && (
-                  <div className="flex items-center gap-2 ml-10 mt-2">
+                  <div className="flex items-center gap-3 ml-10 mt-2">
                     <button
                       onClick={() => handleFeedback(index, 'positive')}
-                      className={`p-1.5 rounded transition-all duration-300 ${messageFeedback[index] === 'positive' ? 'bg-green-50' : theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-100'}`}
+                      className="p-1 transition-all duration-300 hover:scale-110 active:scale-95"
                       title="Helpful response"
                     >
-                      <ThumbsUp className={`w-4 h-4 ${messageFeedback[index] === 'positive' ? 'text-green-500' : theme === 'dark' ? 'text-gray-500' : 'text-gray-400'}`} />
+                      <ThumbsUp className={`w-4 h-4 transition-colors duration-300 ${
+                        messageFeedback[index] === 'positive'
+                          ? 'text-emerald-500 stroke-2'
+                          : theme === 'dark'
+                            ? 'text-gray-400 hover:text-emerald-500'
+                            : 'text-gray-400 hover:text-emerald-500'
+                      }`} />
                     </button>
                     <button
                       onClick={() => handleFeedback(index, 'negative')}
-                      className={`p-1.5 rounded transition-all duration-300 ${messageFeedback[index] === 'negative' ? 'bg-red-50' : theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-100'}`}
+                      className="p-1 transition-all duration-300 hover:scale-110 active:scale-95"
                       title="Not helpful"
                     >
-                      <ThumbsDown className={`w-4 h-4 ${messageFeedback[index] === 'negative' ? 'text-red-500' : theme === 'dark' ? 'text-gray-500' : 'text-gray-400'}`} />
+                      <ThumbsDown className={`w-4 h-4 transition-colors duration-300 ${
+                        messageFeedback[index] === 'negative'
+                          ? 'text-red-500 stroke-2'
+                          : theme === 'dark'
+                            ? 'text-gray-400 hover:text-red-500'
+                            : 'text-gray-400 hover:text-red-500'
+                      }`} />
                     </button>
+                    {messageFeedback[index] && (
+                      <span className={`text-xs ${theme === 'dark' ? 'text-gray-500' : 'text-gray-400'}`}>
+                        Thanks for your feedback!
+                      </span>
+                    )}
                   </div>
                 )}
               </div>
@@ -1090,16 +1126,24 @@ export default function ChatWidget() {
             {dynamicSuggestions.length > 0 && !isLoading && (
               <div className="flex justify-start animate-slide-up-fade pl-10">
                 <div className="flex flex-col gap-2 w-full max-w-[85%]">
-                  <p className={`text-xs mb-1 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>You can also ask</p>
+                  <div className="flex items-center gap-2">
+                    <Sparkles className="w-3.5 h-3.5 text-emerald-500" />
+                    <p className={`text-sm font-semibold ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>You can also ask:</p>
+                  </div>
                   {dynamicSuggestions
                     .filter(suggestion => !clickedSuggestions.has(suggestion))
                     .map((suggestion, index) => (
                       <button
                         key={index}
                         onClick={() => handleDynamicSuggestionClick(suggestion)}
-                        className={`text-left px-3 py-2 rounded-lg transition-all duration-300 hover:scale-[1.01] text-sm ${theme === 'dark' ? 'bg-gray-800 hover:bg-gray-700 text-gray-200' : 'bg-gray-50 hover:bg-gray-100 text-gray-700'}`}
+                        className={`text-left px-3 py-2 rounded-lg border transition-all duration-300 hover:scale-[1.02] hover:-translate-y-0.5 active:scale-[0.98] group shadow-sm w-full ${theme === 'dark' ? 'bg-gradient-to-r from-gray-700 to-gray-600 hover:from-gray-600 hover:to-gray-500 border-emerald-500/30 hover:border-emerald-400' : 'bg-gradient-to-r from-emerald-50 to-teal-50 hover:from-emerald-100 hover:to-teal-100 border-emerald-200 hover:border-emerald-300'}`}
                       >
-                        {suggestion}
+                        <div className="flex items-start gap-2">
+                          <Sparkles className="w-3.5 h-3.5 mt-0.5 text-emerald-500 flex-shrink-0 group-hover:scale-110 transition-transform" />
+                          <span className={`text-sm font-normal leading-snug ${theme === 'dark' ? 'text-gray-100 group-hover:text-emerald-300' : 'text-gray-800 group-hover:text-emerald-700'}`}>
+                            {suggestion}
+                          </span>
+                        </div>
                       </button>
                     ))}
                 </div>
@@ -1241,9 +1285,9 @@ export default function ChatWidget() {
                 handleSubmit(e as any);
               }
             }}
-            placeholder="Ask something"
-            className={`w-full px-4 py-3 pr-12 rounded-xl border outline-none transition-all duration-300 resize-none overflow-y-auto scrollbar-hide ${theme === 'dark' ? 'bg-gray-800 border-gray-700 text-white placeholder:text-gray-500' : 'bg-white border-gray-200 text-gray-900 placeholder:text-gray-400'}`}
-            style={{
+            placeholder="Ask a question..."
+            className={`w-full px-4 py-3 pr-12 rounded-xl border outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all duration-300 resize-none overflow-y-auto scrollbar-hide ${theme === 'dark' ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' : 'bg-gray-50 border-gray-200 text-gray-900'}`}
+            style={{ 
               minHeight: '48px',
               maxHeight: '72px',
               lineHeight: '24px'
@@ -1252,9 +1296,10 @@ export default function ChatWidget() {
           <button
             type="submit"
             disabled={!question.trim() || isLoading || isStreaming}
-            className={`absolute right-2 bottom-3 p-2 rounded-lg transition-all disabled:opacity-30 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}
+            className="absolute right-2 bottom-3 p-2 rounded-full text-white transition-all duration-300 hover:scale-110 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+            style={{ backgroundColor: '#00B46A' }}
           >
-            <Send className="w-5 h-5" />
+            <Send className="w-4 h-4" />
           </button>
         </form>
 
